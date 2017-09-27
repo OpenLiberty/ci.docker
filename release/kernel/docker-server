@@ -17,4 +17,4 @@ then
 fi
 
 # Pass on to the real server run
-exec /opt/ibm/wlp/bin/server $@
+exec /opt/ol/wlp/bin/server $@
