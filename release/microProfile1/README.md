@@ -1,6 +1,6 @@
 # Open Liberty image for Docker
 
-The [Dockerfile](Dockerfile) in this directory is used to build the `open-liberty:microProfile1` image on [Docker Hub](https://registry.hub.docker.com/_/open-liberty/). The image contains Open Liberty with Micro Profile features and an IBM Java Runtime Environment V8.
+The [Dockerfile](Dockerfile) in this directory is used to build the `open-liberty:microProfile1` image on [Docker Hub](https://registry.hub.docker.com/_/open-liberty/). The image contains Open Liberty with Micro Profile 1.0 features and an IBM Java Runtime Environment V8.
 
 # Usage
 
