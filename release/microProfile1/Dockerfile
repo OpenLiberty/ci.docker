@@ -1,4 +1,4 @@
-FROM open-liberty:kernel
+FROM openliberty/open-liberty:kernel
 
 COPY server.xml /config/
 
