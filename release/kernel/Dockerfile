@@ -9,11 +9,11 @@ RUN apt-get update \
 ENV LIBERTY_VERSION 17.0.0.3-RC
 ENV LIBERTY_SHA 58e09e9dad2ca0b3133e25cf3bfee22003da115f
 
-RUN wget http://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/wasliberty-open-liberty/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
+RUN wget https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/wasliberty-open-liberty/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
    && sha1sum -c /tmp/wlp.zip.sha1 \
    && unzip -q /tmp/wlp.zip -d /opt/ol \
-   && rm /tmp/wlp.zip
+   && rm /tmp/wlp.zip \
    && rm /tmp/wlp.zip.sha1
 
 ENV PATH=/opt/ol/wlp/bin:$PATH
