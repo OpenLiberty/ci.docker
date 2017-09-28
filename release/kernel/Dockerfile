@@ -25,7 +25,9 @@ RUN mkdir /logs \
     && ln -s $WLP_OUTPUT_DIR/defaultServer /output \
     && ln -s /opt/ol/wlp/usr/servers/defaultServer /config
 
-# Configure WebSphere Liberty
+ENV DEPLOYMENT_DIR /config/dropins/
+
+# Configure Open Liberty
 RUN /opt/ol/wlp/bin/server create \
     && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea
 COPY docker-server /opt/ol/docker/
