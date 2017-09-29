@@ -1,15 +1,17 @@
 
 FROM ibmjava:8-jre
 
+LABEL maintainer="Alasdair Nottingham" vendor="Open Liberty" url="https://openliberty.io/" github="https://github.com/OpenLiberty/ci.docker"
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Open Liberty
-ENV LIBERTY_VERSION 17.0.0.3-RC
-ENV LIBERTY_SHA 58e09e9dad2ca0b3133e25cf3bfee22003da115f
+ENV LIBERTY_VERSION 17.0.0.3
+ENV LIBERTY_SHA 528e393e0b240ebbedb91d25402e22297c6d56ec
 
-RUN wget https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/wasliberty-open-liberty/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
+RUN wget https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
    && sha1sum -c /tmp/wlp.zip.sha1 \
    && unzip -q /tmp/wlp.zip -d /opt/ol \
