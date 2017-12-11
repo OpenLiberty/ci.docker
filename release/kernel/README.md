@@ -1,6 +1,6 @@
 # Overview
 
-The images in this repository contain Open Liberty. For more information about Open Liberty, see the [Open Liberty Website](https://openliberty.io/) site.
+The images in this repository contain Open Liberty. For more information about Open Liberty, see the [Open Liberty Website](https://openliberty.io/) site. The Docker files are in [GitHub](https://github.com/OpenLiberty/ci.docker).
 
 # Images
 
