@@ -37,4 +37,5 @@ COPY docker-server /opt/ol/docker/
 
 EXPOSE 9080 9443
 
-CMD ["/opt/ol/docker/docker-server", "run", "defaultServer"]
+ENTRYPOINT ["/opt/ol/docker/docker-server"]
+CMD ["/opt/ol/wlp/bin/server", "run", "defaultServer"]

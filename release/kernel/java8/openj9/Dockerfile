@@ -1,5 +1,5 @@
 
-FROM ibmjava:8-jre
+FROM adoptopenjdk/openjdk8-openj9
 
 LABEL maintainer="Alasdair Nottingham" vendor="Open Liberty" url="https://openliberty.io/" github="https://github.com/OpenLiberty/ci.docker"
 
