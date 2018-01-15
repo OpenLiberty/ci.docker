@@ -4,9 +4,9 @@ set -e
 
 keystorePath="/config/configDropins/defaults/keystore.xml"
 
-if [ "$KEYSTORE_REQUIRED" == "true" ]
+if [ "$KEYSTORE_REQUIRED" = "true" ]
 then
-  if [ "$1" == "server" ] || [ "$1" == "/opt/ol/wlp/bin/server" ]
+  if [ "$1" = "server" ] || [ "$1" = "/opt/ol/wlp/bin/server" ]
   then
     if [ ! -e $keystorePath ]
     then
