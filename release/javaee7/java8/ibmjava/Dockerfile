@@ -1,4 +1,4 @@
-FROM openliberty/open-liberty:kernel-java8-ibm
+FROM open-liberty:kernel-java8-ibm
 ENV KEYSTORE_REQUIRED "true"
 
 COPY server.xml /config/
