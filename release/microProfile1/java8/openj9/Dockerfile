@@ -1,4 +1,3 @@
-FROM openliberty/open-liberty:kernel-java8-openj9
-ENV KEYSTORE_REQUIRED "true"
+FROM open-liberty:kernel-java8-openj9
 
 COPY server.xml /config/
