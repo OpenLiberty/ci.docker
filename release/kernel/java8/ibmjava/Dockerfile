@@ -23,8 +23,10 @@ ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:$PATH \
     LOG_DIR=/logs \
     WLP_OUTPUT_DIR=/opt/ol/wlp/output
 RUN mkdir /logs \
+    && mkdir -p $WLP_OUTPUT_DIR/defaultServer \
     && ln -s $WLP_OUTPUT_DIR/defaultServer /output \
-    && ln -s /opt/ol/wlp/usr/servers/defaultServer /config
+    && ln -s /opt/ol/wlp/usr/servers/defaultServer /config \
+    && ln -s /logs $WLP_OUTPUT_DIR/defaultServer/logs
 
 # Configure WebSphere Liberty
 RUN /opt/ol/wlp/bin/server create \
@@ -32,6 +34,8 @@ RUN /opt/ol/wlp/bin/server create \
     && mkdir /config/configDropins \
     && mkdir /config/configDropins/defaults \
     && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml
+
+RUN /opt/ol/wlp/bin/server start && /opt/ol/wlp/bin/server stop
 
 COPY docker-server /opt/ol/docker/
 
