@@ -11,7 +11,7 @@ RUN apt-get update \
 ENV LIBERTY_VERSION=17.0.0.4 \
     LIBERTY_SHA=8709c75cf905051e043b8c63e25640b464e58e39
 
-RUN wget https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
+RUN curl -L -s -A UA-Open-Liberty-Docker -o /tmp/wlp.zip https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip \
    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
    && sha1sum -c /tmp/wlp.zip.sha1 \
    && unzip -q /tmp/wlp.zip -d /opt/ol \
@@ -24,8 +24,10 @@ ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:$PATH \
     WLP_OUTPUT_DIR=/opt/ol/wlp/output
 
 RUN mkdir /logs \
+    && mkdir -p $WLP_OUTPUT_DIR/defaultServer \
     && ln -s $WLP_OUTPUT_DIR/defaultServer /output \
-    && ln -s /opt/ol/wlp/usr/servers/defaultServer /config
+    && ln -s /opt/ol/wlp/usr/servers/defaultServer /config \
+    && ln -s /logs $WLP_OUTPUT_DIR/defaultServer/logs
 
 # Configure WebSphere Liberty
 RUN /opt/ol/wlp/bin/server create \
