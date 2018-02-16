@@ -35,8 +35,6 @@ RUN /opt/ol/wlp/bin/server create \
     && mkdir /config/configDropins/defaults \
     && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml
 
-RUN /opt/ol/wlp/bin/server start && /opt/ol/wlp/bin/server stop
-
 COPY docker-server /opt/ol/docker/
 
 EXPOSE 9080 9443
