@@ -2,8 +2,8 @@
 FROM ibmjava:8-sfj-alpine
 
 # Install Open Liberty
-ENV LIBERTY_VERSION=18.0.0.1 \
-    LIBERTY_SHA=a059c422c6ddd53276804b8e6f2ee0b00c97e1a7
+ENV LIBERTY_VERSION=18.0.0.2 \
+    LIBERTY_SHA=4170e609e1e4189e75a57bcc0e65a972e9c9ef6e
 
 RUN wget https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
