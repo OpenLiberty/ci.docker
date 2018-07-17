@@ -1,6 +1,6 @@
 FROM open-liberty:kernel-java8-ibmsfj
 
-RUN mkdir /opt/ol/wlp/usr/shared/resources/lib.index.cache \
+RUN mkdir -p /opt/ol/wlp/usr/shared/resources/lib.index.cache \
   && ln -s /opt/ol/wlp/usr/shared/resources/lib.index.cache /lib.index.cache
 
 COPY ../../server.xml /config/
