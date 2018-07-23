@@ -13,7 +13,7 @@ FROM %%IMAGE%%:kernel
 COPY server.xml /config/
 ```
 
-The `microProfile1` image contains the features required to implement Eclipse MicroProfile 1.3. The `webProfile8` image contains the features required for Java EE8 Web Profile compliance. The `javaee8` image adds the features required for Java EE8 Full Platform compliance. The `javaee8` image is also tagged with `latest`. The `webProfile7` image contains the features required for Java EE7 Web Profile compliance. The `javaee7` image adds the features required for Java EE7 Full Platform compliance.
+The `microProfile1` image contains the features required to implement Eclipse MicroProfile 1.3. The `webProfile8` image contains the features required for Java EE8 Web Profile compliance. The `javaee8` image adds the features required for Java EE8 Full Platform compliance. The `javaee8` image is also tagged with `latest`. The `webProfile7` image contains the features required for Java EE7 Web Profile compliance. The `javaee7` image adds the features required for Java EE7 Full Platform compliance. The `springBoot1` and `springBoot2` images contain the features required for running Spring Boot V1 and V2 applications.
 
 There are also additional images for different JVM combinations. Currently there are tags for java8 only, but there are two variants one based on IBM Java and Ubuntu and the other based on the IBM small footprint Java which is based on alpine linux. The naming structure for the variants is tag-javaversion-vandor/variant. This leads to webProfile8-java8-ibmsfj as one. At this time the full list of images are:
 
@@ -23,6 +23,12 @@ There are also additional images for different JVM combinations. Currently there
 	microProfile1
 	microProfile1-java8-ibm
 	microProfile1-java8-ibmsfj
+	springBoot1
+	springBoot1-java8-ibm
+	springBoot1-java8-ibmsfj
+	springBoot2
+	springBoot2-java8-ibm
+	springBoot2-java8-ibmsfj
 	webProfile7
 	webProfile7-java8-ibm
 	webProfile7-java8-ibmsfj
