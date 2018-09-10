@@ -1,0 +1,93 @@
+Maintainers: Alasdair Nottingham <alasdair.nottingham@gmail.com> (@NottyCode)
+GitRepo: file:///Users/nottinga/Documents/github/ol.ci.docker/
+GitCommit: 7f264057ffab84653de31c7b9a7931dced8eff31
+GitFetch: refs/heads/reorg
+Architectures: amd64, i386, ppc64le, s390x
+
+Tags: kernel, kernel-java8-ibm
+Directory: openliberty/kernel/java8/ibmjava
+
+Tags: kernel-java8-ibmsfj
+Directory: openliberty/kernel/java8/ibmsfj
+Architectures: amd64
+
+Tags: kernel-java8-openj9
+Directory: openliberty/kernel/java8/openj9
+Architectures: amd64
+
+Tags: webProfile8, webProfile8-java8-ibm
+Directory: openliberty/webProfile8/java8/ibmjava
+
+Tags: webProfile8-java8-ibmsfj
+Directory: openliberty/webProfile8/java8/ibmsfj
+Architectures: amd64
+
+Tags: webProfile8-java8-openj9
+Directory: openliberty/webProfile8/java8/openj9
+Architectures: amd64
+
+Tags: javaee8, javaee8-java8-ibm, latest
+Directory: openliberty/javaee8/java8/ibmjava
+
+Tags: javaee8-java8-ibmsfj
+Directory: openliberty/javaee8/java8/ibmsfj
+Architectures: amd64
+
+Tags: javaee8-java8-openj9
+Directory: openliberty/javaee8/java8/openj9
+Architectures: amd64
+
+Tags: microProfile1, microProfile1-java8-ibm
+Directory: openliberty/microProfile1/java8/ibmjava
+
+Tags: microProfile1-java8-ibmsfj
+Directory: openliberty/microProfile1/java8/ibmsfj
+Architectures: amd64
+
+Tags: microProfile1-java8-openj9
+Directory: openliberty/microProfile1/java8/openj9
+Architectures: amd64
+
+Tags: springBoot2, springBoot2-java8-ibm
+Directory: openliberty/springBoot2/java8/ibmjava
+
+Tags: springBoot2-java8-ibmsfj
+Directory: openliberty/springBoot2/java8/ibmsfj
+Architectures: amd64
+
+Tags: springBoot2-java8-openj9
+Directory: openliberty/springBoot2/java8/openj9
+Architectures: amd64
+
+Tags: webProfile7, webProfile7-java8-ibm
+Directory: openliberty/webProfile7/java8/ibmjava
+
+Tags: webProfile7-java8-ibmsfj
+Directory: openliberty/webProfile7/java8/ibmsfj
+Architectures: amd64
+
+Tags: webProfile7-java8-openj9
+Directory: openliberty/webProfile7/java8/openj9
+Architectures: amd64
+
+Tags: javaee7, javaee7-java8-ibm
+Directory: openliberty/javaee7/java8/ibmjava
+
+Tags: javaee7-java8-ibmsfj
+Directory: openliberty/javaee7/java8/ibmsfj
+Architectures: amd64
+
+Tags: javaee7-java8-openj9
+Directory: openliberty/javaee7/java8/openj9
+Architectures: amd64
+
+Tags: springBoot1, springBoot1-java8-ibm
+Directory: openliberty/springBoot1/java8/ibmjava
+
+Tags: springBoot1-java8-ibmsfj
+Directory: openliberty/springBoot1/java8/ibmsfj
+Architectures: amd64
+
+Tags: springBoot1-java8-openj9
+Directory: openliberty/springBoot1/java8/openj9
+Architectures: amd64
