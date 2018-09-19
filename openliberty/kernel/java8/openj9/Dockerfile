@@ -10,8 +10,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Open Liberty
-ENV LIBERTY_VERSION=18.0.0.2 \
-    LIBERTY_SHA=4170e609e1e4189e75a57bcc0e65a972e9c9ef6e
+ENV LIBERTY_VERSION=18.0.0.3 \
+    LIBERTY_SHA=3d79b261a6c4723617ad20c5e2ec746bb70121b9
 
 RUN curl -L -s -A UA-Open-Liberty-Docker -o /tmp/wlp.zip https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip \
    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
