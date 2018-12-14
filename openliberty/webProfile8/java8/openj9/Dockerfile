@@ -6,8 +6,8 @@ COPY docker-server /opt/ol/docker/
 LABEL maintainer="Alasdair Nottingham" vendor="Open Liberty" url="https://openliberty.io/" github="https://github.com/OpenLiberty/ci.docker"
 
 # Install Open Liberty
-ENV LIBERTY_VERSION=18.0.0.3 \
-    LIBERTY_SHA=3aa1153e272a94cd0f1271d1a20e5a6f95df2cd5
+ENV LIBERTY_VERSION=18.0.0.4 \
+    LIBERTY_SHA=74c2bea67cfe8eff003893228b9afa9324aa9157
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends unzip \

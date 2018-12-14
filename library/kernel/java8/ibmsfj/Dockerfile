@@ -5,8 +5,8 @@ LABEL maintainer="Alasdair Nottingham" vendor="Open Liberty" url="https://openli
 COPY docker-server /opt/ol/docker/
 
 # Install Open Liberty
-ENV LIBERTY_VERSION=18.0.0.3 \
-    LIBERTY_SHA=3d79b261a6c4723617ad20c5e2ec746bb70121b9
+ENV LIBERTY_VERSION=18.0.0.4 \
+    LIBERTY_SHA=0773f5e9e933b272e426ef86b90e13ee1ed5a1ee
 
 RUN wget https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
