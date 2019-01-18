@@ -39,7 +39,7 @@ RUN /opt/ol/wlp/bin/server create \
     && mkdir /config/configDropins \
     && mkdir /config/configDropins/defaults \
     && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml \
-    && /opt/ol/wlp/bin/server start && /opt/ol/wlp/bin/server stop && rm -rf /output/resources/security/
+    && /opt/ol/wlp/bin/server start && /opt/ol/wlp/bin/server stop && rm -rf /output/resources/security/ /logs/*
 
 EXPOSE 9080 9443
 
