@@ -1,6 +1,6 @@
 #!/bin/sh
 
-find library | grep docker-server | xargs -I % cp -a master/docker-server
-find openliberty | grep docker-server | xargs -I % cp -a master/docker-server
+find official | grep docker-server | xargs -I % cp -a common/docker-server
+find community | grep docker-server | xargs -I % cp -a common/docker-server
 
-find openliberty | grep README.md | xargs -I % cp -a master/README.md
+find community | grep README.md | xargs -I % cp -a common/README.md
