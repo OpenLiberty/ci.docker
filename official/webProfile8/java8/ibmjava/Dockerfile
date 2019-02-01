@@ -6,8 +6,8 @@ LABEL maintainer="Alasdair Nottingham" vendor="Open Liberty" url="https://openli
 COPY docker-server /opt/ol/docker/
 
 # Install Open Liberty
-ENV LIBERTY_VERSION=18.0.0.4 \
-    LIBERTY_SHA=74c2bea67cfe8eff003893228b9afa9324aa9157
+ENV LIBERTY_VERSION=19.0.0.1 \
+    LIBERTY_SHA=fec518cac15255d71415b8a748ad243f871f29d4
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends unzip \
