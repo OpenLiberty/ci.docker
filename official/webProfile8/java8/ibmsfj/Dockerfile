@@ -4,8 +4,8 @@ FROM ibmjava:8-sfj-alpine
 COPY docker-server /opt/ol/docker/
 
 # Install Open Liberty
-ENV LIBERTY_VERSION=18.0.0.4 \
-    LIBERTY_SHA=74c2bea67cfe8eff003893228b9afa9324aa9157
+ENV LIBERTY_VERSION=19.0.0.1 \
+    LIBERTY_SHA=fec518cac15255d71415b8a748ad243f871f29d4
 
 RUN wget https://repo1.maven.org/maven2/io/openliberty/openliberty-webProfile8/$LIBERTY_VERSION/openliberty-webProfile8-$LIBERTY_VERSION.zip -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
