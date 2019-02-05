@@ -1,13 +1,13 @@
 
 FROM ibmjava:8-sfj-alpine
+ARG LIBERTY_VERSION=19.0.0.1
+ARG LIBERTY_SHA=c0804d8e17f716134c2aec3e23280a0bb73fa450
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-javaee8/$LIBERTY_VERSION/openliberty-javaee8-$LIBERTY_VERSION.zip
 
 COPY docker-server /opt/ol/docker/
 
 # Install Open Liberty
-ENV LIBERTY_VERSION=19.0.0.1 \
-    LIBERTY_SHA=c0804d8e17f716134c2aec3e23280a0bb73fa450
-
-RUN wget https://repo1.maven.org/maven2/io/openliberty/openliberty-javaee8/$LIBERTY_VERSION/openliberty-javaee8-$LIBERTY_VERSION.zip -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
+RUN wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
    && sha1sum -c /tmp/wlp.zip.sha1 \
    && unzip -q /tmp/wlp.zip -d /opt/ol \
