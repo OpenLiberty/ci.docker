@@ -1,0 +1,17 @@
+language: bash
+
+dist: xenial
+
+os: linux
+
+sudo: required
+
+before_install:
+  - sudo apt-get update
+
+script:
+  - uname -a
+  - cat /etc/issue
+  - pwd
+  - cd build
+  - ./buildAll.sh

@@ -1,5 +1,8 @@
 
 FROM adoptopenjdk/openjdk8-openj9
+ARG LIBERTY_VERSION=19.0.0.1
+ARG LIBERTY_SHA=c7b741b3a2c1e93d7e1c652377a212d23025a7be
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 
 LABEL maintainer="Alasdair Nottingham" vendor="Open Liberty" url="https://openliberty.io/" github="https://github.com/OpenLiberty/ci.docker"
 
@@ -10,10 +13,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Open Liberty
-ENV LIBERTY_VERSION=19.0.0.1 \
-    LIBERTY_SHA=c7b741b3a2c1e93d7e1c652377a212d23025a7be
-
-RUN curl -L -s -A UA-Open-Liberty-Docker -o /tmp/wlp.zip https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip \
+RUN curl -L -s -A UA-Open-Liberty-Docker -o /tmp/wlp.zip $LIBERTY_DOWNLOAD_URL \
    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
    && sha1sum -c /tmp/wlp.zip.sha1 \
    && unzip -q /tmp/wlp.zip -d /opt/ol \
