@@ -8,7 +8,8 @@ LABEL maintainer="Alasdair Nottingham" vendor="Open Liberty" url="https://openli
 COPY docker-server /opt/ol/docker/
 
 # Install Open Liberty
-RUN wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
+RUN apk add --no-cache wget \
+   && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
    && sha1sum -c /tmp/wlp.zip.sha1 \
    && unzip -q /tmp/wlp.zip -d /opt/ol \
