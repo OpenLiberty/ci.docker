@@ -55,7 +55,7 @@ webprofile8DownloadSha=$(sha1sum webprofile8.zip | awk '{print $1;}')
 rm -f webprofile8.zip
 
 # Builds up the build.sh call to build each individual docker image listed in images.txt
-while read -r buildContextDirectory imageTag imageTag2
+while read -r buildContextDirectory imageTag imageTag2 imageTag3
 do
   buildCommand="./build.sh --dir=$buildContextDirectory --version=$version"
 
@@ -69,6 +69,10 @@ do
   if [ ! -z "$imageTag2" ]
   then
     buildCommand="$buildCommand --tag2=$repository:$imageTag2"
+  fi
+  if [ ! -z "$imageTag3" ]
+  then
+    buildCommand="$buildCommand --tag3=$repository:$imageTag3"
   fi
 
   if [[ $imageTag =~ javaee8 ]]

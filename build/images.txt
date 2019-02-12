@@ -11,7 +11,7 @@
 ../official/kernel/java8/ibmsfj         kernel-java8-ibmsfj
 ../official/javaee7/java8/ibmjava       javaee7-java8-ibm          javaee7
 ../official/javaee7/java8/ibmsfj        javaee7-java8-ibmsfj
-../official/javaee8/java8/ibmjava       javaee8-java8-ibm          javaee8
+../official/javaee8/java8/ibmjava       javaee8-java8-ibm          javaee8       latest
 ../official/javaee8/java8/ibmsfj        javaee8-java8-ibmsfj
 ../official/microProfile1/java8/ibmjava microProfile1-java8-ibm    microProfile1
 ../official/microProfile1/java8/ibmsfj  microProfile1-java8-ibmsfj
