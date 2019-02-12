@@ -3,7 +3,7 @@
 # Builds a single Open Liberty Docker Image
 #  dir and tag must be specified, other arguments allow for overrides in development builds.
 
-usage="Usage: build.sh --dir=<Dockerfile directory> --tag=<image tag name> (--tag2=<second image tag name> --version <product version> --imageSha=<image sha> --imageUrl=<image download url>)"
+usage="Usage: build.sh --dir=<Dockerfile directory> --tag=<image tag name> (--tag2=<second image tag name> --tag3=<third image tag name> --version <product version> --imageSha=<image sha> --imageUrl=<image download url>)"
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -15,6 +15,9 @@ while [ $# -gt 0 ]; do
       ;;
     --tag2=*)
       tag2="${1#*=}"
+      ;;
+    --tag3=*)
+      tag3="${1#*=}"
       ;;
     --version=*)
       version="${1#*=}"
@@ -45,6 +48,10 @@ if [ ! -z "$tag2" ]
 then
   buildCommand="$buildCommand -t $tag2"
 fi
+if [ ! -z "$tag3" ]
+then
+  buildCommand="$buildCommand -t $tag3"
+fi
 if [ ! -z "$version" ]
 then
   buildCommand="$buildCommand --build-arg LIBERTY_VERSION=${version}"
@@ -62,7 +69,7 @@ repository="${tag%:*}"
 buildCommand="$buildCommand --build-arg REPOSITORY=${repository} $dir"
 
 echo "****"
-echo "Building $dir ($tag $tag2)"
+echo "Building $dir ($tag $tag2 $tag3)"
 echo "$buildCommand"
 echo "****"
 eval $buildCommand
@@ -70,9 +77,9 @@ eval $buildCommand
 if [ $? = 0 ]
 then
   echo "****"
-  echo "Build successful $dir ($tag $tag2)"
+  echo "Build successful $dir ($tag $tag2 $tag3)"
   echo "****"
 else
-  echo "Build failed $dir ($tag $tag2), exiting."
+  echo "Build failed $dir ($tag $tag2 $tag3), exiting."
   exit 1
 fi
