@@ -4,7 +4,7 @@ There are three different Open Liberty Docker image sets available on Docker Hub
 
 1. **Official Images**:  available [here](https://hub.docker.com/_/open-liberty), these are re-build automatically anytime something changes in the layers below, and updated with new Open Liberty binaries as they become available (generally every 4 weeks).  The Dockerfiles can be found in the [official](/official) directory.  
 
-1. **Daily Images**: available [here](https://hub.docker.com/r/openliberty/daily), these are daily images from the daily Open Liberty binaries.  The scripts used for this image can be found [here](https://github.com/OpenLiberty/ci.docker.daily)
+1. **Daily Images**: available [here](https://hub.docker.com/r/openliberty/daily), these are daily images from the daily Open Liberty binaries.  The scripts used for this image can be found [here](https://github.com/OpenLiberty/ci.docker.daily).
 
 1. **Community Images**: available [here](https://hub.docker.com/r/openliberty/open-liberty), these are images using OpenJ9 in the JVM.  The Dockerfiles can be found in the [community](/community) directory.
 
