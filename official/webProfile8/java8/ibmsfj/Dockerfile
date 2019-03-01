@@ -1,7 +1,7 @@
 
 FROM ibmjava:8-sfj-alpine
-ARG LIBERTY_VERSION=19.0.0.1
-ARG LIBERTY_SHA=fec518cac15255d71415b8a748ad243f871f29d4
+ARG LIBERTY_VERSION=19.0.0.2
+ARG LIBERTY_SHA=d4eab6bcd7666bceb0fd3d3f736b98868f3c9d09
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-webProfile8/$LIBERTY_VERSION/openliberty-webProfile8-$LIBERTY_VERSION.zip
 
 COPY docker-server /opt/ol/docker/
