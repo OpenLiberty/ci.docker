@@ -1,5 +1,4 @@
-ARG REPOSITORY=open-liberty
-FROM $REPOSITORY:kernel-java8-ibm
+FROM open-liberty:kernel-java8-ibm
 
 RUN mkdir -p /opt/ol/wlp/usr/shared/resources/lib.index.cache \
   && ln -s /opt/ol/wlp/usr/shared/resources/lib.index.cache /lib.index.cache
