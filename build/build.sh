@@ -64,9 +64,7 @@ if [ ! -z "$imageUrl" ]
 then
   buildCommand="$buildCommand --build-arg LIBERTY_DOWNLOAD_URL=${imageUrl}"
 fi
-# Get the repository name to use in FROM commands from the tag of this image
-repository="${tag%:*}"
-buildCommand="$buildCommand --build-arg REPOSITORY=${repository} $dir"
+buildCommand="$buildCommand $dir"
 
 echo "****"
 echo "Building $dir ($tag $tag2 $tag3)"
