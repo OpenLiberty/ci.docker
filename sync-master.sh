@@ -1,6 +1,7 @@
 #!/bin/sh
 
-find official | grep docker-server | xargs -I % cp -a common/docker-server
-find community | grep docker-server | xargs -I % cp -a common/docker-server
+find official -type d -name "helpers" | xargs -n 1 cp -a common/helpers/*
+find official -type d -name "configure.sh" | xargs -n 1 cp -a common/helpers/*
+find official -type f -name "configure.sh" | egrep ibmsfj | xargs -n 1 cp -a common/configure_ibmsfj.sh
 
-find community | grep README.md | xargs -I % cp -a common/README.md
+find community -type d -name "helpers" | xargs -n 1 cp -a common/helpers/*
