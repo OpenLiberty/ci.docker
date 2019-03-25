@@ -47,8 +47,10 @@ RUN mkdir /logs \
     && chmod -R g+rw /config \
     && chown -R 1001:0 /logs \
     && chmod -R g+rw /logs \
-    && chown -R 1001:0 /opt/ol/wlp \
-    && chmod -R g+rw /opt/ol/wlp \
+    && chown -R 1001:0 /opt/ol/wlp/usr \
+    && chmod -R g+rw /opt/ol/wlp/usr \
+    && chown -R 1001:0 /opt/ol/wlp/output \
+    && chmod -R g+rw /opt/ol/wlp/output \
     && chown -R 1001:0 /opt/ol/helpers \
     && chmod -R g+rw /opt/ol/helpers \
     && mkdir /etc/wlp \
@@ -57,7 +59,7 @@ RUN mkdir /logs \
     && chown -R 1001:0 /lib.index.cache \
     && chmod -R g+rw /lib.index.cache \
     && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml \
-    && server start && server stop && rm -rf /output/resources/security/ /output/messaging /logs/* && chmod -R g+rwx /opt/ol/wlp/output/*   
+    && /opt/ol/wlp/bin/server start && /opt/ol/wlp/bin/server stop && rm -rf /output/resources/security/ /output/messaging /logs/* $WLP_OUTPUT_DIR/.classCache && chmod -R g+rwx /opt/ol/wlp/output/*
 
 USER 1001
 
