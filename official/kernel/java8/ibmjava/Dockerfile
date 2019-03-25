@@ -47,8 +47,10 @@ RUN mkdir /logs \
     && chmod -R g+rw /config \
     && chown -R 1001:0 /logs \
     && chmod -R g+rw /logs \
-    && chown -R 1001:0 /opt/ol/wlp \
-    && chmod -R g+rw /opt/ol/wlp \
+    && chown -R 1001:0 /opt/ol/wlp/usr \
+    && chmod -R g+rw /opt/ol/wlp/usr \
+    && chown -R 1001:0 /opt/ol/wlp/output \
+    && chmod -R g+rw /opt/ol/wlp/output \
     && chown -R 1001:0 /opt/ol/helpers \
     && chmod -R g+rw /opt/ol/helpers \
     && mkdir /etc/wlp \
