@@ -1,6 +1,6 @@
 FROM ibmjava:8-sfj-alpine
-ARG LIBERTY_VERSION=19.0.0.2
-ARG LIBERTY_SHA=b54f360ae14ea72b4fc04c11693216c41891ab11
+ARG LIBERTY_VERSION=19.0.0.3
+ARG LIBERTY_SHA=ba3d67231db1d00fff562cdc27e17588e9215164
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 
 LABEL maintainer="Arthur De Magalhaes" vendor="Open Liberty" url="https://openliberty.io/" github="https://github.com/OpenLiberty/ci.docker"
