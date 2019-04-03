@@ -37,7 +37,8 @@ RUN /opt/ol/wlp/bin/server create \
 
 # Create symlinks && set permissions for non-root user    
 RUN mkdir /logs \
-    && mkdir /lib.index.cache \
+    && mkdir -p /opt/ol/wlp/usr/shared/resources/lib.index.cache \
+    && ln -s /opt/ol/wlp/usr/shared/resources/lib.index.cache /lib.index.cache \
     && mkdir -p $WLP_OUTPUT_DIR/defaultServer \
     && ln -s $WLP_OUTPUT_DIR/defaultServer /output \
     && ln -s /opt/ol/wlp/usr/servers/defaultServer /config \
@@ -57,8 +58,6 @@ RUN mkdir /logs \
     && mkdir /etc/wlp \
     && chown -R 1001:0 /etc/wlp \
     && chmod -R g+rw /etc/wlp \
-    && chown -R 1001:0 /lib.index.cache \
-    && chmod -R g+rw /lib.index.cache \
     && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml
 
 
