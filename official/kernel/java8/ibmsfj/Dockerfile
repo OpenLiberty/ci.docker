@@ -32,6 +32,8 @@ RUN /opt/ol/wlp/bin/server create \
 
 # Create symlinks && set permissions for non-root user    
 RUN mkdir /logs \
+    && mkdir -p /opt/ol/wlp/usr/shared/resources/lib.index.cache \
+    && ln -s /opt/ol/wlp/usr/shared/resources/lib.index.cache /lib.index.cache \
     && mkdir -p $WLP_OUTPUT_DIR/defaultServer \
     && ln -s $WLP_OUTPUT_DIR/defaultServer /output \
     && ln -s /opt/ol/wlp/usr/servers/defaultServer /config \
