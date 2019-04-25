@@ -8,7 +8,7 @@ LABEL maintainer="Arthur De Magalhaes" vendor="Open Liberty" url="https://openli
 COPY helpers /opt/ol/helpers
 
 # Install Open Liberty
-RUN apk add --no-cache wget \
+RUN apk --update add --no-cache wget openssl \
     && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
     && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
     && sha1sum -c /tmp/wlp.zip.sha1 \

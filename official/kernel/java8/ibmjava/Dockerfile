@@ -9,7 +9,7 @@ COPY helpers /opt/ol/helpers
 
 # Install Open Liberty
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends unzip \
+    && apt-get install -y --no-install-recommends unzip openssl \
     && rm -rf /var/lib/apt/lists/* \
     && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
     && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
