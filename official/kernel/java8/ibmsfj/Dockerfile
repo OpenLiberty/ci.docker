@@ -17,7 +17,8 @@ RUN apk --update add --no-cache wget openssl \
     && rm /tmp/wlp.zip.sha1 \
     && adduser -u 1001 -S -G root -s /usr/sbin/nologin default \
     && chown -R 1001:0 /opt/ol/wlp \
-    && chmod -R g+rw /opt/ol/wlp
+    && chmod -R g+rw /opt/ol/wlp \
+    && apk del --no-cache wget unzip
 
 # Set Path Shortcuts
 ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:/opt/ol/helpers/build:$PATH \

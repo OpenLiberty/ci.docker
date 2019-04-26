@@ -18,6 +18,7 @@ RUN apt-get update \
     && rm /tmp/wlp.zip \
     && rm /tmp/wlp.zip.sha1 \
     && apt-get remove -y unzip \
+    && apt-get remove -y wget \
     && rm -rf /var/lib/apt/lists/* \
     && useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default \
     && chown -R 1001:0 /opt/ol/wlp \
