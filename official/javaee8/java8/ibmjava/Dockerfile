@@ -1,7 +1,7 @@
 
 FROM ibmjava:8-jre
-ARG LIBERTY_VERSION=19.0.0.3
-ARG LIBERTY_SHA=3f625c2fe05b5443f61d71832ca38c3d72564464
+ARG LIBERTY_VERSION=19.0.0.4
+ARG LIBERTY_SHA=657ddda1fc6013ba14dfda51e28834d7ca4a78fe
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-javaee8/$LIBERTY_VERSION/openliberty-javaee8-$LIBERTY_VERSION.zip
 
 LABEL maintainer="Arthur De Magalhaes" vendor="Open Liberty" url="https://openliberty.io/" github="https://github.com/OpenLiberty/ci.docker"
