@@ -3,9 +3,10 @@
 # Builds all Open Liberty Docker images
 #  values set below, or in arguments, will override the defaults set in the Dockerfiles, allowing for development builds
 
-usage="Usage (all args optional): buildAll.sh --version=<version> --communityRepository=<communityRepository> --officialRepository=<officialRepository> --javaee8DownloadUrl=<javaee8 image download url> --runtimeDownloadUrl=<runtime image download url> --webprofile8DownloadUrl=<webprofile8 image download url>"
+usage="Usage (all args optional): buildAll.sh --version=<version> --buildLabel=<build label> --communityRepository=<communityRepository> --officialRepository=<officialRepository> --javaee8DownloadUrl=<javaee8 image download url> --runtimeDownloadUrl=<runtime image download url> --webprofile8DownloadUrl=<webprofile8 image download url>"
 
 version=19.0.0.4
+buildLabel=cl190420190419-0642
 communityRepository=openliberty/open-liberty
 officialRepository=open-liberty
 javaee8DownloadUrl="https://repo1.maven.org/maven2/io/openliberty/openliberty-javaee8/${version}/openliberty-javaee8-${version}.zip"
@@ -17,6 +18,9 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --version=*)
       version="${1#*=}"
+      ;;
+    --buildLabel=*)
+      buildLabel="${1#*=}"
       ;;
     --communityRepository=*)
       communityRepository="${1#*=}"
@@ -57,7 +61,7 @@ rm -f webprofile8.zip
 # Builds up the build.sh call to build each individual docker image listed in images.txt
 while read -r buildContextDirectory imageTag imageTag2 imageTag3
 do
-  buildCommand="./build.sh --dir=$buildContextDirectory --version=$version"
+  buildCommand="./build.sh --dir=$buildContextDirectory --version=$version --buildLabel=$buildLabel"
 
   if [[ $buildContextDirectory =~ community ]]
   then

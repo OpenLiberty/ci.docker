@@ -3,7 +3,7 @@
 # Builds a single Open Liberty Docker Image
 #  dir and tag must be specified, other arguments allow for overrides in development builds.
 
-usage="Usage: build.sh --dir=<Dockerfile directory> --tag=<image tag name> (--tag2=<second image tag name> --tag3=<third image tag name> --version <product version> --imageSha=<image sha> --imageUrl=<image download url>)"
+usage="Usage: build.sh --dir=<Dockerfile directory> --tag=<image tag name> (--tag2=<second image tag name> --tag3=<third image tag name> --version <product version> --buildLabel <build label> --imageSha=<image sha> --imageUrl=<image download url>)"
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -21,6 +21,9 @@ while [ $# -gt 0 ]; do
       ;;
     --version=*)
       version="${1#*=}"
+      ;;
+    --buildLabel=*)
+      buildLabel="${1#*=}"
       ;;
     --imageSha=*)
       imageSha="${1#*=}"
@@ -55,6 +58,10 @@ fi
 if [ ! -z "$version" ]
 then
   buildCommand="$buildCommand --build-arg LIBERTY_VERSION=${version}"
+fi
+if [ ! -z "$buildLabel" ]
+then
+  buildCommand="$buildCommand --build-arg LIBERTY_BUILD_LABEL=${buildLabel}"
 fi
 if [ ! -z "$imageSha" ]
 then

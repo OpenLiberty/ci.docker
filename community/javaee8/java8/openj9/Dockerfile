@@ -2,9 +2,11 @@
 FROM adoptopenjdk/openjdk8-openj9
 ARG LIBERTY_VERSION=19.0.0.4
 ARG LIBERTY_SHA=657ddda1fc6013ba14dfda51e28834d7ca4a78fe
+ARG LIBERTY_BUILD_LABEL=cl190420190419-0642
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-javaee8/$LIBERTY_VERSION/openliberty-javaee8-$LIBERTY_VERSION.zip
 
-LABEL maintainer="Arthur De Magalhaes" vendor="Open Liberty" url="https://openliberty.io/" github="https://github.com/OpenLiberty/ci.docker"
+LABEL maintainer="Arthur De Magalhaes" vendor="Open Liberty" url="https://openliberty.io/" github="https://github.com/OpenLiberty/ci.docker" \
+      BuildLabel="$LIBERTY_BUILD_LABEL"
 
 COPY helpers /opt/ol/helpers
 
