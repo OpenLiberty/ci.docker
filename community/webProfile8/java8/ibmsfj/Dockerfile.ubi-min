@@ -9,8 +9,7 @@ LABEL maintainer="Arthur De Magalhaes" vendor="Open Liberty" url="https://openli
 COPY helpers /opt/ol/helpers
 
 # Install Open Liberty
-RUN microdnf update -y \
-    && microdnf -y install shadow-utils wget unzip \
+RUN microdnf -y install shadow-utils wget unzip \
     && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
     && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
     && sha1sum -c /tmp/wlp.zip.sha1 \
