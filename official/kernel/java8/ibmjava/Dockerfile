@@ -1,7 +1,7 @@
 FROM ibmjava:8-jre
-ARG LIBERTY_VERSION=19.0.0.4
-ARG LIBERTY_SHA=d4a9be40d4e1e6e859b836f68379636eb2c19c6d
-ARG LIBERTY_BUILD_LABEL=cl190420190419-0642
+ARG LIBERTY_VERSION=19.0.0.5
+ARG LIBERTY_SHA=ee0fdbc716e9431b73d483555f0e267f007f0286
+ARG LIBERTY_BUILD_LABEL=cl190520190522-2227
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 
 LABEL maintainer="Arthur De Magalhaes" vendor="Open Liberty" url="https://openliberty.io/" github="https://github.com/OpenLiberty/ci.docker" \

@@ -1,8 +1,8 @@
 
 FROM adoptopenjdk/openjdk8-openj9
-ARG LIBERTY_VERSION=19.0.0.4
-ARG LIBERTY_SHA=64c39d499297823ff2b56f8a7108b57da3a13fc4
-ARG LIBERTY_BUILD_LABEL=cl190420190419-0642
+ARG LIBERTY_VERSION=19.0.0.5
+ARG LIBERTY_SHA=d0b7dfe4f5f2f4c7b6280081c123aab3fc90fdcc
+ARG LIBERTY_BUILD_LABEL=cl190520190522-2227
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-webProfile8/$LIBERTY_VERSION/openliberty-webProfile8-$LIBERTY_VERSION.zip
 
 LABEL maintainer="Arthur De Magalhaes" vendor="Open Liberty" url="https://openliberty.io/" github="https://github.com/OpenLiberty/ci.docker" \
