@@ -14,7 +14,7 @@ COPY helpers /opt/ol/helpers
 
 # Install Open Liberty
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends unzip openssl \
+    && apt-get install -y --no-install-recommends unzip openssl wget \
     && rm -rf /var/lib/apt/lists/* \
     && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
     && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
@@ -52,6 +52,9 @@ RUN mkdir /logs \
     && mkdir -p /config/configDropins/defaults \
     && mkdir -p /config/configDropins/overrides \
     && ln -s /opt/ol/wlp /liberty \
+    && mkdir -p /home/default \
+    && chown -R 1001:0 /home/default \
+    && chmod -R g+rw /home/default \
     && chown -R 1001:0 /config \
     && chmod -R g+rw /config \
     && chown -R 1001:0 /logs \
