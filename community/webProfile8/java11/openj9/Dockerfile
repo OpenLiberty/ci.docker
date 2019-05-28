@@ -5,8 +5,11 @@ ARG LIBERTY_SHA=d0b7dfe4f5f2f4c7b6280081c123aab3fc90fdcc
 ARG LIBERTY_BUILD_LABEL=cl190520190522-2227
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-webProfile8/$LIBERTY_VERSION/openliberty-webProfile8-$LIBERTY_VERSION.zip
 
-LABEL maintainer="Arthur De Magalhaes" vendor="Open Liberty" url="https://openliberty.io/" github="https://github.com/OpenLiberty/ci.docker" \
-      BuildLabel="$LIBERTY_BUILD_LABEL"
+LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Andy Naumann" \
+      org.opencontainers.image.vendor="Open Liberty" \
+      org.opencontainers.image.url="https://openliberty.io/" \
+      org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
+      org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL"
 
 COPY helpers /opt/ol/helpers
 

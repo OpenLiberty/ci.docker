@@ -4,13 +4,16 @@ ARG LIBERTY_SHA=ee0fdbc716e9431b73d483555f0e267f007f0286
 ARG LIBERTY_BUILD_LABEL=cl190520190522-2227
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 
-LABEL maintainer="Arthur De Magalhaes" vendor="Open Liberty" url="https://openliberty.io/" github="https://github.com/OpenLiberty/ci.docker" \
-      BuildLabel="$LIBERTY_BUILD_LABEL"
+LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Andy Naumann" \
+      org.opencontainers.image.vendor="Open Liberty" \
+      org.opencontainers.image.url="https://openliberty.io/" \
+      org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
+      org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL"
 
 COPY helpers /opt/ol/helpers
 
 # Install Open Liberty
-RUN apk --update add --no-cache wget openssl \
+RUN apk add --no-cache wget openssl \
     && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
     && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
     && sha1sum -c /tmp/wlp.zip.sha1 \
