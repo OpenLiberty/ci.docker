@@ -14,4 +14,4 @@ script:
   - cat /etc/issue
   - pwd
   - cd build
-  - ./buildAll.sh
+  - ./buildAll.sh --buildVersionedImages=$buildVersionedImages
