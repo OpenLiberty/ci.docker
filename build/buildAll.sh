@@ -83,7 +83,7 @@ do
     buildCommand="$buildCommand --tag3=$repository:$imageTag3"
   fi
 
-  if [[ $imageTag =~ ^\d ]]
+  if [[ $imageTag =~ ^[0-9] ]]
   then
     # skip versioned images if buildVersionedImages is not true
     if [ "$buildVersionedImages" != "true" ]
