@@ -1,36 +1,72 @@
-../community/kernel/java8/openj9        kernel-java8-openj9
-../community/javaee7/java8/openj9       javaee7-java8-openj9
-../community/javaee8/java8/openj9       javaee8-java8-openj9
-../community/microProfile1/java8/openj9 microProfile1-java8-openj9
-../community/microProfile2/java8/openj9 microProfile2-java8-openj9
-../community/springBoot1/java8/openj9   springBoot1-java8-openj9
-../community/springBoot2/java8/openj9   springBoot2-java8-openj9
-../community/webProfile7/java8/openj9   webProfile7-java8-openj9
-../community/webProfile8/java8/openj9   webProfile8-java8-openj9
-../official/kernel/java8/ibmjava        kernel-java8-ibm           kernel
-../official/kernel/java8/ibmsfj         kernel-java8-ibmsfj
-../official/kernel/java11/openj9        kernel-java11
-../official/javaee7/java8/ibmjava       javaee7-java8-ibm          javaee7
-../official/javaee7/java8/ibmsfj        javaee7-java8-ibmsfj
-../official/javaee7/java11/openj9       javaee7-java11
-../official/javaee8/java8/ibmjava       javaee8-java8-ibm          javaee8       latest
-../official/javaee8/java8/ibmsfj        javaee8-java8-ibmsfj
-../official/javaee8/java11/openj9       javaee8-java11
-../official/microProfile1/java8/ibmjava microProfile1-java8-ibm    microProfile1
-../official/microProfile1/java8/ibmsfj  microProfile1-java8-ibmsfj
-../official/microProfile1/java11/openj9 microProfile1-java11
-../official/microProfile2/java8/ibmjava microProfile2-java8-ibm    microProfile2
-../official/microProfile2/java8/ibmsfj  microProfile2-java8-ibmsfj
-../official/microProfile2/java11/openj9 microProfile2-java11
-../official/springBoot1/java8/ibmjava   springBoot1-java8-ibm      springBoot1
-../official/springBoot1/java8/ibmsfj    springBoot1-java8-ibmsfj
-../official/springBoot1/java11/openj9   springBoot1-java11
-../official/springBoot2/java8/ibmjava   springBoot2-java8-ibm      springBoot2
-../official/springBoot2/java8/ibmsfj    springBoot2-java8-ibmsfj
-../official/springBoot2/java11/openj9   springBoot2-java11
-../official/webProfile7/java8/ibmjava   webProfile7-java8-ibm      webProfile7
-../official/webProfile7/java8/ibmsfj    webProfile7-java8-ibmsfj
-../official/webProfile7/java11/openj9   webProfile7-java11
-../official/webProfile8/java8/ibmjava   webProfile8-java8-ibm      webProfile8
-../official/webProfile8/java8/ibmsfj    webProfile8-java8-ibmsfj
-../official/webProfile8/java11/openj9   webProfile8-java11
+../community/19.0.0.x/kernel/java8/openj9        kernel-java8-openj9
+../community/19.0.0.x/javaee7/java8/openj9       javaee7-java8-openj9
+../community/19.0.0.x/javaee8/java8/openj9       javaee8-java8-openj9
+../community/19.0.0.x/microProfile1/java8/openj9 microProfile1-java8-openj9
+../community/19.0.0.x/microProfile2/java8/openj9 microProfile2-java8-openj9
+../community/19.0.0.x/springBoot1/java8/openj9   springBoot1-java8-openj9
+../community/19.0.0.x/springBoot2/java8/openj9   springBoot2-java8-openj9
+../community/19.0.0.x/webProfile7/java8/openj9   webProfile7-java8-openj9
+../community/19.0.0.x/webProfile8/java8/openj9   webProfile8-java8-openj9
+../official/19.0.0.x/kernel/java8/ibmjava        kernel-java8-ibm           kernel
+../official/19.0.0.x/kernel/java8/ibmsfj         kernel-java8-ibmsfj
+../official/19.0.0.x/kernel/java11/openj9        kernel-java11
+../official/19.0.0.x/javaee7/java8/ibmjava       javaee7-java8-ibm          javaee7
+../official/19.0.0.x/javaee7/java8/ibmsfj        javaee7-java8-ibmsfj
+../official/19.0.0.x/javaee7/java11/openj9       javaee7-java11
+../official/19.0.0.x/javaee8/java8/ibmjava       javaee8-java8-ibm          javaee8       latest
+../official/19.0.0.x/javaee8/java8/ibmsfj        javaee8-java8-ibmsfj
+../official/19.0.0.x/javaee8/java11/openj9       javaee8-java11
+../official/19.0.0.x/microProfile1/java8/ibmjava microProfile1-java8-ibm    microProfile1
+../official/19.0.0.x/microProfile1/java8/ibmsfj  microProfile1-java8-ibmsfj
+../official/19.0.0.x/microProfile1/java11/openj9 microProfile1-java11
+../official/19.0.0.x/microProfile2/java8/ibmjava microProfile2-java8-ibm    microProfile2
+../official/19.0.0.x/microProfile2/java8/ibmsfj  microProfile2-java8-ibmsfj
+../official/19.0.0.x/microProfile2/java11/openj9 microProfile2-java11
+../official/19.0.0.x/springBoot1/java8/ibmjava   springBoot1-java8-ibm      springBoot1
+../official/19.0.0.x/springBoot1/java8/ibmsfj    springBoot1-java8-ibmsfj
+../official/19.0.0.x/springBoot1/java11/openj9   springBoot1-java11
+../official/19.0.0.x/springBoot2/java8/ibmjava   springBoot2-java8-ibm      springBoot2
+../official/19.0.0.x/springBoot2/java8/ibmsfj    springBoot2-java8-ibmsfj
+../official/19.0.0.x/springBoot2/java11/openj9   springBoot2-java11
+../official/19.0.0.x/webProfile7/java8/ibmjava   webProfile7-java8-ibm      webProfile7
+../official/19.0.0.x/webProfile7/java8/ibmsfj    webProfile7-java8-ibmsfj
+../official/19.0.0.x/webProfile7/java11/openj9   webProfile7-java11
+../official/19.0.0.x/webProfile8/java8/ibmjava   webProfile8-java8-ibm      webProfile8
+../official/19.0.0.x/webProfile8/java8/ibmsfj    webProfile8-java8-ibmsfj
+../official/19.0.0.x/webProfile8/java11/openj9   webProfile8-java11
+../official/19.0.0.3/kernel/java8/ibmjava        19.0.0.3-kernel-java8-ibm           19.0.0.3-kernel
+../official/19.0.0.3/kernel/java8/ibmsfj         19.0.0.3-kernel-java8-ibmsfj
+../official/19.0.0.3/javaee7/java8/ibmjava       19.0.0.3-javaee7-java8-ibm          19.0.0.3-javaee7
+../official/19.0.0.3/javaee7/java8/ibmsfj        19.0.0.3-javaee7-java8-ibmsfj
+../official/19.0.0.3/javaee8/java8/ibmjava       19.0.0.3-javaee8-java8-ibm          19.0.0.3-javaee8
+../official/19.0.0.3/javaee8/java8/ibmsfj        19.0.0.3-javaee8-java8-ibmsfj
+../official/19.0.0.3/microProfile1/java8/ibmjava 19.0.0.3-microProfile1-java8-ibm    19.0.0.3-microProfile1
+../official/19.0.0.3/microProfile1/java8/ibmsfj  19.0.0.3-microProfile1-java8-ibmsfj
+../official/19.0.0.3/microProfile2/java8/ibmjava 19.0.0.3-microProfile2-java8-ibm    19.0.0.3-microProfile2
+../official/19.0.0.3/microProfile2/java8/ibmsfj  19.0.0.3-microProfile2-java8-ibmsfj
+../official/19.0.0.3/springBoot1/java8/ibmjava   19.0.0.3-springBoot1-java8-ibm      19.0.0.3-springBoot1
+../official/19.0.0.3/springBoot1/java8/ibmsfj    19.0.0.3-springBoot1-java8-ibmsfj
+../official/19.0.0.3/springBoot2/java8/ibmjava   19.0.0.3-springBoot2-java8-ibm      19.0.0.3-springBoot2
+../official/19.0.0.3/springBoot2/java8/ibmsfj    19.0.0.3-springBoot2-java8-ibmsfj
+../official/19.0.0.3/webProfile7/java8/ibmjava   19.0.0.3-webProfile7-java8-ibm      19.0.0.3-webProfile7
+../official/19.0.0.3/webProfile7/java8/ibmsfj    19.0.0.3-webProfile7-java8-ibmsfj
+../official/19.0.0.3/webProfile8/java8/ibmjava   19.0.0.3-webProfile8-java8-ibm      19.0.0.3-webProfile8
+../official/19.0.0.3/webProfile8/java8/ibmsfj    19.0.0.3-webProfile8-java8-ibmsfj
+../official/18.0.0.4/kernel/java8/ibmjava        18.0.0.4-kernel-java8-ibm           18.0.0.4-kernel
+../official/18.0.0.4/kernel/java8/ibmsfj         18.0.0.4-kernel-java8-ibmsfj
+../official/18.0.0.4/javaee7/java8/ibmjava       18.0.0.4-javaee7-java8-ibm          18.0.0.4-javaee7
+../official/18.0.0.4/javaee7/java8/ibmsfj        18.0.0.4-javaee7-java8-ibmsfj
+../official/18.0.0.4/javaee8/java8/ibmjava       18.0.0.4-javaee8-java8-ibm          18.0.0.4-javaee8
+../official/18.0.0.4/javaee8/java8/ibmsfj        18.0.0.4-javaee8-java8-ibmsfj
+../official/18.0.0.4/microProfile1/java8/ibmjava 18.0.0.4-microProfile1-java8-ibm    18.0.0.4-microProfile1
+../official/18.0.0.4/microProfile1/java8/ibmsfj  18.0.0.4-microProfile1-java8-ibmsfj
+../official/18.0.0.4/microProfile2/java8/ibmjava 18.0.0.4-microProfile2-java8-ibm    18.0.0.4-microProfile2
+../official/18.0.0.4/microProfile2/java8/ibmsfj  18.0.0.4-microProfile2-java8-ibmsfj
+../official/18.0.0.4/springBoot1/java8/ibmjava   18.0.0.4-springBoot1-java8-ibm      18.0.0.4-springBoot1
+../official/18.0.0.4/springBoot1/java8/ibmsfj    18.0.0.4-springBoot1-java8-ibmsfj
+../official/18.0.0.4/springBoot2/java8/ibmjava   18.0.0.4-springBoot2-java8-ibm      18.0.0.4-springBoot2
+../official/18.0.0.4/springBoot2/java8/ibmsfj    18.0.0.4-springBoot2-java8-ibmsfj
+../official/18.0.0.4/webProfile7/java8/ibmjava   18.0.0.4-webProfile7-java8-ibm      18.0.0.4-webProfile7
+../official/18.0.0.4/webProfile7/java8/ibmsfj    18.0.0.4-webProfile7-java8-ibmsfj
+../official/18.0.0.4/webProfile8/java8/ibmjava   18.0.0.4-webProfile8-java8-ibm      18.0.0.4-webProfile8
+../official/18.0.0.4/webProfile8/java8/ibmsfj    18.0.0.4-webProfile8-java8-ibmsfj

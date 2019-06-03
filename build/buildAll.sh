@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# Builds all Open Liberty Docker images
+# Builds all of the 19.0.0.x Open Liberty Docker images
 #  values set below, or in arguments, will override the defaults set in the Dockerfiles, allowing for development builds
+#  By default this will not build the versioned images (non-x.0.0.x versions), but this can be enabled by using the --buildVersionedImages.
 
-usage="Usage (all args optional): buildAll.sh --version=<version> --buildLabel=<build label> --communityRepository=<communityRepository> --officialRepository=<officialRepository> --javaee8DownloadUrl=<javaee8 image download url> --runtimeDownloadUrl=<runtime image download url> --webprofile8DownloadUrl=<webprofile8 image download url>"
+usage="Usage (all args optional): buildAll.sh --version=<version> --buildLabel=<build label> --communityRepository=<communityRepository> --officialRepository=<officialRepository> --javaee8DownloadUrl=<javaee8 image download url> --runtimeDownloadUrl=<runtime image download url> --webprofile8DownloadUrl=<webprofile8 image download url> --buildVersionedImages=<true/false (false default)>"
 
 version=19.0.0.5
 buildLabel=cl190520190522-2227
@@ -12,6 +13,7 @@ officialRepository=open-liberty
 javaee8DownloadUrl="https://repo1.maven.org/maven2/io/openliberty/openliberty-javaee8/${version}/openliberty-javaee8-${version}.zip"
 runtimeDownloadUrl="https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/${version}/openliberty-runtime-${version}.zip"
 webprofile8DownloadUrl="https://repo1.maven.org/maven2/io/openliberty/openliberty-webProfile8/${version}/openliberty-webProfile8-${version}.zip"
+buildVersionedImages=false
 
 # values above can be overridden by optional arguments when this script is called
 while [ $# -gt 0 ]; do
@@ -37,6 +39,9 @@ while [ $# -gt 0 ]; do
     --webprofile8DownloadUrl=*)
       webprofile8DownloadUrl="${1#*=}"
       ;;
+    --buildVersionedImages=*)
+      buildVersionedImages="${1#*=}"
+      ;;
     *)
       echo "Error: Invalid argument - $1"
       echo "$usage"
@@ -45,6 +50,7 @@ while [ $# -gt 0 ]; do
   shift
 done
 
+### BUILD THE NON-VERSIONED IMAGES
 # figure out the checksum for each image we will download
 wget --progress=bar:force $javaee8DownloadUrl -U UA-Open-Liberty-Docker -O javaee8.zip
 javaee8DownloadSha=$(sha1sum javaee8.zip | awk '{print $1;}')
@@ -61,15 +67,13 @@ rm -f webprofile8.zip
 # Builds up the build.sh call to build each individual docker image listed in images.txt
 while read -r buildContextDirectory imageTag imageTag2 imageTag3
 do
-  buildCommand="./build.sh --dir=$buildContextDirectory --version=$version --buildLabel=$buildLabel"
-
   if [[ $buildContextDirectory =~ community ]]
   then
     repository=$communityRepository
   else
     repository=$officialRepository
   fi
-  buildCommand="$buildCommand --tag=$repository:$imageTag"
+  buildCommand="./build.sh --dir=$buildContextDirectory --tag=$repository:$imageTag"
   if [ ! -z "$imageTag2" ]
   then
     buildCommand="$buildCommand --tag2=$repository:$imageTag2"
@@ -79,15 +83,28 @@ do
     buildCommand="$buildCommand --tag3=$repository:$imageTag3"
   fi
 
-  if [[ $imageTag =~ javaee8 ]]
+  if [[ $imageTag =~ ^[0-9] ]]
   then
-    buildCommand="$buildCommand --imageSha=$javaee8DownloadSha --imageUrl=$javaee8DownloadUrl"
-  elif [[ $imageTag =~ kernel ]]
-  then
-    buildCommand="$buildCommand --imageSha=$runtimeDownloadSha --imageUrl=$runtimeDownloadUrl"
-  elif [[ $imageTag =~ webProfile8 ]]
-  then
-    buildCommand="$buildCommand --imageSha=$webprofile8DownloadSha --imageUrl=$webprofile8DownloadUrl"
+    # skip versioned images if buildVersionedImages is not true
+    if [ "$buildVersionedImages" != "true" ]
+    then
+      echo "Not building context $buildContextDirectory because buildVersionedImages is $buildVersionedImages"
+      continue
+    fi
+  else
+    # extra arguments for the non-versioned image builds only, the versioned ones will get the defaults in their Dockerfile
+    buildCommand="$buildCommand --version=$version --buildLabel=$buildLabel"
+
+    if [[ $imageTag =~ javaee8 ]]
+    then
+      buildCommand="$buildCommand --imageSha=$javaee8DownloadSha --imageUrl=$javaee8DownloadUrl"
+    elif [[ $imageTag =~ kernel ]]
+    then
+      buildCommand="$buildCommand --imageSha=$runtimeDownloadSha --imageUrl=$runtimeDownloadUrl"
+    elif [[ $imageTag =~ webProfile8 ]]
+    then
+      buildCommand="$buildCommand --imageSha=$webprofile8DownloadSha --imageUrl=$webprofile8DownloadUrl"
+    fi
   fi
 
   echo "Running build script - $buildCommand"
