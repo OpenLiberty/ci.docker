@@ -36,7 +36,7 @@ ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:/opt/ol/helpers/build:$PATH \
     WLP_OUTPUT_DIR=/opt/ol/wlp/output \
     WLP_SKIP_MAXPERMSIZE=true
 
-# Configure WebSphere Liberty
+# Configure Open Liberty
 RUN /opt/ol/wlp/bin/server create \
     && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea 
 

@@ -15,15 +15,16 @@ COPY helpers /opt/ol/helpers
 
 # Install Open Liberty
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends unzip \
+    && apt-get install -y --no-install-recommends unzip openssl wget \
     && rm -rf /var/lib/apt/lists/* \
-    && curl -L -s -A UA-Open-Liberty-Docker -o /tmp/wlp.zip $LIBERTY_DOWNLOAD_URL \
+    && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
     && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
     && sha1sum -c /tmp/wlp.zip.sha1 \
     && unzip -q /tmp/wlp.zip -d /opt/ol \
     && rm /tmp/wlp.zip \
     && rm /tmp/wlp.zip.sha1 \
     && apt-get remove -y unzip \
+    && apt-get remove -y wget \
     && rm -rf /var/lib/apt/lists/* \
     && useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default \
     && chown -R 1001:0 /opt/ol/wlp \
@@ -35,7 +36,7 @@ ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:/opt/ol/helpers/build:$PATH \
     WLP_OUTPUT_DIR=/opt/ol/wlp/output \
     WLP_SKIP_MAXPERMSIZE=true
 
-# Configure WebSphere Liberty
+# Configure Open Liberty
 RUN /opt/ol/wlp/bin/server create \
     && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea
 

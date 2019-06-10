@@ -1,9 +1,9 @@
 
-FROM adoptopenjdk:8-jre-openj9
-ARG LIBERTY_VERSION=19.0.0.3
-ARG LIBERTY_SHA=427699c02263c6861bfbffcf6df15ef95989074b
-ARG LIBERTY_BUILD_LABEL=cl190320190321-1636
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-webProfile8/$LIBERTY_VERSION/openliberty-webProfile8-$LIBERTY_VERSION.zip
+FROM ibmjava:8-jre
+ARG LIBERTY_VERSION=19.0.0.5
+ARG LIBERTY_SHA=180a2499f42f7469df06bbe39e27a5b0268113f8
+ARG LIBERTY_BUILD_LABEL=cl190520190522-2227
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-javaee8/$LIBERTY_VERSION/openliberty-javaee8-$LIBERTY_VERSION.zip
 
 LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Andy Naumann" \
       org.opencontainers.image.vendor="Open Liberty" \
@@ -15,7 +15,7 @@ COPY helpers /opt/ol/helpers
 
 # Install Open Liberty
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends unzip openssl wget \
+    && apt-get install -y --no-install-recommends unzip openssl \
     && rm -rf /var/lib/apt/lists/* \
     && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
     && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
@@ -38,7 +38,7 @@ ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:/opt/ol/helpers/build:$PATH \
 
 # Configure Open Liberty
 RUN /opt/ol/wlp/bin/server create \
-    && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea
+    && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea 
 
 #These settings are needed so that we can run as a different user than 1001 after server warmup
 ENV RANDFILE=/tmp/.rnd \
