@@ -1,8 +1,8 @@
 
-FROM adoptopenjdk:8-jre-openj9
-ARG LIBERTY_VERSION=19.0.0.3
-ARG LIBERTY_SHA=427699c02263c6861bfbffcf6df15ef95989074b
-ARG LIBERTY_BUILD_LABEL=cl190320190321-1636
+FROM ibmjava:8-jre
+ARG LIBERTY_VERSION=19.0.0.5
+ARG LIBERTY_SHA=d0b7dfe4f5f2f4c7b6280081c123aab3fc90fdcc
+ARG LIBERTY_BUILD_LABEL=cl190520190522-2227
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-webProfile8/$LIBERTY_VERSION/openliberty-webProfile8-$LIBERTY_VERSION.zip
 
 LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Andy Naumann" \
@@ -15,7 +15,7 @@ COPY helpers /opt/ol/helpers
 
 # Install Open Liberty
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends unzip openssl wget \
+    && apt-get install -y --no-install-recommends unzip openssl \
     && rm -rf /var/lib/apt/lists/* \
     && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
     && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
@@ -44,7 +44,6 @@ RUN /opt/ol/wlp/bin/server create \
 ENV RANDFILE=/tmp/.rnd \
     IBM_JAVA_OPTIONS="-Xshareclasses:name=liberty,nonfatal,cacheDir=/output/.classCache/ ${IBM_JAVA_OPTIONS}"
 
-
 # Create symlinks && set permissions for non-root user    
 RUN mkdir /logs \
     && mkdir -p $WLP_OUTPUT_DIR/defaultServer \
@@ -67,7 +66,7 @@ RUN mkdir /logs \
     && chown -R 1001:0 /etc/wlp \
     && chmod -R g+rw /etc/wlp \
     && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml
-
+    
 USER 1001
 
 EXPOSE 9080 9443

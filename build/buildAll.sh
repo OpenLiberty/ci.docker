@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Builds all of the 19.0.0.x Open Liberty Docker images
+# Builds all of the latest Open Liberty Docker images
 #  values set below, or in arguments, will override the defaults set in the Dockerfiles, allowing for development builds
-#  By default this will not build the versioned images (non-x.0.0.x versions), but this can be enabled by using the --buildVersionedImages.
+#  By default this will not build the versioned images (non-latest versions), but this can be enabled by using the --buildVersionedImages.
 
 usage="Usage (all args optional): buildAll.sh --version=<version> --buildLabel=<build label> --communityRepository=<communityRepository> --officialRepository=<officialRepository> --javaee8DownloadUrl=<javaee8 image download url> --runtimeDownloadUrl=<runtime image download url> --webprofile8DownloadUrl=<webprofile8 image download url> --buildVersionedImages=<true/false (false default)>"
 

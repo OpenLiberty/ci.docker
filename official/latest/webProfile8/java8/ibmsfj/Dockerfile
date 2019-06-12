@@ -1,8 +1,8 @@
 
-FROM adoptopenjdk:8-jre-openj9
-ARG LIBERTY_VERSION=19.0.0.3
-ARG LIBERTY_SHA=427699c02263c6861bfbffcf6df15ef95989074b
-ARG LIBERTY_BUILD_LABEL=cl190320190321-1636
+FROM ibmjava:8-sfj-alpine
+ARG LIBERTY_VERSION=19.0.0.5
+ARG LIBERTY_SHA=d0b7dfe4f5f2f4c7b6280081c123aab3fc90fdcc
+ARG LIBERTY_BUILD_LABEL=cl190520190522-2227
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-webProfile8/$LIBERTY_VERSION/openliberty-webProfile8-$LIBERTY_VERSION.zip
 
 LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Andy Naumann" \
@@ -14,21 +14,17 @@ LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Andy Naumann" \
 COPY helpers /opt/ol/helpers
 
 # Install Open Liberty
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends unzip openssl wget \
-    && rm -rf /var/lib/apt/lists/* \
+RUN apk add --no-cache wget openssl \
     && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
     && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
     && sha1sum -c /tmp/wlp.zip.sha1 \
     && unzip -q /tmp/wlp.zip -d /opt/ol \
     && rm /tmp/wlp.zip \
     && rm /tmp/wlp.zip.sha1 \
-    && apt-get remove -y unzip \
-    && apt-get remove -y wget \
-    && rm -rf /var/lib/apt/lists/* \
-    && useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default \
+    && adduser -u 1001 -S -G root -s /usr/sbin/nologin default \
     && chown -R 1001:0 /opt/ol/wlp \
-    && chmod -R g+rw /opt/ol/wlp
+    && chmod -R g+rw /opt/ol/wlp \
+    && apk del --no-cache wget unzip
 
 # Set Path Shortcuts
 ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:/opt/ol/helpers/build:$PATH \
@@ -43,7 +39,6 @@ RUN /opt/ol/wlp/bin/server create \
 #These settings are needed so that we can run as a different user than 1001 after server warmup
 ENV RANDFILE=/tmp/.rnd \
     IBM_JAVA_OPTIONS="-Xshareclasses:name=liberty,nonfatal,cacheDir=/output/.classCache/ ${IBM_JAVA_OPTIONS}"
-
 
 # Create symlinks && set permissions for non-root user    
 RUN mkdir /logs \

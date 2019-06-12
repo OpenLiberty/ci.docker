@@ -1,9 +1,9 @@
 
 FROM adoptopenjdk:8-jre-openj9
-ARG LIBERTY_VERSION=19.0.0.3
-ARG LIBERTY_SHA=427699c02263c6861bfbffcf6df15ef95989074b
-ARG LIBERTY_BUILD_LABEL=cl190320190321-1636
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-webProfile8/$LIBERTY_VERSION/openliberty-webProfile8-$LIBERTY_VERSION.zip
+ARG LIBERTY_VERSION=19.0.0.5
+ARG LIBERTY_SHA=ee0fdbc716e9431b73d483555f0e267f007f0286
+ARG LIBERTY_BUILD_LABEL=cl190520190522-2227
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 
 LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Andy Naumann" \
       org.opencontainers.image.vendor="Open Liberty" \
@@ -40,13 +40,11 @@ ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:/opt/ol/helpers/build:$PATH \
 RUN /opt/ol/wlp/bin/server create \
     && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea
 
-#These settings are needed so that we can run as a different user than 1001 after server warmup
-ENV RANDFILE=/tmp/.rnd \
-    IBM_JAVA_OPTIONS="-Xshareclasses:name=liberty,nonfatal,cacheDir=/output/.classCache/ ${IBM_JAVA_OPTIONS}"
-
 
 # Create symlinks && set permissions for non-root user    
 RUN mkdir /logs \
+    && mkdir -p /opt/ol/wlp/usr/shared/resources/lib.index.cache \
+    && ln -s /opt/ol/wlp/usr/shared/resources/lib.index.cache /lib.index.cache \
     && mkdir -p $WLP_OUTPUT_DIR/defaultServer \
     && ln -s $WLP_OUTPUT_DIR/defaultServer /output \
     && ln -s /opt/ol/wlp/usr/servers/defaultServer /config \
@@ -68,11 +66,14 @@ RUN mkdir /logs \
     && chmod -R g+rw /etc/wlp \
     && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml
 
+
+#These settings are needed so that we can run as a different user than 1001 after server warmup
+ENV RANDFILE=/tmp/.rnd \
+    IBM_JAVA_OPTIONS="-Xshareclasses:name=liberty,nonfatal,cacheDir=/output/.classCache/ ${IBM_JAVA_OPTIONS}"
+
 USER 1001
 
 EXPOSE 9080 9443
-
-ENV KEYSTORE_REQUIRED true
 
 ENTRYPOINT ["/opt/ol/helpers/runtime/docker-server.sh"]
 CMD ["/opt/ol/wlp/bin/server", "run", "defaultServer"]
