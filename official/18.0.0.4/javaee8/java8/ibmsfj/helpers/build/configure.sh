@@ -70,8 +70,8 @@ then
     if [ ! -e $keystorePath ]
     then
       # Generate the keystore.xml
-      export KEYSTOREPWD=$(openssl rand -base64 32 | tr -d "/")
-      sed -i.bak "s/REPLACE/$KEYSTOREPWD/g" $SNIPPETS_SOURCE/keystore.xml
+      export KEYSTOREPWD=$(openssl rand -base64 32)
+      sed -i.bak "s|REPLACE|$KEYSTOREPWD|g" $SNIPPETS_SOURCE/keystore.xml
       cp $SNIPPETS_SOURCE/keystore.xml $SNIPPETS_TARGET/keystore.xml
     fi
 fi
