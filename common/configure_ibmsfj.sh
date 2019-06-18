@@ -62,3 +62,17 @@ if [ "$JMS_ENDPOINT" == "true" ]; then
     cp $SNIPPETS_SOURCE/jms-endpoint.xml $SNIPPETS_TARGET/jms-endpoint.xml
   fi
 fi
+
+# Key Store
+keystorePath="$SNIPPETS_TARGET/keystore.xml"
+if [ "$KEYSTORE_REQUIRED" = "true" ]
+then
+  # Check if the password is set already
+    if [ ! -e $keystorePath ]
+    then
+      # Generate the keystore.xml
+      export KEYSTOREPWD=$(openssl rand -base64 32 | tr -d "/")
+      sed -i.bak "s/REPLACE/$KEYSTOREPWD/g" $SNIPPETS_SOURCE/keystore.xml
+      cp $SNIPPETS_SOURCE/keystore.xml $SNIPPETS_TARGET/keystore.xml
+    fi
+fi
