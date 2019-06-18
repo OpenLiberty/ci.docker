@@ -67,7 +67,7 @@ This section describes the optional enterprise functionality that can be enabled
 * `KEYSTORE_REQUIRED`
   *  Description: Enables keystore element, which holds the key that is required to make an SSL connection.
   *  XML Snippet Location: [keystore.xml](/common/helpers/build/configuration_snippets/keystore.xml)
-  *  Note: Keystore PASSWORD and security certificate will be generated if users do not provide their own.
+  *  Note: Keystore password and security certificate will be generated if users do not provide their own.
 
 
 ### Session Caching
