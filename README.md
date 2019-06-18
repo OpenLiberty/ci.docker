@@ -63,7 +63,11 @@ This section describes the optional enterprise functionality that can be enabled
 * `OIDC_CONFIG`
   *  Decription: Enable OpenIdConnect Client configuration to be read from environment variables.  
   *  XML Snippet Location: [oidc-config.xml](/common/helpers/build/configuration_snippets/oidc-config.xml)
-  *  Note: The following variables will be read:  OIDC_CLIENT_ID, OIDC_CLIENT_SECRET, OIDC_DISCOVERY_URL.  
+  *  Note: The following variables will be read:  OIDC_CLIENT_ID, OIDC_CLIENT_SECRET, OIDC_DISCOVERY_URL.
+* `KEYSTORE_REQUIRED`
+  *  Description: Enables keystore element, which holds the key that is required to make an SSL connection.
+  *  XML Snippet Location: [keystore.xml](/common/helpers/build/configuration_snippets/keystore.xml)
+  *  Note: Keystore PASSWORD and security certificate will be generated if users do not provide their own.
 
 
 ### Session Caching

@@ -62,5 +62,19 @@ if [ "$JMS_ENDPOINT" == "true" ]; then
     cp $SNIPPETS_SOURCE/jms-endpoint.xml $SNIPPETS_TARGET/jms-endpoint.xml
   fi
 fi
+# Key Store
+keystorePath="$SNIPPETS_TARGET/keystore.xml"
+if [ "$KEYSTORE_REQUIRED" = "true" ]
+then
+  # Check if the password is set already
+    if [ ! -e $keystorePath ]
+    then
+      # Generate the keystore.xml
+      export NEWPASSWORD=$(openssl rand -base64 32 | tr -d "/")
+      sed -i.bak "s/REPLACE/$NEWPASSWORD/g" $SNIPPETS_SOURCE/keystore.xml
+      cp $SNIPPETS_SOURCE/keystore.xml $SNIPPETS_TARGET/keystore.xml
+    fi
+fi
+
 # Server start/stop to populate the /output/workarea and make subsequent server starts faster
-/opt/ol/wlp/bin/server start && /opt/ol/wlp/bin/server stop && rm -rf /output/resources/security/ /output/messaging /logs/* $WLP_OUTPUT_DIR/.classCache && chmod -R g+rwx /opt/ol/wlp/output/*
+/opt/ol/wlp/bin/server start && /opt/ol/wlp/bin/server stop && rm -rf /output/messaging /logs/* $WLP_OUTPUT_DIR/.classCache && chmod -R g+rwx /opt/ol/wlp/output/*
