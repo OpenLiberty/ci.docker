@@ -67,7 +67,7 @@ This section describes the optional enterprise functionality that can be enabled
 * `KEYSTORE_REQUIRED`
   *  Description: Enables keystore element, which holds the key that is required to make an SSL connection.
   *  XML Snippet Location: [keystore.xml](/common/helpers/build/configuration_snippets/keystore.xml)
-  *  Note: Keystore password and security certificate will be generated if users do not provide their own. The user provided keystore.xml (with defined password) and certificate can be applied using the following commands inside of their Dockerfile:
+  *  Note: Keystore password and security certificate will be generated if you do not provide your own. You can provide keystore.xml (with defined password) and certificate using the following instructions inside your Dockerfile:
      ```dockerfile
      COPY --chown=1001:0 keystore.xml /config/configDropins/overrides
      COPY --chown=1001:0 <certificate> /output/resources/security/
