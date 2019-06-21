@@ -1,4 +1,4 @@
-FROM open-liberty:kernel-ubi-min
+FROM open-liberty:19.0.0.6-kernel-ubi-min
 ENV KEYSTORE_REQUIRED "true"
 
 RUN cp /opt/ol/wlp/templates/servers/javaee7/server.xml /config/server.xml
