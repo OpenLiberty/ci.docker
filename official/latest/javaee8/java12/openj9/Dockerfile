@@ -1,7 +1,7 @@
 FROM adoptopenjdk:12-jre-openj9
-ARG LIBERTY_VERSION=19.0.0.5
-ARG LIBERTY_SHA=180a2499f42f7469df06bbe39e27a5b0268113f8
-ARG LIBERTY_BUILD_LABEL=cl190520190522-2227
+ARG LIBERTY_VERSION=19.0.0.6
+ARG LIBERTY_SHA=ba115723986bbf2e83d79262570b1fce82f6aa43
+ARG LIBERTY_BUILD_LABEL=cl190620190617-1530
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-javaee8/$LIBERTY_VERSION/openliberty-javaee8-$LIBERTY_VERSION.zip
 
 LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Andy Naumann" \
