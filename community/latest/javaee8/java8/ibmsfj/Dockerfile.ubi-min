@@ -18,7 +18,7 @@ LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Andy Naumann" \
       description="This image contains the Open Liberty runtime with IBM's SFJ and Red Hat UBI minimal as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
 
 COPY helpers /opt/ol/helpers
-COPY licenses.ubi-min /licenses
+COPY licenses /licenses
 
 # Install Open Liberty
 RUN microdnf -y install shadow-utils wget unzip \
