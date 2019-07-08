@@ -116,7 +116,7 @@ Examples:
 
 * For https://foo.bar/app1 enter `foo.bar` as the `ingress.host` and `/app1` as the `ingress.path`.
 
-* For https://dev.foo.bar/ enter `app.foo.bar` as the `ingress.host` and `/` as the `ingress.path`.
+* For https://dev.foo.bar/ enter `dev.foo.bar` as the `ingress.host` and `/` as the `ingress.path`.
 
 **Note:** If your `ingress.path` uses regular expression, you need to set `nginx.ingress.kubernetes.io/session-cookie-path` to the path that will be set on the session affinity cookie. See [Sticky sessions](https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/) for more info.
 
