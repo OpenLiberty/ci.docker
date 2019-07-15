@@ -68,7 +68,7 @@ This section describes the optional enterprise functionality that can be enabled
 To customize one of the built-in XML snippets, make a copy of the snippet from Github and edit it locally. Once you have completed your changes, use the `COPY` command inside your Dockerfile to copy the snippet into `/config/configDropins/overrides`. It is important to note that you do not need to set build-arguments (`ARG`) for any customized XML snippets. The following Dockerfile snippet is an example of how you should include the customized snippet.
 
 ```dockerfile
-COPY <path_to_customized_snippet> /config/configDropins/overrides
+COPY --chown=1001:0 <path_to_customized_snippet> /config/configDropins/overrides
 ```
 
 ### Session Caching
