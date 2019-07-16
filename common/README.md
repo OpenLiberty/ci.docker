@@ -169,11 +169,11 @@ The `springBoot` images introduce capabilities specific to the support of Spring
 
 When an `open-liberty` image starts, it can generate a Liberty server XML snippet in `/config/configDropins/defaults/keystore.xml` that specifies a `keyStore` stanza with a generated password. This causes Open Liberty to generate a default keystore and truststore with a self-signed certificate when it starts. This can request this by setting:
 
-```console
+```dockerfile
 ARG TLS=TRUE
 ```
 or
-```console
+```dockerfile
 ARG SSL=TRUE
 ```
 
