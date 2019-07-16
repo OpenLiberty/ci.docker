@@ -49,7 +49,7 @@ This section describes the optional enterprise functionality that can be enabled
   *  Note: With this option, `/metrics` endpoint is configured without authentication to support the environments that do not yet support scraping secured endpoints.
 * `TLS` or `SSL` (SSL is being deprecated)
   *  Decription: Enable Transport Security in Liberty by adding the `transportSecurity-1.0` feature (includes support for SSL).
-  *  XML Snippet Location:  [keystore.xml](ga/latest/kernel/helpers/build/configuration_snippets/keystore.xml).
+  *  XML Snippet Location:  [keystore.xml](/common/helpers/build/configuration_snippets/keystore.xml).
 * `IIOP_ENDPOINT`
   *  Decription: Add configuration properties for an IIOP endpoint.
   *  XML Snippet Location: [iiop-ssl-endpoint.xml](/common/helpers/build/configuration_snippets/iiop-ssl-endpoint.xml) when SSL is enabled. Otherwise, [iiop-endpoint.xml](/common/helpers/build/configuration_snippets/iiop-endpoint.xml).
