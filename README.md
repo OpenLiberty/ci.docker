@@ -65,6 +65,11 @@ This section describes the optional enterprise functionality that can be enabled
   *  XML Snippet Location: [oidc-config.xml](/common/helpers/build/configuration_snippets/oidc-config.xml)
   *  Note: The following variables will be read:  OIDC_CLIENT_ID, OIDC_CLIENT_SECRET, OIDC_DISCOVERY_URL.  
 
+To customize one of the built-in XML snippets, make a copy of the snippet from Github and edit it locally. Once you have completed your changes, use the `COPY` command inside your Dockerfile to copy the snippet into `/config/configDropins/overrides`. It is important to note that you do not need to set build-arguments (`ARG`) for any customized XML snippets. The following Dockerfile snippet is an example of how you should include the customized snippet.
+
+```dockerfile
+COPY --chown=1001:0 <path_to_customized_snippet> /config/configDropins/overrides
+```
 
 ### Session Caching
 
