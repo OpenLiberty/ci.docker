@@ -6,8 +6,8 @@
 
 usage="Usage (all args optional): buildAll.sh --version=<version> --buildLabel=<build label> --communityRepository=<communityRepository> --officialRepository=<officialRepository> --javaee8DownloadUrl=<javaee8 image download url> --runtimeDownloadUrl=<runtime image download url> --webprofile8DownloadUrl=<webprofile8 image download url>"
 
-version=19.0.0.6
-buildLabel=cl190620190617-1530
+version=19.0.0.7
+buildLabel=cl190720190711-1115
 communityRepository=openliberty/open-liberty
 officialRepository=open-liberty
 javaee8DownloadUrl="https://repo1.maven.org/maven2/io/openliberty/openliberty-javaee8/${version}/openliberty-javaee8-${version}.zip"
