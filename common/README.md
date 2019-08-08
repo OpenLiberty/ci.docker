@@ -167,17 +167,17 @@ The `springBoot` images introduce capabilities specific to the support of Spring
 
 # Providing your own keystore/truststore
 
-When an `open-liberty` image starts, it can generate a Liberty server XML snippet in `/config/configDropins/defaults/keystore.xml` that specifies a `keyStore` stanza with a generated password. This causes Open Liberty to generate a default keystore and truststore with a self-signed certificate when it starts. The `javaee8` and `javaee7` images do this automatically, but other images can request this by setting:
+When an `open-liberty` image starts, it can generate a Liberty server XML snippet in `/config/configDropins/defaults/keystore.xml` that specifies a `keyStore` stanza with a generated password. This causes Open Liberty to generate a default keystore and truststore with a self-signed certificate when it starts. This can request this by setting:
 
-```console
-ENV KEYSTORE_REQUIRED "true"
+```dockerfile
+ARG TLS=TRUE
+```
+or
+```dockerfile
+ARG SSL=TRUE
 ```
 
-When providing your own keystore/truststore, this default behavior can be disabled by adding:
-
-```console
-ENV KEYSTORE_REQUIRED "false"
-```
+When providing your own keystore/truststore, you don't need to write anything because TLS/SSL is disabled by default.
 
 It is good practice to place the keystore customization in `/config/configDropins/defaults/keystore.xml` even when not generated since this makes it easier to find and makes moving to the websphere-liberty docker image simpler.
 
