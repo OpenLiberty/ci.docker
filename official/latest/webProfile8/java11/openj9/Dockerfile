@@ -1,10 +1,10 @@
 FROM adoptopenjdk:11-jre-openj9
-ARG LIBERTY_VERSION=19.0.0.7
-ARG LIBERTY_SHA=12ce327ad1a365023639d4e2320ed9a1891295b3
-ARG LIBERTY_BUILD_LABEL=cl190720190711-1115
+ARG LIBERTY_VERSION=19.0.0.8
+ARG LIBERTY_SHA=337ee93375c7370a770f80424ee281583ea57657
+ARG LIBERTY_BUILD_LABEL=cl190820190813-1136
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-webProfile8/$LIBERTY_VERSION/openliberty-webProfile8-$LIBERTY_VERSION.zip
 
-LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Andy Naumann" \
+LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
