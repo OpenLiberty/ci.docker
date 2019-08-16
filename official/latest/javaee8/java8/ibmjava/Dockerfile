@@ -1,11 +1,11 @@
 
 FROM ibmjava:8-jre
-ARG LIBERTY_VERSION=19.0.0.7
-ARG LIBERTY_SHA=abb32a709e05b83bb34de58cb7bbb4d44770ec73
-ARG LIBERTY_BUILD_LABEL=cl190720190711-1115
+ARG LIBERTY_VERSION=19.0.0.8
+ARG LIBERTY_SHA=9a51f233406a24f0c89c7063cd6387bcefb88e7c
+ARG LIBERTY_BUILD_LABEL=cl190820190813-1136
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-javaee8/$LIBERTY_VERSION/openliberty-javaee8-$LIBERTY_VERSION.zip
 
-LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Andy Naumann" \
+LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \

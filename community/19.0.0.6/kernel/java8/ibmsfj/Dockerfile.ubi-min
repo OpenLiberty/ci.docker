@@ -4,7 +4,7 @@ ARG LIBERTY_SHA=4e97ebc8a94c75dead89282c04f78cac3c8e0ba4
 ARG LIBERTY_BUILD_LABEL=cl190620190617-1530
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 
-LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Andy Naumann" \
+LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \

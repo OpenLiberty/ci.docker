@@ -7,7 +7,7 @@
 ../official/latest/javaee7/java8/ibmsfj          javaee7-java8-ibmsfj
 ../official/latest/javaee7/java8/openj9          javaee7-java8-openj9
 ../official/latest/javaee7/java11/openj9         javaee7-java11
-../official/latest/javaee8/java8/ibmjava         javaee8-java8-ibm          javaee8
+../official/latest/javaee8/java8/ibmjava         javaee8-java8-ibm          javaee8        latest
 ../official/latest/javaee8/java8/ibmsfj          javaee8-java8-ibmsfj
 ../official/latest/javaee8/java8/openj9          javaee8-java8-openj9
 ../official/latest/javaee8/java11/openj9         javaee8-java11

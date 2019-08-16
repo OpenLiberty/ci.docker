@@ -1,10 +1,10 @@
 FROM ibmjava:8-sfj-alpine
-ARG LIBERTY_VERSION=19.0.0.7
-ARG LIBERTY_SHA=510581f6160de5a740305e47fa3475973c7d9914
-ARG LIBERTY_BUILD_LABEL=cl190720190711-1115
+ARG LIBERTY_VERSION=19.0.0.8
+ARG LIBERTY_SHA=13ef22f4cd881e9ccdf888802aa073e8bc308378
+ARG LIBERTY_BUILD_LABEL=cl190820190813-1136
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 
-LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Andy Naumann" \
+LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
