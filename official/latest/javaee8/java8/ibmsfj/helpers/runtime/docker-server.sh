@@ -7,7 +7,7 @@ SNIPPETS_TARGET=/config/configDropins/overrides
 
 keystorePath="$SNIPPETS_TARGET/keystore.xml"
 
-if [ "$SSL" == "true" ] || [ "$TLS" == "true" ]
+if [ "$SSL" = "true" ] || [ "$TLS" = "true" ]
 then
   if [ "$1" = "server" ] || [ "$1" = "/opt/ol/wlp/bin/server" ]
   then
