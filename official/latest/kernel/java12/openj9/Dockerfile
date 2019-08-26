@@ -39,9 +39,6 @@ ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:/opt/ol/helpers/build:$PATH \
 RUN /opt/ol/wlp/bin/server create \
     && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea
 
-# Temp workaround so that launcher script doesn't try to open up non-existatnt JDK-only modules
-COPY java9.options /opt/ol/wlp/lib/platform/java/
-
 # Create symlinks && set permissions for non-root user    
 RUN mkdir /logs \
     && mkdir -p /opt/ol/wlp/usr/shared/resources/lib.index.cache \
@@ -52,8 +49,6 @@ RUN mkdir /logs \
     && mkdir -p /config/configDropins/defaults \
     && mkdir -p /config/configDropins/overrides \
     && ln -s /opt/ol/wlp /liberty \
-    && chown -R 1001:0 /opt/ol/wlp/lib/platform/java/java9.options \
-    && chmod -R g+rw /opt/ol/wlp/lib/platform/java/java9.options \
     && mkdir -p /home/default \
     && chown -R 1001:0 /home/default \
     && chmod -R g+rw /home/default \
