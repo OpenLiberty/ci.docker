@@ -107,3 +107,6 @@
 ../official/19.0.0.3/webProfile8/java8/ibmjava   19.0.0.3-webProfile8-java8-ibm      19.0.0.3-webProfile8
 ../official/19.0.0.3/webProfile8/java8/ibmsfj    19.0.0.3-webProfile8-java8-ibmsfj
 ../official/19.0.0.3/webProfile8/java8/openj9    19.0.0.3-webProfile8-java8-openj9
+test-pet-clinic                                  test-pet-clinic                     test-pet-clinic
+test-stock-quote                                 test-stock-quote                    test-stock-quote
+test-stock-trader                                test-stock-trader                   test-stock-trader
