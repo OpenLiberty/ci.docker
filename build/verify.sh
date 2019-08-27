@@ -114,10 +114,10 @@ testLibertyStopsAndRestarts()
    $DOCKER rm -f $cid >/dev/null
 }
 
-# testDockerOnOpenShift()
-# {
-#    testLibertyStopsAndRestarts "OpenShift"
-# }
+testDockerOnOpenShift()
+{
+   testLibertyStopsAndRestarts "OpenShift"
+}
 
 tests=$(declare -F | cut -d" " -f3 | grep "test")
 for name in $tests
