@@ -101,7 +101,7 @@ do
 
   if [[ $imageTag =~ test- ]]
   then
-    verifyCommand="./verify.sh $imageTag"
+    verifyCommand="./verify.sh $repository:$imageTag"
     echo "Running verify script - $verifyCommand"
     eval $verifyCommand
   fi
