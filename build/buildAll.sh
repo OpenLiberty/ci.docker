@@ -70,50 +70,41 @@ do
     repository=$officialRepository
   fi
   buildCommand="./build.sh --dir=$buildContextDirectory --tag=$repository:$imageTag"
-  verifyCommand="./verify.sh $repository:$imageTag"
+  # verifyCommand="./verify.sh $repository:$imageTag"
   if [ ! -z "$imageTag2" ]
   then
     buildCommand="$buildCommand --tag2=$repository:$imageTag2"
-    verifyCommand="$verifyCommand $repository:$imageTag2"
+    # verifyCommand="$verifyCommand $repository:$imageTag2"
   fi
   if [ ! -z "$imageTag3" ]
   then
     buildCommand="$buildCommand --tag3=$repository:$imageTag3"
-    verifyCommand="$verifyCommand $repository:$imageTag3"
+    # verifyCommand="$verifyCommand $repository:$imageTag3"
   fi
 
   # extra arguments for the non-versioned image builds only, the versioned ones will get the defaults in their Dockerfile
   buildCommand="$buildCommand --version=$version --buildLabel=$buildLabel"
-  # verifyCommand="$verifyCommand --version=$version --buildLabel=$buildLabel"
 
   if [[ $imageTag =~ javaee8 ]]
   then
     buildCommand="$buildCommand --imageSha=$javaee8DownloadSha --imageUrl=$javaee8DownloadUrl"
-    # verifyCommand="$verifyCommand --imageSha=$javaee8DownloadSha --imageUrl=$javaee8DownloadUrl"
   elif [[ $imageTag =~ kernel ]]
   then
     buildCommand="$buildCommand --imageSha=$runtimeDownloadSha --imageUrl=$runtimeDownloadUrl"
-    # verifyCommand="$verifyCommand --imageSha=$runtimeDownloadSha --imageUrl=$runtimeDownloadUrl"
   elif [[ $imageTag =~ webProfile8 ]]
   then
     buildCommand="$buildCommand --imageSha=$webprofile8DownloadSha --imageUrl=$webprofile8DownloadUrl"
-    # verifyCommand="$verifyCommand --imageSha=$webprofile8DownloadSha --imageUrl=$webprofile8DownloadUrl"
   fi
 
   echo "Running build script - $buildCommand"
   eval $buildCommand
 
-  echo "Running verify script - $verifyCommand"
-  # verifyCommand="./verify.sh $imageTag"
-  # if [ ! -z "$imagTag2" ]
-  # then
-  #   verifyCommand="$verifyCommand -t $imageTag2"
-  # fi
-  # if [ ! -z "$imageTag3" ]
-  # then
-  #   verifyCommand="$verifyCommand -t $imageTag3"
-  # fi
-  eval $verifyCommand
+  if [[ $imageTag =~ test- ]]
+  then
+    verifyCommand="./verify.sh $imageTag"
+    echo "Running verify script - $verifyCommand"
+    eval $verifyCommand
+  fi
 
   if [ $? != 0 ]; then
     echo "Failed at image $imageTag ($buildContextDirectory) - exiting"
