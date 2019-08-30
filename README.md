@@ -73,7 +73,9 @@ COPY --chown=1001:0 <path_to_customized_snippet> /config/configDropins/overrides
 
 ### Logging
 
-It is important to be able to observe the logs emitted by Open Liberty when it is running in docker. Configure your Open Liberty docker image to emit JSON formatted logs to the console/standard-out with your selection of liberty logging events by providing the following environment variables to your Open Liberty DockerFile.
+It is important to be able to observe the logs emitted by Open Liberty when it is running in docker. A best practice method would be to emit the logs in JSON and to then consume it with a logging stack of your choice.
+
+Configure your Open Liberty docker image to emit JSON formatted logs to the console/standard-out with your selection of liberty logging events by providing the following environment variables to your Open Liberty DockerFile.
 
 For example:
 ```
@@ -83,7 +85,7 @@ ENV WLP_LOGGING_CONSOLE_LOGLEVEL=info
 ENV WLP_LOGGING_CONSOLE_SOURCE=message,trace,accessLog,ffdc,audit
 ```
 
-
+For more information regarding the configuration of Open Liberty's logging capabilities see: https://openliberty.io/docs/ref/general/#logging.html
 
 ### Session Caching
 
