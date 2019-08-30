@@ -8,7 +8,7 @@ There are three different Open Liberty Docker image sets available on Docker Hub
 
 1. **Community Images**: available [here](https://hub.docker.com/r/openliberty/open-liberty), these are images using Red Hat's [Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image) as the Operating System.  The Dockerfiles can be found in the [community](/community) directory.
 
-## Building an application image 
+## Building an application image
 
 According to Docker's best practices you should create a new image (`FROM open-liberty`) which adds a single application and the corresponding configuration. You should avoid configuring the image manually, after it started (unless it is for debugging purposes), because such changes won't be present if you spawn a new container from the image.
 
@@ -37,13 +37,13 @@ This will result in a Docker image that has your application and configuration p
 
 This section describes the optional enterprise functionality that can be enabled via the Dockerfile during `build` time, by setting particular build-arguments (`ARG`) and calling `RUN configure.sh`.  Each of these options trigger the inclusion of specific configuration via XML snippets, described below:
 
-* `HTTP_ENDPOINT` 
+* `HTTP_ENDPOINT`
   *  Decription: Add configuration properties for an HTTP endpoint.
   *  XML Snippet Location: [http-ssl-endpoint.xml](/common/helpers/build/configuration_snippets/http-ssl-endpoint.xml) when SSL is enabled. Otherwise [http-endpoint.xml](/common/helpers/build/configuration_snippets/http-endpoint.xml)
 * `MP_HEALTH_CHECK`
   *  Decription: Check the health of the environment using Liberty feature `mpHealth-1.0` (implements [MicroProfile Health](https://microprofile.io/project/eclipse/microprofile-health)).
   *  XML Snippet Location: [mp-health-check.xml](/common/helpers/build/configuration_snippets/mp-health-check.xml)
-* `MP_MONITORING` 
+* `MP_MONITORING`
   *  Decription: Monitor the server runtime environment and application metrics by using Liberty features `mpMetrics-1.1` (implements [Microprofile Metrics](https://microprofile.io/project/eclipse/microprofile-metrics)) and `monitor-1.0`.
   *  XML Snippet Location: [mp-monitoring.xml](/common/helpers/build/configuration_snippets/mp-monitoring.xml)
   *  Note: With this option, `/metrics` endpoint is configured without authentication to support the environments that do not yet support scraping secured endpoints.
@@ -59,7 +59,7 @@ This section describes the optional enterprise functionality that can be enabled
   *  XML Snippet Location: [jms-ssl-endpoint.xml](/common/helpers/build/configuration_snippets/jms-ssl-endpoint.xml) when SSL is enabled. Otherwise, [jms-endpoint.xml](/common/helpers/build/configuration_snippets/jms-endpoint.xml)
 * `OIDC`
   *  Decription: Enable OpenIdConnect Client function by adding the `openidConnectClient-1.0` feature.
-  *  XML Snippet Location: [oidc.xml](/common/helpers/build/configuration_snippets/oidc.xml) 
+  *  XML Snippet Location: [oidc.xml](/common/helpers/build/configuration_snippets/oidc.xml)
 * `OIDC_CONFIG`
   *  Decription: Enable OpenIdConnect Client configuration to be read from environment variables.  
   *  XML Snippet Location: [oidc-config.xml](/common/helpers/build/configuration_snippets/oidc-config.xml)
@@ -70,6 +70,20 @@ To customize one of the built-in XML snippets, make a copy of the snippet from G
 ```dockerfile
 COPY --chown=1001:0 <path_to_customized_snippet> /config/configDropins/overrides
 ```
+
+### Logging
+
+It is important to be able to observe the logs emitted by Open Liberty when it is running in docker. Configure your Open Liberty docker image to emit JSON formatted logs to the console/standard-out with your selection of liberty logging events by providing the following environment variables to your Open Liberty DockerFile.
+
+For example:
+```
+//This example illustrates the use of all available logging sources.
+ENV WLP_LOGGING_CONSOLE_FORMAT=JSON
+ENV WLP_LOGGING_CONSOLE_LOGLEVEL=info
+ENV WLP_LOGGING_CONSOLE_SOURCE=message,trace,accessLog,ffdc,audit
+```
+
+
 
 ### Session Caching
 
@@ -97,5 +111,3 @@ Currently the `common` folder contains the `docker-server` and `README.md` files
 the changes in `common` and then run `sync-master.sh` to copy these files to the directories the files need to be
 in for the Docker build. All the files need to be checked into git. Docker won't allow you to copy files from
 the parent directory structure, so this allows us to update once, rather than having to update in multiple locations.
-
-
