@@ -85,6 +85,12 @@ ENV WLP_LOGGING_CONSOLE_LOGLEVEL=info
 ENV WLP_LOGGING_CONSOLE_SOURCE=message,trace,accessLog,ffdc,audit
 ```
 
+These environment variables can be set during container invocation as well. This can be achieved by using the docker command's '-e' option to pass in an environment variable value.
+
+```
+docker run -d -p 80:9080 -p 443:9443 -e WLP_LOGGING_CONSOLE_FORMAT=JSON -e WLP_LOGGING_CONSOLE_LOGLEVEL=info -e WLP_LOGGING_CONSOLE_SOURCE=message,trace,accessLog,ffdc,audit open-liberty:latest
+```
+
 For more information regarding the configuration of Open Liberty's logging capabilities see: https://openliberty.io/docs/ref/general/#logging.html
 
 ### Session Caching
