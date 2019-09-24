@@ -44,6 +44,52 @@
 ../official/latest/webProfile8/java8/openj9      webProfile8-java8-openj9
 ../official/latest/webProfile8/java11/openj9     webProfile8-java11
 ../official/latest/webProfile8/java12/openj9     webProfile8-java12
+../official/19.0.0.9/kernel/java8/ibmjava          19.0.0.9-kernel-java8-ibm           19.0.0.9-kernel
+../official/19.0.0.9/kernel/java8/ibmsfj           19.0.0.9-kernel-java8-ibmsfj
+../official/19.0.0.9/kernel/java8/openj9           19.0.0.9-kernel-java8-openj9
+../official/19.0.0.9/kernel/java11/openj9          19.0.0.9-kernel-java11
+../official/19.0.0.9/kernel/java12/openj9          19.0.0.9-kernel-java12
+../official/19.0.0.9/javaee7/java8/ibmjava         19.0.0.9-javaee7-java8-ibm          19.0.0.9-javaee7
+../official/19.0.0.9/javaee7/java8/ibmsfj          19.0.0.9-javaee7-java8-ibmsfj
+../official/19.0.0.9/javaee7/java8/openj9          19.0.0.9-javaee7-java8-openj9
+../official/19.0.0.9/javaee7/java11/openj9         19.0.0.9-javaee7-java11
+../official/19.0.0.9/javaee8/java8/ibmjava         19.0.0.9-javaee8-java8-ibm          19.0.0.9-javaee8
+../official/19.0.0.9/javaee8/java8/ibmsfj          19.0.0.9-javaee8-java8-ibmsfj
+../official/19.0.0.9/javaee8/java8/openj9          19.0.0.9-javaee8-java8-openj9
+../official/19.0.0.9/javaee8/java11/openj9         19.0.0.9-javaee8-java11
+../official/19.0.0.9/javaee8/java12/openj9         19.0.0.9-javaee8-java12
+../official/19.0.0.9/microProfile1/java8/ibmjava   19.0.0.9-microProfile1-java8-ibm    19.0.0.9-microProfile1
+../official/19.0.0.9/microProfile1/java8/ibmsfj    19.0.0.9-microProfile1-java8-ibmsfj
+../official/19.0.0.9/microProfile1/java8/openj9    19.0.0.9-microProfile1-java8-openj9
+../official/19.0.0.9/microProfile1/java11/openj9   19.0.0.9-microProfile1-java11
+../official/19.0.0.9/microProfile2/java8/ibmjava   19.0.0.9-microProfile2-java8-ibm    19.0.0.9-microProfile2
+../official/19.0.0.9/microProfile2/java8/ibmsfj    19.0.0.9-microProfile2-java8-ibmsfj
+../official/19.0.0.9/microProfile2/java8/openj9    19.0.0.9-microProfile2-java8-openj9
+../official/19.0.0.9/microProfile2/java11/openj9   19.0.0.9-microProfile2-java11
+../official/19.0.0.9/microProfile2/java12/openj9   19.0.0.9-microProfile2-java12
+../official/19.0.0.9/microProfile3/java8/ibmjava   19.0.0.9-microProfile3-java8-ibm    19.0.0.9-microProfile2
+../official/19.0.0.9/microProfile3/java8/ibmsfj    19.0.0.9-microProfile3-java8-ibmsfj
+../official/19.0.0.9/microProfile3/java8/openj9    19.0.0.9-microProfile3-java8-openj9
+../official/19.0.0.9/microProfile3/java11/openj9   19.0.0.9-microProfile3-java11
+../official/19.0.0.9/microProfile3/java12/openj9   19.0.0.9-microProfile3-java12
+../official/19.0.0.9/springBoot1/java8/ibmjava     19.0.0.9-springBoot1-java8-ibm      19.0.0.9-springBoot1
+../official/19.0.0.9/springBoot1/java8/ibmsfj      19.0.0.9-springBoot1-java8-ibmsfj
+../official/19.0.0.9/springBoot1/java8/openj9      19.0.0.9-springBoot1-java8-openj9
+../official/19.0.0.9/springBoot1/java11/openj9     19.0.0.9-springBoot1-java11
+../official/19.0.0.9/springBoot2/java8/ibmjava     19.0.0.9-springBoot2-java8-ibm      19.0.0.9-springBoot2
+../official/19.0.0.9/springBoot2/java8/ibmsfj      19.0.0.9-springBoot2-java8-ibmsfj
+../official/19.0.0.9/springBoot2/java8/openj9      19.0.0.9-springBoot2-java8-openj9
+../official/19.0.0.9/springBoot2/java11/openj9     19.0.0.9-springBoot2-java11
+../official/19.0.0.9/springBoot2/java12/openj9     19.0.0.9-springBoot2-java12
+../official/19.0.0.9/webProfile7/java8/ibmjava     19.0.0.9-webProfile7-java8-ibm      19.0.0.9-webProfile7
+../official/19.0.0.9/webProfile7/java8/ibmsfj      19.0.0.9-webProfile7-java8-ibmsfj
+../official/19.0.0.9/webProfile7/java8/openj9      19.0.0.9-webProfile7-java8-openj9
+../official/19.0.0.9/webProfile7/java11/openj9     19.0.0.9-webProfile7-java11
+../official/19.0.0.9/webProfile8/java8/ibmjava     19.0.0.9-webProfile8-java8-ibm      19.0.0.9-webProfile8
+../official/19.0.0.9/webProfile8/java8/ibmsfj      19.0.0.9-webProfile8-java8-ibmsfj
+../official/19.0.0.9/webProfile8/java8/openj9      19.0.0.9-webProfile8-java8-openj9
+../official/19.0.0.9/webProfile8/java11/openj9     19.0.0.9-webProfile8-java11
+../official/19.0.0.9/webProfile8/java12/openj9     19.0.0.9-webProfile8-java12
 ../official/19.0.0.6/kernel/java8/ibmjava        19.0.0.6-kernel-java8-ibm           19.0.0.6-kernel
 ../official/19.0.0.6/kernel/java8/ibmsfj         19.0.0.6-kernel-java8-ibmsfj
 ../official/19.0.0.6/kernel/java8/openj9         19.0.0.6-kernel-java8-openj9
@@ -80,33 +126,6 @@
 ../official/19.0.0.6/webProfile8/java8/ibmsfj    19.0.0.6-webProfile8-java8-ibmsfj
 ../official/19.0.0.6/webProfile8/java8/openj9    19.0.0.6-webProfile8-java8-openj9
 ../official/19.0.0.6/webProfile8/java11/openj9   19.0.0.6-webProfile8-java11
-../official/19.0.0.3/kernel/java8/ibmjava        19.0.0.3-kernel-java8-ibm           19.0.0.3-kernel
-../official/19.0.0.3/kernel/java8/ibmsfj         19.0.0.3-kernel-java8-ibmsfj
-../official/19.0.0.3/kernel/java8/openj9         19.0.0.3-kernel-java8-openj9
-../official/19.0.0.3/javaee7/java8/ibmjava       19.0.0.3-javaee7-java8-ibm          19.0.0.3-javaee7
-../official/19.0.0.3/javaee7/java8/ibmsfj        19.0.0.3-javaee7-java8-ibmsfj
-../official/19.0.0.3/javaee7/java8/openj9        19.0.0.3-javaee7-java8-openj9
-../official/19.0.0.3/javaee8/java8/ibmjava       19.0.0.3-javaee8-java8-ibm          19.0.0.3-javaee8
-../official/19.0.0.3/javaee8/java8/ibmsfj        19.0.0.3-javaee8-java8-ibmsfj
-../official/19.0.0.3/javaee8/java8/openj9        19.0.0.3-javaee8-java8-openj9
-../official/19.0.0.3/microProfile1/java8/ibmjava 19.0.0.3-microProfile1-java8-ibm    19.0.0.3-microProfile1
-../official/19.0.0.3/microProfile1/java8/ibmsfj  19.0.0.3-microProfile1-java8-ibmsfj
-../official/19.0.0.3/microProfile1/java8/openj9  19.0.0.3-microProfile1-java8-openj9
-../official/19.0.0.3/microProfile2/java8/ibmjava 19.0.0.3-microProfile2-java8-ibm    19.0.0.3-microProfile2
-../official/19.0.0.3/microProfile2/java8/ibmsfj  19.0.0.3-microProfile2-java8-ibmsfj
-../official/19.0.0.3/microProfile2/java8/openj9  19.0.0.3-microProfile2-java8-openj9
-../official/19.0.0.3/springBoot1/java8/ibmjava   19.0.0.3-springBoot1-java8-ibm      19.0.0.3-springBoot1
-../official/19.0.0.3/springBoot1/java8/ibmsfj    19.0.0.3-springBoot1-java8-ibmsfj
-../official/19.0.0.3/springBoot1/java8/openj9    19.0.0.3-springBoot1-java8-openj9
-../official/19.0.0.3/springBoot2/java8/ibmjava   19.0.0.3-springBoot2-java8-ibm      19.0.0.3-springBoot2
-../official/19.0.0.3/springBoot2/java8/ibmsfj    19.0.0.3-springBoot2-java8-ibmsfj
-../official/19.0.0.3/springBoot2/java8/openj9    19.0.0.3-springBoot2-java8-openj9
-../official/19.0.0.3/webProfile7/java8/ibmjava   19.0.0.3-webProfile7-java8-ibm      19.0.0.3-webProfile7
-../official/19.0.0.3/webProfile7/java8/ibmsfj    19.0.0.3-webProfile7-java8-ibmsfj
-../official/19.0.0.3/webProfile7/java8/openj9    19.0.0.3-webProfile7-java8-openj9
-../official/19.0.0.3/webProfile8/java8/ibmjava   19.0.0.3-webProfile8-java8-ibm      19.0.0.3-webProfile8
-../official/19.0.0.3/webProfile8/java8/ibmsfj    19.0.0.3-webProfile8-java8-ibmsfj
-../official/19.0.0.3/webProfile8/java8/openj9    19.0.0.3-webProfile8-java8-openj9
 test-pet-clinic                                  test-pet-clinic                     test-pet-clinic
 test-stock-quote                                 test-stock-quote                    test-stock-quote
 test-stock-trader                                test-stock-trader                   test-stock-trader
