@@ -70,13 +70,16 @@ do
     repository=$officialRepository
   fi
   buildCommand="./build.sh --dir=$buildContextDirectory --tag=$repository:$imageTag"
+  # verifyCommand="./verify.sh $repository:$imageTag"
   if [ ! -z "$imageTag2" ]
   then
     buildCommand="$buildCommand --tag2=$repository:$imageTag2"
+    # verifyCommand="$verifyCommand $repository:$imageTag2"
   fi
   if [ ! -z "$imageTag3" ]
   then
     buildCommand="$buildCommand --tag3=$repository:$imageTag3"
+    # verifyCommand="$verifyCommand $repository:$imageTag3"
   fi
 
   # extra arguments for the non-versioned image builds only, the versioned ones will get the defaults in their Dockerfile
@@ -95,6 +98,13 @@ do
 
   echo "Running build script - $buildCommand"
   eval $buildCommand
+
+  if [[ $imageTag =~ test- ]]
+  then
+    verifyCommand="./verify.sh $repository:$imageTag"
+    echo "Running verify script - $verifyCommand"
+    eval $verifyCommand
+  fi
 
   if [ $? != 0 ]; then
     echo "Failed at image $imageTag ($buildContextDirectory) - exiting"
