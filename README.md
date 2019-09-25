@@ -91,6 +91,24 @@ These environment variables can be set during container invocation as well. This
 docker run -d -p 80:9080 -p 443:9443 -e WLP_LOGGING_CONSOLE_FORMAT=JSON -e WLP_LOGGING_CONSOLE_LOGLEVEL=info -e WLP_LOGGING_CONSOLE_SOURCE=message,trace,accessLog,ffdc,audit open-liberty:latest
 ```
 
+Disabling messages.log / trace.log output can be achieved by creating a `bootstrap.properties` file with the following environment variables.
+```
+com.ibm.ws.logging.trace.file.name=stdout
+com.ibm.ws.logging.trace.specification=com.ibm.ws.*=fine
+
+com.ibm.ws.logging.message.format=json
+com.ibm.ws.logging.message.source=
+
+com.ibm.ws.logging.console.source=message,trace
+com.ibm.ws.logging.console.format=json
+```
+
+Be sure to include the newly generated file into your Dockerfile as shown in the snippet below. 
+
+```dockerfile
+COPY --chown=1001:0  bootstrap.properties /config/
+```
+
 For more information regarding the configuration of Open Liberty's logging capabilities see: https://openliberty.io/docs/ref/general/#logging.html
 
 ### Session Caching
