@@ -79,7 +79,7 @@ Configure your Open Liberty docker image to emit JSON formatted logs to the cons
 ```dockerfile
 COPY --chown=1001:0  bootstrap.properties /config/
 ```
-Then include the following environment variables into the properties file you have just created.
+Then include the following environment variables into the properties file you have just created. As an optional feature, you can decide whether or not to disable `messages.log` or `trace.log` output.
 ```
 # direct events to console in json format
 com.ibm.ws.logging.console.log.level=info
