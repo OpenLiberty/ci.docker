@@ -75,11 +75,7 @@ COPY --chown=1001:0 <path_to_customized_snippet> /config/configDropins/overrides
 
 It is important to be able to observe the logs emitted by Open Liberty when it is running in docker. A best practice method would be to emit the logs in JSON and to then consume it with a logging stack of your choice.
 
-Configure your Open Liberty docker image to emit JSON formatted logs to the console/standard-out with your selection of liberty logging events by creating and adding a `bootstrap.properties` file to your Open Liberty Dockerfile.
-```dockerfile
-COPY --chown=1001:0  bootstrap.properties /config/
-```
-Then include the following environment variables into the properties file you have just created. As an optional feature, you can decide whether or not to disable `messages.log` or `trace.log` output.
+Configure your Open Liberty docker image to emit JSON formatted logs to the console/standard-out with your selection of liberty logging events by creating  a `bootstrap.properties` file with the following properties. You can also disable writing to the messages.log or trace.log files if you don't need them.
 ```
 # direct events to console in json format
 com.ibm.ws.logging.console.log.level=info
@@ -93,8 +89,12 @@ com.ibm.ws.logging.message.source=
 # disable writing to trace.log by only sending trace data to console (optional)
 com.ibm.ws.logging.trace.file.name=stdout
 ```
+Make sure to include the file you have just created into your Open Liberty Dockerfile.
+```dockerfile
+COPY --chown=1001:0  bootstrap.properties /config/
+```
 
-These configuration changes can also be set during container invocation by using the Docker command's '-e' option to pass in an environment variable value.
+Many of these configuration changes can also be set during container invocation by using the Docker command's '-e' option to pass in an environment variable value.
 ```
 docker run -d -p 80:9080 -p 443:9443 -e WLP_LOGGING_CONSOLE_FORMAT=JSON -e WLP_LOGGING_CONSOLE_LOGLEVEL=info -e WLP_LOGGING_CONSOLE_SOURCE=message,trace,accessLog,ffdc,audit open-liberty:latest
 ```
