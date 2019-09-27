@@ -75,31 +75,29 @@ COPY --chown=1001:0 <path_to_customized_snippet> /config/configDropins/overrides
 
 It is important to be able to observe the logs emitted by Open Liberty when it is running in docker. A best practice method would be to emit the logs in JSON and to then consume it with a logging stack of your choice.
 
-Configure your Open Liberty docker image to emit JSON formatted logs to the console/standard-out with your selection of liberty logging events. You may choose whether or not to disable messages and trace logs by making one of the following changes to your Open Liberty Dockerfile. 
-
+Configure your Open Liberty docker image to emit JSON formatted logs to the console/standard-out with your selection of liberty logging events by creating and adding a `bootstrap.properties` file to your Open Liberty Dockerfile.
 ```dockerfile
-// 1. Direct all logging sources to the console.
-ENV WLP_LOGGING_CONSOLE_FORMAT=JSON
-ENV WLP_LOGGING_CONSOLE_LOGLEVEL=info
-ENV WLP_LOGGING_CONSOLE_SOURCE=message,trace,accessLog,ffdc,audit
-
-// 2. Direct all logging sources to the console without messages or trace logs.
 COPY --chown=1001:0  bootstrap.properties /config/
 ```
+Then include the following environment variables into the properties file you have just created.
+```
+# direct events to console in json format
+com.ibm.ws.logging.console.log.level=info
+com.ibm.ws.logging.console.format=json
+com.ibm.ws.logging.console.source=message,trace,accessLog,ffdc,audit
 
-1. The instructions above direct all logging sources to the console and can also be set during container invocation. This can be achieved by using the docker command's '-e' option to pass in an environment variable value.
-    ```
-    docker run -d -p 80:9080 -p 443:9443 -e WLP_LOGGING_CONSOLE_FORMAT=JSON -e WLP_LOGGING_CONSOLE_LOGLEVEL=info -e WLP_LOGGING_CONSOLE_SOURCE=message,trace,accessLog,ffdc,audit open-liberty:latest
-    ```
-2. Directing all logging sources to the console/standard-out without messages or trace log output can be achieved by creating a `bootstrap.properties` file with the following properties.
+# disable writing to messages.log by not including any sources (optional)
+com.ibm.ws.logging.message.format=json
+com.ibm.ws.logging.message.source=
 
-    ```
-    com.ibm.ws.logging.console.format=json
-    com.ibm.ws.logging.console.source=message,trace,accessLog,ffdc,audit
-    com.ibm.ws.logging.message.format=json
-    com.ibm.ws.logging.message.source=
-    com.ibm.ws.logging.trace.file.name=stdout
-    ```
+# disable writing to trace.log by only sending trace data to console (optional)
+com.ibm.ws.logging.trace.file.name=stdout
+```
+
+These configuration changes can also be achieved by using the Docker command's '-e' option to pass in an environment variable value.
+```
+docker run -d -p 80:9080 -p 443:9443 -e WLP_LOGGING_CONSOLE_FORMAT=JSON -e WLP_LOGGING_CONSOLE_LOGLEVEL=info -e WLP_LOGGING_CONSOLE_SOURCE=message,trace,accessLog,ffdc,audit open-liberty:latest
+```
 
 For more information regarding the configuration of Open Liberty's logging capabilities see: https://openliberty.io/docs/ref/general/#logging.html
 
