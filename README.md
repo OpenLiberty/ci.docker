@@ -94,7 +94,7 @@ com.ibm.ws.logging.message.source=
 com.ibm.ws.logging.trace.file.name=stdout
 ```
 
-These configuration changes can also be achieved by using the Docker command's '-e' option to pass in an environment variable value.
+These configuration changes can also be set during container invocation by using the Docker command's '-e' option to pass in an environment variable value.
 ```
 docker run -d -p 80:9080 -p 443:9443 -e WLP_LOGGING_CONSOLE_FORMAT=JSON -e WLP_LOGGING_CONSOLE_LOGLEVEL=info -e WLP_LOGGING_CONSOLE_SOURCE=message,trace,accessLog,ffdc,audit open-liberty:latest
 ```
