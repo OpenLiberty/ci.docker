@@ -75,18 +75,26 @@ COPY --chown=1001:0 <path_to_customized_snippet> /config/configDropins/overrides
 
 It is important to be able to observe the logs emitted by Open Liberty when it is running in docker. A best practice method would be to emit the logs in JSON and to then consume it with a logging stack of your choice.
 
-Configure your Open Liberty docker image to emit JSON formatted logs to the console/standard-out with your selection of liberty logging events by providing the following environment variables to your Open Liberty DockerFile.
-
-For example:
+Configure your Open Liberty docker image to emit JSON formatted logs to the console/standard-out with your selection of liberty logging events by creating  a `bootstrap.properties` file with the following properties. You can also disable writing to the messages.log or trace.log files if you don't need them.
 ```
-//This example illustrates the use of all available logging sources.
-ENV WLP_LOGGING_CONSOLE_FORMAT=JSON
-ENV WLP_LOGGING_CONSOLE_LOGLEVEL=info
-ENV WLP_LOGGING_CONSOLE_SOURCE=message,trace,accessLog,ffdc,audit
+# direct events to console in json format
+com.ibm.ws.logging.console.log.level=info
+com.ibm.ws.logging.console.format=json
+com.ibm.ws.logging.console.source=message,trace,accessLog,ffdc,audit
+
+# disable writing to messages.log by not including any sources (optional)
+com.ibm.ws.logging.message.format=json
+com.ibm.ws.logging.message.source=
+
+# disable writing to trace.log by only sending trace data to console (optional)
+com.ibm.ws.logging.trace.file.name=stdout
+```
+Make sure to include the file you have just created into your Open Liberty Dockerfile.
+```dockerfile
+COPY --chown=1001:0  bootstrap.properties /config/
 ```
 
-These environment variables can be set during container invocation as well. This can be achieved by using the docker command's '-e' option to pass in an environment variable value.
-
+Many of these configuration changes can also be set during container invocation by using the Docker command's '-e' option to pass in an environment variable value.
 ```
 docker run -d -p 80:9080 -p 443:9443 -e WLP_LOGGING_CONSOLE_FORMAT=JSON -e WLP_LOGGING_CONSOLE_LOGLEVEL=info -e WLP_LOGGING_CONSOLE_SOURCE=message,trace,accessLog,ffdc,audit open-liberty:latest
 ```
