@@ -1,8 +1,8 @@
 
 FROM ibmjava:8-jre
-ARG LIBERTY_VERSION=19.0.0.9
-ARG LIBERTY_SHA=cae152410111d34a8bf4859d67ea70f621190e55
-ARG LIBERTY_BUILD_LABEL=cl190920190905-0148
+ARG LIBERTY_VERSION=19.0.0.10
+ARG LIBERTY_SHA=1fdfe7d6119b4948c63b50a140b3c8aeb6bc8301
+ARG LIBERTY_BUILD_LABEL=cl191020191002-0300
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-webProfile8/$LIBERTY_VERSION/openliberty-webProfile8-$LIBERTY_VERSION.zip
 
 LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter" \
