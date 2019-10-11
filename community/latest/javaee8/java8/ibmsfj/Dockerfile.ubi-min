@@ -1,8 +1,8 @@
 
 FROM ibmjava:8-ibmsfj-ubi-min
-ARG LIBERTY_VERSION=19.0.0.9
-ARG LIBERTY_SHA=bfba15b347c89e5b239b6b93aa1fe4cd9039a70f
-ARG LIBERTY_BUILD_LABEL=cl190920190905-0148
+ARG LIBERTY_VERSION=19.0.0.10
+ARG LIBERTY_SHA=0987353b4479ac5d344bc002e84ac15127760aca
+ARG LIBERTY_BUILD_LABEL=cl191020191002-0300
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-javaee8/$LIBERTY_VERSION/openliberty-javaee8-$LIBERTY_VERSION.zip
 
 LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter" \
