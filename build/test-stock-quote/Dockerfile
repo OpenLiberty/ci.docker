@@ -13,7 +13,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-FROM openliberty/open-liberty:microProfile2-ubi-min
+FROM openliberty/open-liberty:kernel-ubi-min
 
 COPY --chown=1001:0 config /config/
 COPY --chown=1001:0 stock-quote-1.0-SNAPSHOT.war /config/apps/StockQuote.war
