@@ -1,5 +1,5 @@
 
-ARG IMAGE=openliberty/open-liberty:springBoot2-ubi-min
+ARG IMAGE=openliberty/open-liberty:kernel-ubi-min
 FROM ${IMAGE} as staging
 
 COPY --chown=1001:0 spring-petclinic-2.1.0.BUILD-SNAPSHOT.jar /staging/myFatApp.jar
@@ -10,5 +10,6 @@ RUN springBootUtility thin \
  --targetLibCachePath=/staging/lib.index.cache
 
 FROM ${IMAGE}
+COPY --chown=1001:0 server.xml /config/server.xml
 COPY --from=staging /staging/lib.index.cache /lib.index.cache
 COPY --from=staging /staging/myThinApp.jar /config/dropins/spring/myThinApp.jar

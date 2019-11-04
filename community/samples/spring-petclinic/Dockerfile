@@ -1,4 +1,4 @@
-ARG IMAGE=openliberty/open-liberty:springBoot2-ubi-min
+ARG IMAGE=open-liberty:kernel
 FROM ${IMAGE} as staging
 
 COPY --chown=1001:0 spring-petclinic-2.1.0.BUILD-SNAPSHOT.jar /staging/myFatApp.jar
