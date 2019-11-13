@@ -1,12 +1,13 @@
 # Docker Hub images
 
-There are three different Open Liberty Docker image sets available on Docker Hub:
+There are two different Open Liberty Docker image sets available on Docker Hub:
 
-1. **Official Images**:  available [here](https://hub.docker.com/_/open-liberty), these are re-build automatically anytime something changes in the layers below, and updated with new Open Liberty binaries as they become available (generally every 4 weeks).  The Dockerfiles can be found in the [official](/official) directory.  There are tags with different combinations of Java and Operating System versions.
+1. **Supported Images**: 
+  1.  Our recommended set [here](https://hub.docker.com/r/openliberty/open-liberty).  These are images using Red Hat's [Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image) as the Operating System and are re-built daily.  
+  1.  Other sets can be found [here](https://hub.docker.com/_/open-liberty).  These are re-built automatically anytime something changes in the layers below.  There are tags with different combinations of Java and Operating System versions.
 
 1. **Daily Images**: available [here](https://hub.docker.com/r/openliberty/daily), these are daily images from the daily Open Liberty binaries.  The scripts used for this image can be found [here](https://github.com/OpenLiberty/ci.docker.daily).
 
-1. **Community Images**: available [here](https://hub.docker.com/r/openliberty/open-liberty), these are images using Red Hat's [Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image) as the Operating System.  The Dockerfiles can be found in the [community](/community) directory.
 
 ## Building an application image
 
