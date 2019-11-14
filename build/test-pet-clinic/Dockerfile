@@ -1,4 +1,3 @@
-
 ARG IMAGE=openliberty/open-liberty:kernel-ubi-min
 FROM ${IMAGE} as staging
 

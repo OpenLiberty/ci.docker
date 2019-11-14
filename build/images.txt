@@ -1,87 +1,84 @@
-../official/latest/kernel/java8/openj9            kernel-java8-openj9           kernel
-../official/latest/full/java8/openj9              full-java8-openj9          full        latest
-../official/19.0.0.9/kernel/java8/ibmjava          19.0.0.9-kernel-java8-ibm           19.0.0.9-kernel
-../official/19.0.0.9/kernel/java8/ibmsfj           19.0.0.9-kernel-java8-ibmsfj
-../official/19.0.0.9/kernel/java8/openj9           19.0.0.9-kernel-java8-openj9
-../official/19.0.0.9/kernel/java11/openj9          19.0.0.9-kernel-java11
-../official/19.0.0.9/kernel/java12/openj9          19.0.0.9-kernel-java12
-../official/19.0.0.9/javaee7/java8/ibmjava         19.0.0.9-javaee7-java8-ibm          19.0.0.9-javaee7
-../official/19.0.0.9/javaee7/java8/ibmsfj          19.0.0.9-javaee7-java8-ibmsfj
-../official/19.0.0.9/javaee7/java8/openj9          19.0.0.9-javaee7-java8-openj9
-../official/19.0.0.9/javaee7/java11/openj9         19.0.0.9-javaee7-java11
-../official/19.0.0.9/javaee8/java8/ibmjava         19.0.0.9-javaee8-java8-ibm          19.0.0.9-javaee8
-../official/19.0.0.9/javaee8/java8/ibmsfj          19.0.0.9-javaee8-java8-ibmsfj
-../official/19.0.0.9/javaee8/java8/openj9          19.0.0.9-javaee8-java8-openj9
-../official/19.0.0.9/javaee8/java11/openj9         19.0.0.9-javaee8-java11
-../official/19.0.0.9/javaee8/java12/openj9         19.0.0.9-javaee8-java12
-../official/19.0.0.9/microProfile1/java8/ibmjava   19.0.0.9-microProfile1-java8-ibm    19.0.0.9-microProfile1
-../official/19.0.0.9/microProfile1/java8/ibmsfj    19.0.0.9-microProfile1-java8-ibmsfj
-../official/19.0.0.9/microProfile1/java8/openj9    19.0.0.9-microProfile1-java8-openj9
-../official/19.0.0.9/microProfile1/java11/openj9   19.0.0.9-microProfile1-java11
-../official/19.0.0.9/microProfile2/java8/ibmjava   19.0.0.9-microProfile2-java8-ibm    19.0.0.9-microProfile2
-../official/19.0.0.9/microProfile2/java8/ibmsfj    19.0.0.9-microProfile2-java8-ibmsfj
-../official/19.0.0.9/microProfile2/java8/openj9    19.0.0.9-microProfile2-java8-openj9
-../official/19.0.0.9/microProfile2/java11/openj9   19.0.0.9-microProfile2-java11
-../official/19.0.0.9/microProfile2/java12/openj9   19.0.0.9-microProfile2-java12
-../official/19.0.0.9/microProfile3/java8/ibmjava   19.0.0.9-microProfile3-java8-ibm    19.0.0.9-microProfile2
-../official/19.0.0.9/microProfile3/java8/ibmsfj    19.0.0.9-microProfile3-java8-ibmsfj
-../official/19.0.0.9/microProfile3/java8/openj9    19.0.0.9-microProfile3-java8-openj9
-../official/19.0.0.9/microProfile3/java11/openj9   19.0.0.9-microProfile3-java11
-../official/19.0.0.9/microProfile3/java12/openj9   19.0.0.9-microProfile3-java12
-../official/19.0.0.9/springBoot1/java8/ibmjava     19.0.0.9-springBoot1-java8-ibm      19.0.0.9-springBoot1
-../official/19.0.0.9/springBoot1/java8/ibmsfj      19.0.0.9-springBoot1-java8-ibmsfj
-../official/19.0.0.9/springBoot1/java8/openj9      19.0.0.9-springBoot1-java8-openj9
-../official/19.0.0.9/springBoot1/java11/openj9     19.0.0.9-springBoot1-java11
-../official/19.0.0.9/springBoot2/java8/ibmjava     19.0.0.9-springBoot2-java8-ibm      19.0.0.9-springBoot2
-../official/19.0.0.9/springBoot2/java8/ibmsfj      19.0.0.9-springBoot2-java8-ibmsfj
-../official/19.0.0.9/springBoot2/java8/openj9      19.0.0.9-springBoot2-java8-openj9
-../official/19.0.0.9/springBoot2/java11/openj9     19.0.0.9-springBoot2-java11
-../official/19.0.0.9/springBoot2/java12/openj9     19.0.0.9-springBoot2-java12
-../official/19.0.0.9/webProfile7/java8/ibmjava     19.0.0.9-webProfile7-java8-ibm      19.0.0.9-webProfile7
-../official/19.0.0.9/webProfile7/java8/ibmsfj      19.0.0.9-webProfile7-java8-ibmsfj
-../official/19.0.0.9/webProfile7/java8/openj9      19.0.0.9-webProfile7-java8-openj9
-../official/19.0.0.9/webProfile7/java11/openj9     19.0.0.9-webProfile7-java11
-../official/19.0.0.9/webProfile8/java8/ibmjava     19.0.0.9-webProfile8-java8-ibm      19.0.0.9-webProfile8
-../official/19.0.0.9/webProfile8/java8/ibmsfj      19.0.0.9-webProfile8-java8-ibmsfj
-../official/19.0.0.9/webProfile8/java8/openj9      19.0.0.9-webProfile8-java8-openj9
-../official/19.0.0.9/webProfile8/java11/openj9     19.0.0.9-webProfile8-java11
-../official/19.0.0.9/webProfile8/java12/openj9     19.0.0.9-webProfile8-java12
-../official/19.0.0.6/kernel/java8/ibmjava        19.0.0.6-kernel-java8-ibm           19.0.0.6-kernel
-../official/19.0.0.6/kernel/java8/ibmsfj         19.0.0.6-kernel-java8-ibmsfj
-../official/19.0.0.6/kernel/java8/openj9         19.0.0.6-kernel-java8-openj9
-../official/19.0.0.6/kernel/java11/openj9        19.0.0.6-kernel-java11
-../official/19.0.0.6/javaee7/java8/ibmjava       19.0.0.6-javaee7-java8-ibm          19.0.0.6-javaee7
-../official/19.0.0.6/javaee7/java8/ibmsfj        19.0.0.6-javaee7-java8-ibmsfj
-../official/19.0.0.6/javaee7/java8/openj9        19.0.0.6-javaee7-java8-openj9
-../official/19.0.0.6/javaee7/java11/openj9       19.0.0.6-javaee7-java11
-../official/19.0.0.6/javaee8/java8/ibmjava       19.0.0.6-javaee8-java8-ibm          19.0.0.6-javaee8
-../official/19.0.0.6/javaee8/java8/ibmsfj        19.0.0.6-javaee8-java8-ibmsfj
-../official/19.0.0.6/javaee8/java8/openj9        19.0.0.6-javaee8-java8-openj9
-../official/19.0.0.6/javaee8/java11/openj9       19.0.0.6-javaee8-java11
-../official/19.0.0.6/microProfile1/java8/ibmjava 19.0.0.6-microProfile1-java8-ibm    19.0.0.6-microProfile1
-../official/19.0.0.6/microProfile1/java8/ibmsfj  19.0.0.6-microProfile1-java8-ibmsfj
-../official/19.0.0.6/microProfile1/java8/openj9  19.0.0.6-microProfile1-java8-openj9
-../official/19.0.0.6/microProfile1/java11/openj9 19.0.0.6-microProfile1-java11
-../official/19.0.0.6/microProfile2/java8/ibmjava 19.0.0.6-microProfile2-java8-ibm    19.0.0.6-microProfile2
-../official/19.0.0.6/microProfile2/java8/ibmsfj  19.0.0.6-microProfile2-java8-ibmsfj
-../official/19.0.0.6/microProfile2/java8/openj9  19.0.0.6-microProfile2-java8-openj9
-../official/19.0.0.6/microProfile2/java11/openj9 19.0.0.6-microProfile2-java11
-../official/19.0.0.6/springBoot1/java8/ibmjava   19.0.0.6-springBoot1-java8-ibm      19.0.0.6-springBoot1
-../official/19.0.0.6/springBoot1/java8/ibmsfj    19.0.0.6-springBoot1-java8-ibmsfj
-../official/19.0.0.6/springBoot1/java8/openj9    19.0.0.6-springBoot1-java8-openj9
-../official/19.0.0.6/springBoot1/java11/openj9   19.0.0.6-springBoot1-java11
-../official/19.0.0.6/springBoot2/java8/ibmjava   19.0.0.6-springBoot2-java8-ibm      19.0.0.6-springBoot2
-../official/19.0.0.6/springBoot2/java8/ibmsfj    19.0.0.6-springBoot2-java8-ibmsfj
-../official/19.0.0.6/springBoot2/java8/openj9    19.0.0.6-springBoot2-java8-openj9
-../official/19.0.0.6/springBoot2/java11/openj9   19.0.0.6-springBoot2-java11
-../official/19.0.0.6/webProfile7/java8/ibmjava   19.0.0.6-webProfile7-java8-ibm      19.0.0.6-webProfile7
-../official/19.0.0.6/webProfile7/java8/ibmsfj    19.0.0.6-webProfile7-java8-ibmsfj
-../official/19.0.0.6/webProfile7/java8/openj9    19.0.0.6-webProfile7-java8-openj9
-../official/19.0.0.6/webProfile7/java11/openj9   19.0.0.6-webProfile7-java11
-../official/19.0.0.6/webProfile8/java8/ibmjava   19.0.0.6-webProfile8-java8-ibm      19.0.0.6-webProfile8
-../official/19.0.0.6/webProfile8/java8/ibmsfj    19.0.0.6-webProfile8-java8-ibmsfj
-../official/19.0.0.6/webProfile8/java8/openj9    19.0.0.6-webProfile8-java8-openj9
-../official/19.0.0.6/webProfile8/java11/openj9   19.0.0.6-webProfile8-java11
-test-pet-clinic                                  test-pet-clinic                     test-pet-clinic
-test-stock-quote                                 test-stock-quote                    test-stock-quote
-test-stock-trader                                test-stock-trader                   test-stock-trader
+../releases/latest/kernel       	 Dockerfile.ubuntu.adoptopenjdk8    open-liberty    kernel-java8-openj9           kernel
+../releases/latest/kernel       	 Dockerfile.ubi-min.adoptopenjdk8    open-liberty    kernel-java8-openj9-ubi-min           
+../releases/latest/kernel       	 Dockerfile.ubi-min.adoptopenjdk11    open-liberty    kernel-java11-openj9-ubi-min        
+../releases/latest/kernel       	 Dockerfile.ubi-min.adoptopenjdk13    open-liberty    kernel-java13-openj9-ubi-min        
+../releases/latest/full            	Dockerfile.ubuntu.adoptopenjdk8    open-liberty     full-java8-openj9                  
+../releases/latest/full            	Dockerfile.ubi-min.adoptopenjdk8    open-liberty     full-java8-openj9-ubi-min                  
+../releases/latest/full            	Dockerfile.ubi-min.adoptopenjdk11    open-liberty     full-java11-openj9-ubi-min                  
+../releases/latest/full            	Dockerfile.ubi-min.adoptopenjdk13    open-liberty     full-java13-openj9-ubi-min                  
+../releases/19.0.0.9/kernel            Dockerfile.ubuntu.ibmjava8     open-liberty         19.0.0.9-kernel-java8-ibm           19.0.0.9-kernel
+../releases/19.0.0.9/kernel            Dockerfile.alpine.ibmsfj8   open-liberty           19.0.0.9-kernel-java8-ibmsfj
+../releases/19.0.0.9/kernel            Dockerfile.ubuntu.adoptopenjdk8    open-liberty     19.0.0.9-kernel-java8-openj9
+../releases/19.0.0.9/kernel            Dockerfile.ubuntu.adoptopenjdk11   open-liberty          19.0.0.9-kernel-java11
+../releases/19.0.0.9/javaee7            Dockerfile.ubuntu.ibmjava8     open-liberty         19.0.0.9-javaee7-java8-ibm          19.0.0.9-javaee7
+../releases/19.0.0.9/javaee7            Dockerfile.alpine.ibmsfj8   open-liberty          19.0.0.9-javaee7-java8-ibmsfj
+../releases/19.0.0.9/javaee7            Dockerfile.ubuntu.adoptopenjdk8    open-liberty         19.0.0.9-javaee7-java8-openj9
+../releases/19.0.0.9/javaee7            Dockerfile.ubuntu.adoptopenjdk11   open-liberty         19.0.0.9-javaee7-java11
+../releases/19.0.0.9/javaee8            Dockerfile.ubuntu.ibmjava8     open-liberty         19.0.0.9-javaee8-java8-ibm          19.0.0.9-javaee8
+../releases/19.0.0.9/javaee8            Dockerfile.alpine.ibmsfj8   open-liberty          19.0.0.9-javaee8-java8-ibmsfj
+../releases/19.0.0.9/javaee8            Dockerfile.ubuntu.adoptopenjdk8    open-liberty         19.0.0.9-javaee8-java8-openj9
+../releases/19.0.0.9/javaee8            Dockerfile.ubuntu.adoptopenjdk11   open-liberty         19.0.0.9-javaee8-java11
+../releases/19.0.0.9/microProfile1            Dockerfile.ubuntu.ibmjava8     open-liberty   19.0.0.9-microProfile1-java8-ibm    19.0.0.9-microProfile1
+../releases/19.0.0.9/microProfile1            Dockerfile.alpine.ibmsfj8   open-liberty    19.0.0.9-microProfile1-java8-ibmsfj
+../releases/19.0.0.9/microProfile1            Dockerfile.ubuntu.adoptopenjdk8    open-liberty   19.0.0.9-microProfile1-java8-openj9
+../releases/19.0.0.9/microProfile1            Dockerfile.ubuntu.adoptopenjdk11   open-liberty   19.0.0.9-microProfile1-java11
+../releases/19.0.0.9/microProfile2            Dockerfile.ubuntu.ibmjava8     open-liberty   19.0.0.9-microProfile2-java8-ibm    19.0.0.9-microProfile2
+../releases/19.0.0.9/microProfile2            Dockerfile.alpine.ibmsfj8   open-liberty    19.0.0.9-microProfile2-java8-ibmsfj
+../releases/19.0.0.9/microProfile2            Dockerfile.ubuntu.adoptopenjdk8    open-liberty   19.0.0.9-microProfile2-java8-openj9
+../releases/19.0.0.9/microProfile2            Dockerfile.ubuntu.adoptopenjdk11   open-liberty   19.0.0.9-microProfile2-java11
+../releases/19.0.0.9/microProfile3            Dockerfile.ubuntu.ibmjava8     open-liberty   19.0.0.9-microProfile3-java8-ibm    19.0.0.9-microProfile2
+../releases/19.0.0.9/microProfile3            Dockerfile.alpine.ibmsfj8   open-liberty    19.0.0.9-microProfile3-java8-ibmsfj
+../releases/19.0.0.9/microProfile3            Dockerfile.ubuntu.adoptopenjdk8    open-liberty   19.0.0.9-microProfile3-java8-openj9
+../releases/19.0.0.9/microProfile3            Dockerfile.ubuntu.adoptopenjdk11   open-liberty   19.0.0.9-microProfile3-java11
+../releases/19.0.0.9/springBoot1            Dockerfile.ubuntu.ibmjava8     open-liberty     19.0.0.9-springBoot1-java8-ibm      19.0.0.9-springBoot1
+../releases/19.0.0.9/springBoot1            Dockerfile.alpine.ibmsfj8   open-liberty      19.0.0.9-springBoot1-java8-ibmsfj
+../releases/19.0.0.9/springBoot1            Dockerfile.ubuntu.adoptopenjdk8    open-liberty     19.0.0.9-springBoot1-java8-openj9
+../releases/19.0.0.9/springBoot1            Dockerfile.ubuntu.adoptopenjdk11   open-liberty     19.0.0.9-springBoot1-java11
+../releases/19.0.0.9/springBoot2            Dockerfile.ubuntu.ibmjava8     open-liberty     19.0.0.9-springBoot2-java8-ibm      19.0.0.9-springBoot2
+../releases/19.0.0.9/springBoot2            Dockerfile.alpine.ibmsfj8   open-liberty      19.0.0.9-springBoot2-java8-ibmsfj
+../releases/19.0.0.9/springBoot2            Dockerfile.ubuntu.adoptopenjdk8    open-liberty     19.0.0.9-springBoot2-java8-openj9
+../releases/19.0.0.9/springBoot2            Dockerfile.ubuntu.adoptopenjdk11   open-liberty     19.0.0.9-springBoot2-java11
+../releases/19.0.0.9/webProfile7            Dockerfile.ubuntu.ibmjava8     open-liberty     19.0.0.9-webProfile7-java8-ibm      19.0.0.9-webProfile7
+../releases/19.0.0.9/webProfile7            Dockerfile.alpine.ibmsfj8   open-liberty      19.0.0.9-webProfile7-java8-ibmsfj
+../releases/19.0.0.9/webProfile7            Dockerfile.ubuntu.adoptopenjdk8    open-liberty     19.0.0.9-webProfile7-java8-openj9
+../releases/19.0.0.9/webProfile7            Dockerfile.ubuntu.adoptopenjdk11   open-liberty     19.0.0.9-webProfile7-java11
+../releases/19.0.0.9/webProfile8            Dockerfile.ubuntu.ibmjava8     open-liberty     19.0.0.9-webProfile8-java8-ibm      19.0.0.9-webProfile8
+../releases/19.0.0.9/webProfile8            Dockerfile.alpine.ibmsfj8   open-liberty      19.0.0.9-webProfile8-java8-ibmsfj
+../releases/19.0.0.9/webProfile8            Dockerfile.ubuntu.adoptopenjdk8    open-liberty     19.0.0.9-webProfile8-java8-openj9
+../releases/19.0.0.9/webProfile8            Dockerfile.ubuntu.adoptopenjdk11   open-liberty     19.0.0.9-webProfile8-java11
+../releases/19.0.0.6/kernel            Dockerfile.ubuntu.ibmjava8     open-liberty        19.0.0.6-kernel-java8-ibm           19.0.0.6-kernel
+../releases/19.0.0.6/kernel            Dockerfile.alpine.ibmsfj8   open-liberty         19.0.0.6-kernel-java8-ibmsfj
+../releases/19.0.0.6/kernel            Dockerfile.ubuntu.adoptopenjdk8    open-liberty        19.0.0.6-kernel-java8-openj9
+../releases/19.0.0.6/kernel            Dockerfile.ubuntu.adoptopenjdk11   open-liberty        19.0.0.6-kernel-java11
+../releases/19.0.0.6/javaee7            Dockerfile.ubuntu.ibmjava8     open-liberty       19.0.0.6-javaee7-java8-ibm          19.0.0.6-javaee7
+../releases/19.0.0.6/javaee7            Dockerfile.alpine.ibmsfj8   open-liberty        19.0.0.6-javaee7-java8-ibmsfj
+../releases/19.0.0.6/javaee7            Dockerfile.ubuntu.adoptopenjdk8    open-liberty       19.0.0.6-javaee7-java8-openj9
+../releases/19.0.0.6/javaee7            Dockerfile.ubuntu.adoptopenjdk11   open-liberty       19.0.0.6-javaee7-java11
+../releases/19.0.0.6/javaee8            Dockerfile.ubuntu.ibmjava8     open-liberty       19.0.0.6-javaee8-java8-ibm          19.0.0.6-javaee8
+../releases/19.0.0.6/javaee8            Dockerfile.alpine.ibmsfj8   open-liberty        19.0.0.6-javaee8-java8-ibmsfj
+../releases/19.0.0.6/javaee8            Dockerfile.ubuntu.adoptopenjdk8    open-liberty       19.0.0.6-javaee8-java8-openj9
+../releases/19.0.0.6/javaee8            Dockerfile.ubuntu.adoptopenjdk11   open-liberty       19.0.0.6-javaee8-java11
+../releases/19.0.0.6/microProfile1            Dockerfile.ubuntu.ibmjava8     open-liberty 19.0.0.6-microProfile1-java8-ibm    19.0.0.6-microProfile1
+../releases/19.0.0.6/microProfile1            Dockerfile.alpine.ibmsfj8   open-liberty  19.0.0.6-microProfile1-java8-ibmsfj
+../releases/19.0.0.6/microProfile1            Dockerfile.ubuntu.adoptopenjdk8    open-liberty 19.0.0.6-microProfile1-java8-openj9
+../releases/19.0.0.6/microProfile1            Dockerfile.ubuntu.adoptopenjdk11   open-liberty 19.0.0.6-microProfile1-java11
+../releases/19.0.0.6/microProfile2            Dockerfile.ubuntu.ibmjava8     open-liberty 19.0.0.6-microProfile2-java8-ibm    19.0.0.6-microProfile2
+../releases/19.0.0.6/microProfile2            Dockerfile.alpine.ibmsfj8   open-liberty  19.0.0.6-microProfile2-java8-ibmsfj
+../releases/19.0.0.6/microProfile2            Dockerfile.ubuntu.adoptopenjdk8    open-liberty 19.0.0.6-microProfile2-java8-openj9
+../releases/19.0.0.6/microProfile2            Dockerfile.ubuntu.adoptopenjdk11   open-liberty 19.0.0.6-microProfile2-java11
+../releases/19.0.0.6/springBoot1            Dockerfile.ubuntu.ibmjava8     open-liberty   19.0.0.6-springBoot1-java8-ibm      19.0.0.6-springBoot1
+../releases/19.0.0.6/springBoot1            Dockerfile.alpine.ibmsfj8   open-liberty    19.0.0.6-springBoot1-java8-ibmsfj
+../releases/19.0.0.6/springBoot1            Dockerfile.ubuntu.adoptopenjdk8    open-liberty   19.0.0.6-springBoot1-java8-openj9
+../releases/19.0.0.6/springBoot1            Dockerfile.ubuntu.adoptopenjdk11   open-liberty   19.0.0.6-springBoot1-java11
+../releases/19.0.0.6/springBoot2            Dockerfile.ubuntu.ibmjava8     open-liberty   19.0.0.6-springBoot2-java8-ibm      19.0.0.6-springBoot2
+../releases/19.0.0.6/springBoot2            Dockerfile.alpine.ibmsfj8   open-liberty    19.0.0.6-springBoot2-java8-ibmsfj
+../releases/19.0.0.6/springBoot2            Dockerfile.ubuntu.adoptopenjdk8    open-liberty   19.0.0.6-springBoot2-java8-openj9
+../releases/19.0.0.6/springBoot2            Dockerfile.ubuntu.adoptopenjdk11   open-liberty   19.0.0.6-springBoot2-java11
+../releases/19.0.0.6/webProfile7            Dockerfile.ubuntu.ibmjava8     open-liberty   19.0.0.6-webProfile7-java8-ibm      19.0.0.6-webProfile7
+../releases/19.0.0.6/webProfile7            Dockerfile.alpine.ibmsfj8   open-liberty    19.0.0.6-webProfile7-java8-ibmsfj
+../releases/19.0.0.6/webProfile7            Dockerfile.ubuntu.adoptopenjdk8    open-liberty   19.0.0.6-webProfile7-java8-openj9
+../releases/19.0.0.6/webProfile7            Dockerfile.ubuntu.adoptopenjdk11   open-liberty   19.0.0.6-webProfile7-java11
+../releases/19.0.0.6/webProfile8            Dockerfile.ubuntu.ibmjava8     open-liberty   19.0.0.6-webProfile8-java8-ibm      19.0.0.6-webProfile8
+../releases/19.0.0.6/webProfile8            Dockerfile.alpine.ibmsfj8   open-liberty    19.0.0.6-webProfile8-java8-ibmsfj
+../releases/19.0.0.6/webProfile8            Dockerfile.ubuntu.adoptopenjdk8    open-liberty   19.0.0.6-webProfile8-java8-openj9
+../releases/19.0.0.6/webProfile8            Dockerfile.ubuntu.adoptopenjdk11   open-liberty   19.0.0.6-webProfile8-java11

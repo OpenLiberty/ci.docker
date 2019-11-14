@@ -3,12 +3,15 @@
 # Builds a single Open Liberty Docker Image
 #  dir and tag must be specified, other arguments allow for overrides in development builds.
 
-usage="Usage: build.sh --dir=<Dockerfile directory> --tag=<image tag name> (--tag2=<second image tag name> --tag3=<third image tag name> --version <product version> --buildLabel <build label> --imageSha=<image sha> --imageUrl=<image download url>)"
+usage="Usage: build.sh --dir=<Dockerfile directory> --dockerfile --tag=<image tag name> (--tag2=<second image tag name> --tag3=<third image tag name> "
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --dir=*)
       dir="${1#*=}"
+      ;;
+   --dockerfile=*)
+      dockerfile="${1#*=}"
       ;;
     --tag=*)
       tag="${1#*=}"
@@ -19,18 +22,9 @@ while [ $# -gt 0 ]; do
     --tag3=*)
       tag3="${1#*=}"
       ;;
-    --version=*)
-      version="${1#*=}"
-      ;;
-    --buildLabel=*)
-      buildLabel="${1#*=}"
-      ;;
-    --imageSha=*)
-      imageSha="${1#*=}"
-      ;;
-    --imageUrl=*)
-      imageUrl="${1#*=}"
-      ;;
+    --from=*)
+      from="${1#*=}"
+      ;;      
     *)
       echo "Error: Invalid argument - $1"
       echo "$usage"
@@ -46,7 +40,8 @@ then
   exit 1
 fi
 
-buildCommand="docker build -t $tag"
+cd $dir
+buildCommand="docker build -t $tag -f $dockerfile"
 if [ ! -z "$tag2" ]
 then
   buildCommand="$buildCommand -t $tag2"
@@ -55,23 +50,12 @@ if [ ! -z "$tag3" ]
 then
   buildCommand="$buildCommand -t $tag3"
 fi
-if [ ! -z "$version" ]
-then
-  buildCommand="$buildCommand --build-arg LIBERTY_VERSION=${version}"
+if [ ! -z "$from" ]
+then 
+  buildCommand="$buildCommand --build-arg IMAGE=$from"
 fi
-if [ ! -z "$buildLabel" ]
-then
-  buildCommand="$buildCommand --build-arg LIBERTY_BUILD_LABEL=${buildLabel}"
-fi
-if [ ! -z "$imageSha" ]
-then
-  buildCommand="$buildCommand --build-arg LIBERTY_SHA=${imageSha}"
-fi
-if [ ! -z "$imageUrl" ]
-then
-  buildCommand="$buildCommand --build-arg LIBERTY_DOWNLOAD_URL=${imageUrl}"
-fi
-buildCommand="$buildCommand $dir"
+
+buildCommand="$buildCommand ."
 
 echo "****"
 echo "Building $dir ($tag $tag2 $tag3)"

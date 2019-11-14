@@ -1,12 +1,15 @@
+[![Build Status](https://travis-ci.org/OpenLiberty/ci.docker.svg?branch=master)](https://travis-ci.org/OpenLiberty/ci.docker)
+
 # Docker Hub images
 
 There are two different Open Liberty Docker image sets available on Docker Hub:
 
-1. **Supported Images**: 
+1. **Supported Images**
     *  Our recommended set [here](https://hub.docker.com/r/openliberty/open-liberty).  These are images using Red Hat's [Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image) as the Operating System and are re-built daily.  
     *  Other sets can be found [here](https://hub.docker.com/_/open-liberty).  These are re-built automatically anytime something changes in the layers below.  There are tags with different combinations of Java and Operating System versions.
 
-1. **Daily Images**: available [here](https://hub.docker.com/r/openliberty/daily), these are daily images from the daily Open Liberty binaries.  The scripts used for this image can be found [here](https://github.com/OpenLiberty/ci.docker.daily).
+1. **Daily Images**
+    *  Available [here](https://hub.docker.com/r/openliberty/daily), these are daily images from the daily Open Liberty binaries.  The scripts used for this image can be found [here](https://github.com/OpenLiberty/ci.docker.daily).
 
 
 ## Building an application image
