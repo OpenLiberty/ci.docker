@@ -19,15 +19,16 @@ do
 
   if [[ $buildContextDirectory =~ latest ]]
   then
+    # Run through the tests for each of the `latest` tags
     for test in "${tests[@]}"; do
       testBuild="./build.sh --dir=$test --dockerfile=Dockerfile --tag=$test --from=$repository:$imageTag"
       echo "Running build script for test - $testBuild"
       eval $testBuild
-    done
 
-    verifyCommand="./verify.sh $test"
-    echo "Running verify script - $verifyCommand"
-    eval $verifyCommand
+      verifyCommand="./verify.sh $test"
+      echo "Running verify script - $verifyCommand"
+      eval $verifyCommand
+    done
   fi
 
   if [ $? != 0 ]; then
