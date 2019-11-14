@@ -30,13 +30,6 @@ do
     eval $verifyCommand
   fi
 
- # if [[ $imageTag =~ test- ]]
- # then
- #   verifyCommand="./verify.sh $repository:$imageTag"
- #   echo "Running verify script - $verifyCommand"
- #   eval $verifyCommand
- # fi
-
   if [ $? != 0 ]; then
     echo "Failed at image $imageTag ($buildContextDirectory) - exiting"
     exit 1
