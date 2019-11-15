@@ -1,7 +1,6 @@
 #!/bin/bash
 
 release=$1
-tests=(test-pet-clinic test-stock-quote test-stock-trader)
 
 echo "Starting to process release $release"
 
@@ -20,19 +19,6 @@ do
   echo "Running build script - $buildCommand"
   eval $buildCommand
 
-  if [[ $buildContextDirectory =~ latest ]]
-  then
-    #Test the image
-    for test in "${tests[@]}"; do
-      testBuild="./build.sh --dir=$test --dockerfile=Dockerfile --tag=$test --from=$repository:$imageTag"
-      echo "Running build script for test - $testBuild"
-      eval $testBuild
-
-      verifyCommand="./verify.sh $test"
-      echo "Running verify script - $verifyCommand"
-      eval $verifyCommand
-    done
-  fi
   if [ $? != 0 ]; then
     echo "Failed at image $imageTag ($buildContextDirectory) - exiting"
     exit 1

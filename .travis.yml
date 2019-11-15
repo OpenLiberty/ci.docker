@@ -12,10 +12,16 @@ env:
   - RELEASE=../releases/19.0.0.6
   - RELEASE=../releases/19.0.0.9
   - RELEASE=../releases/latest
-  
+
 script:
 - uname -a
 - cat /etc/issue
 - pwd
 - cd build
 - ./buildAll.sh $RELEASE
+
+jobs:
+  include:
+    - script: ./test.sh ../releases/latest test-pet-clinic
+    - script: ./test.sh ../releases/latest test-stock-quote
+    - script: ./test.sh ../releases/latest test-stock-trader
