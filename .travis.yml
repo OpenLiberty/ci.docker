@@ -11,21 +11,19 @@ before_install:
 
 jobs:
   include:
-    - stage: build and test 19.0.0.6
+    - stage: build and test
       script:
       - uname -a
       - cat /etc/issue
       - pwd
       - cd build
       - ./buildAll.sh ../releases/19.0.0.6
-    - stage: build and test 19.0.0.9
       script:
       - uname -a
       - cat /etc/issue
       - pwd
       - cd build
       - ./buildAll.sh ../releases/19.0.0.9
-    - stage: build and test latest
       script:
       - uname -a
       - cat /etc/issue
