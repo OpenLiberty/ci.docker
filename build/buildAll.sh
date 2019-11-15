@@ -4,7 +4,7 @@ repository=$1
 tests=(test-pet-clinic test-stock-quote test-stock-trader)
 
 echo "Starting to process repository $repository"
-cd repository
+cd $repository
 
 # Builds up the build.sh call to build each individual docker image listed in images.txt
 while read -r buildContextDirectory dockerfile repository imageTag imageTag2 imageTag3
