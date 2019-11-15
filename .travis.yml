@@ -9,9 +9,26 @@ sudo: required
 before_install:
   - sudo apt-get update
 
-script:
-  - uname -a
-  - cat /etc/issue
-  - pwd
-  - cd build
-  - ./buildAll.sh
+jobs:
+  include:
+    - stage: build and test 19.0.0.6
+      script:
+      - uname -a
+      - cat /etc/issue
+      - pwd
+      - cd build
+      - ./buildAll.sh ../releases/19.0.0.6
+    - stage: build and test 19.0.0.9
+      script:
+      - uname -a
+      - cat /etc/issue
+      - pwd
+      - cd build
+      - ./buildAll.sh ../releases/19.0.0.9
+    - stage: build and test latest
+      script:
+      - uname -a
+      - cat /etc/issue
+      - pwd
+      - cd build
+      - ./buildAll.sh ../releases/latest
