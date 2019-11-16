@@ -18,7 +18,7 @@ microProfile2            Dockerfile.ubuntu.ibmjava8     open-liberty   19.0.0.9-
 microProfile2            Dockerfile.alpine.ibmsfj8   open-liberty    19.0.0.9-microProfile2-java8-ibmsfj
 microProfile2            Dockerfile.ubuntu.adoptopenjdk8    open-liberty   19.0.0.9-microProfile2-java8-openj9
 microProfile2            Dockerfile.ubuntu.adoptopenjdk11   open-liberty   19.0.0.9-microProfile2-java11
-microProfile3            Dockerfile.ubuntu.ibmjava8     open-liberty   19.0.0.9-microProfile3-java8-ibm    19.0.0.9-microProfile2
+microProfile3            Dockerfile.ubuntu.ibmjava8     open-liberty   19.0.0.9-microProfile3-java8-ibm    19.0.0.9-microProfile3
 microProfile3            Dockerfile.alpine.ibmsfj8   open-liberty    19.0.0.9-microProfile3-java8-ibmsfj
 microProfile3            Dockerfile.ubuntu.adoptopenjdk8    open-liberty   19.0.0.9-microProfile3-java8-openj9
 microProfile3            Dockerfile.ubuntu.adoptopenjdk11   open-liberty   19.0.0.9-microProfile3-java11
