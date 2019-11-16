@@ -1,4 +1,4 @@
-ARG IMAGE=openliberty/open-liberty:kernel-ubi-min
+ARG IMAGE=openliberty/open-liberty:kernel-ubi
 FROM ${IMAGE}
 
 COPY --chown=1001:0 config /config/
