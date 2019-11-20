@@ -1,0 +1,40 @@
+kernel            Dockerfile.ubuntu.ibmjava8     open-liberty         19.0.0.9-kernel-java8-ibm           19.0.0.9-kernel
+kernel            Dockerfile.alpine.ibmsfj8   open-liberty           19.0.0.9-kernel-java8-ibmsfj
+kernel            Dockerfile.ubuntu.adoptopenjdk8    open-liberty     19.0.0.9-kernel-java8-openj9
+kernel            Dockerfile.ubuntu.adoptopenjdk11   open-liberty          19.0.0.9-kernel-java11
+javaee7            Dockerfile.ubuntu.ibmjava8     open-liberty         19.0.0.9-javaee7-java8-ibm          19.0.0.9-javaee7
+javaee7            Dockerfile.alpine.ibmsfj8   open-liberty          19.0.0.9-javaee7-java8-ibmsfj
+javaee7            Dockerfile.ubuntu.adoptopenjdk8    open-liberty         19.0.0.9-javaee7-java8-openj9
+javaee7            Dockerfile.ubuntu.adoptopenjdk11   open-liberty         19.0.0.9-javaee7-java11
+javaee8            Dockerfile.ubuntu.ibmjava8     open-liberty         19.0.0.9-javaee8-java8-ibm          19.0.0.9-javaee8
+javaee8            Dockerfile.alpine.ibmsfj8   open-liberty          19.0.0.9-javaee8-java8-ibmsfj
+javaee8            Dockerfile.ubuntu.adoptopenjdk8    open-liberty         19.0.0.9-javaee8-java8-openj9
+javaee8            Dockerfile.ubuntu.adoptopenjdk11   open-liberty         19.0.0.9-javaee8-java11
+microProfile1            Dockerfile.ubuntu.ibmjava8     open-liberty   19.0.0.9-microProfile1-java8-ibm    19.0.0.9-microProfile1
+microProfile1            Dockerfile.alpine.ibmsfj8   open-liberty    19.0.0.9-microProfile1-java8-ibmsfj
+microProfile1            Dockerfile.ubuntu.adoptopenjdk8    open-liberty   19.0.0.9-microProfile1-java8-openj9
+microProfile1            Dockerfile.ubuntu.adoptopenjdk11   open-liberty   19.0.0.9-microProfile1-java11
+microProfile2            Dockerfile.ubuntu.ibmjava8     open-liberty   19.0.0.9-microProfile2-java8-ibm    19.0.0.9-microProfile2
+microProfile2            Dockerfile.alpine.ibmsfj8   open-liberty    19.0.0.9-microProfile2-java8-ibmsfj
+microProfile2            Dockerfile.ubuntu.adoptopenjdk8    open-liberty   19.0.0.9-microProfile2-java8-openj9
+microProfile2            Dockerfile.ubuntu.adoptopenjdk11   open-liberty   19.0.0.9-microProfile2-java11
+microProfile3            Dockerfile.ubuntu.ibmjava8     open-liberty   19.0.0.9-microProfile3-java8-ibm    19.0.0.9-microProfile3
+microProfile3            Dockerfile.alpine.ibmsfj8   open-liberty    19.0.0.9-microProfile3-java8-ibmsfj
+microProfile3            Dockerfile.ubuntu.adoptopenjdk8    open-liberty   19.0.0.9-microProfile3-java8-openj9
+microProfile3            Dockerfile.ubuntu.adoptopenjdk11   open-liberty   19.0.0.9-microProfile3-java11
+springBoot1            Dockerfile.ubuntu.ibmjava8     open-liberty     19.0.0.9-springBoot1-java8-ibm      19.0.0.9-springBoot1
+springBoot1            Dockerfile.alpine.ibmsfj8   open-liberty      19.0.0.9-springBoot1-java8-ibmsfj
+springBoot1            Dockerfile.ubuntu.adoptopenjdk8    open-liberty     19.0.0.9-springBoot1-java8-openj9
+springBoot1            Dockerfile.ubuntu.adoptopenjdk11   open-liberty     19.0.0.9-springBoot1-java11
+springBoot2            Dockerfile.ubuntu.ibmjava8     open-liberty     19.0.0.9-springBoot2-java8-ibm      19.0.0.9-springBoot2
+springBoot2            Dockerfile.alpine.ibmsfj8   open-liberty      19.0.0.9-springBoot2-java8-ibmsfj
+springBoot2            Dockerfile.ubuntu.adoptopenjdk8    open-liberty     19.0.0.9-springBoot2-java8-openj9
+springBoot2            Dockerfile.ubuntu.adoptopenjdk11   open-liberty     19.0.0.9-springBoot2-java11
+webProfile7            Dockerfile.ubuntu.ibmjava8     open-liberty     19.0.0.9-webProfile7-java8-ibm      19.0.0.9-webProfile7
+webProfile7            Dockerfile.alpine.ibmsfj8   open-liberty      19.0.0.9-webProfile7-java8-ibmsfj
+webProfile7            Dockerfile.ubuntu.adoptopenjdk8    open-liberty     19.0.0.9-webProfile7-java8-openj9
+webProfile7            Dockerfile.ubuntu.adoptopenjdk11   open-liberty     19.0.0.9-webProfile7-java11
+webProfile8            Dockerfile.ubuntu.ibmjava8     open-liberty     19.0.0.9-webProfile8-java8-ibm      19.0.0.9-webProfile8
+webProfile8            Dockerfile.alpine.ibmsfj8   open-liberty      19.0.0.9-webProfile8-java8-ibmsfj
+webProfile8            Dockerfile.ubuntu.adoptopenjdk8    open-liberty     19.0.0.9-webProfile8-java8-openj9
+webProfile8            Dockerfile.ubuntu.adoptopenjdk11   open-liberty     19.0.0.9-webProfile8-java11
