@@ -70,16 +70,8 @@ RUN mkdir /logs \
     && chmod -R g+rw /etc/wlp \
     && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml
 
-# 1) Make sure the following Java commands don't disturb our class cache until we're ready to populate it
-# by unsetting IBM_JAVA_OPTIONS if it is currently defined.
-# 2) Explicity create a class cache layer for this image layer here rather than allowing
-# `server start` to do it, which will lead to problems because multiple JVMs will be started.
-# 3) Populate the newly created class cache layer.
-RUN unset IBM_JAVA_OPTIONS \
-    && java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer -Xscmx4m -version \
-    && export IBM_JAVA_OPTIONS="-Xshareclasses:name=liberty,cacheDir=/output/.classCache/" \
-    && server start \
-    && server stop \
+# Create a new SCC layer, args are layer size and number of iterations to run to populate it
+RUN populate_scc.sh 4m 3 \
     && rm -rf /output/messaging /logs/* $WLP_OUTPUT_DIR/.classCache \
     && chown -R 1001:0 /opt/ol/wlp/output \
     && chmod -R g+rwx /opt/ol/wlp/output
