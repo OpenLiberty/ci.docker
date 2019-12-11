@@ -1,0 +1,3 @@
+FROM openliberty/open-liberty:19.0.0.12-kernel-java8-ibmjava-ubi
+
+RUN cp /opt/ol/wlp/templates/servers/javaee8/server.xml /config/server.xml
