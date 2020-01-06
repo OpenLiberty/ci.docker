@@ -1,4 +1,4 @@
-ARG IMAGE=openliberty/open-liberty:kernel-ubi
+ARG IMAGE=openliberty/open-liberty:kernel-java8-openj9-ubi
 FROM ${IMAGE} as staging
 
 COPY --chown=1001:0 spring-petclinic-2.1.0.BUILD-SNAPSHOT.jar /staging/myFatApp.jar
@@ -12,3 +12,5 @@ FROM ${IMAGE}
 COPY --chown=1001:0 server.xml /config/server.xml
 COPY --from=staging /staging/lib.index.cache /lib.index.cache
 COPY --from=staging /staging/myThinApp.jar /config/dropins/spring/myThinApp.jar
+
+RUN configure.sh

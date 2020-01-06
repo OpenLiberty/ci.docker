@@ -77,5 +77,5 @@ then
   fi
 fi
 
-# Server start/stop to populate the /output/workarea and make subsequent server starts faster
-/opt/ol/wlp/bin/server start && /opt/ol/wlp/bin/server stop && rm -rf /output/messaging /logs/* $WLP_OUTPUT_DIR/.classCache && chmod -R g+rwx /opt/ol/wlp/output/*
+# Create a new SCC layer, args are layer size and number of iterations to run to populate it
+populate_scc.sh 8m 3
