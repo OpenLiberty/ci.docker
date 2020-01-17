@@ -1,8 +1,8 @@
 
 FROM adoptopenjdk:8-jre-openj9
-ARG LIBERTY_VERSION=19.0.0.12
-ARG LIBERTY_SHA=b3a613cbad764a10ae57719ff9818c3bcfefdf8e
-ARG LIBERTY_BUILD_LABEL=cl191220191120-0300
+ARG LIBERTY_VERSION=20.0.0.1
+ARG LIBERTY_SHA=dfededade132ba37fabbcf07d5004773ee9f3be5
+ARG LIBERTY_BUILD_LABEL=cl200120200108-0300
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 
 LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter" \
