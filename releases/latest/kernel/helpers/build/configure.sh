@@ -77,5 +77,5 @@ then
   fi
 fi
 
-# Create a new SCC layer, args are layer size and number of iterations to run to populate it
-populate_scc.sh 8m 3
+# Create a new SCC layer
+populate_scc.sh
