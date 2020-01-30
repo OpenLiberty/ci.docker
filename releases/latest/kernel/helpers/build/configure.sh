@@ -78,4 +78,7 @@ then
 fi
 
 # Create a new SCC layer
-populate_scc.sh
+if [ "$OPENJ9_SCC" == "true" ]
+then
+  populate_scc.sh
+fi
