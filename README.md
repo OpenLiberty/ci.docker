@@ -61,13 +61,6 @@ This section describes the optional enterprise functionality that can be enabled
 * `JMS_ENDPOINT`
   *  Decription: Add configuration properties for an JMS endpoint.
   *  XML Snippet Location: [jms-ssl-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/jms_ssl_endpoint.xml) when SSL is enabled. Otherwise, [jms-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/jms_endpoint.xml)
-* `OIDC`
-  *  Decription: Enable OpenIdConnect Client function by adding the `openidConnectClient-1.0` feature.
-  *  XML Snippet Location: [oidc.xml](/releases/latest/kernel/helpers/build/configuration_snippets/oidc.xml)
-* `OIDC_CONFIG`
-  *  Decription: Enable OpenIdConnect Client configuration to be read from environment variables.
-  *  XML Snippet Location: [oidc-config.xml](/releases/latest/kernel/helpers/build/configuration_snippets/oidc-config.xml)
-  *  Note: The following variables will be read:  OIDC_CLIENT_ID, OIDC_CLIENT_SECRET, OIDC_DISCOVERY_URL.
 
 ## OpenJ9 Shared Class Cache (SCC)
 
