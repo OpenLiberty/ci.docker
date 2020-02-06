@@ -13,4 +13,8 @@ COPY --chown=1001:0 server.xml /config/server.xml
 COPY --from=staging /staging/lib.index.cache /lib.index.cache
 COPY --from=staging /staging/myThinApp.jar /config/dropins/spring/myThinApp.jar
 
-RUN configure.sh
+RUN if [ -n "$VERBOSE" ] && [ "$VERBOSE" = "true" ]; then \
+		configure.sh; \
+	else \
+		bash -c "configure.sh &> /dev/null"; \
+	fi
