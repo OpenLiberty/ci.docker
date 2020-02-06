@@ -53,7 +53,11 @@ unset IBM_JAVA_OPTIONS
 
 # Explicity create a class cache layer for this image layer here rather than allowing
 # `server start` to do it, which will lead to problems because multiple JVMs will be started.
-java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer -Xscmx$SCC_SIZE -version &> /dev/null
+if [ "$VERBOSE" == "true" ]; then
+	java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer -Xscmx$SCC_SIZE -version &> /dev/null
+else
+	java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer -Xscmx$SCC_SIZE -version
+fi
 
 if [ $TRIM_SCC == yes ]
 then
@@ -66,7 +70,11 @@ then
   FULL=`( java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,printTopLayerStats || true ) 2>&1 | awk '/^Cache is [0-9.]*% .*full/ {print substr($3, 1, length($3)-1)}'`
   echo "SCC layer is $FULL% full. Destroying layer."
   # Destroy the layer once we know roughly how much space we need.
-  (java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,destroy || true) &> /dev/null
+  if [ "$VERBOSE" == "true" ]; then
+  	(java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,destroy || true) &> /dev/null
+  else 
+	java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,destroy || true
+  fi
   # Remove the m suffix.
   SCC_SIZE="${SCC_SIZE:0:-1}"
   # Calculate the new size based on how full the layer was (rounded to nearest m).
@@ -77,8 +85,13 @@ then
   SCC_SIZE="${SCC_SIZE}m"
   echo "Re-creating layer with size $SCC_SIZE."
   # Recreate the layer with the new size.
-  java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer -Xscmx$SCC_SIZE -version &> /dev/null
+  if [ "$VERBOSE" == "true" ]; then
+  	java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer -Xscmx$SCC_SIZE -version &> /dev/null
+  else
+  	java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer -Xscmx$SCC_SIZE -version
+  fi
 fi
+
 
 # Populate the newly created class cache layer.
 export IBM_JAVA_OPTIONS="-Xshareclasses:name=liberty,cacheDir=/output/.classCache/"
