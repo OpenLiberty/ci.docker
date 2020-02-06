@@ -30,21 +30,16 @@ COPY --chown=1001:0  server.xml /config/
 # Optional functionality
 ARG SSL=true
 ARG MP_MONITORING=true
-ARG VERBOSE=true
 
 # This script will add the requested XML snippets and grow image to be fit-for-purpose
-RUN if [ -n "$VERBOSE" ] && [ "$VERBOSE" = "true" ]; then \
-		configure.sh; \
-	else \
-		bash -c "configure.sh &> /dev/null"; \
-	fi
+RUN configure.sh
 ```
 
 This will result in a Docker image that has your application and configuration pre-loaded, which means you can spawn new fully-configured containers at any time.
 
 ## Enterprise Functionality
 
-This section describes the optional enterprise functionality that can be enabled via the Dockerfile during `build` time, by setting particular build-arguments (`ARG`).  Each of these options trigger the inclusion of specific configuration via XML snippets (except for `VERBOSE`), described below:
+This section describes the optional enterprise functionality that can be enabled via the Dockerfile during `build` time, by setting particular build-arguments (`ARG`) and calling `RUN configure.sh`.  Each of these options trigger the inclusion of specific configuration via XML snippets (except for `VERBOSE`), described below:
 
 * `HTTP_ENDPOINT`
   *  Decription: Add configuration properties for an HTTP endpoint.
@@ -73,7 +68,7 @@ This section describes the optional enterprise functionality that can be enabled
 
 OpenJ9's SCC allows the VM to store Java classes in an optimized form that can be loaded very quickly, JIT compiled code, and profiling data. Deploying an SCC file together with your application can significantly improve start-up time. The SCC can also be shared by multiple VMs, thereby reducing total memory consumption.
 
-Open Liberty Docker images contain an SCC and (by default) add your application's specific data to the SCC at image build time when your Dockerfile invokes `configure.sh`.
+Open Liberty Docker images contain an SCC and (by default) add your application's specific data to the SCC at image build time when your Dockerfile invokes `RUN configure.sh`.
 
 This feature can be controlled via the following variables:
 
@@ -134,10 +129,6 @@ ARG HZ_SESSION_CACHE=client
 #ENV JAVA_TOOL_OPTIONS="-Dhazelcast.jcache.provider.type=server ${JAVA_TOOL_OPTIONS}"
 
 ## This script will add the requested XML snippets and grow image to be fit-for-purpose
-RUN if [ -n "$VERBOSE" ] && [ "$VERBOSE" = "true" ]; then \
-		configure.sh; \
-	else \
-		bash -c "configure.sh &> /dev/null"; \
-	fi
+RUN configure.sh
 ```
 

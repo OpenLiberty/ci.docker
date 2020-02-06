@@ -1,5 +1,9 @@
 #!/bin/bash
-set -Eeox pipefail
+set -Eeo pipefail
+
+if [ "$VERBOSE" == "true" ]; then
+	set -Eeox pipefail
+fi 
 
 ##Define variables for XML snippets source and target paths
 WLP_INSTALL_DIR=/opt/ol/wlp
