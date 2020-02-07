@@ -54,9 +54,9 @@ unset IBM_JAVA_OPTIONS
 # Explicity create a class cache layer for this image layer here rather than allowing
 # `server start` to do it, which will lead to problems because multiple JVMs will be started.
 if [ "$VERBOSE" == "true" ]; then
-	java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer -Xscmx$SCC_SIZE -version &> /dev/null
-else
 	java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer -Xscmx$SCC_SIZE -version
+else
+	java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer -Xscmx$SCC_SIZE -version &> /dev/null
 fi
 
 if [ $TRIM_SCC == yes ]
@@ -71,9 +71,9 @@ then
   echo "SCC layer is $FULL% full. Destroying layer."
   # Destroy the layer once we know roughly how much space we need.
   if [ "$VERBOSE" == "true" ]; then
-  	(java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,destroy || true) &> /dev/null
+  	java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,destroy || true
   else 
-	java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,destroy || true
+	(java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,destroy || true) &> /dev/null
   fi
   # Remove the m suffix.
   SCC_SIZE="${SCC_SIZE:0:-1}"
@@ -86,9 +86,9 @@ then
   echo "Re-creating layer with size $SCC_SIZE."
   # Recreate the layer with the new size.
   if [ "$VERBOSE" == "true" ]; then
-  	java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer -Xscmx$SCC_SIZE -version &> /dev/null
-  else
   	java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer -Xscmx$SCC_SIZE -version
+  else
+  	java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer -Xscmx$SCC_SIZE -version &> /dev/null
   fi
 fi
 

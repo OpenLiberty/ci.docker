@@ -27,6 +27,9 @@ FROM open-liberty:kernel
 COPY --chown=1001:0  Sample1.war /config/dropins/
 COPY --chown=1001:0  server.xml /config/
 
+# Default setting for the verbose option
+ARG VERBOSE=false
+
 # Optional functionality
 ARG SSL=true
 ARG MP_MONITORING=true
@@ -62,7 +65,7 @@ This section describes the optional enterprise functionality that can be enabled
   *  Decription: Add configuration properties for an JMS endpoint.
   *  XML Snippet Location: [jms-ssl-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/jms_ssl_endpoint.xml) when SSL is enabled. Otherwise, [jms-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/jms_endpoint.xml)
 * `VERBOSE`
-	* Description: Outputs the commands and results to stdout from `configure.sh`. Otherwise no output is produced from `configure.sh`.
+	* Description: When set to `true` it outputs the commands and results to stdout from `configure.sh`. Default setting is `false`.
 
 ## OpenJ9 Shared Class Cache (SCC)
 
@@ -123,6 +126,9 @@ COPY --from=hazelcast/hazelcast --chown=1001:0 /opt/hazelcast/lib/*.jar /opt/ol/
 
 # Instruct configure.sh to copy the client topology hazelcast.xml
 ARG HZ_SESSION_CACHE=client
+
+# Default setting for the verbose option
+ARG VERBOSE=false
 
 # Instruct configure.sh to copy the embedded topology hazelcast.xml and set the required system property
 #ARG HZ_SESSION_CACHE=embedded

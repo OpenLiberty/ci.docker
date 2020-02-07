@@ -13,4 +13,6 @@ COPY --chown=1001:0 server.xml /config/server.xml
 COPY --from=staging /staging/lib.index.cache /lib.index.cache
 COPY --from=staging /staging/myThinApp.jar /config/dropins/spring/myThinApp.jar
 
+ARG VERBOSE=false
+
 RUN configure.sh
