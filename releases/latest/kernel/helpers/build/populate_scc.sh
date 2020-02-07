@@ -1,4 +1,8 @@
 #!/bin/bash
+if [ "$VERBOSE" != "true" ]; then
+  exec &>/dev/null
+fi
+
 set -Eeox pipefail
 
 SCC_SIZE="80m"  # Default size of the SCC layer.
