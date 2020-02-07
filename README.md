@@ -65,7 +65,7 @@ This section describes the optional enterprise functionality that can be enabled
   *  Decription: Add configuration properties for an JMS endpoint.
   *  XML Snippet Location: [jms-ssl-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/jms_ssl_endpoint.xml) when SSL is enabled. Otherwise, [jms-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/jms_endpoint.xml)
 * `VERBOSE`
-  *  Description: When set to true it outputs the commands and results to stdout from configure.sh. Otherwise, default setting is false and configure.sh is silenced.
+  *  Description: When set to `true` it outputs the commands and results to stdout from `configure.sh`. Otherwise, default setting is `false` and `configure.sh` is silenced.
 
 ## OpenJ9 Shared Class Cache (SCC)
 
