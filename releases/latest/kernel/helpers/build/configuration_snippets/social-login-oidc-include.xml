@@ -1,0 +1,34 @@
+<server>
+	
+    
+    <!-- defaults from the server metatype.xml are declared as variables here
+         If nothing is passed in to bootstrap.properties, the defaults will prevail.
+         Required parameters have no defaults, so are not defined here -->
+
+    <variable name="oidcLogin.groupNameAttribute" defaultValue=""/>
+    <variable name="oidcLogin.userNameAttribute" defaultValue="sub"/>
+    <variable name="oidcLogin.displayName" defaultValue="oidcLogin"/>
+    <variable name="oidcLogin.userInfoEndpointEnabled" defaultValue="false"/>
+    <variable name="oidcLogin.mapToUserRegistry" defaultValue="false"/>
+    <variable name="oidcLogin.realmNameAttribute" defaultValue="iss"/>
+    <variable name="oidcLogin.scope" defaultValue="openid profile email"/>
+    <variable name="oidcLogin.tokenEndpointAuthMethod" defaultValue="client_secret_post"/>
+
+    <!-- the id attribute will not be substituted  -->
+	<oidcLogin
+		id="oidcLogin"		
+        clientId="${oidcLogin.clientId}"
+        clientSecret="${oidcLogin.clientSecret}"
+        redirectToRPHostAndPort="${oidcLogin.redirectToRPHostAndPort}"
+        discoveryEndpoint="${oidcLogin.discoveryEndpoint}"
+
+        groupNameAttribute="${oidcLogin.groupNameAttribute}"
+        userNameAttribute="${oidcLogin.userNameAttribute}"
+        displayName="${oidcLogin.displayName}"
+        userInfoEndpointEnabled="${oidcLogin.userInfoEndpointEnabled}"
+        mapToUserRegistry="${oidcLogin.mapToUserRegistry}"
+        realmNameAttribute="${oidcLogin.realmNameAttribute}"
+        scope="${oidcLogin.scope}"
+        tokenEndpointAuthMethod="${oidcLogin.tokenEndpointAuthMethod}"
+	></oidcLogin>
+</server>

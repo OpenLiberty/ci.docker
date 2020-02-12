@@ -64,9 +64,6 @@ This section describes the optional enterprise functionality that can be enabled
 * `JMS_ENDPOINT`
   *  Description: Add configuration properties for an JMS endpoint.
   *  XML Snippet Location: [jms-ssl-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/jms_ssl_endpoint.xml) when SSL is enabled. Otherwise, [jms-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/jms_endpoint.xml)
-* `SOCIAL_LOGIN`
-  *  Description: Add the `socialLogin-1.0` security feature to the server configuration.
-  *  XML Snippet Location: [social-login.xml](/releases/latest/kernel/helpers/build/configuration_snippets/social-login.xml). 
 * `VERBOSE`
   *  Description: When set to `true` it outputs the commands and results to stdout from `configure.sh`. Otherwise, default setting is `false` and `configure.sh` is silenced.
 
