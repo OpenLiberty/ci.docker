@@ -1,0 +1,47 @@
+<server>
+    
+	<featureManager>       
+        <feature>appSecurity-3.0</feature>
+        <feature>socialLogin-1.0</feature>
+    </featureManager> 
+    
+    <!-- defaults from the server metatype.xml are declared as variables here
+         If nothing is passed in elsewhere, the defaults will prevail.
+         Required parameters have no defaults, so are not defined here.
+         The required parameters are 
+           clientId, clientSecret, redirectToRPHostandPort,
+           tokenEndpoint, authorizationEndpoint
+    -->
+    <variable name="oauthLogin.groupNameAttribute" defaultValue=""/>
+    <variable name="oauthLogin.userNameAttribute" defaultValue="email"/>
+    <variable name="oauthLogin.displayName" defaultValue="oauthLogin"/>
+    <variable name="oauthLogin.userApi" defaultValue=""/>
+    <variable name="oauthLogin.mapToUserRegistry" defaultValue="false"/>
+    <variable name="oauthLogin.realmNameAttribute" defaultValue=""/>
+    <variable name="oauthLogin.scope" defaultValue=""/>
+    <variable name="oauthLogin.tokenEndpointAuthMethod" defaultValue="client_secret_post"/>
+    <variable name="oauthLogin.accessTokenHeaderName" defaultValue=""/>
+    <variable name="oauthLogin.accessTokenRequired" defaultValue="false"/>
+    <variable name="oauthLogin.userApiType" defaultValue="basic" />
+
+    <!-- the id attribute will not be substituted  -->
+	<oauth2Login
+		id="oauth2Login"		
+        clientId="${oauthLogin.clientId}"
+        clientSecret="${oauthLogin.clientSecret}"
+        redirectToRPHostAndPort="${oauthLogin.redirectToRPHostAndPort}"
+        tokenEndpoint="${oauthLogin.tokenEndpoint}"
+        authorizationEndpoint="${oauthLogin.authorizationEndpoint}"
+        userAPI="${oauthLogin.userApi}"
+        groupNameAttribute="${oauthLogin.groupNameAttribute}"
+        userNameAttribute="${oauthLogin.userNameAttribute}"
+        displayName="${oauthLogin.displayName}"        
+        mapToUserRegistry="${oauthLogin.mapToUserRegistry}"
+        realmNameAttribute="${oauthLogin.realmNameAttribute}"
+        scope="${oauthLogin.scope}"
+        tokenEndpointAuthMethod="${oauthLogin.tokenEndpointAuthMethod}"
+        accessTokenHeaderName="${oauthLogin.accessTokenHeaderName}"
+        accessTokenRequired="${oauthLogin.accessTokenRequired}"
+        userApiType="${oauthLogin.userApiType}"
+	></oauth2Login>
+</server>

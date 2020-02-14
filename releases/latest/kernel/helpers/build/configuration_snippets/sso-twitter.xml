@@ -1,0 +1,13 @@
+<server>    
+	<featureManager>       
+        <feature>appSecurity-3.0</feature>
+        <feature>socialLogin-1.0</feature>
+    </featureManager> 
+    
+ 
+	<twitterLogin>
+        clientId="${twitterLogin.clientId}"
+        clientSecret="${twitterLogin.clientSecret}"
+        redirectToRPHostAndPort="${twitterLogin.redirectToRPHostAndPort}"       
+	></twitterLogin>
+</server>

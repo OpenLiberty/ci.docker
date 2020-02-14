@@ -12,11 +12,8 @@ SHARED_RESOURCE_DIR=${WLP_INSTALL_DIR}/usr/shared/resources
 
 SNIPPETS_SOURCE=/opt/ol/helpers/build/configuration_snippets
 SNIPPETS_TARGET=/config/configDropins/overrides
-OPTIONAL_INCLUDES=/config/optional_includes
 SNIPPETS_TARGET_DEFAULTS=/config/configDropins/defaults
 mkdir -p ${SNIPPETS_TARGET}
-mkdir -p ${OPTIONAL_INCLUDES}
-
 
 #Check for each Liberty value-add functionality
 
@@ -37,13 +34,6 @@ if [ "$HTTP_ENDPOINT" == "true" ]; then
   else
     cp $SNIPPETS_SOURCE/http-endpoint.xml $SNIPPETS_TARGET/http-endpoint.xml
   fi
-fi
-
-# Social Login.  Not in readme because it only works cleanly with the operator.
-if [ "$SOCIAL_LOGIN" == "true" ]; then   
-    cp $SNIPPETS_SOURCE/social-login.xml $SNIPPETS_TARGET/social-login.xml
-    cp $SNIPPETS_SOURCE/social-login-oidc-include.xml $OPTIONAL_INCLUDES/social-login-oidc-include.xml
-    cp $SNIPPETS_SOURCE/social-login-oauth-include.xml $OPTIONAL_INCLUDES/social-login-oauth-include.xml
 fi
 
 # Hazelcast Session Caching

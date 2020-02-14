@@ -1,10 +1,16 @@
 <server>
-	
+    
+	<featureManager>       
+        <feature>appSecurity-3.0</feature>
+        <feature>socialLogin-1.0</feature>
+    </featureManager> 
     
     <!-- defaults from the server metatype.xml are declared as variables here
-         If nothing is passed in to bootstrap.properties, the defaults will prevail.
-         Required parameters have no defaults, so are not defined here -->
-
+         If nothing is passed in elsewhere, the defaults will prevail.
+         Required parameters have no defaults, so are not defined here.
+         The required parameters are 
+           clientId, clientSecret, redirectToRPHostandPort, and discoveryEndpoint
+    -->
     <variable name="oidcLogin.groupNameAttribute" defaultValue=""/>
     <variable name="oidcLogin.userNameAttribute" defaultValue="sub"/>
     <variable name="oidcLogin.displayName" defaultValue="oidcLogin"/>
