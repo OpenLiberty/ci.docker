@@ -52,7 +52,7 @@ Each provider requires additional configuration.  Client ID and Client Secret ar
 |sec_sso_github_clientSecret       | y |
 |sec_sso_github_redirectToRPHostAndPort       | y |
 |sec_sso_github_mapToUserRegistry       | n|
-|sec_sso_github_hostname       | n|
+|sec_sso_github_hostname (example: mycompany.github.com)      | n|
 |||
 |sec_sso_facebook_clientId       | y |
 |sec_sso_facebook_clientSecret       | y |
