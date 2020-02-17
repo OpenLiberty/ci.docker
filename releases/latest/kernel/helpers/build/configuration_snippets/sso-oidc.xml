@@ -11,30 +11,30 @@
          The required parameters are 
            clientId, clientSecret, redirectToRPHostandPort, and discoveryEndpoint
     -->
-    <variable name="oidcLogin.groupNameAttribute" defaultValue=""/>
-    <variable name="oidcLogin.userNameAttribute" defaultValue="sub"/>
-    <variable name="oidcLogin.displayName" defaultValue="oidcLogin"/>
-    <variable name="oidcLogin.userInfoEndpointEnabled" defaultValue="false"/>
-    <variable name="oidcLogin.mapToUserRegistry" defaultValue="false"/>
-    <variable name="oidcLogin.realmNameAttribute" defaultValue="iss"/>
-    <variable name="oidcLogin.scope" defaultValue="openid profile email"/>
-    <variable name="oidcLogin.tokenEndpointAuthMethod" defaultValue="client_secret_post"/>
+    <variable name="sec_sso_oidc_groupNameAttribute" defaultValue=""/>
+    <variable name="sec_sso_oidc_userNameAttribute" defaultValue="sub"/>
+    <variable name="sec_sso_oidc_displayName" defaultValue="oidcLogin"/>
+    <variable name="sec_sso_oidc_userInfoEndpointEnabled" defaultValue="false"/>
+    <variable name="sec_sso_oidc_mapToUserRegistry" defaultValue="false"/>
+    <variable name="sec_sso_oidc_realmNameAttribute" defaultValue="iss"/>
+    <variable name="sec_sso_oidc_scope" defaultValue="openid profile email"/>
+    <variable name="sec_sso_oidc_tokenEndpointAuthMethod" defaultValue="client_secret_post"/>
 
     <!-- the id attribute will not be substituted  -->
 	<oidcLogin
-		id="oidcLogin"		
-        clientId="${oidcLogin.clientId}"
-        clientSecret="${oidcLogin.clientSecret}"
-        redirectToRPHostAndPort="${oidcLogin.redirectToRPHostAndPort}"
-        discoveryEndpoint="${oidcLogin.discoveryEndpoint}"
+		id="oidcLogin"	
+        clientId="${sec_sso_oidc_clientId}"
+        clientSecret="${sec_sso_oidc_clientSecret}"
+        redirectToRPHostAndPort="${sec_sso_oidc_redirectToRPHostAndPort}"
+        discoveryEndpoint="${sec_sso_oidc_discoveryEndpoint}"
 
-        groupNameAttribute="${oidcLogin.groupNameAttribute}"
-        userNameAttribute="${oidcLogin.userNameAttribute}"
-        displayName="${oidcLogin.displayName}"
-        userInfoEndpointEnabled="${oidcLogin.userInfoEndpointEnabled}"
-        mapToUserRegistry="${oidcLogin.mapToUserRegistry}"
-        realmNameAttribute="${oidcLogin.realmNameAttribute}"
-        scope="${oidcLogin.scope}"
-        tokenEndpointAuthMethod="${oidcLogin.tokenEndpointAuthMethod}"
-	></oidcLogin>
+        groupNameAttribute="${sec_sso_oidc_groupNameAttribute}"
+        userNameAttribute="${sec_sso_oidc_userNameAttribute}"
+        displayName="${sec_sso_oidc_displayName}"
+        userInfoEndpointEnabled="${sec_sso_oidc_userInfoEndpointEnabled}"
+        mapToUserRegistry="${sec_sso_oidc_mapToUserRegistry}"
+        realmNameAttribute="${sec_sso_oidc_realmNameAttribute}"
+        scope="${sec_sso_oidc_scope}"
+        tokenEndpointAuthMethod="${sec_sso_oidc_tokenEndpointAuthMethod}"
+	></sec_sso_oidc_
 </server>

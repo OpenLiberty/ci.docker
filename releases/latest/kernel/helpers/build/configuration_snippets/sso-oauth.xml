@@ -12,36 +12,36 @@
            clientId, clientSecret, redirectToRPHostandPort,
            tokenEndpoint, authorizationEndpoint
     -->
-    <variable name="oauth2Login.groupNameAttribute" defaultValue=""/>
-    <variable name="oauth2Login.userNameAttribute" defaultValue="email"/>
-    <variable name="oauth2Login.displayName" defaultValue="oauthLogin"/>
-    <variable name="oauth2Login.userApi" defaultValue=""/>
-    <variable name="oauth2Login.mapToUserRegistry" defaultValue="false"/>
-    <variable name="oauth2Login.realmNameAttribute" defaultValue=""/>
-    <variable name="oauth2Login.scope" defaultValue=""/>
-    <variable name="oauth2Login.tokenEndpointAuthMethod" defaultValue="client_secret_post"/>
-    <variable name="oauth2Login.accessTokenHeaderName" defaultValue=""/>
-    <variable name="oauth2Login.accessTokenRequired" defaultValue="false"/>
-    <variable name="oauth2Login.userApiType" defaultValue="basic" />
+    <variable name="sec_sso_oauth2_groupNameAttribute" defaultValue=""/>
+    <variable name="sec_sso_oauth2_userNameAttribute" defaultValue="email"/>
+    <variable name="sec_sso_oauth2_displayName" defaultValue="oauthLogin"/>
+    <variable name="sec_sso_oauth2_userApi" defaultValue=""/>
+    <variable name="sec_sso_oauth2_mapToUserRegistry" defaultValue="false"/>
+    <variable name="sec_sso_oauth2_realmNameAttribute" defaultValue=""/>
+    <variable name="sec_sso_oauth2_scope" defaultValue=""/>
+    <variable name="sec_sso_oauth2_tokenEndpointAuthMethod" defaultValue="client_secret_post"/>
+    <variable name="sec_sso_oauth2_accessTokenHeaderName" defaultValue=""/>
+    <variable name="sec_sso_oauth2_accessTokenRequired" defaultValue="false"/>
+    <variable name="sec_sso_oauth2_userApiType" defaultValue="basic" />
 
     <!-- the id attribute will not be substituted  -->
 	<oauth2Login
 		id="oauth2Login"		
-        clientId="${oauth2Login.clientId}"
-        clientSecret="${oauth2Login.clientSecret}"
-        redirectToRPHostAndPort="${oauth2Login.redirectToRPHostAndPort}"
-        tokenEndpoint="${oauth2Login.tokenEndpoint}"
-        authorizationEndpoint="${oauth2Login.authorizationEndpoint}"
-        userAPI="${oauth2Login.userApi}"
-        groupNameAttribute="${oauth2Login.groupNameAttribute}"
-        userNameAttribute="${oauth2Login.userNameAttribute}"
-        displayName="${oauth2Login.displayName}"        
-        mapToUserRegistry="${oauth2Login.mapToUserRegistry}"
-        realmNameAttribute="${oauth2Login.realmNameAttribute}"
-        scope="${oauth2Login.scope}"
-        tokenEndpointAuthMethod="${oauth2Login.tokenEndpointAuthMethod}"
-        accessTokenHeaderName="${oauth2Login.accessTokenHeaderName}"
-        accessTokenRequired="${oauth2Login.accessTokenRequired}"
-        userApiType="${oauth2Login.userApiType}"
+        clientId="${sec_sso_oauth2_clientId}"
+        clientSecret="${sec_sso_oauth2_clientSecret}"
+        redirectToRPHostAndPort="${sec_sso_oauth2_redirectToRPHostAndPort}"
+        tokenEndpoint="${sec_sso_oauth2_tokenEndpoint}"
+        authorizationEndpoint="${sec_sso_oauth2_authorizationEndpoint}"
+        userAPI="${sec_sso_oauth2_userApi}"
+        groupNameAttribute="${sec_sso_oauth2_groupNameAttribute}"
+        userNameAttribute="${sec_sso_oauth2_userNameAttribute}"
+        displayName="${sec_sso_oauth2_displayName}"        
+        mapToUserRegistry="${sec_sso_oauth2_mapToUserRegistry}"
+        realmNameAttribute="${sec_sso_oauth2_realmNameAttribute}"
+        scope="${sec_sso_oauth2_scope}"
+        tokenEndpointAuthMethod="${sec_sso_oauth2_tokenEndpointAuthMethod}"
+        accessTokenHeaderName="${sec_sso_oauth2_accessTokenHeaderName}"
+        accessTokenRequired="${sec_sso_oauth2_accessTokenRequired}"
+        userApiType="${sec_sso_oauth2_userApiType}"
 	></oauth2Login>
 </server>

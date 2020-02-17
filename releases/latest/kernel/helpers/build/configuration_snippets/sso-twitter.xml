@@ -5,9 +5,9 @@
     </featureManager> 
     
  
-	<twitterLogin>
-        clientId="${twitterLogin.clientId}"
-        clientSecret="${twitterLogin.clientSecret}"
-        redirectToRPHostAndPort="${twitterLogin.redirectToRPHostAndPort}"       
+	<twitterLogin
+        clientId="${sec_sso_twitter_clientId}"
+        clientSecret="${sec_sso_twitter_clientSecret}"
+        redirectToRPHostAndPort="${sec_sso_twitter_redirectToRPHostAndPort}"       
 	></twitterLogin>
 </server>

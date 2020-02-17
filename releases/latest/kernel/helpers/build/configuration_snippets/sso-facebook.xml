@@ -10,12 +10,12 @@
          The required parameters are 
            clientId, clientSecret, redirectToRPHostandPort
     -->
-    <variable name="facebookLogin.mapToUserRegistry" defaultValue="false"/>
+    <variable name="sec_sso_facebook_mapToUserRegistry" defaultValue="false"/>
     
     <facebookLogin
-        clientId="${facebookLogin.clientId}"
-        clientSecret="${facebookLogin.clientSecret}"
-        redirectToRPHostAndPort="${facebookLogin.redirectToRPHostAndPort}"   
-        mapToUserRegistry="${facebookLogin.mapToUserRegistry}"    
+        clientId="${sec_sso_facebook_clientId}"
+        clientSecret="${sec_sso_facebook_clientSecret}"
+        redirectToRPHostAndPort="${sec_sso_facebook_redirectToRPHostAndPort}"   
+        mapToUserRegistry="${sec_sso_facebook_mapToUserRegistry}"    
     ></facebookLogin>
 </server>

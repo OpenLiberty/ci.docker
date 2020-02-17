@@ -10,12 +10,12 @@
          The required parameters are 
            clientId, clientSecret, redirectToRPHostandPort
     -->
-    <variable name="linkedInLogin.mapToUserRegistry" defaultValue="false"/>       
+    <variable name="sec_sso_linkedin_mapToUserRegistry" defaultValue="false"/>       
  
-    <linkedinLogin
-        clientId="${linkedinLogin.clientId}"
-        clientSecret="${linkedinLogin.clientSecret}"
-        redirectToRPHostAndPort="${linkedinLogin.redirectToRPHostAndPort}"  
-        mapToUserRegistry="${linkedInLogin.mapToUserRegistry}"       
-    ></linkedinLogin>
+    <sec_sso_linkedin_
+        clientId="${sec_sso_linkedin_clientId}"
+        clientSecret="${sec_sso_linkedin_clientSecret}"
+        redirectToRPHostAndPort="${sec_sso_linkedin_redirectToRPHostAndPort}"  
+        mapToUserRegistry="${sec_sso_linkedin_mapToUserRegistry}"       
+    ></sec_sso_linkedin_>
 </server>

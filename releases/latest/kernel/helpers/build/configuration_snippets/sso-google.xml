@@ -10,13 +10,13 @@
          The required parameters are 
            clientId, clientSecret, redirectToRPHostandPort
     -->
-    <variable name="googleLogin.mapToUserRegistry" defaultValue="false"/>   
+    <variable name="sec_sso_google_mapToUserRegistry" defaultValue="false"/>   
 
  
     <googleLogin
-        clientId="${googleLogin.clientId}"
-        clientSecret="${googleLogin.clientSecret}"
-        redirectToRPHostAndPort="${googleLogin.redirectToRPHostAndPort}"   
-        mapToUserRegistry="${googleLogin.mapToUserRegistry}"        
+        clientId="${sec_sso_google_clientId}"
+        clientSecret="${sec_sso_google_clientSecret}"
+        redirectToRPHostAndPort="${sec_sso_google_redirectToRPHostAndPort}"   
+        mapToUserRegistry="${sec_sso_google_mapToUserRegistry}"        
     ></googleLogin>
 </server>

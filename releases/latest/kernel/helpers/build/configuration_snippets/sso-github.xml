@@ -10,16 +10,16 @@
          The required parameters are 
            clientId, clientSecret, redirectToRPHostandPort
     -->
-    <variable name="githubLogin.mapToUserRegistry" defaultValue="false"/>   
-    <variable name="githubLogin.hostname" defaultValue="github.com" />
+    <variable name="sec_sso_github_mapToUserRegistry" defaultValue="false"/>   
+    <variable name="sec_sso_github_hostname" defaultValue="github.com" />
  
     <githubLogin
-        clientId="${githubLogin.clientId}"
-        clientSecret="${githubLogin.clientSecret}"
-        redirectToRPHostAndPort="${githubLogin.redirectToRPHostAndPort}"
-        mapToUserRegistry="${githubLogin.mapToUserRegistry}"    
-        tokenEndpoint="https://${githubLogin.hostname}/login/oauth/access_token"
-        authorizationEndpoint="https://${githubLogin.hostname}/login/oauth/authorize"
-        userApi="https://api.${githubLogin.hostname}/user/emails"   
+        clientId="${sec_sso_github_clientId}"
+        clientSecret="${sec_sso_github_clientSecret}"
+        redirectToRPHostAndPort="${sec_sso_github_redirectToRPHostAndPort}"
+        mapToUserRegistry="${sec_sso_github_mapToUserRegistry}"    
+        tokenEndpoint="https://${sec_sso_github_hostname}/login/oauth/access_token"
+        authorizationEndpoint="https://${sec_sso_github_hostname}/login/oauth/authorize"
+        userApi="https://api.${sec_sso_github_hostname}/user/emails"   
     ></githubLogin>
 </server>
