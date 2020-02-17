@@ -4,7 +4,7 @@
 The following variables configure container security using the SocialLogin-1.0 feature. They can be expressed as Liberty server variables in a server xml file,
 passed in as environment variables (not the most secure), or passed in as server variables through the Liberty Operator.
 
-Security configuration takes effect when the container starts via docker-server.sh, so it can be added later if desired.
+Security configuration takes effect when the container starts via [docker-server.sh](releases/latest/kernel/helpers/runtime/docker-server.sh), so it can be added later if desired.
 
 These generally require the use of HTTPS. 
 
@@ -52,7 +52,7 @@ Each provider requires additional configuration.  Client ID and Client Secret ar
 |sec_sso_github_clientSecret       | y |
 |sec_sso_github_redirectToRPHostAndPort       | y |
 |sec_sso_github_mapToUserRegistry       | n|
-|sec_sso_github_hostname (example: mycompany.github.com)      | n|
+|sec_sso_github_hostname `(example: mycompany.github.com)`     | n|
 |||
 |sec_sso_facebook_clientId       | y |
 |sec_sso_facebook_clientSecret       | y |
