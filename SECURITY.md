@@ -14,8 +14,8 @@ Each provider requires additional configuration.  Client ID and Client Secret ar
 
  name                                 | required for this provider |
 |------------------------------------ | ------ |
-|sec_sso_oidc_clientid                | y |
-|sec_sso_oidc_clientsecret            | y |
+|sec_sso_oidc_clientId                | y |
+|sec_sso_oidc_clientSecret            | y |
 |sec_sso_oidc_discoveryEndpoint       | y |
 |sec_sso_oidc_redirectToRPHostAndPort | y |
 |sec_sso_oidc_groupNameAttribute      | n |
