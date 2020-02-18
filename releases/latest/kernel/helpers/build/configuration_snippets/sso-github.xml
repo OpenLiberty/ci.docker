@@ -11,7 +11,8 @@
            clientId, clientSecret, redirectToRPHostandPort
     -->
     <variable name="sec_sso_github_mapToUserRegistry" defaultValue="false"/>   
-    <variable name="sec_sso_github_hostname" defaultValue="github.com" />
+    <variable name="sec_sso_github_hostName" defaultValue="github.com" />
+    <variable name="sec_sso_github_userApi"  defaultvalue="https://api.${sec_sso_github_hostName}/user/emails" />
  
     <githubLogin
         clientId="${sec_sso_github_clientId}"
@@ -20,6 +21,6 @@
         mapToUserRegistry="${sec_sso_github_mapToUserRegistry}"    
         tokenEndpoint="https://${sec_sso_github_hostname}/login/oauth/access_token"
         authorizationEndpoint="https://${sec_sso_github_hostname}/login/oauth/authorize"
-        userApi="https://api.${sec_sso_github_hostname}/user/emails"   
+        userApi="${sec_sso_github_userApi}"
     ></githubLogin>
 </server>

@@ -25,6 +25,7 @@ Each provider requires additional configuration.  Client ID and Client Secret ar
 |sec_sso_oidc_realmNameAttribute |n|
 |sec_sso_oidc_scope      | n |
 |sec_sso_oidc_tokenEndpointAuthMethod      | n |
+|sec_sso_oidc_hostNameVerificationEnabled     | n |
 |||
 |sec_sso_oauth2_clientId             |y|
 |sec_sso_oauth2_clientSecret             |y|
@@ -36,11 +37,15 @@ Each provider requires additional configuration.  Client ID and Client Secret ar
 |sec_sso_oauth2_displayName      | n |
 |sec_sso_oauth2_mapToUserRegistry      | n |
 |sec_sso_oauth2_realmNameAttribute      | n |
+|sec_sso_oauth2_realmName      | n |
 |sec_sso_oauth2_scope      | n |
 |sec_sso_oauth2_tokenEndpointAuthMethod      | n |
 |sec_sso_oauth2_accessTokenHeaderName      | n |
 |sec_sso_oauth2_accessTokenRequired      | n |
+|sec_sso_oauth2_accessTokenSupported     | n |
 |sec_sso_oauth2_userApiType      | n |
+|sec_sso_oauth2_userApi      | n |
+|sec_sso_oauth2_userApiToken      | n |
 |||
 |sec_sso_google_clientId       | y |
 |sec_sso_google_clientSecret       | y |
@@ -51,7 +56,7 @@ Each provider requires additional configuration.  Client ID and Client Secret ar
 |sec_sso_github_clientSecret       | y |
 |sec_sso_github_redirectToRPHostAndPort       | y |
 |sec_sso_github_mapToUserRegistry       | n|
-|sec_sso_github_hostname `(example: mycompany.github.com)`     | n|
+|sec_sso_github_hostName `(example: github.mycompany.com)`     | n|
 |||
 |sec_sso_facebook_clientId       | y |
 |sec_sso_facebook_clientSecret       | y |

@@ -19,6 +19,7 @@
     <variable name="sec_sso_oidc_realmNameAttribute" defaultValue="iss"/>
     <variable name="sec_sso_oidc_scope" defaultValue="openid profile email"/>
     <variable name="sec_sso_oidc_tokenEndpointAuthMethod" defaultValue="client_secret_post"/>
+    <variable name="sec_sso_oidc_hostNameVerificationEnabled" defaultValue="true" />
 
     <!-- the id attribute will not be substituted  -->
 	<oidcLogin
@@ -36,5 +37,6 @@
         realmNameAttribute="${sec_sso_oidc_realmNameAttribute}"
         scope="${sec_sso_oidc_scope}"
         tokenEndpointAuthMethod="${sec_sso_oidc_tokenEndpointAuthMethod}"
+        hostNameVerificationEnabled="${sec_sso_oidc_hostNameVerificationEnabled}"
 	></sec_sso_oidc_
 </server>

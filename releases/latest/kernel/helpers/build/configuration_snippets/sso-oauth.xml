@@ -18,11 +18,15 @@
     <variable name="sec_sso_oauth2_userApi" defaultValue=""/>
     <variable name="sec_sso_oauth2_mapToUserRegistry" defaultValue="false"/>
     <variable name="sec_sso_oauth2_realmNameAttribute" defaultValue=""/>
+     <variable name="sec_sso_oauth2_realmName" defaultValue=""/>
     <variable name="sec_sso_oauth2_scope" defaultValue=""/>
     <variable name="sec_sso_oauth2_tokenEndpointAuthMethod" defaultValue="client_secret_post"/>
     <variable name="sec_sso_oauth2_accessTokenHeaderName" defaultValue=""/>
     <variable name="sec_sso_oauth2_accessTokenRequired" defaultValue="false"/>
+    <variable name="sec_sso_oauth2_accessTokenSupported" defaultValue="false"/>
     <variable name="sec_sso_oauth2_userApiType" defaultValue="basic" />
+    <variable name="sec_sso_oauth2_userApi" defaultValue="" />
+     <variable name="sec_sso_oauth2_userApiToken" defaultValue="" />
 
     <!-- the id attribute will not be substituted  -->
 	<oauth2Login
@@ -38,10 +42,14 @@
         displayName="${sec_sso_oauth2_displayName}"        
         mapToUserRegistry="${sec_sso_oauth2_mapToUserRegistry}"
         realmNameAttribute="${sec_sso_oauth2_realmNameAttribute}"
+         realmNameAttribute="${sec_sso_oauth2_realmName}"
         scope="${sec_sso_oauth2_scope}"
         tokenEndpointAuthMethod="${sec_sso_oauth2_tokenEndpointAuthMethod}"
         accessTokenHeaderName="${sec_sso_oauth2_accessTokenHeaderName}"
         accessTokenRequired="${sec_sso_oauth2_accessTokenRequired}"
+        accessTokenSupported="${sec_sso_oauth2_accessTokenSupported}"
         userApiType="${sec_sso_oauth2_userApiType}"
+        userApiToken="${sec_sso_oauth2_userApiToken}"
+        userApi="${sec_sso_oauth2_userApi}"
 	></oauth2Login>
 </server>
