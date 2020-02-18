@@ -1,8 +1,7 @@
 ## Configuring Security
 
 
-The following variables configure container security using the SocialLogin-1.0 feature. They can be expressed as Liberty server variables in a server xml file,
-passed in as environment variables (not the most secure), or passed in as server variables through the Liberty Operator.
+The following variables configure container security using the SocialLogin-1.0 feature. They can be expressed as Liberty server variables in a server xml file at image build time, passed in as environment variables (not the most secure), or passed in as server variables through the Liberty Operator.
 
 Security configuration takes effect when the container starts via [docker-server.sh](releases/latest/kernel/helpers/runtime/docker-server.sh), so it can be added later if desired.
 
@@ -10,7 +9,7 @@ These generally require the use of HTTPS.
 
 The variable `sec_sso_providers` must be defined and contain a space delimited list of the providers to use. If more than one is specified, the user can choose which one to authenticate with. Valid values are any of `oidc oauth facebook twitter github google linkedin`.
 
-Each provider requires additional configuration.  Client ID and Client Secret are obtained from the provider.  RedirectToRPHostAndPort is the protocol, host, and port that the provider should send the browser back to after authentication.  In many containers, the pod cannot figure this out, so it will need to be specified. Other variables may be needed in some situations and are documented in detail in the [Open Liberty Documentation](https://openliberty.io/docs/ref/feature/#socialLogin-1.0.html) under each type of provider.
+Each provider requires additional configuration.  Client ID and Client Secret are obtained from the provider.  RedirectToRPHostAndPort is the protocol, host, and port that the provider should send the browser back to after authentication, for example `https://myApp-myNamespace-myClusterHostname.mycompany.com`  In many container environments, the pod cannot figure this out, so it will need to be specified. Other variables may be needed in some situations and are documented in detail in the [Open Liberty Documentation](https://openliberty.io/docs/ref/feature/#socialLogin-1.0.html) under each type of provider.
 
  name                                 | required for this provider |
 |------------------------------------ | ------ |
@@ -29,7 +28,7 @@ Each provider requires additional configuration.  Client ID and Client Secret ar
 |||
 |sec_sso_oauth2_clientId             |y|
 |sec_sso_oauth2_clientSecret             |y|
-|sec_sso_oauth2_rediretToRPHostAndPort             |y|
+|sec_sso_oauth2_redirectToRPHostAndPort             |y|
 |sec_sso_oauth2_tokenEndpoint             |y|
 |sec_sso_oauth2_authorizationEndpoint             |y|
 |sec_sso_oauth2_groupNameAttribute      | n |
