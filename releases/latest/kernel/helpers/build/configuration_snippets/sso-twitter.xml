@@ -10,8 +10,8 @@
     <variable name="sec_sso_redirectToRPHostAndPort" defaultValue="" /> 
 
 	<twitterLogin
-        clientId="${sec_sso_twitter_clientId}"
-        clientSecret="${sec_sso_twitter_clientSecret}"
+        consumerId="${sec_sso_twitter_consumerId}"
+        consumerSecret="${sec_sso_twitter_consumerSecret}"
         redirectToRPHostAndPort="${sec_sso_redirectToRPHostAndPort}"  
         mapToUserRegistry="${sec_sso_mapToUserRegistry}"      
 	></twitterLogin>
