@@ -1,24 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <server>
-    
-	<featureManager>       
-        <feature>appSecurity-3.0</feature>
-        <feature>socialLogin-1.0</feature>
-    </featureManager> 
-    
+       
     <!-- defaults from the server metatype.xml are declared as variables here
          If nothing is passed in elsewhere, the defaults will prevail.
          Required parameters have no defaults, so are not defined here.
          The required parameters are 
-           clientId, clientSecret, redirectToRPHostandPort,
+           clientId, clientSecret, 
            tokenEndpoint, authorizationEndpoint
     -->
+    <variable name="sec_sso_redirectToRPHostAndPort" defaultValue="" /> 
+    <variable name="sec_sso_mapToUserRegistry" defaultValue="false"/>
     <variable name="sec_sso_oauth2_groupNameAttribute" defaultValue=""/>
     <variable name="sec_sso_oauth2_userNameAttribute" defaultValue="email"/>
     <variable name="sec_sso_oauth2_displayName" defaultValue="oauthLogin"/>
-    <variable name="sec_sso_oauth2_userApi" defaultValue=""/>
-    <variable name="sec_sso_oauth2_mapToUserRegistry" defaultValue="false"/>
+    <variable name="sec_sso_oauth2_userApi" defaultValue=""/>    
     <variable name="sec_sso_oauth2_realmNameAttribute" defaultValue=""/>
-     <variable name="sec_sso_oauth2_realmName" defaultValue=""/>
+    <variable name="sec_sso_oauth2_realmName" defaultValue=""/>
     <variable name="sec_sso_oauth2_scope" defaultValue=""/>
     <variable name="sec_sso_oauth2_tokenEndpointAuthMethod" defaultValue="client_secret_post"/>
     <variable name="sec_sso_oauth2_accessTokenHeaderName" defaultValue=""/>
@@ -26,23 +23,23 @@
     <variable name="sec_sso_oauth2_accessTokenSupported" defaultValue="false"/>
     <variable name="sec_sso_oauth2_userApiType" defaultValue="basic" />
     <variable name="sec_sso_oauth2_userApi" defaultValue="" />
-     <variable name="sec_sso_oauth2_userApiToken" defaultValue="" />
+    <variable name="sec_sso_oauth2_userApiToken" defaultValue="" />
 
-    <!-- the id attribute will not be substituted  -->
+    <!-- the id attribute will not be substituted  -->    
 	<oauth2Login
 		id="oauth2Login"		
         clientId="${sec_sso_oauth2_clientId}"
         clientSecret="${sec_sso_oauth2_clientSecret}"
-        redirectToRPHostAndPort="${sec_sso_oauth2_redirectToRPHostAndPort}"
+        redirectToRPHostAndPort="${sec_sso_redirectToRPHostAndPort}"
         tokenEndpoint="${sec_sso_oauth2_tokenEndpoint}"
         authorizationEndpoint="${sec_sso_oauth2_authorizationEndpoint}"
         userAPI="${sec_sso_oauth2_userApi}"
         groupNameAttribute="${sec_sso_oauth2_groupNameAttribute}"
         userNameAttribute="${sec_sso_oauth2_userNameAttribute}"
         displayName="${sec_sso_oauth2_displayName}"        
-        mapToUserRegistry="${sec_sso_oauth2_mapToUserRegistry}"
+        mapToUserRegistry="${sec_sso_mapToUserRegistry}"
         realmNameAttribute="${sec_sso_oauth2_realmNameAttribute}"
-         realmNameAttribute="${sec_sso_oauth2_realmName}"
+        realmName="${sec_sso_oauth2_realmName}"
         scope="${sec_sso_oauth2_scope}"
         tokenEndpointAuthMethod="${sec_sso_oauth2_tokenEndpointAuthMethod}"
         accessTokenHeaderName="${sec_sso_oauth2_accessTokenHeaderName}"

@@ -1,21 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <server>    
-    <featureManager>       
-        <feature>appSecurity-3.0</feature>
-        <feature>socialLogin-1.0</feature>
-    </featureManager> 
-    
+        
    <!-- defaults from the server metatype.xml are declared as variables here
          If nothing is passed in elsewhere, the defaults will prevail.
          Required parameters have no defaults, so are not defined here.
          The required parameters are 
-           clientId, clientSecret, redirectToRPHostandPort
+           clientId, clientSecret
     -->
-    <variable name="sec_sso_facebook_mapToUserRegistry" defaultValue="false"/>
+    <variable name="sec_sso_mapToUserRegistry" defaultValue="false"/>
+    <variable name="sec_sso_redirectToRPHostAndPort" defaultValue="" /> 
     
     <facebookLogin
         clientId="${sec_sso_facebook_clientId}"
         clientSecret="${sec_sso_facebook_clientSecret}"
-        redirectToRPHostAndPort="${sec_sso_facebook_redirectToRPHostAndPort}"   
-        mapToUserRegistry="${sec_sso_facebook_mapToUserRegistry}"    
+        redirectToRPHostAndPort="${sec_sso_redirectToRPHostAndPort}"   
+        mapToUserRegistry="${sec_sso_mapToUserRegistry}"    
     ></facebookLogin>
 </server>

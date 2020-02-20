@@ -1,21 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <server>
-    
-	<featureManager>       
-        <feature>appSecurity-3.0</feature>
-        <feature>socialLogin-1.0</feature>
-    </featureManager> 
-    
+   
     <!-- defaults from the server metatype.xml are declared as variables here
          If nothing is passed in elsewhere, the defaults will prevail.
          Required parameters have no defaults, so are not defined here.
          The required parameters are 
-           clientId, clientSecret, redirectToRPHostandPort, and discoveryEndpoint
+           clientId, clientSecret and discoveryEndpoint
     -->
+    <variable name="sec_sso_redirectToRPHostAndPort" defaultValue="" /> 
     <variable name="sec_sso_oidc_groupNameAttribute" defaultValue=""/>
     <variable name="sec_sso_oidc_userNameAttribute" defaultValue="sub"/>
     <variable name="sec_sso_oidc_displayName" defaultValue="oidcLogin"/>
     <variable name="sec_sso_oidc_userInfoEndpointEnabled" defaultValue="false"/>
-    <variable name="sec_sso_oidc_mapToUserRegistry" defaultValue="false"/>
+    <variable name="sec_sso_mapToUserRegistry" defaultValue="false"/>
     <variable name="sec_sso_oidc_realmNameAttribute" defaultValue="iss"/>
     <variable name="sec_sso_oidc_scope" defaultValue="openid profile email"/>
     <variable name="sec_sso_oidc_tokenEndpointAuthMethod" defaultValue="client_secret_post"/>
@@ -26,17 +23,17 @@
 		id="oidcLogin"	
         clientId="${sec_sso_oidc_clientId}"
         clientSecret="${sec_sso_oidc_clientSecret}"
-        redirectToRPHostAndPort="${sec_sso_oidc_redirectToRPHostAndPort}"
+        redirectToRPHostAndPort="${sec_sso_redirectToRPHostAndPort}"
         discoveryEndpoint="${sec_sso_oidc_discoveryEndpoint}"
 
         groupNameAttribute="${sec_sso_oidc_groupNameAttribute}"
         userNameAttribute="${sec_sso_oidc_userNameAttribute}"
         displayName="${sec_sso_oidc_displayName}"
         userInfoEndpointEnabled="${sec_sso_oidc_userInfoEndpointEnabled}"
-        mapToUserRegistry="${sec_sso_oidc_mapToUserRegistry}"
+        mapToUserRegistry="${sec_sso_mapToUserRegistry}"
         realmNameAttribute="${sec_sso_oidc_realmNameAttribute}"
         scope="${sec_sso_oidc_scope}"
         tokenEndpointAuthMethod="${sec_sso_oidc_tokenEndpointAuthMethod}"
         hostNameVerificationEnabled="${sec_sso_oidc_hostNameVerificationEnabled}"
-	></sec_sso_oidc_
+	></oidcLogin>
 </server>

@@ -1,26 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <server>    
-    <featureManager>       
-        <feature>appSecurity-3.0</feature>
-        <feature>socialLogin-1.0</feature>
-    </featureManager> 
-
+   
    <!-- defaults from the server metatype.xml are declared as variables here
          If nothing is passed in elsewhere, the defaults will prevail.
          Required parameters have no defaults, so are not defined here.
          The required parameters are 
-           clientId, clientSecret, redirectToRPHostandPort
+           clientId, clientSecret
     -->
-    <variable name="sec_sso_github_mapToUserRegistry" defaultValue="false"/>   
+    <variable name="sec_sso_mapToUserRegistry" defaultValue="false"/>   
     <variable name="sec_sso_github_hostName" defaultValue="github.com" />
-    <variable name="sec_sso_github_userApi"  defaultvalue="https://api.${sec_sso_github_hostName}/user/emails" />
+    <variable name="sec_sso_redirectToRPHostAndPort" defaultValue="" /> 
  
     <githubLogin
         clientId="${sec_sso_github_clientId}"
         clientSecret="${sec_sso_github_clientSecret}"
-        redirectToRPHostAndPort="${sec_sso_github_redirectToRPHostAndPort}"
-        mapToUserRegistry="${sec_sso_github_mapToUserRegistry}"    
+        redirectToRPHostAndPort="${sec_sso_redirectToRPHostAndPort}"
+        mapToUserRegistry="${sec_sso_mapToUserRegistry}"    
         tokenEndpoint="https://${sec_sso_github_hostname}/login/oauth/access_token"
         authorizationEndpoint="https://${sec_sso_github_hostname}/login/oauth/authorize"
-        userApi="${sec_sso_github_userApi}"
+        userApi="https://api.${sec_sso_github_hostName}/user/emails"
     ></githubLogin>
 </server>

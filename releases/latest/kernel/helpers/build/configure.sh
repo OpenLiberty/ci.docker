@@ -80,6 +80,31 @@ then
   fi
 fi
 
+if [[ -n "$sec_sso_providers" ]]; then
+  cp $SNIPPETS_SOURCE/sso-features.xml $SNIPPETS_TARGET
+  if [[ $SSO_PROVIDERS == *"oidc"* ]]; then
+    cp $SNIPPETS_SOURCE/sso-oidc.xml $SNIPPETS_TARGET
+    fi
+  if [[ $SSO_PROVIDERS == *"oauth"* ]]; then
+    cp $SNIPPETS_SOURCE/sso-oauth.xml $SNIPPETS_TARGET
+    fi
+  if [[ $SSO_PROVIDERS == *"facebook"* ]]; then
+    cp $SNIPPETS_SOURCE/sso-facebook.xml $SNIPPETS_TARGET
+    fi
+  if [[ $SSO_PROVIDERS == *"twitter"* ]]; then
+    cp $SNIPPETS_SOURCE/sso-twitter.xml $SNIPPETS_TARGET
+    fi    
+  if [[ $SSO_PROVIDERS == *"linkedin"* ]]; then
+    cp $SNIPPETS_SOURCE/sso-linkedin.xml $SNIPPETS_TARGET
+    fi
+  if [[ $SSO_PROVIDERS == *"google"* ]]; then
+    cp $SNIPPETS_SOURCE/sso-google.xml $SNIPPETS_TARGET
+    fi
+  if [[ $SSO_PROVIDERS == *"github"* ]]; then
+    cp $SNIPPETS_SOURCE/sso-github.xml $SNIPPETS_TARGET
+    fi
+fi
+
 # Create a new SCC layer
 if [ "$OPENJ9_SCC" == "true" ]
 then

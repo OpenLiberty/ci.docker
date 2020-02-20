@@ -1,21 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <server>    
-    <featureManager>       
-        <feature>appSecurity-3.0</feature>
-        <feature>socialLogin-1.0</feature>
-    </featureManager> 
- 
+   
    <!-- defaults from the server metatype.xml are declared as variables here
          If nothing is passed in elsewhere, the defaults will prevail.
          Required parameters have no defaults, so are not defined here.
          The required parameters are 
-           clientId, clientSecret, redirectToRPHostandPort
+           clientId, clientSecret
     -->
-    <variable name="sec_sso_linkedin_mapToUserRegistry" defaultValue="false"/>       
+    <variable name="sec_sso_mapToUserRegistry" defaultValue="false"/> 
+    <variable name="sec_sso_redirectToRPHostAndPort" defaultValue="" />       
  
-    <sec_sso_linkedin_
+    <linkedinLogin
         clientId="${sec_sso_linkedin_clientId}"
         clientSecret="${sec_sso_linkedin_clientSecret}"
-        redirectToRPHostAndPort="${sec_sso_linkedin_redirectToRPHostAndPort}"  
-        mapToUserRegistry="${sec_sso_linkedin_mapToUserRegistry}"       
-    ></sec_sso_linkedin_>
+        redirectToRPHostAndPort="${sec_sso_redirectToRPHostAndPort}"  
+        mapToUserRegistry="${sec_sso_mapToUserRegistry}"       
+    ></linkedinLogin>
 </server>
