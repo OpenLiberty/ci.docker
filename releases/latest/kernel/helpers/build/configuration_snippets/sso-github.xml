@@ -16,8 +16,8 @@
         clientSecret="${sec_sso_github_clientSecret}"
         redirectToRPHostAndPort="${sec_sso_redirectToRPHostAndPort}"
         mapToUserRegistry="${sec_sso_mapToUserRegistry}"    
-        tokenEndpoint="https://${sec_sso_github_hostname}/login/oauth/access_token"
-        authorizationEndpoint="https://${sec_sso_github_hostname}/login/oauth/authorize"
+        tokenEndpoint="https://${sec_sso_github_hostName}/login/oauth/access_token"
+        authorizationEndpoint="https://${sec_sso_github_hostName}/login/oauth/authorize"
         userApi="https://api.${sec_sso_github_hostName}/user/emails"
     ></githubLogin>
 </server>
