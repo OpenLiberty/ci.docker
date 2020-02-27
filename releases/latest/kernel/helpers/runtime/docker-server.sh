@@ -25,7 +25,7 @@ function importKeyCert() {
 
 
     # Add mounted CA to the truststore
-    if [ -f "${CERT_FOLDER}/${CA_FILE}" ] && [ -f "${CERT_FOLDER}/${CA_FILE}" ]; then
+    if [ -f "${CERT_FOLDER}/${CA_FILE}" ]; then
         echo "Found mounted TLS CA certificate, adding to truststore"
         keytool -import -storetype pkcs12 -noprompt -keystore "${TRUSTSTORE_FILE}" -file "${CERT_FOLDER}/${CA_FILE}" \
           -storepass "${PASSWORD}" -alias "service-ca" >&/dev/null    
@@ -34,7 +34,7 @@ function importKeyCert() {
 
   # Add kubernetes CA certificates to the truststore
   # CA bundles need to be split and added as individual certificates
-  if [ -d "${KUBE_SA_FOLDER}" ]; then
+  if [ "$IMPORT_K8S_CERTS" = "true" ] && [ -d "${KUBE_SA_FOLDER}" ]; then
     mkdir /tmp/certs
     pushd /tmp/certs >&/dev/null
     cat ${KUBE_SA_FOLDER}/*.crt >${TMP_CERT}
