@@ -6,6 +6,7 @@ function importKeyCert() {
   local KEY_FILE="tls.key"
   local CA_FILE="ca.crt"
   local PASSWORD=$(openssl rand -base64 32 2>/dev/null)
+  local TRUSTSTORE_PASSWORD=$(openssl rand -base64 32 2>/dev/null)
   local TMP_CERT=ca-bundle-temp.crt
   local -r CRT_DELIMITER="/-----BEGIN CERTIFICATE-----/"
   local KUBE_SA_FOLDER="/var/run/secrets/kubernetes.io/serviceaccount"
@@ -53,8 +54,10 @@ function importKeyCert() {
     cp $SNIPPETS_SOURCE/keystore.xml $SNIPPETS_TARGET_DEFAULTS/keystore.xml
   fi
   if [ -e $TRUSTSTORE_FILE ]; then
-    sed -i.bak "s|PWD_TRUST|$PASSWORD|g" $SNIPPETS_SOURCE/truststore.xml
+    sed -i.bak "s|PWD_TRUST|$TRUSTSTORE_PASSWORD|g" $SNIPPETS_SOURCE/truststore.xml
     cp $SNIPPETS_SOURCE/truststore.xml $SNIPPETS_TARGET_DEFAULTS/truststore.xml
+  else
+    cp $SNIPPETS_SOURCE/trustDefault.xml $SNIPPETS_TARGET_DEFAULTS/trustDefault.xml  
   fi
 }
 
