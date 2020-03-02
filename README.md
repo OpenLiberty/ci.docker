@@ -69,9 +69,8 @@ This section describes the optional enterprise functionality that can be enabled
 
 ## Security 
 
-Single Sign On can be optionally configured by adding Liberty server variables in an xml file, by passing environment variables (not the most secure),
-or by passing Liberty server variables in through the Liberty operator.  Security configuration updates take effect at container start time.
-See [SECURITY.md](SECURITY.md).
+Single Sign On can be optionally configured by adding Liberty server variables in an xml file, by passing environment variables (less secure),
+or by passing Liberty server variables in through the Liberty operator. See [SECURITY.md](SECURITY.md).
 
 ## OpenJ9 Shared Class Cache (SCC)
 
