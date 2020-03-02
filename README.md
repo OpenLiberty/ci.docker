@@ -57,8 +57,11 @@ This section describes the optional enterprise functionality that can be enabled
 * `TLS` or `SSL` (SSL is being deprecated)
   *  Decription: Enable Transport Security in Liberty by adding the `transportSecurity-1.0` feature (includes support for SSL).
   *  XML Snippet Location:  [keystore.xml](/releases/latest/kernel/helpers/build/configuration_snippets/keystore.xml).
+* `SEC_TLS_TRUSTDEFAULTCERTS`
+  *  Description: Automatically trust certificates from known certificate authorities.
+  * XML Snippet Location: [trustDefaultCerts.xml](/releases/latest/kernel/helpers/build/configuration_snippets/trustDefaultCerts.xml
 * `IIOP_ENDPOINT`
-  *  Decription: Add configuration properties for an IIOP endpoint.
+  *  Description: Add configuration properties for an IIOP endpoint.
   *  XML Snippet Location: [iiop-ssl-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/iiop-ssl-endpoint.xml) when SSL is enabled. Otherwise, [iiop-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/iiop-endpoint.xml).
   *  Note: If using this option, `env.IIOP_ENDPOINT_HOST` environment variable should be set to the server's host. See [IIOP endpoint configuration](https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.liberty.autogen.base.doc/ae/rwlp_config_orb.html#iiopEndpoint) for more details.
 * `JMS_ENDPOINT`

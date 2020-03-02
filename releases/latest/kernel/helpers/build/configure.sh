@@ -23,6 +23,11 @@ if [ "$MP_HEALTH_CHECK" == "true" ]; then
   cp $SNIPPETS_SOURCE/mp-health-check.xml $SNIPPETS_TARGET/mp-health-check.xml
 fi
 
+# SSL Trusted Default Certs
+if [ "$SEC_TLS_TRUSTDEFAULTCERTS" == "true" ]; then
+  cp $SNIPPETS_SOURCE/trustdefaultcerts.xml $SNIPPETS_TARGET/trustDefaultCerts.xml
+fi
+
 # MicroProfile Monitoring
 if [ "$MP_MONITORING" == "true" ]; then
   cp $SNIPPETS_SOURCE/mp-monitoring.xml $SNIPPETS_TARGET/mp-monitoring.xml
