@@ -1,9 +1,4 @@
-  
 <?xml version="1.0" encoding="UTF-8"?>
 <server>
-    <featureManager>
-        <feature>trustDefaultCerts-1.0</feature>
-    </featureManager>
-    
-    <mpMetrics authentication="false" />
-</server>
+   <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
+</server> 

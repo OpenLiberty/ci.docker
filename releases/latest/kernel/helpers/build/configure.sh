@@ -25,7 +25,7 @@ fi
 
 # SSL Trusted Default Certs
 if [ "$SEC_TLS_TRUSTDEFAULTCERTS" == "true" ]; then
-  cp $SNIPPETS_SOURCE/trustdefaultcerts.xml $SNIPPETS_TARGET/trustDefaultCerts.xml
+  cp $SNIPPETS_SOURCE/trustDefaultCerts.xml $SNIPPETS_TARGET/trustDefaultCerts.xml
 fi
 
 # MicroProfile Monitoring
