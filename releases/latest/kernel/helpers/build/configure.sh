@@ -14,6 +14,7 @@ SNIPPETS_SOURCE=/opt/ol/helpers/build/configuration_snippets
 SNIPPETS_TARGET=/config/configDropins/overrides
 SNIPPETS_TARGET_DEFAULTS=/config/configDropins/defaults
 mkdir -p ${SNIPPETS_TARGET}
+mkdir -p ${SNIPPETS_TARGET_DEFAULTS}
 
 #Check for each Liberty value-add functionality
 
