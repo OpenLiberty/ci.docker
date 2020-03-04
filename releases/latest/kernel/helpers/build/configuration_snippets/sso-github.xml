@@ -19,5 +19,6 @@
         tokenEndpoint="https://${sec_sso_github_hostName}/login/oauth/access_token"
         authorizationEndpoint="https://${sec_sso_github_hostName}/login/oauth/authorize"
         userApi="https://api.${sec_sso_github_hostName}/user/emails"
+        website="https://${sec_sso_github_hostName}"
     ></githubLogin>
 </server>
