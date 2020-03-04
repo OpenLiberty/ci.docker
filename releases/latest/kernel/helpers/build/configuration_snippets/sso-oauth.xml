@@ -21,7 +21,8 @@
     <variable name="sec_sso_oauth2_accessTokenHeaderName" defaultValue=""/>
     <variable name="sec_sso_oauth2_accessTokenRequired" defaultValue="false"/>
     <variable name="sec_sso_oauth2_accessTokenSupported" defaultValue="false"/>
-    <variable name="sec_sso_oauth2_userApiType" defaultValue="basic" />    
+    <variable name="sec_sso_oauth2_userApiType" defaultValue="basic" />
+    <variable name="sec_sso_oauth2_userApi" defaultValue="" />
     <variable name="sec_sso_oauth2_userApiToken" defaultValue="" />
 
     <!-- the id attribute will not be substituted  -->    
@@ -45,6 +46,7 @@
         accessTokenRequired="${sec_sso_oauth2_accessTokenRequired}"
         accessTokenSupported="${sec_sso_oauth2_accessTokenSupported}"
         userApiType="${sec_sso_oauth2_userApiType}"
-        userApiToken="${sec_sso_oauth2_userApiToken}"        
+        userApiToken="${sec_sso_oauth2_userApiToken}"
+        userApi="${sec_sso_oauth2_userApi}"
 	></oauth2Login>
 </server>
