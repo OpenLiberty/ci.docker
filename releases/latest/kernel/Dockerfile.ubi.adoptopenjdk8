@@ -1,7 +1,7 @@
 FROM adoptopenjdk/openjdk8-openj9:ubi
-ARG LIBERTY_VERSION=20.0.0.1
-ARG LIBERTY_SHA=dfededade132ba37fabbcf07d5004773ee9f3be5
-ARG LIBERTY_BUILD_LABEL=cl200120200108-0300
+ARG LIBERTY_VERSION=20.0.0.2
+ARG LIBERTY_SHA=c552f97593fd1ca8adb04ea8f70ed616aa7d6d27
+ARG LIBERTY_BUILD_LABEL=cl200220200204-1746
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 ARG OPENJ9_SCC=true
 
@@ -21,7 +21,7 @@ COPY helpers /opt/ol/helpers
 COPY licenses /licenses
 
 # Install Open Liberty
-RUN yum -y install shadow-utils wget unzip \
+RUN yum -y install shadow-utils wget unzip openssl \
     && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
     && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
     && sha1sum -c /tmp/wlp.zip.sha1 \
