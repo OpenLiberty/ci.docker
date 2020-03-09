@@ -29,7 +29,7 @@ function importKeyCert() {
     if [ -f "${CERT_FOLDER}/${CA_FILE}" ]; then
         echo "Found mounted TLS CA certificate, adding to truststore"
         keytool -import -storetype pkcs12 -noprompt -keystore "${TRUSTSTORE_FILE}" -file "${CERT_FOLDER}/${CA_FILE}" \
-          -storepass "${PASSWORD}" -alias "service-ca" >&/dev/null    
+          -storepass "${TRUSTSTORE_PASSWORD}" -alias "service-ca" >&/dev/null    
     fi
   fi
 
@@ -42,7 +42,7 @@ function importKeyCert() {
     csplit -s -z -f crt- "${TMP_CERT}" "${CRT_DELIMITER}" '{*}'
     for CERT_FILE in crt-*; do
       keytool -import -storetype pkcs12 -noprompt -keystore "${TRUSTSTORE_FILE}" -file "${CERT_FILE}" \
-        -storepass "${PASSWORD}" -alias "service-sa-${CERT_FILE}" >&/dev/null
+        -storepass "${TRUSTSTORE_PASSWORD}" -alias "service-sa-${CERT_FILE}" >&/dev/null
     done
     popd >&/dev/null
     rm -rf /tmp/certs
@@ -55,9 +55,9 @@ function importKeyCert() {
   fi
   if [ -e $TRUSTSTORE_FILE ]; then
     sed -i.bak "s|PWD_TRUST|$TRUSTSTORE_PASSWORD|g" $SNIPPETS_SOURCE/truststore.xml
-    cp $SNIPPETS_SOURCE/truststore.xml $SNIPPETS_TARGET_DEFAULTS/truststore.xml
+    cp $SNIPPETS_SOURCE/truststore.xml $SNIPPETS_TARGET_OVERRIDES/truststore.xml
   else
-    cp $SNIPPETS_SOURCE/trustDefault.xml $SNIPPETS_TARGET_DEFAULTS/trustDefault.xml  
+    cp $SNIPPETS_SOURCE/trustDefault.xml $SNIPPETS_TARGET_OVERRIDES/trustDefault.xml  
   fi
 }
 

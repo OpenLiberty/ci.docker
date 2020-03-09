@@ -120,9 +120,36 @@ docker run -d -p 80:9080 -p 443:9443 -e WLP_LOGGING_CONSOLE_FORMAT=JSON -e WLP_L
 
 For more information regarding the configuration of Open Liberty's logging capabilities see: https://openliberty.io/docs/ref/general/#logging.html
 
+## Security
+
+### Automatically trust known certificate authorities
+
+To enable trust certificates from known certificate authorities `SEC_TLS_TRUSTDEFAULTCERTS` environment variable can be set.
+Default value is `false`. If set to true, then the default certificates are used in addition to the configured truststore file to establish trust.
+
+### Providing custom Certificates
+
+It is possible to provide custom PEM certifacates by mounting the files into the container. Files that will be imported are `tls.key`, `tls.crt` and `ca.crt`.
+
+The location can be specified by `TLS_DIR` environment variable. Default location
+for certificates is `/etc/x509/certs/`.
+
+The container will automatically convert PEM file and create a keystore and truststore files (key.p12 and trust.p12).
+
+Container also can import certificates from Kubernetes.
+If `IMPORT_K8S_CERTS` is set to `true` and `/var/run/secrets/kubernetes.io/serviceaccount` folder is mounted into container the `.crt` files will be imported into the the truststore file. Default value is `false`.
+
+### Providing custom keystore
+
+A custom keystore can be provided during the application image's build phase by simply copying the keystore into the image's  `/output/resources/security/key.p12` location. 
+
+You must then override the keystore's password by including your copy of the `keystore.xml` file inside the `/config/configDropins/defaults/` directory.
+
+
 ### Session Caching
 
 The Liberty session caching feature builds on top of an existing technology called JCache (JSR 107), which provides an API for distributed in-memory caching. There are several providers of JCache implementations. One example is [Hazelcast In-Memory Data Grid](https://hazelcast.org/). Enabling Hazelcast session caching retrieves the Hazelcast client libraries from the [hazelcast/hazelcast](https://hub.docker.com/r/hazelcast/hazelcast/) Docker image, configures Hazelcast by copying a sample [hazelcast.xml](/releases/latest/kernel/helpers/build/configuration_snippets/), and configures the Liberty server feature [sessionCache-1.0](https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_admin_session_persistence_jcache.html) by including the XML snippet [hazelcast-sessioncache.xml](/releases/latest/kernel/helpers/build/configuration_snippets/hazelcast-sessioncache.xml). By default, the [Hazelcast Discovery Plugin for Kubernetes](https://github.com/hazelcast/hazelcast-kubernetes) will auto-discover its peers within the same Kubernetes namespace. To enable this functionality, the Docker image author can include the following Dockerfile snippet, and choose from either client-server or embedded [topology](https://docs.hazelcast.org/docs/latest-dev/manual/html-single/#hazelcast-topology).
+
 
 ```dockerfile
 ### Hazelcast Session Caching ###
