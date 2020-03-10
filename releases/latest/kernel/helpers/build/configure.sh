@@ -81,27 +81,27 @@ then
   fi
 fi
 
-if [[ -n "$sec_sso_providers" ]]; then
+if [[ -n "$SEC_SSO_PROVIDERS" ]]; then
   cp $SNIPPETS_SOURCE/sso-features.xml $SNIPPETS_TARGET_DEFAULTS
-  if [[ $sec_sso_providers == *"oidc"* ]]; then
+  if [[ $SEC_SSO_PROVIDERS == *"oidc"* ]]; then
     cp $SNIPPETS_SOURCE/sso-oidc.xml $SNIPPETS_TARGET_DEFAULTS
     fi
-  if [[ $sec_sso_providers == *"oauth"* ]]; then
+  if [[ $SEC_SSO_PROVIDERS == *"oauth"* ]]; then
     cp $SNIPPETS_SOURCE/sso-oauth.xml $SNIPPETS_TARGET_DEFAULTS
     fi
-  if [[ $sec_sso_providers == *"facebook"* ]]; then
+  if [[ $SEC_SSO_PROVIDERS == *"facebook"* ]]; then
     cp $SNIPPETS_SOURCE/sso-facebook.xml $SNIPPETS_TARGET_DEFAULTS
     fi
-  if [[ $sec_sso_providers == *"twitter"* ]]; then
+  if [[ $SEC_SSO_PROVIDERS == *"twitter"* ]]; then
     cp $SNIPPETS_SOURCE/sso-twitter.xml $SNIPPETS_TARGET_DEFAULTS
     fi    
-  if [[ $sec_sso_providers == *"linkedin"* ]]; then
+  if [[ $SEC_SSO_PROVIDERS == *"linkedin"* ]]; then
     cp $SNIPPETS_SOURCE/sso-linkedin.xml $SNIPPETS_TARGET_DEFAULTS
     fi
-  if [[ $sec_sso_providers == *"google"* ]]; then
+  if [[ $SEC_SSO_PROVIDERS == *"google"* ]]; then
     cp $SNIPPETS_SOURCE/sso-google.xml $SNIPPETS_TARGET_DEFAULTS
     fi
-  if [[ $sec_sso_providers == *"github"* ]]; then
+  if [[ $SEC_SSO_PROVIDERS == *"github"* ]]; then
     cp $SNIPPETS_SOURCE/sso-github.xml $SNIPPETS_TARGET_DEFAULTS
     fi
 fi

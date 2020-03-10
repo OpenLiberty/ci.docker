@@ -3,16 +3,15 @@
 	<!-- defaults from the server metatype.xml are declared as variables here
          If nothing is passed in elsewhere, the defaults will prevail.
          Required parameters have no defaults, so are not defined here.
-         The required parameters are 
-           clientId, clientSecret
+         The required parameters are consumerKey and consumerSecret
     -->
-    <variable name="sec_sso_mapToUserRegistry" defaultValue="false"/>  
-    <variable name="sec_sso_redirectToRPHostAndPort" defaultValue="" /> 
+    <variable name="SEC_SSO_MAPTOUSERREGISTRY" defaultValue="false"/>  
+    <variable name="SEC_SSO_REDIRECTTORPHOSTANDPORT" defaultValue="" /> 
 
 	<twitterLogin
-        consumerKey="${sec_sso_twitter_consumerKey}"
-        consumerSecret="${sec_sso_twitter_consumerSecret}"
-        redirectToRPHostAndPort="${sec_sso_redirectToRPHostAndPort}"  
-        mapToUserRegistry="${sec_sso_mapToUserRegistry}"      
+        consumerKey="${SEC_SSO_TWITTER_CONSUMERKEY}"
+        consumerSecret="${SEC_SSO_TWITTER_CONSUMERSECRET}"
+        redirectToRPHostAndPort="${SEC_SSO_REDIRECTTORPHOSTANDPORT}"  
+        mapToUserRegistry="${SEC_SSO_MAPTOUSERREGISTRY}"      
 	></twitterLogin>
 </server>

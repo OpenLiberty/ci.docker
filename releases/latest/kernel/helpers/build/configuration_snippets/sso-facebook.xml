@@ -7,13 +7,13 @@
          The required parameters are 
            clientId, clientSecret
     -->
-    <variable name="sec_sso_mapToUserRegistry" defaultValue="false"/>
-    <variable name="sec_sso_redirectToRPHostAndPort" defaultValue="" /> 
+    <variable name="SEC_SSO_MAPTOUSERREGISTRY" defaultValue="false"/>
+    <variable name="SEC_SSO_REDIRECTTORPHOSTANDPORT" defaultValue="" /> 
     
     <facebookLogin
-        clientId="${sec_sso_facebook_clientId}"
-        clientSecret="${sec_sso_facebook_clientSecret}"
-        redirectToRPHostAndPort="${sec_sso_redirectToRPHostAndPort}"   
-        mapToUserRegistry="${sec_sso_mapToUserRegistry}"    
+        clientId="${SEC_SSO_FACEBOOK_CLIENTID}"
+        clientSecret="${SEC_SSO_FACEBOOK_CLIENTSECRET}"
+        redirectToRPHostAndPort="${SEC_SSO_REDIRECTTORPHOSTANDPORT}"   
+        mapToUserRegistry="${SEC_SSO_MAPTOUSERREGISTRY}"    
     ></facebookLogin>
 </server>

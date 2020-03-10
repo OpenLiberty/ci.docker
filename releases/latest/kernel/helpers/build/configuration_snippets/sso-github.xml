@@ -7,18 +7,18 @@
          The required parameters are 
            clientId, clientSecret
     -->
-    <variable name="sec_sso_mapToUserRegistry" defaultValue="false"/>   
-    <variable name="sec_sso_github_hostName" defaultValue="github.com" />
-    <variable name="sec_sso_redirectToRPHostAndPort" defaultValue="" /> 
+    <variable name="SEC_SSO_MAPTOUSERREGISTRY" defaultValue="false"/>   
+    <variable name="SEC_SSO_GITHUB_HOSTNAME" defaultValue="github.com" />
+    <variable name="SEC_SSO_REDIRECTTORPHOSTANDPORT" defaultValue="" /> 
  
     <githubLogin
-        clientId="${sec_sso_github_clientId}"
-        clientSecret="${sec_sso_github_clientSecret}"
-        redirectToRPHostAndPort="${sec_sso_redirectToRPHostAndPort}"
-        mapToUserRegistry="${sec_sso_mapToUserRegistry}"    
-        tokenEndpoint="https://${sec_sso_github_hostName}/login/oauth/access_token"
-        authorizationEndpoint="https://${sec_sso_github_hostName}/login/oauth/authorize"
-        userApi="https://api.${sec_sso_github_hostName}/user/emails"
-        website="https://${sec_sso_github_hostName}"
+        clientId="${SEC_SSO_GITHUB_CLIENTID}"
+        clientSecret="${SEC_SSO_GITHUB_CLIENTSECRET}"
+        redirectToRPHostAndPort="${SEC_SSO_REDIRECTTORPHOSTANDPORT}"
+        mapToUserRegistry="${SEC_SSO_MAPTOUSERREGISTRY}"    
+        tokenEndpoint="https://${SEC_SSO_GITHUB_HOSTNAME}/login/oauth/access_token"
+        authorizationEndpoint="https://${SEC_SSO_GITHUB_HOSTNAME}/login/oauth/authorize"
+        userApi="https://api.${SEC_SSO_GITHUB_HOSTNAME}/user/emails"
+        website="https://${SEC_SSO_GITHUB_HOSTNAME}"
     ></githubLogin>
 </server>
