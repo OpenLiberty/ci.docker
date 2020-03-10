@@ -5,7 +5,7 @@ The following variables configure container security using the socialLogin-1.0 f
 
 ### Configuration needed at image build time:
 
- * The environment variable `sec_sso_providers` must be defined and contain a space delimited list of the identity providers to use. If more than one is specified, the user will be able to choose which one to authenticate with. Valid values are any of `oidc oauth facebook twitter github google linkedin`.  Specify `ARG sec_sso_providers="(your choice goes here)"` in your Dockerfile.
+ * The environment variable `SEC_SSO_PROVIDERS` must be defined and contain a space delimited list of the identity providers to use. If more than one is specified, the user will be able to choose which one to authenticate with. Valid values are any of `oidc oauth facebook twitter github google linkedin`.  Specify `ARG SEC_SSO_PROVIDERS="(your choice goes here)"` in your Dockerfile.
 
  * Providers usually require the use of HTTPS.  Specify `ARG TLS=true` in your Dockerfile. 
 
