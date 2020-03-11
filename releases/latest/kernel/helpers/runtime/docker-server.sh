@@ -24,7 +24,9 @@ function importKeyCert() {
       -out "${KEYSTORE_FILE}" \
       -password pass:"${PASSWORD}" >&/dev/null
 
-
+    # Since we are creating new keystore, always write new password to a file
+    sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $SNIPPETS_TARGET_DEFAULTS/keystore.xml
+    
     # Add mounted CA to the truststore
     if [ -f "${CERT_FOLDER}/${CA_FILE}" ]; then
         echo "Found mounted TLS CA certificate, adding to truststore"
@@ -50,12 +52,10 @@ function importKeyCert() {
 
   # Add the keystore password to server configuration
   if [ ! -e $keystorePath ]; then
-    sed -i.bak "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml
-    cp $SNIPPETS_SOURCE/keystore.xml $SNIPPETS_TARGET_DEFAULTS/keystore.xml
+    sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $SNIPPETS_TARGET_DEFAULTS/keystore.xml
   fi
   if [ -e $TRUSTSTORE_FILE ]; then
-    sed -i.bak "s|PWD_TRUST|$TRUSTSTORE_PASSWORD|g" $SNIPPETS_SOURCE/truststore.xml
-    cp $SNIPPETS_SOURCE/truststore.xml $SNIPPETS_TARGET_OVERRIDES/truststore.xml
+    sed "s|PWD_TRUST|$TRUSTSTORE_PASSWORD|g" $SNIPPETS_SOURCE/truststore.xml > $SNIPPETS_TARGET_OVERRIDES/truststore.xml
   else
     cp $SNIPPETS_SOURCE/trustDefault.xml $SNIPPETS_TARGET_OVERRIDES/trustDefault.xml  
   fi
