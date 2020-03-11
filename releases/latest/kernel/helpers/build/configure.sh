@@ -14,7 +14,7 @@ SNIPPETS_SOURCE=/opt/ol/helpers/build/configuration_snippets
 SNIPPETS_TARGET=/config/configDropins/overrides
 SNIPPETS_TARGET_DEFAULTS=/config/configDropins/defaults
 mkdir -p ${SNIPPETS_TARGET}
-
+mkdir -p ${SNIPPETS_TARGET_DEFAULTS}
 
 #Check for each Liberty value-add functionality
 
@@ -79,6 +79,31 @@ then
     sed -i.bak "s|REPLACE|$KEYSTOREPWD|g" $SNIPPETS_SOURCE/keystore.xml
     cp $SNIPPETS_SOURCE/keystore.xml $SNIPPETS_TARGET_DEFAULTS/keystore.xml
   fi
+fi
+
+if [[ -n "$SEC_SSO_PROVIDERS" ]]; then
+  cp $SNIPPETS_SOURCE/sso-features.xml $SNIPPETS_TARGET_DEFAULTS
+  if [[ $SEC_SSO_PROVIDERS == *"oidc"* ]]; then
+    cp $SNIPPETS_SOURCE/sso-oidc.xml $SNIPPETS_TARGET_DEFAULTS
+    fi
+  if [[ $SEC_SSO_PROVIDERS == *"oauth"* ]]; then
+    cp $SNIPPETS_SOURCE/sso-oauth.xml $SNIPPETS_TARGET_DEFAULTS
+    fi
+  if [[ $SEC_SSO_PROVIDERS == *"facebook"* ]]; then
+    cp $SNIPPETS_SOURCE/sso-facebook.xml $SNIPPETS_TARGET_DEFAULTS
+    fi
+  if [[ $SEC_SSO_PROVIDERS == *"twitter"* ]]; then
+    cp $SNIPPETS_SOURCE/sso-twitter.xml $SNIPPETS_TARGET_DEFAULTS
+    fi    
+  if [[ $SEC_SSO_PROVIDERS == *"linkedin"* ]]; then
+    cp $SNIPPETS_SOURCE/sso-linkedin.xml $SNIPPETS_TARGET_DEFAULTS
+    fi
+  if [[ $SEC_SSO_PROVIDERS == *"google"* ]]; then
+    cp $SNIPPETS_SOURCE/sso-google.xml $SNIPPETS_TARGET_DEFAULTS
+    fi
+  if [[ $SEC_SSO_PROVIDERS == *"github"* ]]; then
+    cp $SNIPPETS_SOURCE/sso-github.xml $SNIPPETS_TARGET_DEFAULTS
+    fi
 fi
 
 # Create a new SCC layer

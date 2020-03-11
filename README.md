@@ -45,27 +45,32 @@ This will result in a Docker image that has your application and configuration p
 This section describes the optional enterprise functionality that can be enabled via the Dockerfile during `build` time, by setting particular build-arguments (`ARG`) and calling `RUN configure.sh`.  Each of these options trigger the inclusion of specific configuration via XML snippets (except for `VERBOSE`), described below:
 
 * `HTTP_ENDPOINT`
-  *  Decription: Add configuration properties for an HTTP endpoint.
+  *  Description: Add configuration properties for an HTTP endpoint.
   *  XML Snippet Location: [http-ssl-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/http-ssl-endpoint.xml) when SSL is enabled. Otherwise [http-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/http-endpoint.xml)
 * `MP_HEALTH_CHECK`
-  *  Decription: Check the health of the environment using Liberty feature `mpHealth-1.0` (implements [MicroProfile Health](https://microprofile.io/project/eclipse/microprofile-health)).
+  *  Description: Check the health of the environment using Liberty feature `mpHealth-1.0` (implements [MicroProfile Health](https://microprofile.io/project/eclipse/microprofile-health)).
   *  XML Snippet Location: [mp-health-check.xml](/releases/latest/kernel/helpers/build/configuration_snippets/mp-health-check.xml)
 * `MP_MONITORING`
-  *  Decription: Monitor the server runtime environment and application metrics by using Liberty features `mpMetrics-1.1` (implements [Microprofile Metrics](https://microprofile.io/project/eclipse/microprofile-metrics)) and `monitor-1.0`.
+  *  Description: Monitor the server runtime environment and application metrics by using Liberty features `mpMetrics-1.1` (implements [Microprofile Metrics](https://microprofile.io/project/eclipse/microprofile-metrics)) and `monitor-1.0`.
   *  XML Snippet Location: [mp-monitoring.xml](/releases/latest/kernel/helpers/build/configuration_snippets/mp-monitoring.xml)
   *  Note: With this option, `/metrics` endpoint is configured without authentication to support the environments that do not yet support scraping secured endpoints.
 * `TLS` or `SSL` (SSL is being deprecated)
-  *  Decription: Enable Transport Security in Liberty by adding the `transportSecurity-1.0` feature (includes support for SSL).
+  *  Description: Enable Transport Security in Liberty by adding the `transportSecurity-1.0` feature (includes support for SSL).
   *  XML Snippet Location:  [keystore.xml](/releases/latest/kernel/helpers/build/configuration_snippets/keystore.xml).
 * `IIOP_ENDPOINT`
-  *  Decription: Add configuration properties for an IIOP endpoint.
+  *  Description: Add configuration properties for an IIOP endpoint.
   *  XML Snippet Location: [iiop-ssl-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/iiop-ssl-endpoint.xml) when SSL is enabled. Otherwise, [iiop-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/iiop-endpoint.xml).
   *  Note: If using this option, `env.IIOP_ENDPOINT_HOST` environment variable should be set to the server's host. See [IIOP endpoint configuration](https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.liberty.autogen.base.doc/ae/rwlp_config_orb.html#iiopEndpoint) for more details.
 * `JMS_ENDPOINT`
-  *  Decription: Add configuration properties for an JMS endpoint.
+  *  Description: Add configuration properties for an JMS endpoint.
   *  XML Snippet Location: [jms-ssl-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/jms_ssl_endpoint.xml) when SSL is enabled. Otherwise, [jms-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/jms_endpoint.xml)
 * `VERBOSE`
   *  Description: When set to `true` it outputs the commands and results to stdout from `configure.sh`. Otherwise, default setting is `false` and `configure.sh` is silenced.
+
+## Security 
+
+Single Sign On can be optionally configured by adding Liberty server variables in an xml file, by passing environment variables (less secure),
+or by passing Liberty server variables in through the Liberty operator. See [SECURITY.md](SECURITY.md).
 
 ## OpenJ9 Shared Class Cache (SCC)
 
