@@ -2,12 +2,12 @@
 
 ## TLS certificate configuration
 
-### Automatically trust known certificate authorities
+### Automatically trust known certificate authorities (`20.0.0.3+`)
 
 To enable trust certificates from known certificate authorities `SEC_TLS_TRUSTDEFAULTCERTS` environment variable can be set.
 Default value is `false`. If set to true, then the default certificates are used in addition to the configured truststore file to establish trust.
 
-### Providing custom certificates
+### Providing custom certificates (`20.0.0.3+`)
 
 It is possible to provide custom PEM certifacates by mounting the files into the container. Files that will be imported are `tls.key`, `tls.crt` and `ca.crt`.
 
