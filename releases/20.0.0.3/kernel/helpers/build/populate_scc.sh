@@ -6,7 +6,7 @@ fi
 set -Eeox pipefail
 
 SCC_SIZE="80m"  # Default size of the SCC layer.
-ITERATIONS=3    # Number of iterations to run to populate it.
+ITERATIONS=2    # Number of iterations to run to populate it.
 TRIM_SCC=yes    # Trim the SCC to eliminate any wasted space.
 
 while getopts ":i:s:tdh" OPT
