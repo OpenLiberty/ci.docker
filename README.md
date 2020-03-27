@@ -1,8 +1,6 @@
 [![Build Status](https://travis-ci.org/OpenLiberty/ci.docker.svg?branch=master)](https://travis-ci.org/OpenLiberty/ci.docker)
 
-# Docker Hub images
-
-There are two different Open Liberty Docker image sets available on Docker Hub:
+# Container images
 
 1. **Supported Images**
     *  Our recommended set uses Red Hat's [Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image) as the Operating System and are re-built daily.  They can be found on [Docker Hub](https://hub.docker.com/r/openliberty/open-liberty) or [IBM Cloud](https://cloud.ibm.com/docs/services/Registry?topic=RegistryImages-ibmliberty).
