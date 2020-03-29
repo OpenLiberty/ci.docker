@@ -20,7 +20,7 @@
 
     <!-- the id attribute will not be substituted  -->
 	<oidcLogin
-		id="oidcLogin"	
+		id="oidc"	
         clientId="${SEC_SSO_OIDC_CLIENTID}"
         clientSecret="${SEC_SSO_OIDC_CLIENTSECRET}"
         redirectToRPHostAndPort="${SEC_SSO_REDIRECTTORPHOSTANDPORT}"

@@ -38,7 +38,7 @@ The following variables configure container security using the socialLogin-1.0 f
 
  * To automatically trust certificates from well known identity providers, specify  `ARG SEC_TLS_TRUSTDEFAULTCERTS=true` in your Dockerfile.
 
- * To automatically trust certificates issued by the Kubernetes cluster, specify `ARG IMPORT_K8S_CERTS=true` in your Dockerfile.
+ * To automatically trust certificates issued by the Kubernetes cluster, specify `ARG SEC_IMPORT_K8S_CERTS=true` in your Dockerfile.
 
  * Your Dockerfile must call configure.sh for these to take effect. 
 
