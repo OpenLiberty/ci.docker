@@ -86,8 +86,8 @@ if [[ -n "$SEC_SSO_PROVIDERS" ]]; then
   if [[ $SEC_SSO_PROVIDERS == *"oidc"* ]]; then
     cp $SNIPPETS_SOURCE/sso-oidc.xml $SNIPPETS_TARGET_DEFAULTS
     fi
-  if [[ $SEC_SSO_PROVIDERS == *"oauth"* ]]; then
-    cp $SNIPPETS_SOURCE/sso-oauth.xml $SNIPPETS_TARGET_DEFAULTS
+  if [[ $SEC_SSO_PROVIDERS == *"oauth2"* ]]; then
+    cp $SNIPPETS_SOURCE/sso-oauth2.xml $SNIPPETS_TARGET_DEFAULTS
     fi
   if [[ $SEC_SSO_PROVIDERS == *"facebook"* ]]; then
     cp $SNIPPETS_SOURCE/sso-facebook.xml $SNIPPETS_TARGET_DEFAULTS
