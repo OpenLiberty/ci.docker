@@ -1,12 +1,10 @@
 [![Build Status](https://travis-ci.org/OpenLiberty/ci.docker.svg?branch=master)](https://travis-ci.org/OpenLiberty/ci.docker)
 
-# Docker Hub images
-
-There are two different Open Liberty Docker image sets available on Docker Hub:
+# Container images
 
 1. **Supported Images**
-    *  Our recommended set [here](https://hub.docker.com/r/openliberty/open-liberty).  These are images using Red Hat's [Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image) as the Operating System and are re-built daily.
-    *  Other sets can be found [here](https://hub.docker.com/_/open-liberty).  These are re-built automatically anytime something changes in the layers below.  There are tags with different combinations of Java and Operating System versions.
+    *  Our recommended set uses Red Hat's [Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image) as the Operating System and are re-built daily.  They can be found on [Docker Hub](https://hub.docker.com/r/openliberty/open-liberty) or [IBM Cloud](https://cloud.ibm.com/docs/services/Registry?topic=RegistryImages-ibmliberty).
+    *  Another set, using Ubuntu as the Operating System, can be found [here](https://hub.docker.com/_/open-liberty).  These are re-built automatically anytime something changes in the layers below.
 
 1. **Daily Images**
     *  Available [here](https://hub.docker.com/r/openliberty/daily), these are daily images from the daily Open Liberty binaries.  The scripts used for this image can be found [here](https://github.com/OpenLiberty/ci.docker.daily).
@@ -21,7 +19,7 @@ Even if you `docker save` the manually configured container, the steps to reprod
 The key point to take-away from the sections below is that your application Dockerfile should always follow a pattern similar to:
 
 ```dockerfile
-FROM open-liberty:kernel
+FROM openliberty/open-liberty:kernel-java8-openj9-ubi
 
 # Add my app and config
 COPY --chown=1001:0  Sample1.war /config/dropins/
@@ -29,10 +27,6 @@ COPY --chown=1001:0  server.xml /config/
 
 # Default setting for the verbose option
 ARG VERBOSE=false
-
-# Optional functionality
-ARG SSL=true
-ARG MP_MONITORING=true
 
 # This script will add the requested XML snippets and grow image to be fit-for-purpose
 RUN configure.sh
