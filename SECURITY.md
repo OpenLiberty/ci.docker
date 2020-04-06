@@ -36,15 +36,15 @@ The following variables configure container security for Single Sign-On using th
 
  * Providers usually require the use of HTTPS.  Specify `ARG TLS=true` in your Dockerfile. 
 
- * To automatically trust certificates from well known identity providers, specify  `ENV SEC_TLS_TRUSTDEFAULTCERTS=true` in your Dockerfile.
-
- * To automatically trust certificates issued by the Kubernetes cluster, specify `ENV SEC_IMPORT_K8S_CERTS=true` in your Dockerfile.
-
  * Your Dockerfile must call configure.sh for these to take effect. 
 
 ### Configuration needed at image build time or at container deploy time:
 
-Each provider needs some additional configuration to be functional -  a client Id, client secret and sometimes more. These variables can be supplied in several ways:
+ * To automatically trust certificates from well known identity providers, specify  `ENV SEC_TLS_TRUSTDEFAULTCERTS=true`.
+
+ * To automatically trust certificates issued by the Kubernetes cluster, specify `ENV SEC_IMPORT_K8S_CERTS=true`.
+
+Each Single Sign-On provider needs some additional configuration to be functional -  a client Id, client secret and sometimes more. These variables can be supplied in several ways:
   * At build time, they can be variables in a server.xml file (`<variable name="foo" value="bar" />`).
   * At build time, they can be ENV variables in the Dockerfile, this is less secure (`ENV name=value`).
   * They can be passed as environment variables to the Docker container when it is deployed. 
