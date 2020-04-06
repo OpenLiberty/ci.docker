@@ -40,8 +40,8 @@ The following variables configure container security for Single Sign-On using th
 
 ### Configuration needed at image build time or at container deploy time:
 
+Since HTTPS is usually required, these settings can simplify setting it up: 
  * To automatically trust certificates from well known identity providers, specify  `ENV SEC_TLS_TRUSTDEFAULTCERTS=true`.
-
  * To automatically trust certificates issued by the Kubernetes cluster, specify `ENV SEC_IMPORT_K8S_CERTS=true`.
 
 Each Single Sign-On provider needs some additional configuration to be functional -  a client Id, client secret and sometimes more. These variables can be supplied in several ways:
