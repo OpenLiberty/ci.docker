@@ -10,9 +10,9 @@ ARG VERBOSE=true
 # Optional functionality
 ARG TLS=true
 # trust certificates from well known CA's
-ARG SEC_TLS_TRUSTDEFAULTCERTS=true
+ENV SEC_TLS_TRUSTDEFAULTCERTS=true
 # trust certificates from within the cluster, such as Red Hat SSO.
-ARG IMPORT_K8S_CERTS=true
+ENV SEC_IMPORT_K8S_CERTS=true
 
 # Enable single sign on app security using an OIDC provider and Github.  
 # Further configuration is deferred until image deployment.

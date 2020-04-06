@@ -5,7 +5,7 @@
 ### Automatically trust known certificate authorities (`20.0.0.3+`)
 
 To enable trust certificates from known certificate authorities `SEC_TLS_TRUSTDEFAULTCERTS` environment variable can be set.
-Default value is `false`. If set to true, then the default certificates are used in addition to the configured truststore file to establish trust.
+Default value is `false`. If set to true, then the default certificates from the JVM are used in addition to the configured truststore file to establish trust.
 
 ### Providing custom certificates (`20.0.0.3+`)
 
@@ -20,31 +20,31 @@ Container also can import certificates from Kubernetes.
 If `SEC_IMPORT_K8S_CERTS` is set to `true` and `/var/run/secrets/kubernetes.io/serviceaccount` folder is mounted into container the `.crt` files will be imported into the the truststore file. Default value is `false`.
 
 
-### Providing custom keystore
+### Providing a custom keystore
 
 A custom keystore can be provided during the application image's build phase by simply copying the keystore into the image's  `/output/resources/security/key.p12` location. 
 
 You must then override the keystore's password by including your copy of the `keystore.xml` file inside the `/config/configDropins/defaults/` directory.
 
 
-## Social Login configuration
-The following variables configure container security using the socialLogin-1.0 feature.  
+## Single Sign-On configuration
+The following variables configure container security for Single Sign-On using the socialLogin-1.0 feature.  
 
 ### Configuration needed at image build time:
 
- * The environment variable `SEC_SSO_PROVIDERS` must be defined and contain a space delimited list of the identity providers to use. If more than one is specified, the user will be able to choose which one to authenticate with. Valid values are any of `oidc oauth facebook twitter github google linkedin`.  Specify `ARG SEC_SSO_PROVIDERS="(your choice goes here)"` in your Dockerfile.
+ * The environment variable `SEC_SSO_PROVIDERS` must be defined and contain a space delimited list of the identity providers to use. If more than one is specified, the user will be able to choose which one to authenticate with. Valid values are any of `oidc oauth facebook twitter github google linkedin`.  Specify `ARG SEC_SSO_PROVIDERS="(your choice goes here)"` in your Dockerfile.  
 
  * Providers usually require the use of HTTPS.  Specify `ARG TLS=true` in your Dockerfile. 
-
- * To automatically trust certificates from well known identity providers, specify  `ARG SEC_TLS_TRUSTDEFAULTCERTS=true` in your Dockerfile.
-
- * To automatically trust certificates issued by the Kubernetes cluster, specify `ARG SEC_IMPORT_K8S_CERTS=true` in your Dockerfile.
 
  * Your Dockerfile must call configure.sh for these to take effect. 
 
 ### Configuration needed at image build time or at container deploy time:
 
-Each provider needs some additional configuration to be functional -  a client Id, client secret and sometimes more. These variables can be supplied in several ways:
+Since HTTPS is usually required, these settings can simplify setting it up: 
+ * To automatically trust certificates from well known identity providers, specify  `ENV SEC_TLS_TRUSTDEFAULTCERTS=true`.
+ * To automatically trust certificates issued by the Kubernetes cluster, specify `ENV SEC_IMPORT_K8S_CERTS=true`.
+
+Each Single Sign-On provider needs some additional configuration to be functional -  a client Id, client secret and sometimes more. These variables can be supplied in several ways:
   * At build time, they can be variables in a server.xml file (`<variable name="foo" value="bar" />`).
   * At build time, they can be ENV variables in the Dockerfile, this is less secure (`ENV name=value`).
   * They can be passed as environment variables to the Docker container when it is deployed. 
