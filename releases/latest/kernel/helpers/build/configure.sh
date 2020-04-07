@@ -117,17 +117,11 @@ function parseCommaList() {
 
   for current in ${list}; do
     if [[ "${type}" = "oidc" ]]; then
-      cp $SNIPPETS_SOURCE/sso-oidc.xml $SNIPPETS_TARGET_DEFAULTS/sso-${current}.xml
       # replace oidc identifiers with custom name
-      sed -i.bak -e 's/=\"oidc/=\"'${current}'/g' $SNIPPETS_TARGET_DEFAULTS/sso-${current}.xml
-      sed -i.bak -e 's/_OIDC_/_'$(toUpper ${current})'_/g' $SNIPPETS_TARGET_DEFAULTS/sso-${current}.xml
-      rm $SNIPPETS_TARGET_DEFAULTS/sso-${current}.xml.bak
+      sed -e 's/=\"oidc/=\"'${current}'/g' -e 's/_OIDC_/_'$(toUpper ${current})'_/g' $SNIPPETS_SOURCE/sso-oidc.xml > $SNIPPETS_TARGET_DEFAULTS/sso-${current}.xml
     else
-      cp $SNIPPETS_SOURCE/sso-oauth2.xml $SNIPPETS_TARGET_DEFAULTS/sso-${current}.xml
-      # replace oidc identifiers with custom name
-      sed -i.bak -e 's/=\"oauth2/=\"'${current}'/g' $SNIPPETS_TARGET_DEFAULTS/sso-${current}.xml
-      sed -i.bak -e 's/_OAUTH2_/_'$(toUpper ${current})'_/g' $SNIPPETS_TARGET_DEFAULTS/sso-${current}.xml
-      rm $SNIPPETS_TARGET_DEFAULTS/sso-${current}.xml.bak
+      # replace oauth2 identifiers with custom name
+      sed -e 's/=\"oauth2/=\"'${current}'/g' -e 's/_OAUTH2_/_'$(toUpper ${current})'_/g' $SNIPPETS_SOURCE/sso-oauth2.xml > $SNIPPETS_TARGET_DEFAULTS/sso-${current}.xml
     fi
   done
 }
