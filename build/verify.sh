@@ -72,7 +72,7 @@ testLibertyStopsAndRestarts()
       $DOCKER rm -f $cid >/dev/null
       exit 1
    fi
-   sleep 30
+   sleep 45
    $DOCKER stop $cid >/dev/null
    if [ $? != 0 ]
    then
