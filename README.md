@@ -127,16 +127,16 @@ The Liberty session caching feature builds on top of an existing technology call
 
     ```dockerfile
     ### Infinispan Session Caching ###
-    FROM open-liberty AS infinispan-client
+    FROM openliberty/open-liberty:kernel-java8-openj9-ubi AS infinispan-client
     
     # Install Infinispan client jars
     USER root
-    RUN apt-get update \
-        && apt-get install -y --no-install-recommends maven \
+    RUN yum update \
+        && yum install -y --no-install-recommends maven \
         && mkdir -p /opt/ol/wlp/usr/shared/resources/infinispan \
         && echo '<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  <modelVersion>4.0.0</modelVersion>   <groupId>io.openliberty</groupId>  <artifactId>openliberty-infinispan-client</artifactId>  <version>1.0</version>  <!-- https://mvnrepository.com/artifact/org.infinispan/infinispan-jcache-remote -->  <dependencies>    <dependency>      <groupId>org.infinispan</groupId>      <artifactId>infinispan-jcache-remote</artifactId>      <version>10.1.3.Final</version>    </dependency>  </dependencies></project>' > /opt/ol/wlp/usr/shared/resources/infinispan/pom.xml \
         && mvn -f /opt/ol/wlp/usr/shared/resources/infinispan/pom.xml dependency:copy-dependencies -DoutputDirectory=/opt/ol/wlp/usr/shared/resources/infinispan \
-        && apt-get remove -y maven \
+        && yum remove -y maven \
         && rm -f /opt/ol/wlp/usr/shared/resources/infinispan/pom.xml \
         && rm -f /opt/ol/wlp/usr/shared/resources/infinispan/jboss-transaction-api*.jar \
         && rm -f /opt/ol/wlp/usr/shared/resources/infinispan/reactive-streams-*.jar \
@@ -146,20 +146,19 @@ The Liberty session caching feature builds on top of an existing technology call
         && chmod -R g+rw /opt/ol/wlp/usr/shared/resources/infinispan
     USER 1001
     
-    FROM open-liberty AS open-liberty-infinispan
-    USER root
+    FROM openliberty/open-liberty:kernel-java8-openj9-ubi AS open-liberty-infinispan
     
     # Copy Infinispan client jars to Open Liberty shared resources
-    COPY --from=infinispan-client /opt/ol/wlp/usr/shared/resources/infinispan /opt/ol/wlp/usr/shared/resources/infinispan
+    COPY --chown=1001:0 --from=infinispan-client /opt/ol/wlp/usr/shared/resources/infinispan /opt/ol/wlp/usr/shared/resources/infinispan
     
-    # Instruct docker-server.sh to use Infinispan for session caching.
+    # Instruct configure.sh to use Infinispan for session caching.
     # This should be set to the Infinispan service name.
     # TIP - Run the following oc/kubectl command with admin permissions to determine this value:
     #       oc get infinispan -o jsonpath={.items[0].metadata.name}
     ENV INFINISPAN_SERVICE_NAME=example-infinispan
     
     # Uncomment and set to override auto detected values.
-    # These are normally not needed, and are for advanced scenarios
+    # These are normally not needed if running in a Kubernetes environment.
     # One such scenario would be the Infinispan deployment and Liberty deployment being in different namespaces/projects.
     #ENV INFINISPAN_HOST=
     #ENV INFINISPAN_PORT=
@@ -168,10 +167,9 @@ The Liberty session caching feature builds on top of an existing technology call
     
     # This script will add the requested XML snippets and grow image to be fit-for-purpose
     RUN configure.sh
-    USER 1001
     ```
 
-    *  **Mount Infinispan Secret** - Finally, the Infinispan generated secret must be mounted as a volume under the mount point of `/config/liberty-infinispan-secret` on Liberty containers. When using the Infinispan Operator, this secret is automatically generated as part of the Infinispan service with the name of `<INFINISPAN_CLUSTER_NAME>-generated-secret`. See the `volumes` and `volumeMounts` portions of the YAML below for an example of mounting this secret.
+    *  **Mount Infinispan Secret** - Finally, the Infinispan generated secret must be mounted as a volume under the mount point of `/platform/bindings/secret/` on Liberty containers. If the default location of `/platform/bindings/secret/` needs to be overridden, the `LIBERTY_INFINISPAN_SECRET_DIR` environment variable can be used. When using the Infinispan Operator, this secret is automatically generated as part of the Infinispan service with the name of `<INFINISPAN_CLUSTER_NAME>-generated-secret`. See the `volumes` and `volumeMounts` portions of the YAML below for an example of mounting this secret.
 
     ```yaml
     ...

@@ -35,32 +35,28 @@ then
  if [ -z ${INFINISPAN_HOST} ]
  then
   eval INFINISPAN_HOST=\$${INFINISPAN_SERVICE_NAME}_SERVICE_HOST
+  export INFINISPAN_HOST
  fi
  echo "INFINISPAN_HOST: ${INFINISPAN_HOST}"
 
  if [ -z ${INFINISPAN_PORT} ]
  then
   eval INFINISPAN_PORT=\$${INFINISPAN_SERVICE_NAME}_SERVICE_PORT
+  export INFINISPAN_PORT
  fi
  echo "INFINISPAN_PORT: ${INFINISPAN_PORT:=11222}"
 
  if [ -z ${INFINISPAN_USER} ]
  then
-  INFINISPAN_USER=$(cat /config/liberty-infinispan-secret/identities.yaml | grep -m 1 username | sed 's/username://' | sed 's/[[:space:]]*//g' | sed 's/^-//')
+  export INFINISPAN_USER=$(cat ${LIBERTY_INFINISPAN_SECRET_DIR:=/platform/bindings/secret}/identities.yaml | grep -m 1 username | sed 's/username://' | sed 's/[[:space:]]*//g' | sed 's/^-//')
  fi
  echo "INFINISPAN_USER: ${INFINISPAN_USER:=developer}"
 
  if [ -z ${INFINISPAN_PASS} ]
  then
-  INFINISPAN_PASS=$(cat /config/liberty-infinispan-secret/identities.yaml | grep -m 1 password | sed 's/password://' | sed 's/[[:space:]]*//g')
+  export INFINISPAN_PASS=$(cat ${LIBERTY_INFINISPAN_SECRET_DIR:=/platform/bindings/secret}/identities.yaml | grep -m 1 password | sed 's/password://' | sed 's/[[:space:]]*//g')
  fi
  echo "INFINISPAN_PASS: ${INFINISPAN_PASS}"
-
- cp ${SNIPPETS_SOURCE}/infinispan-client-sessioncache.xml ${SNIPPETS_TARGET_OVERRIDES}/infinispan-client-sessioncache.xml
- sed -i "s|REPLACE_HOST|$INFINISPAN_HOST|g" ${SNIPPETS_TARGET_OVERRIDES}/infinispan-client-sessioncache.xml
- sed -i "s|REPLACE_USER|$INFINISPAN_USER|g" ${SNIPPETS_TARGET_OVERRIDES}/infinispan-client-sessioncache.xml
- sed -i "s|REPLACE_PASS|$INFINISPAN_PASS|g" ${SNIPPETS_TARGET_OVERRIDES}/infinispan-client-sessioncache.xml
- sed -i "s|REPLACE_PORT|$INFINISPAN_PORT|g" ${SNIPPETS_TARGET_OVERRIDES}/infinispan-client-sessioncache.xml
 fi
 
 # Pass on to the real server run
