@@ -118,16 +118,12 @@ function parseCommaList() {
   for current in ${list}; do
     if [[ "${type}" = "oidc" ]]; then
       # replace oidc identifiers with custom name
-      sed -e 's/=\"oidc/=\"'${current}'/g' -e 's/_OIDC_/_'$(toUpper ${current})'_/g' $SNIPPETS_SOURCE/sso-oidc.xml > $SNIPPETS_TARGET_DEFAULTS/sso-${current}.xml
+      sed -e 's/=\"oidc/=\"'${current}'/g' -e 's/_OIDC_/_'${current^^}'_/g' $SNIPPETS_SOURCE/sso-oidc.xml > $SNIPPETS_TARGET_DEFAULTS/sso-${current}.xml
     else
       # replace oauth2 identifiers with custom name
-      sed -e 's/=\"oauth2/=\"'${current}'/g' -e 's/_OAUTH2_/_'$(toUpper ${current})'_/g' $SNIPPETS_SOURCE/sso-oauth2.xml > $SNIPPETS_TARGET_DEFAULTS/sso-${current}.xml
+      sed -e 's/=\"oauth2/=\"'${current}'/g' -e 's/_OAUTH2_/_'${current^^}'_/g' $SNIPPETS_SOURCE/sso-oauth2.xml > $SNIPPETS_TARGET_DEFAULTS/sso-${current}.xml
     fi
   done
 }
 
-function toUpper() {
-  echo $(printf '%s\n' "$1" | awk '{ print toupper($0) }')
-}
-
-main $@
+main "$@"
