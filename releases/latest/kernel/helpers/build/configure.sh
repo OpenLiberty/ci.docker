@@ -133,12 +133,4 @@ function parseCommaList() {
   done
 }
 
-<<<<<<< HEAD
 main "$@"
-=======
-# Create a new SCC layer
-if [ "$OPENJ9_SCC" == "true" ]
-then
-  populate_scc.sh
-fi
->>>>>>> Code review updates.
