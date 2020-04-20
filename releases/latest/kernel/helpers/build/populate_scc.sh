@@ -51,9 +51,12 @@ done
 # by unsetting IBM_JAVA_OPTIONS if it is currently defined.
 unset IBM_JAVA_OPTIONS
 
+OLD_UMASK=`umask`
+umask 002 # 002 is required to provide group rw permission to the cache when `-Xshareclasses:groupAccess` options is used
+
 # Explicity create a class cache layer for this image layer here rather than allowing
 # `server start` to do it, which will lead to problems because multiple JVMs will be started.
-java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer -Xscmx$SCC_SIZE -version
+java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer,groupAccess -Xscmx$SCC_SIZE -version
 
 if [ $TRIM_SCC == yes ]
 then
@@ -77,7 +80,7 @@ then
   SCC_SIZE="${SCC_SIZE}m"
   echo "Re-creating layer with size $SCC_SIZE."
   # Recreate the layer with the new size.
-  java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer -Xscmx$SCC_SIZE -version
+  java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,createLayer,groupAccess -Xscmx$SCC_SIZE -version
 fi
 
 # Populate the newly created class cache layer.
@@ -89,7 +92,10 @@ do
   /opt/ol/wlp/bin/server start && /opt/ol/wlp/bin/server stop
 done
 
-rm -rf /output/messaging /logs/* $WLP_OUTPUT_DIR/.classCache && chmod -R g+rwx /opt/ol/wlp/output/*
+# restore umask
+umask ${OLD_UMASK}
+
+rm -rf /output/messaging /logs/* $WLP_OUTPUT_DIR/.classCache
 
 unset IBM_JAVA_OPTIONS
 # Tell the user how full the final layer is.
