@@ -9,7 +9,12 @@ LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
-      org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL"
+      org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
+      vendor="Open Liberty" \
+      name="Open Liberty" \
+      version="$LIBERTY_VERSION" \
+      summary="Image for Open Liberty with AdoptOpenJDK with OpenJ9 and Ubuntu" \
+      description="This image contains the Open Liberty runtime with AdoptOpenJDK with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
 
 COPY helpers /opt/ol/helpers
 
