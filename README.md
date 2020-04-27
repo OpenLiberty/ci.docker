@@ -131,19 +131,7 @@ The Liberty session caching feature builds on top of an existing technology call
     
     # Install Infinispan client jars
     USER root
-    RUN yum update \
-        && yum install -y --no-install-recommends maven \
-        && mkdir -p /opt/ol/wlp/usr/shared/resources/infinispan \
-        && echo '<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  <modelVersion>4.0.0</modelVersion>   <groupId>io.openliberty</groupId>  <artifactId>openliberty-infinispan-client</artifactId>  <version>1.0</version>  <!-- https://mvnrepository.com/artifact/org.infinispan/infinispan-jcache-remote -->  <dependencies>    <dependency>      <groupId>org.infinispan</groupId>      <artifactId>infinispan-jcache-remote</artifactId>      <version>10.1.3.Final</version>    </dependency>  </dependencies></project>' > /opt/ol/wlp/usr/shared/resources/infinispan/pom.xml \
-        && mvn -f /opt/ol/wlp/usr/shared/resources/infinispan/pom.xml dependency:copy-dependencies -DoutputDirectory=/opt/ol/wlp/usr/shared/resources/infinispan \
-        && yum remove -y maven \
-        && rm -f /opt/ol/wlp/usr/shared/resources/infinispan/pom.xml \
-        && rm -f /opt/ol/wlp/usr/shared/resources/infinispan/jboss-transaction-api*.jar \
-        && rm -f /opt/ol/wlp/usr/shared/resources/infinispan/reactive-streams-*.jar \
-        && rm -f /opt/ol/wlp/usr/shared/resources/infinispan/rxjava-*.jar \
-        && rm -rf ~/.m2 \
-        && chown -R 1001:0 /opt/ol/wlp/usr/shared/resources/infinispan \
-        && chmod -R g+rw /opt/ol/wlp/usr/shared/resources/infinispan
+    RUN infinispan-client-setup.sh
     USER 1001
     
     FROM openliberty/open-liberty:kernel-java8-openj9-ubi AS open-liberty-infinispan
@@ -159,7 +147,7 @@ The Liberty session caching feature builds on top of an existing technology call
     
     # Uncomment and set to override auto detected values.
     # These are normally not needed if running in a Kubernetes environment.
-    # One such scenario would be the Infinispan deployment and Liberty deployment being in different namespaces/projects.
+    # One such scenario would be when the Infinispan and Liberty deployments are in different namespaces/projects.
     #ENV INFINISPAN_HOST=
     #ENV INFINISPAN_PORT=
     #ENV INFINISPAN_USER=
@@ -169,7 +157,7 @@ The Liberty session caching feature builds on top of an existing technology call
     RUN configure.sh
     ```
 
-    *  **Mount Infinispan Secret** - Finally, the Infinispan generated secret must be mounted as a volume under the mount point of `/platform/bindings/secret/` on Liberty containers. If the default location of `/platform/bindings/secret/` needs to be overridden, the `LIBERTY_INFINISPAN_SECRET_DIR` environment variable can be used. When using the Infinispan Operator, this secret is automatically generated as part of the Infinispan service with the name of `<INFINISPAN_CLUSTER_NAME>-generated-secret`. See the `volumes` and `volumeMounts` portions of the YAML below for an example of mounting this secret.
+    *  **Mount Infinispan Secret** - Finally, the Infinispan generated secret must be mounted as a volume under the mount point of `/platform/bindings/secret/` on Liberty containers. The default location of `/platform/bindings/secret/` can to be overridden by setting the `LIBERTY_INFINISPAN_SECRET_DIR` environment variable. When using the Infinispan Operator, this secret is automatically generated as part of the Infinispan service with the name of `<INFINISPAN_CLUSTER_NAME>-generated-secret`. For the mounting of this secret to succeed, the Infinispan Operator and Liberty must share the same namespace. If they do not share the same namespace, the `INFINISPAN_HOST`, `INFINISPAN_PORT`, `INFINISPAN_USER`, and `INFINISPAN_PASS` environment variables can be used instead(see the dockerfile example above). For an example of mounting this secret, review the `volumes` and `volumeMounts` portions of the YAML below.
 
     ```yaml
     ...
