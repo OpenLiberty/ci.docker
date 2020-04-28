@@ -47,8 +47,7 @@ function main() {
   fi
 
   # Infinispan Session Caching
-  if [ -n ${INFINISPAN_SERVICE_NAME} ]
-  then
+  if [[ -n "$INFINISPAN_SERVICE_NAME" ]]; then
    cp ${SNIPPETS_SOURCE}/infinispan-client-sessioncache.xml ${SNIPPETS_TARGET}/infinispan-client-sessioncache.xml
    chmod g+rw $SNIPPETS_TARGET/infinispan-client-sessioncache.xml
   fi
