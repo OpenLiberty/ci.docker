@@ -6,7 +6,7 @@ echo "Build Context: $(pwd)"
 
 docker buildx build \
   --progress plain  \
-  --platform=linux/amd64,linux/ppc64le,linx/s390x \
+  --platform=linux/amd64,linux/ppc64le,linux/s390x \
   -f Dockerfile.ubi.adoptopenjdk11 \
   .
 
