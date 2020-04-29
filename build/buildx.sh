@@ -5,7 +5,7 @@ cd releases/latest/kernel
 echo "Build Context: $(pwd)"
 
 docker buildx build \
-  --progress plain  \
+  --progress tty  \
   --platform=linux/amd64,linux/ppc64le,linux/s390x \
   -f Dockerfile.ubi.adoptopenjdk11 \
   .
