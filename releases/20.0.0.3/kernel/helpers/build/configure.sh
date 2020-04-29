@@ -106,6 +106,11 @@ if [[ -n "$SEC_SSO_PROVIDERS" ]]; then
     fi
 fi
 
+# Apply interim fixes found in /opt/ol/fixes
+# Fixes recommended by IBM, such as to resolve security vulnerabilities, are also included in /opt/ol/fixes
+# Note: This step should be done once needed features are enabled and installed.
+find /opt/ol/fixes -type f -name "*.jar"  -print0 | sort -z | xargs -0 -n 1 -r -I {} java -jar {} --installLocation $WLP_INSTALL_DIR
+
 # Create a new SCC layer
 if [ "$OPENJ9_SCC" == "true" ]
 then

@@ -81,5 +81,10 @@ then
   fi
 fi
 
+# Apply interim fixes found in /opt/ol/fixes
+# Fixes recommended by IBM, such as to resolve security vulnerabilities, are also included in /opt/ol/fixes
+# Note: This step should be done once needed features are enabled and installed.
+find /opt/ol/fixes -type f -name "*.jar"  -print0 | sort -z | xargs -0 -n 1 -r -I {} java -jar {} --installLocation $WLP_INSTALL_DIR
+
 # Server start/stop to populate the /output/workarea and make subsequent server starts faster
 /opt/ol/wlp/bin/server start && /opt/ol/wlp/bin/server stop && rm -rf /output/messaging /logs/* $WLP_OUTPUT_DIR/.classCache && chmod -R g+rwx /opt/ol/wlp/output/*
