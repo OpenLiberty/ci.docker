@@ -4,7 +4,7 @@ readonly TIMEOUT=1800
 
 function keep_alive() {
   local i=0
-  while $i -le $TIMEOUT; do
+  while [ $i -le $TIMEOUT ]; do
     local remaining=$(expr $TIMEOUT - $i)
     echo "*** $remaining seconds remain before timeout..."
     i=$(expr $i + 120)
