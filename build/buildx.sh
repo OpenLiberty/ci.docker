@@ -20,7 +20,7 @@ keep_alive &
 
 docker buildx build \
   --progress plain  \
-  --platform=linux/amd64,linux/ppc64le,linux/s390x \
+  --platform=linux/amd64,linux/s390x \
   -f Dockerfile.ubi.adoptopenjdk11 \
   .
 
