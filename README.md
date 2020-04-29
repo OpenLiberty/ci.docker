@@ -205,4 +205,4 @@ The Liberty session caching feature builds on top of an existing technology call
 
 ### Applying interim fixes
 
-The process to apply interim fixes (iFix) is defined [here](releases/applying-ifixes/README.md)
+The process to apply interim fixes (iFix) is defined [here](releases/applying-ifixes/README.md).
