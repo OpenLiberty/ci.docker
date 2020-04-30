@@ -1,6 +1,6 @@
 #!/bin/bash
 
-readonly TIMEOUT=1800
+readonly TIMEOUT=3600
 
 function keep_alive() {
   local i=0
