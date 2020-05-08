@@ -1,0 +1,9 @@
+FROM openliberty/open-liberty:kernel-java13-openj9-ubi
+
+RUN cp /opt/ol/wlp/templates/servers/javaee8/server.xml /config/server.xml
+
+# Create a new SCC layer
+RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
+    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache \
+    && chown -R 1001:0 /opt/ol/wlp/output \
+    && chmod -R g+rwx /opt/ol/wlp/output
