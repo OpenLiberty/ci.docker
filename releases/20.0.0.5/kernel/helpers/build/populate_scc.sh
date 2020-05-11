@@ -95,8 +95,12 @@ done
 # restore umask
 umask ${OLD_UMASK}
 
-rm -rf /output/messaging /logs/* $WLP_OUTPUT_DIR/.classCache && chmod -R g+rwx /output/resources/* /output/workarea/*
+rm -rf /output/messaging /logs/* $WLP_OUTPUT_DIR/.classCache && chmod -R g+rwx /output/workarea
 
+if [[ -f /output/resources ]]
+then
+    chmod -R g+rwx /output/resources/*
+fi
 unset IBM_JAVA_OPTIONS
 # Tell the user how full the final layer is.
 FULL=`( java -Xshareclasses:name=liberty,cacheDir=/output/.classCache/,printTopLayerStats || true ) 2>&1 | awk '/^Cache is [0-9.]*% .*full/ {print substr($3, 1, length($3)-1)}'`
