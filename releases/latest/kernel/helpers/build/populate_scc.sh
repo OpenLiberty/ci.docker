@@ -95,7 +95,7 @@ done
 # restore umask
 umask ${OLD_UMASK}
 
-rm -rf /output/messaging /logs/* $WLP_OUTPUT_DIR/.classCache && chmod -R g+rwx /opt/ol/wlp/output/*
+rm -rf /output/messaging /logs/* $WLP_OUTPUT_DIR/.classCache && chmod -R g+rwx /output/resources/* /output/workarea/*
 
 unset IBM_JAVA_OPTIONS
 # Tell the user how full the final layer is.
