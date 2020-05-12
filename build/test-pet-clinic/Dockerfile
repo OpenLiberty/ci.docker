@@ -1,4 +1,4 @@
-ARG IMAGE=openliberty/open-liberty:kernel-java8-openj9-ubi
+ARG IMAGE=openliberty/open-liberty:kernel-java11-openj9-ubi
 FROM ${IMAGE} as staging
 
 COPY --chown=1001:0 spring-petclinic-2.1.0.BUILD-SNAPSHOT.jar /staging/myFatApp.jar

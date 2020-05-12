@@ -100,6 +100,9 @@ testLibertyStopsAndRestarts()
       exit 1
    fi
 
+   echo "*** Outputting logs for debugging"
+   $DOCKER logs $cid
+
    $DOCKER logs $cid 2>&1 | grep "ERROR"
    if [ $? = 0 ]
    then

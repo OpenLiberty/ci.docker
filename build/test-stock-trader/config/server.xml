@@ -14,10 +14,13 @@
 <server description="Trader UI server">
     <!-- Enable features -->
     <featureManager>
-        <feature>microProfile-2.2</feature>
+        <feature>microProfile-3.3</feature>
         <feature>appSecurity-2.0</feature>
         <feature>monitor-1.0</feature>
         <feature>jwtSso-1.0</feature>
+        <feature>openidConnectClient-1.0</feature>
+
+
 <!--    <feature>logstashCollector-1.0</feature> -->
 <!--    <feature>ldapRegistry-3.0</feature>      -->
 <!--    <feature>socialLogin-1.0</feature>       -->
