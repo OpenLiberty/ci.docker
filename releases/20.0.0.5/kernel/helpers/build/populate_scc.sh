@@ -97,7 +97,7 @@ umask ${OLD_UMASK}
 
 rm -rf /output/messaging /logs/* $WLP_OUTPUT_DIR/.classCache && chmod -R g+rwx /output/workarea
 
-if [[ -f /output/resources ]]
+if [[ -d "/output/resources" ]]
 then
     chmod -R g+rwx /output/resources/*
 fi
