@@ -32,11 +32,13 @@ The following variables configure container security for Single Sign-On using th
 
 ### Configuration needed at image build time:
 
- * The environment variable `SEC_SSO_PROVIDERS` must be defined and contain a space delimited list of the identity providers to use. If more than one is specified, the user will be able to choose which one to authenticate with. Valid values are any of `oidc oauth facebook twitter github google linkedin`.  Specify `ARG SEC_SSO_PROVIDERS="(your choice goes here)"` in your Dockerfile.  
+ * The build-argument (ARG) `SEC_SSO_PROVIDERS` must be defined and contain a space delimited list of the identity providers to use. If more than one is specified, the user will be able to choose which one to authenticate with. Valid values are any of `oidc oauth2 facebook twitter github google linkedin`.  Specify `ARG SEC_SSO_PROVIDERS="(your choices go here)"` in your Dockerfile.
+
+ * You can also use multiple OIDC and OAuth 2.0 providers to authenticate with. For example, set `ARG SEC_SSO_PROVIDERS="google oidc:provider1,provider2 oauth2:provider3,provider4"` in your Dockerfile. The provider name must be unique and must contain only alphanumeric characters. The name of the provider is specified for the `id` attribute in the server configuration (by default it's `oidc` or `oauth2`). The name of the provider is also used to compose the corresponding environment variables by following this naming convention: `SEC_SSO_<provider-name>_<attribute-name>` (e.g. _SEC_SSO_PROVIDER2_CLIENTSECRET_).
 
  * Providers usually require the use of HTTPS.  Specify `ARG TLS=true` in your Dockerfile. 
 
- * Your Dockerfile must call configure.sh for these to take effect. 
+ * Your Dockerfile must call `RUN configure.sh` for these to take effect. 
 
 ### Configuration needed at image build time or at container deploy time:
 
@@ -48,7 +50,7 @@ Each Single Sign-On provider needs some additional configuration to be functiona
   * At build time, they can be variables in a server.xml file (`<variable name="foo" value="bar" />`).
   * At build time, they can be ENV variables in the Dockerfile, this is less secure (`ENV name=value`).
   * They can be passed as environment variables to the Docker container when it is deployed. 
-  * They can be supplied in a deployment YAML file or by the [Liberty operator](https://github.com/OpenLiberty/open-liberty-operator/tree/master/doc), which will pass them to the container at deploy time.
+  * They can be supplied in a deployment YAML file or by the [Liberty operator](https://github.com/OpenLiberty/open-liberty-operator/blob/master/doc/user-guide.adoc#single-sign-on-sso), which will pass them to the container at deploy time.
 
 Client ID and Client Secret are obtained from the provider.  RedirectToRPHostAndPort (`SEC_SSO_REDIRECTTORPHOSTANDPORT`) is the protocol, host, and port that the provider should send the browser back to after authentication, for example `https://myApp-myNamespace-myClusterHostname.mycompany.com`  (In some container environments, the pod cannot figure this out and it will need to be specified.) Other variables may be needed in some situations and are documented in detail in the [Open Liberty Documentation](https://openliberty.io/docs/ref/feature/#socialLogin-1.0.html) under each type of provider. The `oidc` and `oauth2` configurations are general purpose configurations for use with any provider that uses the OpenID Connect 1.0 or OAuth 2.0 specifications.
 
