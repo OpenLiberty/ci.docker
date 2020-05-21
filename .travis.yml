@@ -20,6 +20,7 @@ install:
 script:
   - uname -a
   - cat /etc/issue
+  - travis_wait 60 sleep 3600 &
   - ./build/buildx.sh
 
 # # - pwd

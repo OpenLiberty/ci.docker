@@ -16,8 +16,6 @@ cd releases/latest/kernel
 
 echo "Build Context: $(pwd)"
 
-keep_alive &
-
 docker buildx build \
   --progress plain  \
   --platform=linux/amd64,linux/s390x \
