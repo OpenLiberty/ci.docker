@@ -208,3 +208,46 @@ The Liberty session caching feature builds on top of an existing technology call
 ### Applying interim fixes
 
 The process to apply interim fixes (iFix) is defined [here](releases/applying-ifixes/README.md).
+
+## Known Issues
+
+### Generating system dump for pods running on OpenShift 4.x
+
+When generating server dump for a Liberty server running in a container in a pod on OpenShift 4.x, the server dump command might cause the following error:
+
+```console
+$ server dump defaultServer --archive=all.dump.zip --include=thread,heap,system
+Dumping server defaultServer.
+CWWKE0009E: The system cannot find the following file and this file will not be included in the server dump archive: /opt/ibm/wlp/output/defaultServer/The core file created by child process with pid = 252052 was not found. Expected to find core file with name "/opt/ibm/wlp/output/defaultServer/core.252052"
+Server defaultServer dump complete in /opt/ibm/wlp/output/defaultServer/all.dump.zip.
+```
+
+This issue happens when the server dump command includes `--include=system` and if there is a `|` (pipe) contained in the `core_pattern` file in the container:
+
+```console
+$ cat /proc/sys/kernel/core_pattern
+|/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %h %e
+```
+
+If the first character of the `/proc/sys/kernel/core_pattern` file is a pipe symbol (`|`), then the remainder of the line is interpreted as the command-line for a user-space program (or script) that is to be executed and processing the dump.
+ 
+To access the core dump:
+
+* If the program is `/usr/lib/systemd/systemd-coredump`, then the core dump should go to `/var/lib/systemd/coredump/` by default (overridden configuration in `/etc/systemd/coredump.conf`). To get this coredump, from the host, run `sudo coredumpctl -o core.dmp dump ${PID}` and transfer the `core.dmp` file.
+* If the program is `/usr/share/apport/apport`, then the core dump should go to `/var/crash/` by default (overridden configuration in `/etc/default/apport`). To get this core dump, from the host, gather the file from `/var/crash` on the host.
+
+If the core dump is not found in these locations, review the host’s kernel log (e.g. `journalctl`) to see if there were errors in those programs. 
+
+When the issue is encountered, the user encounters the following messages in the logs from the server:
+
+```console
+[AUDIT   ] CWWKE0057I: Introspect request received. The server is dumping status.
+JVMDUMP034I User requested System dump using '/opt/ibm/wlp/output/defaultServer/core.20200605.191845.1.0001.dmp' through com.ibm.jvm.Dump.triggerDump
+JVMPORT030W /proc/sys/kernel/core_pattern setting "|/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %h %e" specifies that the core dump is to be piped to an external program.  Attempting to rename either core or core.190.
+JVMDUMP012E Error in System dump: The core file created by child process with pid = 190 was not found. Expected to find core file with name "/opt/ibm/wlp/output/defaultServer/core.190"
+[AUDIT   ] CWWKE0068I: Java dump created: /opt/ibm/wlp/output/defaultServer/The core file created by child process with pid = 190 was not found. Expected to find core file with name "/opt/ibm/wlp/output/defaultServer/core.190"
+```
+
+Since JVM cannot find the DUMP, it is not able to add some useful metadata to the core dump but this is usually not required. An example of this information includes some extra memory region metadata for the info map command in `jdmpview` which is useful for native memory leak analysis.
+
+Users generating other types of dumps such as thread dump and heap dump should not see this issue.
