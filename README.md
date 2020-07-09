@@ -1,6 +1,22 @@
 [![Build Status](https://travis-ci.org/OpenLiberty/ci.docker.svg?branch=master)](https://travis-ci.org/OpenLiberty/ci.docker)
 
-# Container images
+# Open Liberty Images
+
+- [Open Liberty Images](#open-liberty-images)
+  - [Container Images](#container-images)
+  - [Building an Application Image](#building-an-application-image)
+  - [Enterprise Functionality](#enterprise-functionality)
+  - [Security](#security)
+  - [OpenJ9 Shared Class Cache (SCC)](#openj9-shared-class-cache-scc)
+  - [Logging](#logging)
+  - [Session Caching](#session-caching)
+  - [Applying Interim Fixes](#applying-interim-fixes)
+  - [Known Issues](#known-issues)
+    - [Generating system dumps for pods running on OpenShift 4.x](#generating-system-dumps-for-pods-running-on-openshift-4x)
+
+----
+
+## Container Images
 
 1. **Supported Images**
     *  Our recommended set uses Red Hat's [Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image) as the Operating System and are re-built daily.  They can be found on [Docker Hub](https://hub.docker.com/r/openliberty/open-liberty) or [IBM Cloud](https://cloud.ibm.com/docs/services/Registry?topic=RegistryImages-ibmliberty).
@@ -10,7 +26,7 @@
     *  Available [here](https://hub.docker.com/r/openliberty/daily), these are daily images from the daily Open Liberty binaries.  The scripts used for this image can be found [here](https://github.com/OpenLiberty/ci.docker.daily).
 
 
-## Building an application image
+## Building an Application Image
 
 According to Docker's best practices you should create a new image (`FROM open-liberty`) which adds a single application and the corresponding configuration. You should avoid configuring the image manually, after it started (unless it is for debugging purposes), because such changes won't be present if you spawn a new container from the image.
 
@@ -89,7 +105,7 @@ To customize one of the built-in XML snippets, make a copy of the snippet from G
 COPY --chown=1001:0 <path_to_customized_snippet> /config/configDropins/overrides
 ```
 
-### Logging
+## Logging
 
 It is important to be able to observe the logs emitted by Open Liberty when it is running in docker. A best practice method would be to emit the logs in JSON and to then consume it with a logging stack of your choice.
 
@@ -119,7 +135,7 @@ docker run -d -p 80:9080 -p 443:9443 -e WLP_LOGGING_CONSOLE_FORMAT=JSON -e WLP_L
 
 For more information regarding the configuration of Open Liberty's logging capabilities see: https://openliberty.io/docs/ref/general/#logging.html
 
-### Session Caching
+## Session Caching
 
 The Liberty session caching feature builds on top of an existing technology called JCache (JSR 107), which provides an API for distributed in-memory caching. There are several providers of JCache implementations. The configuration for two such providers, Infinispan and Hazelcast, are outlined below.
 
@@ -205,13 +221,13 @@ The Liberty session caching feature builds on top of an existing technology call
     RUN configure.sh
     ```
 
-### Applying interim fixes
+## Applying Interim Fixes
 
 The process to apply interim fixes (iFix) is defined [here](releases/applying-ifixes/README.md).
 
 ## Known Issues
 
-### Generating system dump for pods running on OpenShift 4.x
+### Generating system dumps for pods running on OpenShift 4.x
 
 When generating server dump for a Liberty server running in a container in a pod on OpenShift 4.x, the server dump command might cause the following error:
 
