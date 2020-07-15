@@ -12,8 +12,8 @@
   - [Session Caching](#session-caching)
   - [Applying Interim Fixes](#applying-interim-fixes)
   - [Known Issues](#known-issues)
-    - [Generating system dumps for pods running on OpenShift 4.x](#generating-system-dumps-for-pods-running-on-openshift-4x)
-
+    - [Generating system dumps for pods in Kubernetes](#generating-system-dumps-for-pods-in-kubernetes)
+  
 ----
 
 ## Container Images
@@ -227,12 +227,12 @@ The process to apply interim fixes (iFix) is defined [here](releases/applying-if
 
 ## Known Issues
 
-### Generating system dumps for pods running on OpenShift 4.x
+### Generating system dumps for pods in Kubernetes
 
-When generating server dump for a Liberty server running in a container in a pod on OpenShift 4.x, the server dump command might cause the following error:
+When generating server dump for a Liberty server running in a container in a pod on a Kubernetes cluster (including OpenShift), the server dump command might cause the following error:
 
 ```console
-$ server dump defaultServer --archive=all.dump.zip --include=thread,heap,system
+$ server dump defaultServer --archive=all.dump.zip --include=system
 Dumping server defaultServer.
 CWWKE0009E: The system cannot find the following file and this file will not be included in the server dump archive: /opt/ibm/wlp/output/defaultServer/The core file created by child process with pid = 252052 was not found. Expected to find core file with name "/opt/ibm/wlp/output/defaultServer/core.252052"
 Server defaultServer dump complete in /opt/ibm/wlp/output/defaultServer/all.dump.zip.
@@ -240,9 +240,16 @@ Server defaultServer dump complete in /opt/ibm/wlp/output/defaultServer/all.dump
 
 This issue happens when the server dump command includes `--include=system` and if there is a `|` (pipe) contained in the `core_pattern` file in the container:
 
+Example on a OpenShift 4.3 cluster:
 ```console
 $ cat /proc/sys/kernel/core_pattern
 |/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %h %e
+```
+
+Another example on a Kubernetes cluster:
+```console
+$ cat /proc/sys/kernel/core_pattern
+|/usr/share/apport/apport %p %s %c %d %P %E
 ```
 
 If the first character of the `/proc/sys/kernel/core_pattern` file is a pipe symbol (`|`), then the remainder of the line is interpreted as the command-line for a user-space program (or script) that is to be executed and processing the dump.
@@ -264,6 +271,6 @@ JVMDUMP012E Error in System dump: The core file created by child process with pi
 [AUDIT   ] CWWKE0068I: Java dump created: /opt/ibm/wlp/output/defaultServer/The core file created by child process with pid = 190 was not found. Expected to find core file with name "/opt/ibm/wlp/output/defaultServer/core.190"
 ```
 
-Since JVM cannot find the DUMP, it is not able to add some useful metadata to the core dump but this is usually not required. An example of this information includes some extra memory region metadata for the info map command in `jdmpview` which is useful for native memory leak analysis.
+Since JVM cannot find the system dump, it is not able to add some useful metadata to the core dump but this is usually not required. An example of this information includes some extra memory region metadata for the info map command in `jdmpview` which is useful for native memory leak analysis.
 
 Users generating other types of dumps such as thread dump and heap dump should not see this issue.
