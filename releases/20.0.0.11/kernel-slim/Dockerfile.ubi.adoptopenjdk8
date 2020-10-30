@@ -1,8 +1,8 @@
-FROM adoptopenjdk/openjdk14-openj9:ubi
-ARG LIBERTY_VERSION=20.0.0.10
-ARG LIBERTY_SHA=807d25bea4d6edbde1059cfa7f01e44d50af1d46
-ARG LIBERTY_BUILD_LABEL=cl201020200915-1100
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
+FROM adoptopenjdk/openjdk8-openj9:ubi
+ARG LIBERTY_VERSION=20.0.0.11
+ARG LIBERTY_SHA=dc007b60e40daa829489b15d5ba264d6e61d94ea
+ARG LIBERTY_BUILD_LABEL=cl201120201014-1215
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 ARG OPENJ9_SCC=true
 
 LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter" \
