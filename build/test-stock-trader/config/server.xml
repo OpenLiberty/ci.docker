@@ -18,6 +18,7 @@
         <feature>appSecurity-2.0</feature>
         <feature>monitor-1.0</feature>
         <feature>jwtSso-1.0</feature>
+        <feature>jsp-2.3</feature>
 <!--    <feature>logstashCollector-1.0</feature> -->
 <!--    <feature>ldapRegistry-3.0</feature>      -->
 <!--    <feature>socialLogin-1.0</feature>       -->

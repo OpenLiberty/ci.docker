@@ -25,6 +25,7 @@
 1. **Daily Images**
     *  Available [here](https://hub.docker.com/r/openliberty/daily), these are daily images from the daily Open Liberty binaries.  The scripts used for this image can be found [here](https://github.com/OpenLiberty/ci.docker.daily).
 
+_Note:_ `kernel` tag is now deprecated and it will not be updated (starting with 20.0.0.11). The new kernel tag is named `kernel-slim`.
 
 ## Building an Application Image
 
@@ -35,19 +36,22 @@ Even if you `docker save` the manually configured container, the steps to reprod
 The key point to take-away from the sections below is that your application Dockerfile should always follow a pattern similar to:
 
 ```dockerfile
-FROM openliberty/open-liberty:kernel-java8-openj9-ubi
+FROM openliberty/open-liberty:kernel-slim-java8-openj9-ubi
 
-# Add my app and config
-COPY --chown=1001:0  Sample1.war /config/dropins/
+# Add Liberty server configuration including all necessary features
 COPY --chown=1001:0  server.xml /config/
+
+# This script will add the requested XML snippets to enable Liberty features and grow image to be fit-for-purpose using featureUtility. 
+# Only available in 'kernel-slim'. The 'full' tag already includes all features for convenience.
+RUN features.sh
 
 # Add interim fixes (optional)
 COPY --chown=1001:0  interim-fixes /opt/ol/fixes/
 
-# Default setting for the verbose option
-ARG VERBOSE=false
+# Add app
+COPY --chown=1001:0  Sample1.war /config/dropins/
 
-# This script will add the requested XML snippets, grow image to be fit-for-purpose and apply interim fixes
+# This script will add the requested server configurations, apply any interim fixes and populate caches to optimize runtime
 RUN configure.sh
 ```
 
@@ -57,28 +61,33 @@ This will result in a Docker image that has your application and configuration p
 
 This section describes the optional enterprise functionality that can be enabled via the Dockerfile during `build` time, by setting particular build-arguments (`ARG`) and calling `RUN configure.sh`.  Each of these options trigger the inclusion of specific configuration via XML snippets (except for `VERBOSE`), described below:
 
+* `TLS` (`SSL` is deprecated)
+  *  Description: Enable Transport Security in Liberty by adding the `transportSecurity-1.0` feature (includes support for SSL).
+  *  XML Snippet Location:  [keystore.xml](/releases/latest/kernel-slim/helpers/build/configuration_snippets/keystore.xml).
+* `VERBOSE`
+  *  Description: When set to `true` it outputs the commands and results to stdout from `configure.sh`. Otherwise, default setting is `false` and `configure.sh` is silenced.
+
+### Deprecated Enterprise Functionality
+
+The following enterprise functionalities are now deprecated. You should stop using them. They are still available in `full` but not available in `kernel-slim`:
+
 * `HTTP_ENDPOINT`
   *  Description: Add configuration properties for an HTTP endpoint.
-  *  XML Snippet Location: [http-ssl-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/http-ssl-endpoint.xml) when SSL is enabled. Otherwise [http-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/http-endpoint.xml)
+  *  XML Snippet Location: [http-ssl-endpoint.xml](/releases/latest/full/helpers/build/configuration_snippets/http-ssl-endpoint.xml) when SSL is enabled. Otherwise [http-endpoint.xml](/releases/latest/full/helpers/build/configuration_snippets/http-endpoint.xml)
 * `MP_HEALTH_CHECK`
   *  Description: Check the health of the environment using Liberty feature `mpHealth-1.0` (implements [MicroProfile Health](https://microprofile.io/project/eclipse/microprofile-health)).
-  *  XML Snippet Location: [mp-health-check.xml](/releases/latest/kernel/helpers/build/configuration_snippets/mp-health-check.xml)
+  *  XML Snippet Location: [mp-health-check.xml](/releases/latest/full/helpers/build/configuration_snippets/mp-health-check.xml)
 * `MP_MONITORING`
   *  Description: Monitor the server runtime environment and application metrics by using Liberty features `mpMetrics-1.1` (implements [Microprofile Metrics](https://microprofile.io/project/eclipse/microprofile-metrics)) and `monitor-1.0`.
-  *  XML Snippet Location: [mp-monitoring.xml](/releases/latest/kernel/helpers/build/configuration_snippets/mp-monitoring.xml)
+  *  XML Snippet Location: [mp-monitoring.xml](/releases/latest/full/helpers/build/configuration_snippets/mp-monitoring.xml)
   *  Note: With this option, `/metrics` endpoint is configured without authentication to support the environments that do not yet support scraping secured endpoints.
-* `TLS` or `SSL` (SSL is being deprecated)
-  *  Description: Enable Transport Security in Liberty by adding the `transportSecurity-1.0` feature (includes support for SSL).
-  *  XML Snippet Location:  [keystore.xml](/releases/latest/kernel/helpers/build/configuration_snippets/keystore.xml).
 * `IIOP_ENDPOINT`
   *  Description: Add configuration properties for an IIOP endpoint.
-  *  XML Snippet Location: [iiop-ssl-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/iiop-ssl-endpoint.xml) when SSL is enabled. Otherwise, [iiop-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/iiop-endpoint.xml).
+  *  XML Snippet Location: [iiop-ssl-endpoint.xml](/releases/latest/full/helpers/build/configuration_snippets/iiop-ssl-endpoint.xml) when SSL is enabled. Otherwise, [iiop-endpoint.xml](/releases/latest/full/helpers/build/configuration_snippets/iiop-endpoint.xml).
   *  Note: If using this option, `env.IIOP_ENDPOINT_HOST` environment variable should be set to the server's host. See [IIOP endpoint configuration](https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.liberty.autogen.base.doc/ae/rwlp_config_orb.html#iiopEndpoint) for more details.
 * `JMS_ENDPOINT`
   *  Description: Add configuration properties for an JMS endpoint.
-  *  XML Snippet Location: [jms-ssl-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/jms_ssl_endpoint.xml) when SSL is enabled. Otherwise, [jms-endpoint.xml](/releases/latest/kernel/helpers/build/configuration_snippets/jms_endpoint.xml)
-* `VERBOSE`
-  *  Description: When set to `true` it outputs the commands and results to stdout from `configure.sh`. Otherwise, default setting is `false` and `configure.sh` is silenced.
+  *  XML Snippet Location: [jms-ssl-endpoint.xml](/releases/latest/full/helpers/build/configuration_snippets/jms_ssl_endpoint.xml) when SSL is enabled. Otherwise, [jms-endpoint.xml](/releases/latest/full/helpers/build/configuration_snippets/jms_endpoint.xml)
 
 ## Security
 
@@ -139,7 +148,7 @@ For more information regarding the configuration of Open Liberty's logging capab
 
 The Liberty session caching feature builds on top of an existing technology called JCache (JSR 107), which provides an API for distributed in-memory caching. There are several providers of JCache implementations. The configuration for two such providers, Infinispan and Hazelcast, are outlined below.
 
-1. **Infinispan(Beta Feature)** - One JCache provider is the open source project [Infinispan](https://infinispan.org/), which is the basis for Red Hat Data Grid. Enabling Infinispan session caching retrieves the Infinispan client libraries from the [Infinispan JCACHE (JSR 107) Remote Implementation](https://mvnrepository.com/artifact/org.infinispan/infinispan-jcache-remote) maven repository, and configures the necessary infinispan.client.hotrod.* properties and the Liberty server feature [sessionCache-1.0](https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_admin_session_persistence_jcache.html) by including the XML snippet [infinispan-client-sessioncache.xml](/releases/latest/kernel/helpers/build/configuration_snippets/infinispan-client-sessioncache.xml).
+1. **Infinispan(Beta Feature)** - One JCache provider is the open source project [Infinispan](https://infinispan.org/), which is the basis for Red Hat Data Grid. Enabling Infinispan session caching retrieves the Infinispan client libraries from the [Infinispan JCACHE (JSR 107) Remote Implementation](https://mvnrepository.com/artifact/org.infinispan/infinispan-jcache-remote) maven repository, and configures the necessary infinispan.client.hotrod.* properties and the Liberty server feature [sessionCache-1.0](https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_admin_session_persistence_jcache.html) by including the XML snippet [infinispan-client-sessioncache.xml](/releases/latest/kernel-slim/helpers/build/configuration_snippets/infinispan-client-sessioncache.xml).
 
     *  **Setup Infinispan Service** - Configuring Liberty session caching with Infinispan depends on an Infinispan service being available in your Kubernetes environment. It is preferable to create your Infinispan service by utilizing the [Infinispan Operator](https://infinispan.org/infinispan-operator/master/operator.html). The [Infinispan Operator Tutorial](https://github.com/infinispan/infinispan-simple-tutorials/tree/master/operator) provides a good example of getting started with Infinispan in OpenShift.
 
@@ -148,14 +157,14 @@ The Liberty session caching feature builds on top of an existing technology call
 
     ```dockerfile
     ### Infinispan Session Caching ###
-    FROM openliberty/open-liberty:kernel-java8-openj9-ubi AS infinispan-client
+    FROM openliberty/open-liberty:kernel-slim-java8-openj9-ubi AS infinispan-client
 
     # Install Infinispan client jars
     USER root
     RUN infinispan-client-setup.sh
     USER 1001
 
-    FROM openliberty/open-liberty:kernel-java8-openj9-ubi AS open-liberty-infinispan
+    FROM openliberty/open-liberty:kernel-slim-java8-openj9-ubi AS open-liberty-infinispan
 
     # Copy Infinispan client jars to Open Liberty shared resources
     COPY --chown=1001:0 --from=infinispan-client /opt/ol/wlp/usr/shared/resources/infinispan /opt/ol/wlp/usr/shared/resources/infinispan
@@ -200,7 +209,7 @@ The Liberty session caching feature builds on top of an existing technology call
 
     ```
 
-2. **Hazelcast** - Another JCache provider is [Hazelcast In-Memory Data Grid](https://hazelcast.org/). Enabling Hazelcast session caching retrieves the Hazelcast client libraries from the [hazelcast/hazelcast](https://hub.docker.com/r/hazelcast/hazelcast/) Docker image, configures Hazelcast by copying a sample [hazelcast.xml](/releases/latest/kernel/helpers/build/configuration_snippets/), and configures the Liberty server feature [sessionCache-1.0](https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_admin_session_persistence_jcache.html) by including the XML snippet [hazelcast-sessioncache.xml](/releases/latest/kernel/helpers/build/configuration_snippets/hazelcast-sessioncache.xml). By default, the [Hazelcast Discovery Plugin for Kubernetes](https://github.com/hazelcast/hazelcast-kubernetes) will auto-discover its peers within the same Kubernetes namespace. To enable this functionality, the Docker image author can include the following Dockerfile snippet, and choose from either client-server or embedded [topology](https://docs.hazelcast.org/docs/latest-dev/manual/html-single/#hazelcast-topology).
+2. **Hazelcast** - Another JCache provider is [Hazelcast In-Memory Data Grid](https://hazelcast.org/). Enabling Hazelcast session caching retrieves the Hazelcast client libraries from the [hazelcast/hazelcast](https://hub.docker.com/r/hazelcast/hazelcast/) Docker image, configures Hazelcast by copying a sample [hazelcast.xml](/releases/latest/kernel-slim/helpers/build/configuration_snippets/), and configures the Liberty server feature [sessionCache-1.0](https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_admin_session_persistence_jcache.html) by including the XML snippet [hazelcast-sessioncache.xml](/releases/latest/kernel-slim/helpers/build/configuration_snippets/hazelcast-sessioncache.xml). By default, the [Hazelcast Discovery Plugin for Kubernetes](https://github.com/hazelcast/hazelcast-kubernetes) will auto-discover its peers within the same Kubernetes namespace. To enable this functionality, the Docker image author can include the following Dockerfile snippet, and choose from either client-server or embedded [topology](https://docs.hazelcast.org/docs/latest-dev/manual/html-single/#hazelcast-topology).
 
     ```dockerfile
     ### Hazelcast Session Caching ###
