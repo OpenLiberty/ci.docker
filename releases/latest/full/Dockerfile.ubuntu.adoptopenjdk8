@@ -16,6 +16,7 @@ LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter" \
 
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
+COPY licenses /licenses
 
 # Install Open Liberty
 RUN apt-get update \
