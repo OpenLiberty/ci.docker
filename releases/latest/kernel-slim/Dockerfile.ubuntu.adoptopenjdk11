@@ -1,11 +1,11 @@
-FROM adoptopenjdk:8-jre-openj9
+FROM adoptopenjdk:11-jre-openj9
 ARG LIBERTY_VERSION=20.0.0.11
-ARG LIBERTY_SHA=2f6056b60d3930b92afe2ffd7b25a63ad648a1db
+ARG LIBERTY_SHA=dc007b60e40daa829489b15d5ba264d6e61d94ea
 ARG LIBERTY_BUILD_LABEL=cl201120201014-1215
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 ARG OPENJ9_SCC=true
 
-LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter" \
+LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo Christy Jesuraj" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
@@ -43,8 +43,9 @@ ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:/opt/ol/helpers/build:$PATH \
     OPENJ9_SCC=$OPENJ9_SCC
 
 # Configure Open Liberty
-RUN /opt/ol/wlp/bin/server create --template=javaee8 \
+RUN /opt/ol/wlp/bin/server create \
     && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea
+
 
 # Create symlinks && set permissions for non-root user
 RUN mkdir /logs \
