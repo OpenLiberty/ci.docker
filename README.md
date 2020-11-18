@@ -22,10 +22,14 @@
     *  Our recommended set uses Red Hat's [Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image) as the Operating System and are re-built daily.  They can be found on [Docker Hub](https://hub.docker.com/r/openliberty/open-liberty) or [IBM Cloud](https://cloud.ibm.com/docs/services/Registry?topic=RegistryImages-ibmliberty).
     *  Another set, using Ubuntu as the Operating System, can be found [here](https://hub.docker.com/_/open-liberty).  These are re-built automatically anytime something changes in the layers below.
 
+1. **Beta Images**
+    *  Open Liberty beta using Red Hat Universal Base Image 8 and AdoptOpenJDK 8 with OpenJ9 is available from the `beta-ubi` tag on [Docker Hub](https://hub.docker.com/r/openliberty/open-liberty).
+    * Open Liberty beta using Ubuntu and AdoptOpenJDK 8 with OpenJ9 is available from the `beta` tag on [Docker Hub](https://hub.docker.com/_/open-liberty).
+
 1. **Daily Images**
     *  Available [here](https://hub.docker.com/r/openliberty/daily), these are daily images from the daily Open Liberty binaries.  The scripts used for this image can be found [here](https://github.com/OpenLiberty/ci.docker.daily).
 
-_Note:_ `kernel` tag is now deprecated and it will not be updated (starting with 20.0.0.11). The new kernel tag is named `kernel-slim`.
+_Important Note:_ `kernel` tag is now deprecated and it will not be updated (starting with 20.0.0.11). The new kernel tag is named `kernel-slim` and it offers the bare minimum server. You can grow the image to add the Liberty features your application requires by running `features.sh`. Refer to [this](#Building-an-application-image) section for more information including a sample _Dockerfile_.
 
 ## Building an Application Image
 
