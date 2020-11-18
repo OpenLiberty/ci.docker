@@ -41,6 +41,10 @@ FROM openliberty/open-liberty:kernel-slim-java8-openj9-ubi
 # Add Liberty server configuration including all necessary features
 COPY --chown=1001:0  server.xml /config/
 
+# Modify feature repository (optional)
+# A sample is in the 'Getting Required Features' section below
+COPY --chown=1001:0 featureUtility.properties /opt/ol/wlp/etc/
+
 # This script will add the requested XML snippets to enable Liberty features and grow image to be fit-for-purpose using featureUtility. 
 # Only available in 'kernel-slim'. The 'full' tag already includes all features for convenience.
 RUN features.sh
@@ -56,6 +60,18 @@ RUN configure.sh
 ```
 
 This will result in a Docker image that has your application and configuration pre-loaded, which means you can spawn new fully-configured containers at any time.
+
+### Getting Required Features
+
+The `kernel-slim` tag provides just the bare minimum server. You can grow it to include the features needed by your application by invoking `features.sh`. 
+Liberty features are downloaded from Maven Central repository by default. But you can specify alternatives using `/opt/ol/wlp/etc/featureUtility.properties`: 
+```
+remoteRepo.url=https://my-remote-server/secure/maven2
+remoteRepo.user=operator
+remoteRepo.password={aes}KM8dhwcv892Ss1sawu9R+
+```
+
+Refer [Repository and proxy modifications](https://openliberty.io/docs/20.0.0.12/reference/command/featureUtility-modifications.html) for more information.
 
 ## Enterprise Functionality
 
