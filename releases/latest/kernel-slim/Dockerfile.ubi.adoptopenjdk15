@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk14-openj9:ubi
+FROM adoptopenjdk/openjdk15-openj9:ubi
 ARG LIBERTY_VERSION=20.0.0.11
 ARG LIBERTY_SHA=dc007b60e40daa829489b15d5ba264d6e61d94ea
 ARG LIBERTY_BUILD_LABEL=cl201120201014-1215
