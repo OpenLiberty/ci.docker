@@ -23,5 +23,6 @@ RUN features.sh
 COPY --from=staging /staging/lib.index.cache /lib.index.cache
 COPY --from=staging /staging/myThinApp.jar /config/dropins/spring/myThinApp.jar
 
+ARG VERBOSE=false
 # This script will add the requested server configurations, apply any iFixes and populate caches to optimize runtime
 RUN configure.sh

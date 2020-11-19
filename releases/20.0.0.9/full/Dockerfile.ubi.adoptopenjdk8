@@ -1,4 +1,5 @@
 FROM openliberty/open-liberty:20.0.0.9-kernel-java8-openj9-ubi
+ARG VERBOSE=false
 
 RUN cp /opt/ol/wlp/templates/servers/javaee8/server.xml /config/server.xml
 

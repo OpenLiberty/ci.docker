@@ -4,6 +4,7 @@ ARG LIBERTY_SHA=dc007b60e40daa829489b15d5ba264d6e61d94ea
 ARG LIBERTY_BUILD_LABEL=cl201120201014-1215
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 ARG OPENJ9_SCC=true
+ARG VERBOSE=false
 
 LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter" \
       org.opencontainers.image.vendor="Open Liberty" \
@@ -82,8 +83,7 @@ RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
     && chmod -R g+rwx /opt/ol/wlp/output
 
 #These settings are needed so that we can run as a different user than 1001 after server warmup
-ENV RANDFILE=/tmp/.rnd \
-    OPENJ9_JAVA_OPTIONS="-Xshareclasses:name=liberty,nonfatal,cacheDir=/output/.classCache/"
+ENV RANDFILE=/tmp/.rnd
 
 USER 1001
 

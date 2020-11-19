@@ -4,6 +4,7 @@ ARG LIBERTY_SHA=c354fd0e0d3704cc63d4f0810e38f5d081916ef4
 ARG LIBERTY_BUILD_LABEL=cl200920200820-0913
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 ARG OPENJ9_SCC=true
+ARG VERBOSE=false
 
 LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter" \
       org.opencontainers.image.vendor="Open Liberty" \
