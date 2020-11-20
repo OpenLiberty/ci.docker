@@ -1,7 +1,7 @@
-FROM adoptopenjdk/openjdk14-openj9:ubi
-ARG LIBERTY_VERSION=20.0.0.6
-ARG LIBERTY_SHA=083e89c2f96972df339a513582b338658e6562b3
-ARG LIBERTY_BUILD_LABEL=cl200620200528-0414
+FROM adoptopenjdk/openjdk11-openj9:ubi
+ARG LIBERTY_VERSION=20.0.0.12
+ARG LIBERTY_SHA=2f6056b60d3930b92afe2ffd7b25a63ad648a1db
+ARG LIBERTY_BUILD_LABEL=cl201220201111-0736
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
@@ -45,9 +45,8 @@ ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:/opt/ol/helpers/build:$PATH \
     OPENJ9_SCC=$OPENJ9_SCC
 
 # Configure Open Liberty
-RUN /opt/ol/wlp/bin/server create \
+RUN /opt/ol/wlp/bin/server create --template=javaee8 \
     && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea
-
 
 # Create symlinks && set permissions for non-root user
 RUN mkdir /logs \
@@ -58,6 +57,8 @@ RUN mkdir /logs \
     && ln -s /opt/ol/wlp/usr/servers/defaultServer /config \
     && mkdir -p /config/configDropins/defaults \
     && mkdir -p /config/configDropins/overrides \
+    && mkdir -p /config/dropins \
+    && mkdir -p /config/apps \
     && ln -s /opt/ol/wlp /liberty \
     && chown -R 1001:0 /config \
     && chmod -R g+rw /config \
@@ -83,8 +84,7 @@ RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
     && chmod -R g+rwx /opt/ol/wlp/output
 
 #These settings are needed so that we can run as a different user than 1001 after server warmup
-ENV RANDFILE=/tmp/.rnd \
-    OPENJ9_JAVA_OPTIONS="-Xshareclasses:name=liberty,nonfatal,cacheDir=/output/.classCache/"
+ENV RANDFILE=/tmp/.rnd
 
 USER 1001
 
