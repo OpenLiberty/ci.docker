@@ -3,10 +3,12 @@ ARG LIBERTY_VERSION=20.0.0.9
 ARG LIBERTY_SHA=c354fd0e0d3704cc63d4f0810e38f5d081916ef4
 ARG LIBERTY_BUILD_LABEL=cl200920200820-0913
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
+ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
+ARG LIBERTY_LICENSE_SHA=84f00503d6516c91190de866e78d6010899673b7
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
-LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter" \
+LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo Christy Jesuraj" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
@@ -20,7 +22,6 @@ LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter" \
 
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
-COPY licenses /licenses
 
 # Install Open Liberty
 RUN yum -y install wget unzip \
@@ -31,6 +32,9 @@ RUN yum -y install wget unzip \
     && unzip -q /tmp/wlp.zip -d /opt/ol \
     && rm /tmp/wlp.zip \
     && rm /tmp/wlp.zip.sha1 \
+    && mkdir -p /licenses \
+    && wget -q $LIBERTY_LICENSE_URL -O /licenses/LICENSE \
+    && echo "$LIBERTY_LICENSE_SHA /licenses/LICENSE" | sha1sum -c --strict --check \
     && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
     && yum -y remove wget unzip \
     && yum clean all \
