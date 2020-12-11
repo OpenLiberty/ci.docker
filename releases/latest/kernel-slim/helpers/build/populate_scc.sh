@@ -110,7 +110,7 @@ done
 # restore umask
 umask ${OLD_UMASK}
 
-rm -rf /output/messaging /logs/* $WLP_OUTPUT_DIR/.classCache && chmod -R g+rwx /output/workarea
+rm -rf /output/messaging /logs/* $WLP_OUTPUT_DIR/.classCache /output/workarea
 
 if [[ -d "/output/resources" ]]
 then
