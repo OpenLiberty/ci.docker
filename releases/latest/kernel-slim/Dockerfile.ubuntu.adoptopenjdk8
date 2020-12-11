@@ -49,7 +49,7 @@ ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:/opt/ol/helpers/build:$PATH \
 
 # Configure Open Liberty
 RUN /opt/ol/wlp/bin/server create \
-    && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea
+    && rm -rf $WLP_OUTPUT_DIR/.classCache $WLP_OUTPUT_DIR/defaultServer/workarea
 
 
 # Create symlinks && set permissions for non-root user
