@@ -5,7 +5,7 @@ if [ "$VERBOSE" != "true" ]; then
 fi
 
 set -Eeox pipefail
-  
+
 function main() {
   ##Define variables for XML snippets source and target paths
   WLP_INSTALL_DIR=/opt/ol/wlp
@@ -25,7 +25,7 @@ function main() {
    cp ${SNIPPETS_SOURCE}/infinispan-client-sessioncache.xml ${SNIPPETS_TARGET}/infinispan-client-sessioncache.xml
    chmod g+rw $SNIPPETS_TARGET/infinispan-client-sessioncache.xml
   fi
-  
+
   # Hazelcast Session Caching
   if [ "${HZ_SESSION_CACHE}" == "client" ] || [ "${HZ_SESSION_CACHE}" == "embedded" ]; then
     cp ${SNIPPETS_SOURCE}/hazelcast-sessioncache.xml ${SNIPPETS_TARGET}/hazelcast-sessioncache.xml
@@ -56,7 +56,7 @@ function main() {
 
   # Create a new SCC layer. This should be invoked when server configuration is complete.
   if [ "$OPENJ9_SCC" == "true" ]; then
-    populate_scc.sh
+    populate_scc.sh -i 1
   fi
 }
 

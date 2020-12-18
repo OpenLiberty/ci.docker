@@ -97,7 +97,7 @@ function main() {
 
   # Create a new SCC layer
   if [ "$OPENJ9_SCC" == "true" ]; then
-    populate_scc.sh
+    populate_scc.sh -i 1
   fi
 }
 
