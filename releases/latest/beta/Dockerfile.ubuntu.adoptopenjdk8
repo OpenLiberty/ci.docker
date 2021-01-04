@@ -1,8 +1,8 @@
 FROM adoptopenjdk:8-jre-openj9
-ARG LIBERTY_VERSION=21.0.0.1
+ARG LIBERTY_VERSION=21.0.0.1-beta
 ARG LIBERTY_SHA=5abe9cb23bc2f9ab2443699dd502b41bdca13335
 ARG LIBERTY_BUILD_LABEL=cl201220201111-0736
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION-beta/openliberty-runtime-$LIBERTY_VERSION-beta.zip
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
 ARG LIBERTY_LICENSE_SHA=84f00503d6516c91190de866e78d6010899673b7
 ARG OPENJ9_SCC=true
@@ -15,7 +15,7 @@ LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo C
       org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
       org.opencontainers.image.description="This image contains the Open Liberty beta runtime with AdoptOpenJDK 8 with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
       org.opencontainers.image.title="Open Liberty Beta" \
-      org.opencontainers.image.version="${LIBERTY_VERSION}-beta"
+      org.opencontainers.image.version="${LIBERTY_VERSION}"
 
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
