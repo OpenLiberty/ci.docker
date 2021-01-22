@@ -1,6 +1,6 @@
 FROM adoptopenjdk/openjdk11-openj9:ubi
 ARG LIBERTY_VERSION=21.0.0.1
-ARG LIBERTY_SHA=da39a3ee5e6b4b0d3255bfef95601890afd80709
+ARG LIBERTY_SHA=b6d5d5c19dae9e4e11c5b98b885c70c50fb67d91
 ARG LIBERTY_BUILD_LABEL=cl210120210113-1459
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
