@@ -28,7 +28,7 @@
 1. **Daily Images**
     *  Available [here](https://hub.docker.com/r/openliberty/daily), these are daily images from the daily Open Liberty binaries.  The scripts used for this image can be found [here](https://github.com/OpenLiberty/ci.docker.daily).
 
-_Note:_ `kernel` tag is now deprecated and it will not be updated (starting with 20.0.0.11). The new kernel tag is named `kernel-slim`.
+_Note:_ `kernel` **tag is now deprecated** and it will not be updated (starting with 20.0.0.11). The new kernel tag is named `kernel-slim`.
 
 ## Building an Application Image
 
@@ -74,7 +74,7 @@ remoteRepo.user=operator
 remoteRepo.password={aes}KM8dhwcv892Ss1sawu9R+
 ```
 
-Refer [Repository and proxy modifications](https://openliberty.io/docs/20.0.0.12/reference/command/featureUtility-modifications.html) for more information.
+Refer [Repository and proxy modifications](https://openliberty.io/docs/21.0.0.1/reference/command/featureUtility-modifications.html) for more information.
 
 ## Enterprise Functionality
 
@@ -88,7 +88,7 @@ This section describes the optional enterprise functionality that can be enabled
 
 ### Deprecated Enterprise Functionality
 
-The following enterprise functionalities are now deprecated. You should stop using them. They are still available in `full` but not available in `kernel-slim`:
+The following enterprise functionalities are now **deprecated**. You should **stop** using them. They are still available in `full` but not available in `kernel-slim`:
 
 * `HTTP_ENDPOINT`
   *  Description: Add configuration properties for an HTTP endpoint.
