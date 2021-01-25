@@ -74,7 +74,7 @@ remoteRepo.user=operator
 remoteRepo.password={aes}KM8dhwcv892Ss1sawu9R+
 ```
 
-Refer [Repository and proxy modifications](https://openliberty.io/docs/21.0.0.1/reference/command/featureUtility-modifications.html) for more information.
+Refer to [Repository and proxy modifications](https://openliberty.io/docs/ref/command/featureUtility-modifications.html) for more information.
 
 ## Enterprise Functionality
 
