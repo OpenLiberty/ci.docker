@@ -161,7 +161,7 @@ Many of these configuration changes can also be set during container invocation 
 docker run -d -p 80:9080 -p 443:9443 -e WLP_LOGGING_CONSOLE_FORMAT=JSON -e WLP_LOGGING_CONSOLE_LOGLEVEL=info -e WLP_LOGGING_CONSOLE_SOURCE=message,trace,accessLog,ffdc,audit open-liberty:latest
 ```
 
-For more information regarding the configuration of Open Liberty's logging capabilities see: https://openliberty.io/docs/ref/general/#logging.html
+For more information regarding the configuration of Open Liberty's logging capabilities see: https://openliberty.io/docs/ref/general/#log-trace-configuration.html
 
 ## Session Caching
 
