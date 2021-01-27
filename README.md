@@ -28,7 +28,7 @@
 1. **Daily Images**
     *  Available [here](https://hub.docker.com/r/openliberty/daily), these are daily images from the daily Open Liberty binaries.  The scripts used for this image can be found [here](https://github.com/OpenLiberty/ci.docker.daily).
 
-_Note:_ `kernel` tag is now deprecated and it will not be updated (starting with 20.0.0.11). The new kernel tag is named `kernel-slim`.
+_**Important Notice:**_ The `kernel` **tag is now deprecated** and it will not be updated (starting with 20.0.0.11). The new tag, that provides kernel binary, is named `kernel-slim`.
 
 ## Building an Application Image
 
@@ -64,6 +64,8 @@ RUN configure.sh
 
 This will result in a Docker image that has your application and configuration pre-loaded, which means you can spawn new fully-configured containers at any time.
 
+Refer to [Open Liberty Docs](https://openliberty.io/docs) for server configuration (server.xml) information.
+
 ### Getting Required Features
 
 The `kernel-slim` tag provides just the bare minimum server. You can grow it to include the features needed by your application by invoking `features.sh`. 
@@ -74,7 +76,7 @@ remoteRepo.user=operator
 remoteRepo.password={aes}KM8dhwcv892Ss1sawu9R+
 ```
 
-Refer [Repository and proxy modifications](https://openliberty.io/docs/20.0.0.12/reference/command/featureUtility-modifications.html) for more information.
+Refer to [Repository and proxy modifications](https://openliberty.io/docs/ref/command/featureUtility-modifications.html) for more information.
 
 ## Enterprise Functionality
 
@@ -88,7 +90,7 @@ This section describes the optional enterprise functionality that can be enabled
 
 ### Deprecated Enterprise Functionality
 
-The following enterprise functionalities are now deprecated. You should stop using them. They are still available in `full` but not available in `kernel-slim`:
+The following enterprise functionalities are now **deprecated**. You should **stop** using them. They are still available in `full` but not available in `kernel-slim`:
 
 * `HTTP_ENDPOINT`
   *  Description: Add configuration properties for an HTTP endpoint.
@@ -161,7 +163,7 @@ Many of these configuration changes can also be set during container invocation 
 docker run -d -p 80:9080 -p 443:9443 -e WLP_LOGGING_CONSOLE_FORMAT=JSON -e WLP_LOGGING_CONSOLE_LOGLEVEL=info -e WLP_LOGGING_CONSOLE_SOURCE=message,trace,accessLog,ffdc,audit open-liberty:latest
 ```
 
-For more information regarding the configuration of Open Liberty's logging capabilities see: https://openliberty.io/docs/ref/general/#logging.html
+For more information regarding the configuration of Open Liberty's logging capabilities see: https://openliberty.io/docs/ref/general/#log-trace-configuration.html
 
 ## Session Caching
 
