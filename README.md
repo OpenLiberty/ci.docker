@@ -28,7 +28,7 @@
 1. **Daily Images**
     *  Available [here](https://hub.docker.com/r/openliberty/daily), these are daily images from the daily Open Liberty binaries.  The scripts used for this image can be found [here](https://github.com/OpenLiberty/ci.docker.daily).
 
-_Note:_ `kernel` **tag is now deprecated** and it will not be updated (starting with 20.0.0.11). The new kernel tag is named `kernel-slim`.
+_**Important Notice:**_ The `kernel` **tag is now deprecated** and it will not be updated (starting with 20.0.0.11). The new tag, that provides kernel binary, is named `kernel-slim`.
 
 ## Building an Application Image
 
@@ -63,6 +63,8 @@ RUN configure.sh
 ```
 
 This will result in a Docker image that has your application and configuration pre-loaded, which means you can spawn new fully-configured containers at any time.
+
+Refer to [Open Liberty Docs](https://openliberty.io/docs) for server configuration (server.xml) information.
 
 ### Getting Required Features
 
