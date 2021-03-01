@@ -28,6 +28,10 @@ done < "$currentRelease/images.txt"
 
 if [[ $currentRelease =~ latest ]]
 then
+  # Expose issues relating to Liberty config caching
+  echo "Update stock quote test with old 20140101 config "
+  touch -t 201401010000.00 test-stock-quote/config/server.xml test-stock-quote/config/configDropins/defaults/keystore.xml
+
   #Test the image
   for test in "${tests[@]}"; do
     testBuild="./build.sh --dir=$test --dockerfile=Dockerfile --tag=$test"
