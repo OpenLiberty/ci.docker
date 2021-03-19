@@ -31,5 +31,5 @@ fi
 
 # Install necessary features using featureUtility
 featureUtility installServerFeatures --acceptLicense defaultServer --noCache
-find /opt/ol/wlp/lib /opt/ol/wlp/bin -perm -g=w -print0 | xargs -0 -r chmod -R g+rw
+find /opt/ol/wlp/lib /opt/ol/wlp/bin ! -perm -g=rw -print0 | xargs -0 -r chmod g+rw
 

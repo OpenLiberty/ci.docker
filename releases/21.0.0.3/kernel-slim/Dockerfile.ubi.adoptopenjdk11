@@ -1,7 +1,7 @@
-FROM adoptopenjdk/openjdk15-openj9:ubi
-ARG LIBERTY_VERSION=21.0.0.2
-ARG LIBERTY_SHA=31206d5063125ab56b466e792b42092671147d62
-ARG LIBERTY_BUILD_LABEL=cl210220210209-1100
+FROM adoptopenjdk/openjdk11-openj9:ubi
+ARG LIBERTY_VERSION=21.0.0.3
+ARG LIBERTY_SHA=c9eef099515b0b083103338c5743daa43bfe5440
+ARG LIBERTY_BUILD_LABEL=cl210320210309-1101
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
 ARG LIBERTY_LICENSE_SHA=84f00503d6516c91190de866e78d6010899673b7
@@ -82,7 +82,7 @@ RUN mkdir /logs \
 
 # Create a new SCC layer
 RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
-    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache \
+    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache /output/workarea \
     && chown -R 1001:0 /opt/ol/wlp/output \
     && chmod -R g+rwx /opt/ol/wlp/output
 
