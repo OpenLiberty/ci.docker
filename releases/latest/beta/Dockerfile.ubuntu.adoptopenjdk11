@@ -1,5 +1,5 @@
 FROM adoptopenjdk:11-jre-openj9
-ARG LIBERTY_VERSION=21.0.0.9-beta
+ARG LIBERTY_VERSION=21.0.0.10-beta
 ARG LIBERTY_SHA=19e9f09d9bd0894076b542c849f6a29722e54065
 ARG LIBERTY_BUILD_LABEL=cl210920210824-2341
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
