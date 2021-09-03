@@ -1,8 +1,8 @@
-FROM adoptopenjdk:11-jre-openj9
-ARG LIBERTY_VERSION=21.0.0.8
-ARG LIBERTY_SHA=313eccc3702bb5e2c98e0b3eb754a663b964c99e
-ARG LIBERTY_BUILD_LABEL=cl210820210727-1323
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
+FROM adoptopenjdk:8-jre-openj9
+ARG LIBERTY_VERSION=21.0.0.9-beta
+ARG LIBERTY_SHA=19e9f09d9bd0894076b542c849f6a29722e54065
+ARG LIBERTY_BUILD_LABEL=cl210920210824-2341
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
 ARG LIBERTY_LICENSE_SHA=84f00503d6516c91190de866e78d6010899673b7
 ARG OPENJ9_SCC=true
@@ -13,9 +13,9 @@ LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo C
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
       org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
-      org.opencontainers.image.description="This image contains the Open Liberty runtime with AdoptOpenJDK with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
-      org.opencontainers.image.title="Open Liberty" \
-      org.opencontainers.image.version="$LIBERTY_VERSION"
+      org.opencontainers.image.description="This image contains the Open Liberty beta runtime with AdoptOpenJDK 8 with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
+      org.opencontainers.image.title="Open Liberty Beta" \
+      org.opencontainers.image.version="${LIBERTY_VERSION}"
 
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
@@ -48,9 +48,8 @@ ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:/opt/ol/helpers/build:$PATH \
     OPENJ9_SCC=$OPENJ9_SCC
 
 # Configure Open Liberty
-RUN /opt/ol/wlp/bin/server create \
+RUN /opt/ol/wlp/bin/server create --template=javaee8 \
     && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea
-
 
 # Create symlinks && set permissions for non-root user
 RUN mkdir /logs \
@@ -61,6 +60,8 @@ RUN mkdir /logs \
     && ln -s /opt/ol/wlp/usr/servers/defaultServer /config \
     && mkdir -p /config/configDropins/defaults \
     && mkdir -p /config/configDropins/overrides \
+    && mkdir -p /config/dropins \
+    && mkdir -p /config/apps \
     && ln -s /opt/ol/wlp /liberty \
     && chown -R 1001:0 /config \
     && chmod -R g+rw /config \
@@ -81,7 +82,7 @@ RUN mkdir /logs \
 
 # Create a new SCC layer
 RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
-    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache /output/workarea \
+    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache \
     && chown -R 1001:0 /opt/ol/wlp/output \
     && chmod -R g+rwx /opt/ol/wlp/output
 

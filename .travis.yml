@@ -11,7 +11,7 @@ before_install:
 env:
   - RELEASE=../releases/21.0.0.3
   - RELEASE=../releases/21.0.0.6
-  - RELEASE=../releases/21.0.0.8
+  - RELEASE=../releases/21.0.0.9
   - RELEASE=../releases/latest
 
 script:
