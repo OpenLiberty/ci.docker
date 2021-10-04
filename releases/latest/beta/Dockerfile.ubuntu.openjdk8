@@ -1,8 +1,8 @@
-FROM adoptopenjdk:11-jre-openj9
-ARG LIBERTY_VERSION=21.0.0.9
-ARG LIBERTY_SHA=102958ae6e070c29a7b5c55b4c414953900283fa
+FROM ibmsemeruruntime/open-8-jdk:focal-jre-latest
+ARG LIBERTY_VERSION=21.0.0.10-beta
+ARG LIBERTY_SHA=1b88de47994986c4b069884a982cfbdd588c8499
 ARG LIBERTY_BUILD_LABEL=cl210920210824-2341
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
 ARG LIBERTY_LICENSE_SHA=84f00503d6516c91190de866e78d6010899673b7
 ARG OPENJ9_SCC=true
@@ -13,9 +13,9 @@ LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo C
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
       org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
-      org.opencontainers.image.description="This image contains the Open Liberty runtime with AdoptOpenJDK with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
-      org.opencontainers.image.title="Open Liberty" \
-      org.opencontainers.image.version="$LIBERTY_VERSION"
+      org.opencontainers.image.description="This image contains the Open Liberty beta runtime with IBM Semeru Runtime Open Edition OpenJDK 8 with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
+      org.opencontainers.image.title="Open Liberty Beta" \
+      org.opencontainers.image.version="${LIBERTY_VERSION}"
 
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
