@@ -32,14 +32,14 @@ _**Important Notice:**_ The `kernel` **tag is now deprecated** and it will not b
 
 ## Building an Application Image
 
-According to Docker's best practices you should create a new image (`FROM open-liberty`) which adds a single application and the corresponding configuration. You should avoid configuring the image manually, after it started (unless it is for debugging purposes), because such changes won't be present if you spawn a new container from the image.
+According to Docker's best practices you should create a new image (`FROM icr.io/appcafe/open-liberty:`) which adds a single application and the corresponding configuration. You should avoid configuring the image manually, after it started (unless it is for debugging purposes), because such changes won't be present if you spawn a new container from the image.
 
 Even if you `docker save` the manually configured container, the steps to reproduce the image from `open-liberty` will be lost and you will hinder your ability to update that image.
 
 The key point to take-away from the sections below is that your application Dockerfile should always follow a pattern similar to:
 
 ```dockerfile
-FROM openliberty/open-liberty:kernel-slim-java8-openj9-ubi
+FROM icr.io/appcafe/open-liberty:kernel-slim-java8-openj9-ubi
 
 # Add Liberty server configuration including all necessary features
 COPY --chown=1001:0  server.xml /config/
@@ -181,14 +181,14 @@ The Liberty session caching feature builds on top of an existing technology call
 
     ```dockerfile
     ### Infinispan Session Caching ###
-    FROM openliberty/open-liberty:kernel-slim-java8-openj9-ubi AS infinispan-client
+    FROM icr.io/appcafe/open-liberty:kernel-slim-java8-openj9-ubi AS infinispan-client
 
     # Install Infinispan client jars
     USER root
     RUN infinispan-client-setup.sh
     USER 1001
 
-    FROM openliberty/open-liberty:kernel-slim-java8-openj9-ubi AS open-liberty-infinispan
+    FROM icr.io/appcafe/open-liberty:kernel-slim-java8-openj9-ubi AS open-liberty-infinispan
 
     # Copy Infinispan client jars to Open Liberty shared resources
     COPY --chown=1001:0 --from=infinispan-client /opt/ol/wlp/usr/shared/resources/infinispan /opt/ol/wlp/usr/shared/resources/infinispan
