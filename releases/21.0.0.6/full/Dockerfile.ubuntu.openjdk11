@@ -1,4 +1,4 @@
-FROM ibmsemeruruntime/open-11-jdk:focal-jre-latest
+FROM ibm-semeru-runtimes:open-11-jre-focal
 ARG LIBERTY_VERSION=21.0.0.6
 ARG LIBERTY_SHA=7889471c63088e0eed6984c503c06ae49a1f43c0
 ARG LIBERTY_BUILD_LABEL=cl210620210527-1900
