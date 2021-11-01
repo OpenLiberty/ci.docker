@@ -1,4 +1,4 @@
-FROM ibmsemeruruntime/open-11-jdk:ubi-jdk-latest
+FROM ibmsemeruruntime/open-11-jdk:ubi-jdk
 ARG LIBERTY_VERSION=21.0.0.11
 ARG LIBERTY_SHA=bf7d3b1ce093dca85005e0cbbe655dabe6ef96ea
 ARG LIBERTY_BUILD_LABEL=cl21.0.0.11920-1900
