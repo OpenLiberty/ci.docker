@@ -19,7 +19,7 @@
 ## Container Images
 
 1. **Supported Images**
-    *  Our recommended set uses Red Hat's [Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image) as the Operating System and are re-built daily. They are available on [IBM Container Registry](docs/icr-images.md) and [Docker Hub](https://hub.docker.com/r/openliberty/open-liberty).
+    *  Our recommended set uses Red Hat's [Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image) as the Operating System and are re-built daily. They are available from [IBM Container Registry](docs/icr-images.md) and [Docker Hub](https://hub.docker.com/r/openliberty/open-liberty).
     *  Another set, using Ubuntu as the Operating System, can be found on [Docker Hub](https://hub.docker.com/_/open-liberty).  These are re-built automatically anytime something changes in the layers below.
 
 1. **Beta Images**
@@ -159,7 +159,7 @@ Make sure to include the file you have just created into your Open Liberty Docke
 COPY --chown=1001:0  bootstrap.properties /config/
 ```
 
-Many of these configuration changes can also be set during container invocation by using the build command's '-e' option to pass in an environment variable value.
+These environment variables can be set when running container as well. This can be achieved by using the run command's '-e' option to pass in an environment variable value.
 ```
 docker run -d -p 80:9080 -p 443:9443 -e WLP_LOGGING_CONSOLE_FORMAT=JSON -e WLP_LOGGING_CONSOLE_LOGLEVEL=info -e WLP_LOGGING_CONSOLE_SOURCE=message,trace,accessLog,ffdc,audit open-liberty:latest
 ```

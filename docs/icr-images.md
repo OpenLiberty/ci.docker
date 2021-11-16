@@ -5,9 +5,9 @@ Open Liberty container images are available from IBM Container Registry (ICR) at
 
 The images for the latest fix pack and the last two quarterly releases are available at all times and are refreshed regularly.
 
-Available tags are listed below. The tags follow this naming convention: `<fixpack_version_optional>-<liberty_image_flavour>-<java_version>-<java_type>-ubi`
+Available image tags are listed below. The tags follow this naming convention: `<fixpack_version_optional>-<liberty_image_flavour>-<java_version>-<java_type>-ubi`
 
-Append the tag to `icr.io/appcafe/open-liberty` to pull a specific image. For example, `icr.io/appcafe/open-liberty:kernel-slim-java8-openj9-ubi`
+Append a tag to `icr.io/appcafe/open-liberty` to pull a specific image. For example, `icr.io/appcafe/open-liberty:21.0.0.11-kernel-slim-java8-openj9-ubi`
 
 Available images can also be listed using [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started). Log in with your IBMid prior to running this command: `ibmcloud cr images --restrict appcafe/open-liberty`
 
