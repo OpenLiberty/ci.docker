@@ -1,6 +1,6 @@
-# Contributing to Open Liberty Docker
+# Contributing to Open Liberty Container Images
 
-Anyone can contribute to the Open Liberty Docker project and we welcome your contributions!
+Anyone can contribute to the Open Liberty Container Images project and we welcome your contributions!
 
 There are multiple ways to contribute: report bugs, fix bugs, contribute code, improve upon documentation, etc. You must follow these guidelines:
 
@@ -10,13 +10,13 @@ There are multiple ways to contribute: report bugs, fix bugs, contribute code, i
 
 ## Raising Issues
 
-Please raise any bug reports on the Open Liberty Docker project repository's GitHub issue tracker. Be sure to search the list to see if your issue has already been raised.
+Please raise any bug reports on the Open Liberty Container Images project repository's GitHub issue tracker. Be sure to search the list to see if your issue has already been raised.
 
 A good bug report is one that makes it easy for everyone to understand what you were trying to do and what went wrong. Provide as much context as possible so we can try to recreate the issue.
 
 ## Contributor License Agreement
 
-In order for us to merge any of your changes into Open Liberty Docker, you need to sign the Contributor License Agreement. When you open up a Pull Request for the first time, a bot will comment with a link to the CLA. You may also review and sign the CLA here: https://cla-assistant.io/OpenLiberty/ci.docker prior to your Pull Request. You must verify your country has laws recognizing the use of legally binding e-Signatures, otherwise you must follow the hardcopy instructions [here](cla/open-liberty-cla-individual.pdf).
+In order for us to merge any of your changes into Open Liberty Container Images, you need to sign the Contributor License Agreement. When you open up a Pull Request for the first time, a bot will comment with a link to the CLA. You may also review and sign the CLA here: https://cla-assistant.io/OpenLiberty/ci.docker prior to your Pull Request. You must verify your country has laws recognizing the use of legally binding e-Signatures, otherwise you must follow the hardcopy instructions [here](cla/open-liberty-cla-individual.pdf).
 
 ## Coding Standards
 
