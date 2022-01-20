@@ -1,5 +1,4 @@
-#FROM ibm-semeru-runtimes:open-11-jre-focal
-FROM cr-global.apps.oc4.denis.prive/ibm-semeru-runtimes:open-17-jre-focal
+FROM ibm-semeru-runtimes:open-17-jre-focal
 ARG LIBERTY_VERSION=22.0.0.1
 ARG LIBERTY_SHA=9a5acc514c26ad91dadf9a21e5c61a090abf0dc9
 ARG LIBERTY_BUILD_LABEL=cl22.0.0.1920-1900
