@@ -1,8 +1,8 @@
 FROM ibm-semeru-runtimes:open-17-jre-focal
-ARG LIBERTY_VERSION=22.0.0.1
-ARG LIBERTY_SHA=9a5acc514c26ad91dadf9a21e5c61a090abf0dc9
+ARG LIBERTY_VERSION=22.0.0.2-beta
+ARG LIBERTY_SHA=d5efb53c4f412eefed2c68b870d0fcd725fde6a8
 ARG LIBERTY_BUILD_LABEL=cl22.0.0.1920-1900
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
 ARG LIBERTY_LICENSE_SHA=84f00503d6516c91190de866e78d6010899673b7
 ARG OPENJ9_SCC=true
@@ -13,8 +13,8 @@ LABEL org.opencontainers.image.authors="Chris Potter, Leo Christy Jesuraj, Melis
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
       org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
-      org.opencontainers.image.description="This image contains the Open Liberty runtime with IBM Semeru Runtime Open Edition OpenJDK with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
-      org.opencontainers.image.title="Open Liberty" \
+      org.opencontainers.image.description="This image contains the Open Liberty beta runtime with IBM Semeru Runtime Open Edition OpenJDK 11 with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
+      org.opencontainers.image.title="Open Liberty Beta" \
       org.opencontainers.image.version="$LIBERTY_VERSION"
 
 COPY helpers /opt/ol/helpers
