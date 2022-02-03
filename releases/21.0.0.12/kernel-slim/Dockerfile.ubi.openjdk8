@@ -1,4 +1,4 @@
-FROM ibmsemeruruntime/open-8-jdk:ubi-jdk
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-8-jdk-ubi
 ARG LIBERTY_VERSION=21.0.0.12
 ARG LIBERTY_SHA=101f7be5f15f14a4a3dabc74dd106be2e743245e
 ARG LIBERTY_BUILD_LABEL=cl21.0.0.12920-1900
