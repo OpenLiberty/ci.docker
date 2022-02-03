@@ -1,4 +1,4 @@
-FROM ibmsemeruruntime/open-11-jdk:ubi-jdk
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-11-jdk-ubi
 ARG LIBERTY_VERSION=21.0.0.9
 ARG LIBERTY_SHA=82894898cdb1824d173c3e87052f93230c163278
 ARG LIBERTY_BUILD_LABEL=cl210920210824-2341
