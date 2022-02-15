@@ -41,7 +41,7 @@ then
 fi
 
 cd $dir
-buildCommand="docker build -t $tag -f $dockerfile"
+buildCommand="docker buildx build --push --platform linux/arm64/v8,linux/amd64 -t $tag -f $dockerfile"
 if [ ! -z "$tag2" ]
 then
   buildCommand="$buildCommand -t $tag2"
