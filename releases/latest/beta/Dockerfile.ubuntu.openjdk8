@@ -1,7 +1,7 @@
 FROM ibm-semeru-runtimes:open-8-jre-focal
-ARG LIBERTY_VERSION=22.0.0.2-beta
-ARG LIBERTY_SHA=d5efb53c4f412eefed2c68b870d0fcd725fde6a8
-ARG LIBERTY_BUILD_LABEL=cl22.0.0.1920-1900
+ARG LIBERTY_VERSION=22.0.0.3-beta
+ARG LIBERTY_SHA=ae30e13663c0b6f6a1da121ef39b0144e6066848
+ARG LIBERTY_BUILD_LABEL=cl220220220201-1901
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
 ARG LIBERTY_LICENSE_SHA=84f00503d6516c91190de866e78d6010899673b7
