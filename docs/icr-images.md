@@ -23,16 +23,18 @@ full-java8-ibmjava-ubi
 full-java11-openj9-ubi
 ```
 
-## 22.0.0.1 
+## 22.0.0.2 
 
 ```
-22.0.0.1-kernel-slim-java8-openj9-ubi
-22.0.0.1-kernel-slim-java8-ibmjava-ubi
-22.0.0.1-kernel-slim-java11-openj9-ubi
+22.0.0.2-kernel-slim-java8-openj9-ubi
+22.0.0.2-kernel-slim-java8-ibmjava-ubi
+22.0.0.2-kernel-slim-java11-openj9-ubi
+22.0.0.2-kernel-slim-java17-openj9-ubi
 
-22.0.0.1-full-java8-openj9-ubi
-22.0.0.1-full-java8-ibmjava-ubi
-22.0.0.1-full-java11-openj9-ubi
+22.0.0.2-full-java8-openj9-ubi
+22.0.0.2-full-java8-ibmjava-ubi
+22.0.0.2-full-java11-openj9-ubi
+22.0.0.2-full-java17-openj9-ubi
 ```
 
 ## 21.0.0.12
@@ -41,10 +43,12 @@ full-java11-openj9-ubi
 21.0.0.12-kernel-slim-java8-openj9-ubi
 21.0.0.12-kernel-slim-java8-ibmjava-ubi
 21.0.0.12-kernel-slim-java11-openj9-ubi
+21.0.0.12-kernel-slim-java17-openj9-ubi
 
 21.0.0.12-full-java8-openj9-ubi
 21.0.0.12-full-java8-ibmjava-ubi
 21.0.0.12-full-java11-openj9-ubi
+21.0.0.12-full-java17-openj9-ubi
 ```
 
 ## 21.0.0.9
