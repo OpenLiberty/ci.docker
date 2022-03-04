@@ -13,3 +13,4 @@ full             Dockerfile.ubi.openjdk17      openliberty/open-liberty      ful
 beta             Dockerfile.ubuntu.openjdk8    open-liberty    		          beta-java8-openj9                   beta
 beta             Dockerfile.ubuntu.openjdk11   open-liberty                  beta-java11-openj9                  beta-java11
 beta             Dockerfile.ubuntu.openjdk17   open-liberty                  beta-java17-openj9                  beta-java17
+beta             Dockerfile.ubi.openjdk17      openliberty/open-liberty      beta-java17-openj9-ubi 
