@@ -1,5 +1,5 @@
 FROM ibm-semeru-runtimes:open-11-jre-focal
-ARG LIBERTY_VERSION=22.0.0.3-beta
+ARG LIBERTY_VERSION=22.0.0.4-beta
 ARG LIBERTY_SHA=a8cbd6e6b91184eda126235f31e63c198ba821dc
 ARG LIBERTY_BUILD_LABEL=cl220320220302-1100
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
