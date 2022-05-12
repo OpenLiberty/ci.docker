@@ -9,9 +9,9 @@ sudo: required
 before_install:
   - sudo apt-get update
 env:
-  - RELEASE=../releases/21.0.0.9
   - RELEASE=../releases/21.0.0.12
-  - RELEASE=../releases/22.0.0.4
+  - RELEASE=../releases/22.0.0.3
+  - RELEASE=../releases/22.0.0.5
   - RELEASE=../releases/latest
 
 script:
