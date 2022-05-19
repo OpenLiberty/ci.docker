@@ -304,4 +304,4 @@ JVMDUMP012E Error in System dump: The core file created by child process with pi
 
 Since JVM cannot find the system dump, it is not able to add some useful metadata to the core dump but this is usually not required. An example of this information includes some extra memory region metadata for the info map command in `jdmpview` which is useful for native memory leak analysis.
 
-Users generating other types of dumps such as thread dump and heap dump should not see this issue.
+Users generating other types of dumps such as thread dump and heap dump should not see this issue. 
