@@ -1,5 +1,5 @@
 FROM icr.io/appcafe/ibm-semeru-runtimes:open-17-jdk-ubi
-ARG LIBERTY_VERSION=22.0.0.6-beta
+ARG LIBERTY_VERSION=22.0.0.7-beta
 ARG LIBERTY_SHA=a02ca6794c3d59106f5a44afe1fbfee666a89a02
 ARG LIBERTY_BUILD_LABEL=cl220620220523-1607
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
