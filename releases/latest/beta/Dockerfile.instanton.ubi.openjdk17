@@ -71,8 +71,8 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
          BINARY_URL='junk'; \
          ;; \
        amd64|x86_64) \
-         ESUM='c425e9c1f7e65047e1f12343acc8443aefbe652c4fd6c090638cf14254ec7d9f'; \
-         BINARY_URL='https://github.com/ibmruntimes/semeru11-ea-binaries/releases/download/jdk-11.0.16%2B8_july_22-preview_1/ibm-semeru-open-ea-jre_x64_linux_11.0.16_8_july_22-preview_1.tar.gz'; \
+         ESUM='165121a176446a328b495f474a38fa6c8ddfbed2440ec2f7733ff8c7467dc6ae'; \
+         BINARY_URL='https://openj9-artifactory.osuosl.org/artifactory/ci-openj9/Build_JDK17_x86-64_linux_criu_Nightly/11/OpenJ9-JDK17-x86-64_linux_criu-20220727-012942.tar.gz'; \
          ;; \
        *) \
          echo "Unsupported arch: ${ARCH}"; \
