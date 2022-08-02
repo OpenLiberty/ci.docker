@@ -1,14 +1,14 @@
-FROM ibm-semeru-runtimes:open-11-jre-focal
-ARG LIBERTY_VERSION=22.0.0.7
-ARG LIBERTY_SHA=17cbef8a56e54755cadbbf1ccfdd485afb9c3823
-ARG LIBERTY_BUILD_LABEL=cl220720220620-2217
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
+FROM ibm-semeru-runtimes:open-17-jre-focal
+ARG LIBERTY_VERSION=22.0.0.8
+ARG LIBERTY_SHA=5ed6c43b8d3047b55c25495094491817359eb730
+ARG LIBERTY_BUILD_LABEL=cl220820220719-1056
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
 ARG LIBERTY_LICENSE_SHA=84f00503d6516c91190de866e78d6010899673b7
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
-LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo Christy Jesuraj" \
+LABEL org.opencontainers.image.authors="Chris Potter, Leo Christy Jesuraj, Melissa Lee" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
@@ -48,8 +48,9 @@ ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:/opt/ol/helpers/build:$PATH \
     OPENJ9_SCC=$OPENJ9_SCC
 
 # Configure Open Liberty
-RUN /opt/ol/wlp/bin/server create --template=javaee8 \
+RUN /opt/ol/wlp/bin/server create \
     && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea
+
 
 # Create symlinks && set permissions for non-root user
 RUN mkdir /logs \
@@ -60,8 +61,6 @@ RUN mkdir /logs \
     && ln -s /opt/ol/wlp/usr/servers/defaultServer /config \
     && mkdir -p /config/configDropins/defaults \
     && mkdir -p /config/configDropins/overrides \
-    && mkdir -p /config/dropins \
-    && mkdir -p /config/apps \
     && ln -s /opt/ol/wlp /liberty \
     && ln -s /opt/ol/fixes /fixes \
     && chown -R 1001:0 /config \
@@ -83,7 +82,7 @@ RUN mkdir /logs \
 
 # Create a new SCC layer
 RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
-    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache \
+    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache /output/workarea \
     && chown -R 1001:0 /opt/ol/wlp/output \
     && chmod -R g+rwx /opt/ol/wlp/output
 
