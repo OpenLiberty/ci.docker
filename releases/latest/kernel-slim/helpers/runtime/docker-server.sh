@@ -85,6 +85,9 @@ function importKeyCert() {
 
 set -e
 
+# Resolve liberty server symlinks and creation for server name changes
+/opt/ol/helpers/runtime/configure-liberty.sh
+
 SNIPPETS_SOURCE=/opt/ol/helpers/build/configuration_snippets
 SNIPPETS_TARGET_DEFAULTS=/config/configDropins/defaults
 SNIPPETS_TARGET_OVERRIDES=/config/configDropins/overrides

@@ -15,7 +15,7 @@ if [[ -d "/opt/java/.scc" ]] && [[ `stat -L -c "%a" "/opt/java/.scc" | cut -c 1,
 then
   SCC="-Xshareclasses:name=openj9_system_scc,cacheDir=/opt/java/.scc"
 else
-  SCC="-Xshareclasses:name=liberty,cacheDir=/output/.classCache"
+  SCC="-Xshareclasses:name=liberty,cacheDir=${WLP_OUTPUT_DIR}/.classCache"
 fi
 
 # For JDK8, as of OpenJ9 0.20.0 the criteria for determining the max heap size (-Xmx) has changed
@@ -81,7 +81,7 @@ if [ $TRIM_SCC == yes ]
 then
   echo "Calculating SCC layer upper bound, starting with initial size $SCC_SIZE."
   # Populate the newly created class cache layer.
-  /opt/ol/wlp/bin/server start && /opt/ol/wlp/bin/server stop
+  /opt/ol/wlp/bin/server start $SERVER_NAME && /opt/ol/wlp/bin/server stop $SERVER_NAME
   # Find out how full it is.
   FULL=`( java $PRINT_LAYER_STATS || true ) 2>&1 | awk '/^Cache is [0-9.]*% .*full/ {print substr($3, 1, length($3)-1)}'`
   echo "SCC layer is $FULL% full. Destroying layer."
@@ -104,7 +104,7 @@ fi
 # Server start/stop to populate the /output/workarea and make subsequent server starts faster.
 for ((i=0; i<$ITERATIONS; i++))
 do
-  /opt/ol/wlp/bin/server start && /opt/ol/wlp/bin/server stop
+  /opt/ol/wlp/bin/server start $SERVER_NAME && /opt/ol/wlp/bin/server stop $SERVER_NAME
 done
 
 # restore umask
