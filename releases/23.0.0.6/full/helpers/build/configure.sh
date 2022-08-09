@@ -7,6 +7,9 @@ fi
 set -Eeox pipefail
 
 function main() {
+  # Resolve liberty server symlinks and creation for server name changes
+  /opt/ol/helpers/runtime/configure-liberty.sh
+
   ##Define variables for XML snippets source and target paths
   WLP_INSTALL_DIR=/opt/ol/wlp
   SHARED_CONFIG_DIR=${WLP_INSTALL_DIR}/usr/shared/config
