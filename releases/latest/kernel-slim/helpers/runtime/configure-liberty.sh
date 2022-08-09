@@ -3,8 +3,8 @@
 # If the Liberty server name is not defaultServer and defaultServer still exists migrate the contents
 if [ "$SERVER_NAME" != "defaultServer" ] && [ -d "/opt/ol/wlp/usr/servers/defaultServer" ] && [ ! -d "/opt/ol/wlp/usr/servers/$SERVER_NAME" ]; then
   # Create new Liberty server
-  /opt/ol/wlp/bin/server create $SERVER_NAME --template=javaee8
-  
+  /opt/ol/wlp/bin/server create $SERVER_NAME
+
   # Delete old symlinks
   rm /opt/ol/links/output
   rm /opt/ol/links/config
