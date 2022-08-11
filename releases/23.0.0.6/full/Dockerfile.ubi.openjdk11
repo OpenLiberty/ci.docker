@@ -168,5 +168,5 @@ USER 1001
 EXPOSE 9080 9443
 
 ENTRYPOINT ["/opt/ol/helpers/runtime/docker-server.sh"]
-CMD /opt/ol/wlp/bin/server run $SERVER_NAME
+CMD ["/opt/ol/wlp/bin/server", "run"]
 
