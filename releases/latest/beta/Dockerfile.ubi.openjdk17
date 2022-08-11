@@ -112,8 +112,6 @@ RUN mkdir /logs \
     && ln -s /opt/ol/wlp/usr/shared/resources/lib.index.cache /lib.index.cache \
     && ln -s /opt/ol/wlp /liberty \
     && ln -s /opt/ol/fixes /fixes \
-    && chown -R 1001:0 /config \
-    && chmod -R g+rw /config \
     && chown -R 1001:0 /logs \
     && chmod -R g+rw /logs \
     && chown -R 1001:0 /opt/ol/wlp/usr \
@@ -170,5 +168,5 @@ USER 1001
 EXPOSE 9080 9443
 
 ENTRYPOINT ["/opt/ol/helpers/runtime/docker-server.sh"]
-CMD /opt/ol/wlp/bin/server run $SERVER_NAME
+CMD ["/opt/ol/wlp/bin/server", "run"]
 
