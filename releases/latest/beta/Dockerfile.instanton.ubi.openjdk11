@@ -12,13 +12,13 @@ ARG LIBERTY_LICENSE_SHA=84f00503d6516c91190de866e78d6010899673b7
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
-LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo Christy Jesuraj" \
+LABEL org.opencontainers.image.authors="Thomas Watson, Michal Broz" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
       org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
-      org.opencontainers.image.description="This image contains the Open Liberty beta runtime with IBM Semeru Runtime Open Edition OpenJDK 11 with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
-      org.opencontainers.image.title="Open Liberty Beta" \
+      org.opencontainers.image.description="This image contains the Open Liberty InstantOn beta runtime with IBM Semeru Runtime Open Edition OpenJDK 11 with OpenJ9 and UBI 8 as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
+      org.opencontainers.image.title="Open Liberty InstantOn Beta" \
       org.opencontainers.image.version="$LIBERTY_VERSION"
 
 RUN set -eu; \
