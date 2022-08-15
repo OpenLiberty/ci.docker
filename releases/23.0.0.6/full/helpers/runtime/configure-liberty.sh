@@ -41,6 +41,7 @@ if [ "$SERVER_NAME" != "defaultServer" ] && [ -d "/opt/ol/wlp/usr/servers/defaul
   rm -rf /opt/ol/wlp/output/defaultServer
 
   # Add new server symlink and populate folder
+  mv /opt/ol/wlp/usr/servers/defaultServer/* /opt/ol/wlp/usr/servers/$SERVER_NAME/
   ln -s /opt/ol/wlp/usr/servers/$SERVER_NAME /opt/ol/links/config
   mkdir -p /config/configDropins/defaults
   mkdir -p /config/configDropins/overrides

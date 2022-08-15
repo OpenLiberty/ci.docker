@@ -15,6 +15,10 @@ RUN springBootUtility thin \
  --targetLibCachePath=/staging/lib.index.cache
 
 FROM ${IMAGE}
+
+# Provide a custom Liberty server name other than "defaultServer"
+ENV SERVER_NAME=petclinic
+
 COPY --chown=1001:0 server.xml /config
 
 # This script will add the requested XML snippets to enable Liberty features and grow image to be fit-for-purpose using featureUtility
