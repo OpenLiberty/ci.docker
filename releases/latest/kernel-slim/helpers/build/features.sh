@@ -8,6 +8,9 @@ set -Eeox pipefail
 
 # Resolve liberty server symlinks and creation for server name changes
 /opt/ol/helpers/runtime/configure-liberty.sh
+if [ $? -ne 0 ]; then
+  exit
+fi
 
 ##Define variables for XML snippets source and target paths
 SNIPPETS_SOURCE=/opt/ol/helpers/build/configuration_snippets
