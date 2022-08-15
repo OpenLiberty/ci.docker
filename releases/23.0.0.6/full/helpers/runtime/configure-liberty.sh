@@ -23,9 +23,6 @@ if [ "$SERVER_NAME" != "defaultServer" ] && [ -d "/opt/ol/wlp/usr/servers/defaul
   rm /opt/ol/links/output
   rm /opt/ol/links/config
 
-  # Delete old output folder
-  rm -rf /opt/ol/wlp/output/defaultServer
-  
   # Add new output folder symlink and resolve group write permissions
   mkdir -p $WLP_OUTPUT_DIR/$SERVER_NAME
   ln -s $WLP_OUTPUT_DIR/$SERVER_NAME /opt/ol/links/output
@@ -36,6 +33,12 @@ if [ "$SERVER_NAME" != "defaultServer" ] && [ -d "/opt/ol/wlp/usr/servers/defaul
   chmod -R g+w $WLP_OUTPUT_DIR/$SERVER_NAME/workarea
   chmod -R g+w,o-rwx $WLP_OUTPUT_DIR/$SERVER_NAME/resources
   chmod -R g+w,o-rwx $WLP_OUTPUT_DIR/$SERVER_NAME/logs
+  
+  # Hand over the SCC
+  if [ "$OPENJ9_SCC" = "true" ] && [ -d "/opt/ol/wlp/output/defaultServer/.classCache" ]; then
+    mv /opt/ol/wlp/output/defaultServer/.classCache $WLP_OUTPUT_DIR/$SERVER_NAME/
+  fi
+  rm -rf /opt/ol/wlp/output/defaultServer
 
   # Add new server symlink and populate folder
   ln -s /opt/ol/wlp/usr/servers/$SERVER_NAME /opt/ol/links/config

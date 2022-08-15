@@ -15,7 +15,7 @@ if [[ -d "/opt/java/.scc" ]] && [[ `stat -L -c "%a" "/opt/java/.scc" | cut -c 1,
 then
   SCC="-Xshareclasses:name=openj9_system_scc,cacheDir=/opt/java/.scc"
 else
-  SCC="-Xshareclasses:name=liberty,cacheDir=${WLP_OUTPUT_DIR}/.classCache"
+  SCC="-Xshareclasses:name=liberty,cacheDir=/output/.classCache"
 fi
 
 # For JDK8, as of OpenJ9 0.20.0 the criteria for determining the max heap size (-Xmx) has changed
