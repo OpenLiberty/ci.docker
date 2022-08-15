@@ -121,4 +121,3 @@ fi
 # Tell the user how full the final layer is.
 FULL=`( java $PRINT_LAYER_STATS || true ) 2>&1 | awk '/^Cache is [0-9.]*% .*full/ {print substr($3, 1, length($3)-1)}'`
 echo "SCC layer is $FULL% full."
-
