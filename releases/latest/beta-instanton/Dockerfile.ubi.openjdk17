@@ -1,10 +1,10 @@
 FROM registry.access.redhat.com/ubi8/ubi:latest
 
-ARG LIBERTY_VERSION_BASE=22.0.0.10
+ARG LIBERTY_VERSION_BASE=22.0.0.11
 ARG LIBERTY_VERSION=$LIBERTY_VERSION_BASE-beta
-ARG LIBERTY_SHA=efcb2c907f051de1c217f0072ec60e1953a71b5bc20e9a91154913aa52977519
-ARG LIBERTY_BUILD_LABEL=cl220920220815-1101
-ARG LIBERTY_NIGHTLY_DIR=2022-08-15_1101
+ARG LIBERTY_SHA=821bfd92575dfdd5b6dbb7437020fcc1057957f540bf8b3e51aa2eb9a4734335
+ARG LIBERTY_BUILD_LABEL=cl221020220824-1101
+ARG LIBERTY_NIGHTLY_DIR=2022-08-24_1101
 ARG LIBERTY_NIGHTLY_PATH=$LIBERTY_NIGHTLY_DIR/openliberty-$LIBERTY_VERSION-$LIBERTY_BUILD_LABEL.zip
 ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/nightly/$LIBERTY_NIGHTLY_PATH
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
@@ -71,8 +71,8 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
          BINARY_URL='junk'; \
          ;; \
        amd64|x86_64) \
-         ESUM='4a88979d4f67ffe1f5ea445f5af16cec3968e7a5b1a94bd2bdb2e3b84fc28fbb'; \
-         BINARY_URL='https://openj9-artifactory.osuosl.org/artifactory/ci-openj9/Build_JDK17_x86-64_linux_criu_Nightly/21/OpenJ9-JDK17-x86-64_linux_criu-20220810-002247.tar.gz'; \
+         ESUM='6a7c425ca21035f76daceca22b0ade43d85140a9fd45a334f12b97365f74de93'; \
+         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.5%2B2_august_22-preview_1/ibm-semeru-open-ea-jre_x64_linux_17.0.5_2_august_22-preview_1.tar.gz'; \
          ;; \
        *) \
          echo "Unsupported arch: ${ARCH}"; \
