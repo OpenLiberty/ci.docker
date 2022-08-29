@@ -2,9 +2,9 @@ FROM registry.access.redhat.com/ubi8/ubi:latest
 
 ARG LIBERTY_VERSION_BASE=22.0.0.11
 ARG LIBERTY_VERSION=$LIBERTY_VERSION_BASE-beta
-ARG LIBERTY_SHA=bb168e67e959ea865029cca48269d285db1b33ecf692219edbe9d92c35963c42
-ARG LIBERTY_BUILD_LABEL=cl221020220826-1100
-ARG LIBERTY_NIGHTLY_DIR=2022-08-26_1100
+ARG LIBERTY_SHA=dd85b985310fd1e94f150295676d1ac7ba7d1ec0cf2bb0b3925018d4e6fd9724
+ARG LIBERTY_BUILD_LABEL=cl221020220829-1100
+ARG LIBERTY_NIGHTLY_DIR=2022-08-29_1100
 ARG LIBERTY_NIGHTLY_PATH=$LIBERTY_NIGHTLY_DIR/openliberty-$LIBERTY_VERSION-$LIBERTY_BUILD_LABEL.zip
 ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/nightly/$LIBERTY_NIGHTLY_PATH
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
@@ -160,7 +160,8 @@ RUN mkdir /logs \
     && mkdir /etc/wlp \
     && chown -R 1001:0 /etc/wlp \
     && chmod -R g+rw /etc/wlp \
-    && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml
+    && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml \
+    && echo "<server><featureManager><feature>checkpoint-1.0</feature></featureManager></server>" > /config/configDropins/defaults/checkpoint.xml
 
 # Create a new SCC layer
 RUN if [ ! -d "/opt/java/.scc" ]; then mkdir /opt/java/.scc; chmod -R 0777 /opt/java/.scc; fi \
