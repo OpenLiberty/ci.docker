@@ -1,7 +1,7 @@
-FROM ibmjava:8-ubi
-ARG LIBERTY_VERSION=22.0.0.8
-ARG LIBERTY_SHA=5ed6c43b8d3047b55c25495094491817359eb730
-ARG LIBERTY_BUILD_LABEL=cl220820220719-1056
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-11-jdk-ubi
+ARG LIBERTY_VERSION=22.0.0.9
+ARG LIBERTY_SHA=80de22e9301db3711a725303b2de2349784fd2f2
+ARG LIBERTY_BUILD_LABEL=cl220920220815-1900
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
 ARG LIBERTY_LICENSE_SHA=84f00503d6516c91190de866e78d6010899673b7
@@ -17,18 +17,18 @@ LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo C
       vendor="Open Liberty" \
       name="Open Liberty" \
       version="$LIBERTY_VERSION" \
-      summary="Image for Open Liberty with IBM's Java and UBI 8" \
-      description="This image contains the Open Liberty runtime with IBM's Java and Red Hat UBI 8 as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
+      summary="Image for Open Liberty with IBM Semeru Runtime Open Edition OpenJDK with OpenJ9 and UBI 8" \
+      description="This image contains the Open Liberty runtime with IBM Semeru Runtime Open Edition OpenJDK with OpenJ9 and Red Hat UBI 8 as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
 
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
 
 # Install Open Liberty
-RUN yum -y install wget unzip \
+RUN yum -y install shadow-utils wget unzip openssl \
     && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
     && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
     && sha1sum -c /tmp/wlp.zip.sha1 \
-    && chmod -R g+x /usr/bin \
+    && chmod -R u+x /usr/bin \
     && unzip -q /tmp/wlp.zip -d /opt/ol \
     && rm /tmp/wlp.zip \
     && rm /tmp/wlp.zip.sha1 \
@@ -36,7 +36,7 @@ RUN yum -y install wget unzip \
     && wget -q $LIBERTY_LICENSE_URL -O /licenses/LICENSE \
     && echo "$LIBERTY_LICENSE_SHA /licenses/LICENSE" | sha1sum -c --strict --check \
     && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
-    && yum -y remove wget unzip \
+    && yum -y remove shadow-utils wget unzip \
     && yum clean all \
     && chown -R 1001:0 /opt/ol/wlp \
     && chmod -R g+rw /opt/ol/wlp
@@ -88,7 +88,7 @@ RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
 
 #These settings are needed so that we can run as a different user than 1001 after server warmup
 ENV RANDFILE=/tmp/.rnd \
-    IBM_JAVA_OPTIONS="-Xshareclasses:name=liberty,readonly,nonfatal,cacheDir=/output/.classCache/ -Dosgi.checkConfiguration=false ${IBM_JAVA_OPTIONS}"
+    OPENJ9_JAVA_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:+IdleTuningGcOnIdle -Xshareclasses:name=openj9_system_scc,cacheDir=/opt/java/.scc,readonly,nonFatal -Dosgi.checkConfiguration=false"
 
 USER 1001
 
