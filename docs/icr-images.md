@@ -15,7 +15,7 @@ Append a tag to `icr.io/appcafe/open-liberty` to pull a specific image. For exam
 icr.io/appcafe/open-liberty:22.0.0.6-kernel-slim-java17-openj9-ubi
 ```
 
-Available images can be listed using [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started). Log in with your IBMid prior to running the following commands. Note that authentication is only required to list the images. **Images can be pulled from ICR without authentication** : 
+Available images can be listed using [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started). Log in with your IBMid prior to running the following commands. Note that authentication is only required to list the images. **Images can be pulled from ICR without authentication**: 
 ```
 ibmcloud cr region-set global 
 ibmcloud cr images --restrict appcafe/open-liberty
