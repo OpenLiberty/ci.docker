@@ -2,9 +2,9 @@ FROM registry.access.redhat.com/ubi8/ubi:latest
 
 ARG LIBERTY_VERSION_BASE=22.0.0.11
 ARG LIBERTY_VERSION=$LIBERTY_VERSION_BASE-beta
-ARG LIBERTY_SHA=3b6987bbfb9c68b0d80d0da916c0a3d39891e7cb989ab1fceae5b1ea6311b8c2
-ARG LIBERTY_BUILD_LABEL=cl221020220906-1100
-ARG LIBERTY_NIGHTLY_DIR=2022-09-06_1100
+ARG LIBERTY_SHA=14e496953307d555dbfa6175ba16e709d74e68ac744deb8603b5f747d01e6e32
+ARG LIBERTY_BUILD_LABEL=cl221020220909-0301
+ARG LIBERTY_NIGHTLY_DIR=2022-09-09_0301
 ARG LIBERTY_NIGHTLY_PATH=$LIBERTY_NIGHTLY_DIR/openliberty-$LIBERTY_VERSION-$LIBERTY_BUILD_LABEL.zip
 ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/nightly/$LIBERTY_NIGHTLY_PATH
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
@@ -71,8 +71,8 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
          BINARY_URL='junk'; \
          ;; \
        amd64|x86_64) \
-         ESUM='145a32943537e0bf51ca3450170a7a1b30c0faf46a62697cab022acaf2dcc022'; \
-         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.5%2B2_august_22-preview_2/ibm-semeru-open-ea-jre_x64_linux_17.0.5_2_august_22-preview_2.tar.gz'; \
+         ESUM='2c7bebe5bf92908c0afa073dd325723700f300e69613ccdabb41d1bea6af768c'; \
+         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.5%2B2_august_22-preview_3/ibm-semeru-open-ea-jre_x64_linux_17.0.5_2_august_22-preview_3.tar.gz'; \
          ;; \
        *) \
          echo "Unsupported arch: ${ARCH}"; \
