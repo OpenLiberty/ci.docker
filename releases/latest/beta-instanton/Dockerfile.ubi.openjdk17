@@ -2,9 +2,9 @@ FROM registry.access.redhat.com/ubi8/ubi:latest
 
 ARG LIBERTY_VERSION_BASE=22.0.0.11
 ARG LIBERTY_VERSION=$LIBERTY_VERSION_BASE-beta
-ARG LIBERTY_SHA=14e496953307d555dbfa6175ba16e709d74e68ac744deb8603b5f747d01e6e32
-ARG LIBERTY_BUILD_LABEL=cl221020220909-0301
-ARG LIBERTY_NIGHTLY_DIR=2022-09-09_0301
+ARG LIBERTY_SHA=eeae30a681d83292b2b4dd6d5314c312028489f8fc3dfcba0f810e6d4da758cc
+ARG LIBERTY_BUILD_LABEL=cl221020220912-1100
+ARG LIBERTY_NIGHTLY_DIR=2022-09-12_1100
 ARG LIBERTY_NIGHTLY_PATH=$LIBERTY_NIGHTLY_DIR/openliberty-$LIBERTY_VERSION-$LIBERTY_BUILD_LABEL.zip
 ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/nightly/$LIBERTY_NIGHTLY_PATH
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
@@ -71,8 +71,8 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
          BINARY_URL='junk'; \
          ;; \
        amd64|x86_64) \
-         ESUM='2c7bebe5bf92908c0afa073dd325723700f300e69613ccdabb41d1bea6af768c'; \
-         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.5%2B2_august_22-preview_3/ibm-semeru-open-ea-jre_x64_linux_17.0.5_2_august_22-preview_3.tar.gz'; \
+         ESUM='f04745f8b89c1667e9663f5004f6757e78e3699e9106fe32d2b53c1eda48ecb5'; \
+         BINARY_URL='https://openj9-artifactory.osuosl.org/artifactory/ci-openj9/Build_JDK17_x86-64_linux_criu_Personal/23/OpenJ9-JDK17-x86-64_linux_criu-20220911-143514.tar.gz'; \
          ;; \
        *) \
          echo "Unsupported arch: ${ARCH}"; \
@@ -83,21 +83,24 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
     echo "${ESUM} */tmp/openjdk.tar.xz" | sha256sum -c -; \
 
 # Use the following to create the jre from a nightly jdk build until EA build is available
-#    mkdir /tmp/jdk-extract; \
-#    cd /tmp/jdk-extract; \
-#    tar -xf /tmp/openjdk.tar.xz --strip-components=1; \
-#    ./bin/jlink --no-header-files --no-man-pages --compress=2 --add-modules java.base,java.compiler,java.datatransfer,java.desktop,java.instrument,java.logging,java.management,java.management.rmi,java.naming,java.net.http,java.prefs,java.rmi,java.scripting,java.se,java.security.jgss,java.security.sasl,java.smartcardio,java.sql,java.sql.rowset,java.transaction.xa,java.xml,java.xml.crypto,jdk.accessibility,jdk.attach,jdk.charsets,jdk.compiler,jdk.crypto.cryptoki,jdk.crypto.ec,jdk.dynalink,jdk.editpad,jdk.httpserver,jdk.internal.ed,jdk.internal.jvmstat,jdk.internal.le,jdk.internal.opt,jdk.jartool,jdk.javadoc,jdk.jcmd,jdk.jconsole,jdk.jdeps,jdk.jdi,jdk.jdwp.agent,jdk.jlink,jdk.jshell,jdk.jsobject,jdk.localedata,jdk.management,jdk.management.agent,jdk.naming.dns,jdk.naming.ldap,jdk.naming.rmi,jdk.net,jdk.pack,jdk.rmic,jdk.scripting.nashorn,jdk.scripting.nashorn.shell,jdk.sctp,jdk.security.auth,jdk.security.jgss,jdk.unsupported,jdk.unsupported.desktop,jdk.xml.dom,jdk.zipfs,openj9.criu,openj9.cuda,openj9.dataaccess,openj9.dtfj,openj9.dtfjview,openj9.gpu,openj9.jvm,openj9.sharedclasses,openj9.traceformat,openj9.zosconditionhandling --output /opt/java/openjdk; \
-#    rm -rf /tmp/jdk-extract; \
+    mkdir /tmp/jdk-extract; \
+    cd /tmp/jdk-extract; \
+    tar -xf /tmp/openjdk.tar.xz --strip-components=1; \
+    ./bin/jlink --no-header-files --no-man-pages --compress=2 --add-modules java.base,java.management,java.scripting,java.sql.rowset,jdk.charsets,jdk.httpserver,jdk.internal.opt,jdk.jdi,jdk.localedata,jdk.nio.mapmode,jdk.unsupported,openj9.dtfj,java.compiler,java.management.rmi,java.security.jgss,java.transaction.xa,jdk.compiler,jdk.incubator.foreign,jdk.jartool,jdk.jdwp.agent,jdk.management.agent,jdk.random,jdk.xml.dom,openj9.dtfjview,java.datatransfer,java.naming,java.security.sasl,java.xml.crypto,jdk.crypto.cryptoki,jdk.incubator.vector,jdk.javadoc,jdk.jlink,jdk.management,jdk.sctp,jdk.zipfs,openj9.gpu,java.desktop,java.net.http,java.se,java.xml,jdk.crypto.ec,jdk.internal.ed,jdk.jcmd,jdk.jpackage,jdk.naming.dns,jdk.security.auth,openj9.criu,openj9.jvm,java.instrument,java.prefs,java.smartcardio,jdk.accessibility,jdk.dynalink,jdk.internal.jvmstat,jdk.jconsole,jdk.jshell,jdk.naming.rmi,jdk.security.jgss,openj9.cuda,openj9.sharedclasses,java.logging,java.rmi,java.sql,jdk.attach,jdk.editpad,jdk.internal.le,jdk.jdeps,jdk.jsobject,jdk.net,jdk.unsupported.desktop,openj9.dataaccess,openj9.traceformat --output /opt/java/openjdk; \
+    rm -rf /tmp/jdk-extract; \
 
 # Use the following when downloading a jre from an EA build
-    mkdir -p /opt/java/openjdk; \
-    cd /opt/java/openjdk; \
-    tar -xf /tmp/openjdk.tar.xz --strip-components=1; \
+#    mkdir -p /opt/java/openjdk; \
+#    cd /opt/java/openjdk; \
+#    tar -xf /tmp/openjdk.tar.xz --strip-components=1; \
+
     rm -rf /tmp/openjdk.tar.xz;
 
 ENV JAVA_HOME=/opt/java/openjdk \
     PATH="/opt/java/openjdk/bin:$PATH"
 ENV JAVA_TOOL_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:+IdleTuningGcOnIdle -Xshareclasses:name=openj9_system_scc,cacheDir=/opt/java/.scc,readonly,nonFatal"
+
+ENV CRIU_LOG_LEVEL=4
 
 # Install Open Liberty
 RUN set -eux; \
