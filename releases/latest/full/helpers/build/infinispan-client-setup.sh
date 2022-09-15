@@ -3,6 +3,7 @@
 
 set -Eeox pipefail
 
+yum module enable -y maven:3.6
 yum update -y
 yum install -y maven
 mkdir -p /opt/ol/wlp/usr/shared/resources/infinispan
