@@ -8,6 +8,7 @@
     <properties infinispan.client.hotrod.auth_realm="default"/>
     <properties infinispan.client.hotrod.sasl_mechanism="DIGEST-MD5"/>
     <properties infinispan.client.hotrod.auth_server_name="infinispan"/>
+    <properties infinispan.client.hotrod.trust_store_path="${INFINISPAN_TRUST_STORE_PATH}"/>
   </httpSessionCache>
   <library id="InfinispanLib">
     <fileset dir="${shared.resource.dir}/infinispan" includes="*.jar"/>
