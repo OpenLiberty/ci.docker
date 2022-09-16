@@ -1,12 +1,9 @@
 FROM registry.access.redhat.com/ubi8/ubi:latest
 
-ARG LIBERTY_VERSION_BASE=22.0.0.11
-ARG LIBERTY_VERSION=$LIBERTY_VERSION_BASE-beta
+ARG LIBERTY_VERSION=22.0.0.11-beta
 ARG LIBERTY_SHA=eeae30a681d83292b2b4dd6d5314c312028489f8fc3dfcba0f810e6d4da758cc
 ARG LIBERTY_BUILD_LABEL=cl221020220912-1100
-ARG LIBERTY_NIGHTLY_DIR=2022-09-12_1100
-ARG LIBERTY_NIGHTLY_PATH=$LIBERTY_NIGHTLY_DIR/openliberty-$LIBERTY_VERSION-$LIBERTY_BUILD_LABEL.zip
-ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/nightly/$LIBERTY_NIGHTLY_PATH
+ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/instanton-beta-2022-09-12_1100/openliberty-22.0.0.11-beta-cl221020220912-1100.zip
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
 ARG LIBERTY_LICENSE_SHA=84f00503d6516c91190de866e78d6010899673b7
 ARG OPENJ9_SCC=true
