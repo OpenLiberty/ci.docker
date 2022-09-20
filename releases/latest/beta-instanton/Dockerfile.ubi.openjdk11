@@ -114,6 +114,7 @@ RUN set -eux; \
     chmod -R g+rw /opt/ol/wlp;
 
 
+COPY NOTICES /opt/NOTICES
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
 
