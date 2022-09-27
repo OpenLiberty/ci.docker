@@ -1,0 +1,44 @@
+FROM registry.access.redhat.com/ubi8/ubi:8.5
+
+# First compile criu required for checkpoint
+RUN --mount=type=secret,id=ftpuser \
+    --mount=type=secret,id=ftppass \
+    set -eu; \
+    dnf install -y \
+# CRIU dependencies
+       #hwdata iptables-libs jansson libibverbs libmnl libnet libnftnl libpcap nftables pciutils pciutils-libs protobuf-c; \
+       iptables-libs jansson libibverbs libmnl libnet libnftnl libpcap nftables protobuf-c; \
+# rdma-core \
+    export FTP3USER=`cat /run/secrets/ftpuser`; \
+    export FTP3PASS=`cat /run/secrets/ftppass`; \
+    FTP3USERENC=`echo $FTP3USER | sed s/@/%40/g`; \
+    FTP3PASSENC=`echo -n $FTP3PASS | od -tx1 -An | tr -d '\n' | sed 's/ /%/g'`; \
+    YUM_URL="ftp://$FTP3USERENC:$FTP3PASSENC@ftp3.rchland.ibm.com/redhat/ibm-yum.sh"; \
+    curl -LfsSo /root/ibm-yum.sh ${YUM_URL}; \
+    chmod +x /root/ibm-yum.sh; \
+    /root/ibm-yum.sh install -y \
+        glibc-locale-source \
+        make automake gcc gcc-c++ kernel-devel asciidoc git vim \
+        protobuf protobuf-c protobuf-c-devel protobuf-compiler protobuf-devel \
+        nftables libcap-devel libnet-devel libnl3-devel \
+        pkg-config xmlto libcap \
+        python3 python3-protobuf; \
+    unset FTP3PASS; \
+    unset FTP3USER; \
+    rm /root/ibm-yum.sh;
+
+RUN set -eu; \
+    cd /tmp; \
+    git clone -b instant-on-v3.16.1 https://github.com/ymanton/criu.git; \
+    cd criu; \
+    git reset --hard b1c98fe8ef2d26cab14f7eda44413c942317f7c0; \
+    make install; \
+    cd /; \
+    rm -rf /tmp/criu; \
+    setcap cap_checkpoint_restore,cap_net_admin=eip /usr/local/sbin/criu; \
+    cd /usr/lib64; \
+    ln -s /usr/local/lib64/libcriu.so; \
+    ln -s /usr/local/lib64/libcriu.so.2; \
+    ln -s /usr/local/lib64/libcriu.so.2.0; \
+    cd /;
+
