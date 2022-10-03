@@ -6,12 +6,6 @@ fi
 
 set -Eeox pipefail
 
-# Resolve liberty server symlinks and creation for server name changes
-/opt/ol/helpers/runtime/configure-liberty.sh
-if [ $? -ne 0 ]; then
-  exit
-fi
-
 ##Define variables for XML snippets source and target paths
 SNIPPETS_SOURCE=/opt/ol/helpers/build/configuration_snippets
 SNIPPETS_TARGET=/config/configDropins/overrides
@@ -36,6 +30,6 @@ if [ "$SSL" == "true" ] || [ "$TLS" == "true" ]; then
 fi
 
 # Install necessary features using featureUtility
-featureUtility installServerFeatures --acceptLicense ${SERVER_NAME} --noCache
+featureUtility installServerFeatures --acceptLicense defaultServer --noCache
 find /opt/ol/wlp/lib /opt/ol/wlp/bin ! -perm -g=rw -print0 | xargs -0 -r chmod g+rw
 
