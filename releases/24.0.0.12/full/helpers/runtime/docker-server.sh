@@ -100,8 +100,6 @@ importKeyCert
 # Infinispan Session Caching
 if [[ -n "$INFINISPAN_SERVICE_NAME" ]]; then
  echo "INFINISPAN_SERVICE_NAME(original): ${INFINISPAN_SERVICE_NAME}"
- INFINISPAN_SERVICE_NAME_ORIGINAL=${INFINISPAN_SERVICE_NAME}
- export INFINISPAN_SERVICE_NAME_ORIGINAL
  INFINISPAN_SERVICE_NAME=$(echo ${INFINISPAN_SERVICE_NAME} | sed 's/-/_/g' | sed 's/./\U&/g')
  echo "INFINISPAN_SERVICE_NAME(normalized): ${INFINISPAN_SERVICE_NAME}"
 
@@ -126,11 +124,6 @@ if [[ -n "$INFINISPAN_SERVICE_NAME" ]]; then
   export INFINISPAN_PASS=$(cat ${LIBERTY_INFINISPAN_SECRET_DIR:=/platform/bindings/infinispan/secret}/identities.yaml | grep -m 1 password | sed 's/password://' | sed 's/[[:space:]]*//g')
  fi
  echo "INFINISPAN_PASS: ${INFINISPAN_PASS}"
-
- if [[ -z "$INFINISPAN_TRUST_STORE_PATH" ]]; then
-  export INFINISPAN_TRUST_STORE_PATH="/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt"
- fi
- echo "INFINISPAN_TRUST_STORE_PATH: ${INFINISPAN_TRUST_STORE_PATH}"
 fi
 
 
