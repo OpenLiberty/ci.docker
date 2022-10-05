@@ -119,7 +119,6 @@ RUN set -eux; \
 COPY NOTICES /opt/NOTICES
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
-COPY --chown=1001:0 server /opt/ol/wlp/bin/server
 
 # Set Path Shortcuts
 ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:/opt/ol/helpers/build:$PATH \
