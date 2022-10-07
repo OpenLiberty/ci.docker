@@ -7,7 +7,7 @@ do
 done
 
 echo "Performing checkpoint --at=$1"
-/opt/ol/wlp/bin/server checkpoint defaultServer --at=$1
+/opt/ol/wlp/bin/server checkpoint $SERVER_NAME --at=$1
 
 rc=$?
 exit $rc
