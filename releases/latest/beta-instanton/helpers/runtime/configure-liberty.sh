@@ -3,12 +3,16 @@
 OPT_PREFIX="/opt/ol"
 ORIGINAL_WLP_OUTPUT_DIR="$OPT_PREFIX/wlp/output"
 ORIGINAL_SERVER_NAME="defaultServer"
+IS_KERNEL=false
 
 # If the Liberty server name is not defaultServer and defaultServer still exists migrate the contents
 if [ "$SERVER_NAME" != "$ORIGINAL_SERVER_NAME" ] && [ -d "$OPT_PREFIX/wlp/usr/servers/$ORIGINAL_SERVER_NAME" ]; then
   # Create new Liberty server
-  echo "Creating server $SERVER_NAME"
-  $OPT_PREFIX/wlp/bin/server create --template=javaee8 >/tmp/serverOutput 
+  if $IS_KERNEL; then
+    $OPT_PREFIX/wlp/bin/server create >/tmp/serverOutput
+  else
+    $OPT_PREFIX/wlp/bin/server create --template=javaee8 >/tmp/serverOutput 
+  fi
   rc=$?
   if [ $rc -ne 0 ]; then
     cat /tmp/serverOutput
@@ -58,8 +62,10 @@ if [ "$SERVER_NAME" != "$ORIGINAL_SERVER_NAME" ] && [ -d "$OPT_PREFIX/wlp/usr/se
   ln -s $OPT_PREFIX/wlp/usr/servers/$SERVER_NAME $OPT_PREFIX/links/config
   mkdir -p /config/configDropins/defaults
   mkdir -p /config/configDropins/overrides
-  mkdir -p /config/dropins
-  mkdir -p /config/apps
+  if $IS_KERNEL; then
+    mkdir -p /config/dropins
+    mkdir -p /config/apps
+  fi
   chmod -R g+w /config
   rm -rf $OPT_PREFIX/wlp/usr/servers/$ORIGINAL_SERVER_NAME
 fi
