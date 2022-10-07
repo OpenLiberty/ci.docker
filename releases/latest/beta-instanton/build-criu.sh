@@ -4,9 +4,6 @@
 # Your account must have access to Red Hat content
 # The build machine must have access to the internal network
 # You must pass in your ftpuser and ftppass as files that contain your ID and password
-echo $1
-echo $2
-
 podman build --secret id=ftpuser,src=$1 --secret id=ftppass,src=$2 -t criu-build:ubi -f Dockerfile.criu.build.ubi .
 
 container_id=$(podman create criu-build:ubi)
