@@ -37,25 +37,12 @@ if [ "$SERVER_NAME" != "$ORIGINAL_SERVER_NAME" ] && [ -d "$OPT_PREFIX/wlp/usr/se
   ORIGINAL_SERVER_OUTPUT_DIR=$ORIGINAL_WLP_OUTPUT_DIR/$ORIGINAL_SERVER_NAME
   mkdir -p $SERVER_OUTPUT_DIR
   ln -s $SERVER_OUTPUT_DIR $OPT_PREFIX/links/output
-  chmod g+w $SERVER_OUTPUT_DIR
-  
+
   # Copy old /output folder contents
   cp -r $ORIGINAL_SERVER_OUTPUT_DIR/. $SERVER_OUTPUT_DIR/ 2>/dev/null
-  if [ ! -d "$SERVER_OUTPUT_DIR/resources" ]; then
-    mkdir -p $SERVER_OUTPUT_DIR/resources
-  fi
-  if [ ! -d "$SERVER_OUTPUT_DIR/workarea" ]; then
-    mkdir -p $SERVER_OUTPUT_DIR/workarea
-  fi 
-  if [ ! -d "$SERVER_OUTPUT_DIR/logs" ]; then
-    mkdir -p $SERVER_OUTPUT_DIR/logs
-  fi
-
-  # Need to resolve group permissions for these folders
-  chmod -R g+w $SERVER_OUTPUT_DIR/workarea
-  chmod -R g+w,o-rwx $SERVER_OUTPUT_DIR/resources
-  chmod -R g+w,o-rwx $SERVER_OUTPUT_DIR/logs
   rm -rf $ORIGINAL_SERVER_OUTPUT_DIR
+  chmod -R g+rw $SERVER_OUTPUT_DIR
+  setfacl -R -dm g:root:rw $SERVER_OUTPUT_DIR
 
   # Add new server symlink and copy over old /config folder contents
   cp -r $OPT_PREFIX/wlp/usr/servers/$ORIGINAL_SERVER_NAME/. $OPT_PREFIX/wlp/usr/servers/$SERVER_NAME/ 2>/dev/null
@@ -66,7 +53,8 @@ if [ "$SERVER_NAME" != "$ORIGINAL_SERVER_NAME" ] && [ -d "$OPT_PREFIX/wlp/usr/se
     mkdir -p /config/dropins
     mkdir -p /config/apps
   fi
-  chmod -R g+w /config
+  chmod -R g+rw /config
+  setfacl -R -dm g:root:rw /config
   rm -rf $OPT_PREFIX/wlp/usr/servers/$ORIGINAL_SERVER_NAME
 fi
 

@@ -82,7 +82,8 @@ RUN set -eux; \
 RUN useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default \
     && mkdir -p /opt/ol/wlp \
     && chown -R 1001:0 /opt/ol/wlp \
-    && chmod -R g+rw /opt/ol/wlp
+    && chmod -R g+rw /opt/ol/wlp \
+    && setfacl -R -dm g:root:rw /opt/ol/wlp 
 
 # Copy the runtime and licenses
 COPY --from=getRuntime --chown=1001:0 /opt/ol/wlp /opt/ol/wlp
