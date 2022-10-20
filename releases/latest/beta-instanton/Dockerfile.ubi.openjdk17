@@ -44,8 +44,7 @@ RUN set -eu; \
     ln -s libcriu.so.2.0 libcriu.so.2; \
     cd /;
 
-# TODO set the java version correctly
-ENV JAVA_VERSION jdk-11.0.15-ea+6
+ENV JAVA_VERSION jdk-17.0.4.1+1
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
