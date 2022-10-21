@@ -67,8 +67,12 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
          BINARY_URL='junk'; \
          ;; \
        amd64|x86_64) \
-         ESUM='2c7bebe5bf92908c0afa073dd325723700f300e69613ccdabb41d1bea6af768c'; \
-         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.5%2B2_august_22-preview_3/ibm-semeru-open-ea-jre_x64_linux_17.0.5_2_august_22-preview_3.tar.gz'; \
+#        Use the JRE
+#         ESUM='2c7bebe5bf92908c0afa073dd325723700f300e69613ccdabb41d1bea6af768c'; \
+#         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.5%2B2_august_22-preview_3/ibm-semeru-open-ea-jre_x64_linux_17.0.5_2_august_22-preview_3.tar.gz'; \
+#        Use the JDK
+         ESUM='a8c5efd4464bb8392a912cd6d7db71b3b2ad50ff4ccc52564c60bc153aeaba9f'; \
+         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.5%2B2_august_22-preview_3/ibm-semeru-open-ea-jdk_x64_linux_17.0.5_2_august_22-preview_3.tar.gz'; \
          ;; \
        *) \
          echo "Unsupported arch: ${ARCH}"; \
@@ -77,15 +81,6 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
     esac; \
     curl -LfsSo /tmp/openjdk.tar.xz ${BINARY_URL}; \
     echo "${ESUM} */tmp/openjdk.tar.xz" | sha256sum -c -; \
-
-# Use the following to create the jre from a nightly jdk build until EA build is available
-#    mkdir /tmp/jdk-extract; \
-#    cd /tmp/jdk-extract; \
-#    tar -xf /tmp/openjdk.tar.xz --strip-components=1; \
-#    ./bin/jlink --no-header-files --no-man-pages --compress=2 --add-modules java.base,java.management,java.scripting,java.sql.rowset,jdk.charsets,jdk.httpserver,jdk.internal.opt,jdk.jdi,jdk.localedata,jdk.nio.mapmode,jdk.unsupported,openj9.dtfj,java.compiler,java.management.rmi,java.security.jgss,java.transaction.xa,jdk.compiler,jdk.incubator.foreign,jdk.jartool,jdk.jdwp.agent,jdk.management.agent,jdk.random,jdk.xml.dom,openj9.dtfjview,java.datatransfer,java.naming,java.security.sasl,java.xml.crypto,jdk.crypto.cryptoki,jdk.incubator.vector,jdk.javadoc,jdk.jlink,jdk.management,jdk.sctp,jdk.zipfs,openj9.gpu,java.desktop,java.net.http,java.se,java.xml,jdk.crypto.ec,jdk.internal.ed,jdk.jcmd,jdk.jpackage,jdk.naming.dns,jdk.security.auth,openj9.criu,openj9.jvm,java.instrument,java.prefs,java.smartcardio,jdk.accessibility,jdk.dynalink,jdk.internal.jvmstat,jdk.jconsole,jdk.jshell,jdk.naming.rmi,jdk.security.jgss,openj9.cuda,openj9.sharedclasses,java.logging,java.rmi,java.sql,jdk.attach,jdk.editpad,jdk.internal.le,jdk.jdeps,jdk.jsobject,jdk.net,jdk.unsupported.desktop,openj9.dataaccess,openj9.traceformat --output /opt/java/openjdk; \
-#    rm -rf /tmp/jdk-extract; \
-
-# Use the following when downloading a jre from an EA build
     mkdir -p /opt/java/openjdk; \
     cd /opt/java/openjdk; \
     tar -xf /tmp/openjdk.tar.xz --strip-components=1; \
