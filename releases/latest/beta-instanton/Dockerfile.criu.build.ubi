@@ -29,13 +29,13 @@ RUN --mount=type=secret,id=ftpuser \
 
 RUN set -eu; \
     cd /tmp; \
-    git clone -b instant-on-v3.16.1 https://github.com/ymanton/criu.git; \
+    git clone -b criu-dev https://github.com/checkpoint-restore/criu.git; \
     cd criu; \
-    git reset --hard b1c98fe8ef2d26cab14f7eda44413c942317f7c0; \
+    git reset --hard 18c6426eaeebc5fe7d0f9ca0acb592a3ec828b0c; \
     make install; \
     cd /; \
     rm -rf /tmp/criu; \
-    setcap cap_checkpoint_restore,cap_net_admin=eip /usr/local/sbin/criu; \
+    setcap cap_checkpoint_restore,cap_net_admin,cap_sys_ptrace=eip /usr/local/sbin/criu; \
     cd /usr/lib64; \
     ln -s /usr/local/lib64/libcriu.so; \
     ln -s /usr/local/lib64/libcriu.so.2; \
