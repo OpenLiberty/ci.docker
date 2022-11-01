@@ -9,4 +9,4 @@ done
 echo "Performing checkpoint --at=$1"
 /opt/ol/wlp/bin/server checkpoint defaultServer --at=$1 -Dcom.ibm.ws.beta.edition=true
 
-exit 0
+exit $?
