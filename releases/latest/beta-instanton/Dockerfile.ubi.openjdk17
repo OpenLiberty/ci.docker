@@ -28,17 +28,17 @@ RUN set -eu; \
     useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default;
 
 RUN set -eu; \
-    CRIU_DIR_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/criu-build/b1; \
-    CRIU_SHA=0dfac028e9d9c68ca29dd36f884d65e7f5f6a1dd4cbea4493029409471c5d91e; \
-    CRIU_LIB_SHA=c857d7f9c59a0b13cfe324420ec04a779b1b3b0715de198c076d74a0fc079fc1; \
+    CRIU_DIR_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/criu-build/b2; \
+    CRIU_SHA=568e244bac1d875201634709a6be13b94d31b63e99fe5ee43fc2d43444526c73; \
+    CRIU_LIB_SHA=2826dbb19ded7ada1f196295936cfda6886c7282d97bd900a476e56e4adf9175; \
     echo "downloading ${CRIU_DIR_URL}/criu"; \
     curl -LfsSo /usr/sbin/criu ${CRIU_DIR_URL}/criu; \
     echo "$CRIU_SHA */usr/sbin/criu" | sha256sum -c -; \
     echo "downloading ${CRIU_DIR_URL}/libcriu.so"; \
-    curl -LfsSo /usr/lib64/libcriu.so.2.0 ${CRIU_DIR_URL}/libcriu.so; \
+    curl -LfsSo /usr/lib64/libcriu.so.2.0 ${CRIU_DIR_URL}/libcriu.so.2.0; \
     echo "$CRIU_LIB_SHA */usr/lib64/libcriu.so.2.0" | sha256sum -c -; \
     chmod a+x /usr/sbin/criu; \
-    setcap cap_checkpoint_restore,cap_net_admin,cap_sys_ptrace=eip /usr/sbin/criu; \
+    setcap cap_checkpoint_restore,cap_net_admin,cap_sys_ptrace,cap_setpcap=eip /usr/sbin/criu; \
     cd /usr/lib64; \
     ln -s libcriu.so.2.0 libcriu.so; \
     ln -s libcriu.so.2.0 libcriu.so.2; \
