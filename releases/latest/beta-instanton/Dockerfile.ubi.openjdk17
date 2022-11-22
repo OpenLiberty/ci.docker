@@ -1,7 +1,7 @@
 FROM registry.access.redhat.com/ubi8/ubi:latest
 
 ARG LIBERTY_VERSION=22.0.0.13-beta
-ARG LIBERTY_SHA=da39a3ee5e6b4b0d3255bfef95601890afd80709
+ARG LIBERTY_SHA=bfecd77d3190d66f46432cfffbd6f1e2d0ae332c
 ARG LIBERTY_BUILD_LABEL=cl221220221107-1900
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/master/LICENSE
