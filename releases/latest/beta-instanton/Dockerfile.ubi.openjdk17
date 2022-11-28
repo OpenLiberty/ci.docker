@@ -67,12 +67,8 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
          BINARY_URL='junk'; \
          ;; \
        amd64|x86_64) \
-#        Use the JRE
-#         ESUM='2c7bebe5bf92908c0afa073dd325723700f300e69613ccdabb41d1bea6af768c'; \
-#         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.5%2B2_august_22-preview_3/ibm-semeru-open-ea-jre_x64_linux_17.0.5_2_august_22-preview_3.tar.gz'; \
-#        Use the JDK
-         ESUM='af380b64884942bca5c325ce0abf7ae01c66545a381293b945def6090122a393'; \
-         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.5%2B8_november_22-preview_1/ibm-semeru-open-ea-jdk_x64_linux_17.0.5_8_november_22-preview_1.tar.gz'; \
+         ESUM='e9b92db33fdcd38c8b7b64340f6544bff11784a12a151914119d9adbfc2723c2'; \
+         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.5%2B8_november_22-preview_2/ibm-semeru-open-ea-jdk_x64_linux_17.0.5_8_november_22-preview_2.tar.gz'; \
          ;; \
        *) \
          echo "Unsupported arch: ${ARCH}"; \
