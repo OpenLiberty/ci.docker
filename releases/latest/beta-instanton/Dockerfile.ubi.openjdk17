@@ -38,7 +38,7 @@ RUN set -eu; \
     curl -LfsSo /usr/lib64/libcriu.so.2.0 ${CRIU_DIR_URL}/libcriu.so; \
     echo "$CRIU_LIB_SHA */usr/lib64/libcriu.so.2.0" | sha256sum -c -; \
     chmod a+x /usr/sbin/criu; \
-    setcap cap_checkpoint_restore,cap_net_admin,cap_sys_ptrace=eip /usr/sbin/criu; \
+    setcap cap_checkpoint_restore,cap_net_admin,cap_sys_ptrace,cap_setpcap=eip /usr/sbin/criu; \
     cd /usr/lib64; \
     ln -s libcriu.so.2.0 libcriu.so; \
     ln -s libcriu.so.2.0 libcriu.so.2; \
@@ -67,12 +67,8 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
          BINARY_URL='junk'; \
          ;; \
        amd64|x86_64) \
-#        Use the JRE
-#         ESUM='2c7bebe5bf92908c0afa073dd325723700f300e69613ccdabb41d1bea6af768c'; \
-#         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.5%2B2_august_22-preview_3/ibm-semeru-open-ea-jre_x64_linux_17.0.5_2_august_22-preview_3.tar.gz'; \
-#        Use the JDK
-         ESUM='a8c5efd4464bb8392a912cd6d7db71b3b2ad50ff4ccc52564c60bc153aeaba9f'; \
-         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.5%2B2_august_22-preview_3/ibm-semeru-open-ea-jdk_x64_linux_17.0.5_2_august_22-preview_3.tar.gz'; \
+         ESUM='e9b92db33fdcd38c8b7b64340f6544bff11784a12a151914119d9adbfc2723c2'; \
+         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.5%2B8_november_22-preview_2/ibm-semeru-open-ea-jdk_x64_linux_17.0.5_8_november_22-preview_2.tar.gz'; \
          ;; \
        *) \
          echo "Unsupported arch: ${ARCH}"; \
@@ -125,7 +121,8 @@ ENV PATH=/opt/ol/wlp/bin:/opt/ol/docker/:/opt/ol/helpers/build:$PATH \
 
 # Configure Open Liberty
 RUN /opt/ol/wlp/bin/server create --template=javaee8 \
-    && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea
+    && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea \
+    && rm -rf /opt/ol/wlp/usr/servers/defaultServer/server.env
 
 # Create symlinks && set permissions for non-root user
 RUN mkdir /logs \
