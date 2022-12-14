@@ -1,12 +1,20 @@
 #!/bin/bash
+function setPasswords() {
+  local -n pass=$1
+  local -n trustpass=$2
+  if [ -z "$pass" ]; then
+    pass=$(openssl rand -base64 32 2>/dev/null)
+    trustpass=$(openssl rand -base64 32 2>/dev/null)
+  fi
+}
 
 function importKeyCert() {
   local CERT_FOLDER="${TLS_DIR:-/etc/x509/certs}"
   local CRT_FILE="tls.crt"
   local KEY_FILE="tls.key"
   local CA_FILE="ca.crt"
-  local PASSWORD=$(openssl rand -base64 32 2>/dev/null)
-  local TRUSTSTORE_PASSWORD=$(openssl rand -base64 32 2>/dev/null)
+  local PASSWORD=
+  local TRUSTSTORE_PASSWORD=
   local TMP_CERT=ca-bundle-temp.crt
   local -r CRT_DELIMITER="/-----BEGIN CERTIFICATE-----/"
   local KUBE_SA_FOLDER="/var/run/secrets/kubernetes.io/serviceaccount"
@@ -16,6 +24,7 @@ function importKeyCert() {
   # Import the private key and certificate into new keytore
   if [ -f "${CERT_FOLDER}/${KEY_FILE}" ] && [ -f "${CERT_FOLDER}/${CRT_FILE}" ]; then
     echo "Found mounted TLS certificates, generating keystore"
+    setPasswords PASSWORD TRUSTSTORE_PASSWORD
     mkdir -p /output/resources/security
     openssl pkcs12 -export \
       -name "defaultKeyStore" \
@@ -42,6 +51,7 @@ function importKeyCert() {
     pushd /tmp/certs >&/dev/null
     cat ${KUBE_SA_FOLDER}/*.crt >${TMP_CERT}
     csplit -s -z -f crt- "${TMP_CERT}" "${CRT_DELIMITER}" '{*}'
+    setPasswords PASSWORD TRUSTSTORE_PASSWORD
     for CERT_FILE in crt-*; do
       keytool -import -storetype pkcs12 -noprompt -keystore "${TRUSTSTORE_FILE}" -file "${CERT_FILE}" \
         -storepass "${TRUSTSTORE_PASSWORD}" -alias "service-sa-${CERT_FILE}" >&/dev/null
@@ -52,9 +62,11 @@ function importKeyCert() {
 
   # Add the keystore password to server configuration
   if [ ! -e $keystorePath ]; then
+    setPasswords PASSWORD TRUSTSTORE_PASSWORD
     sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $SNIPPETS_TARGET_DEFAULTS/keystore.xml
   fi
   if [ -e $TRUSTSTORE_FILE ]; then
+    setPasswords PASSWORD TRUSTSTORE_PASSWORD
     sed "s|PWD_TRUST|$TRUSTSTORE_PASSWORD|g" $SNIPPETS_SOURCE/truststore.xml > $SNIPPETS_TARGET_OVERRIDES/truststore.xml
   elif [ ! -z $SEC_TLS_TRUSTDEFAULTCERTS ]; then
     cp $SNIPPETS_SOURCE/trustDefault.xml $SNIPPETS_TARGET_OVERRIDES/trustDefault.xml  
