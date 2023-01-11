@@ -37,6 +37,10 @@ RUN set -eu; \
     echo "$CRIU_LIB_SHA */usr/lib64/libcriu.so.2.0" | sha256sum -c -; \
     chmod a+x /usr/sbin/criu; \
     setcap cap_checkpoint_restore,cap_net_admin,cap_sys_ptrace,cap_setpcap=eip /usr/sbin/criu; \
+    mkdir -p /opt/criu; \
+    cp /usr/sbin/criu /opt/criu/criu; \
+    setcap cap_checkpoint_restore,cap_net_admin,cap_setpcap=eip /opt/criu/criu; \
+
     cd /usr/lib64; \
     ln -s libcriu.so.2.0 libcriu.so; \
     ln -s libcriu.so.2.0 libcriu.so.2; \
