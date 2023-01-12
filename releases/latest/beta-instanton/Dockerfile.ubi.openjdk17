@@ -26,8 +26,8 @@ RUN set -eu; \
     useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default;
 
 RUN set -eu; \
-    CRIU_DIR_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/criu-build/b3; \
-    CRIU_SHA=c50cdac882e96a554ea903bd6d4842be9c35ac3f20308672f320d0f431704f61; \
+    CRIU_DIR_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/criu-build/b5; \
+    CRIU_SHA=8017d14b6392c5abe50948cf065bafb4c13ca0d63760b999d34b63aae9fdb304; \
     CRIU_LIB_SHA=6aef6ae20062c64962b89591ee18b58a748d16b11101694c96677bad93704504; \
     echo "downloading ${CRIU_DIR_URL}/criu"; \
     curl -LfsSo /usr/sbin/criu ${CRIU_DIR_URL}/criu; \

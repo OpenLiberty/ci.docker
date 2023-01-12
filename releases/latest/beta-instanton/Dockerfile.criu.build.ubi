@@ -29,9 +29,9 @@ RUN --mount=type=secret,id=ftpuser \
 
 RUN set -eu; \
     cd /tmp; \
-    git clone -b criu-dev https://github.com/checkpoint-restore/criu.git; \
+    git clone -b instanton https://github.com/ymanton/criu.git; \
     cd criu; \
-    git reset --hard f7bcd1c8c32bd04df72dfac71ba8da3dbd36b245; \
+    git reset --hard 238d4bb11dc77a7f0a8a7279f8c985af5c71bca4; \
     make install; \
     cd /; \
     rm -rf /tmp/criu; \
