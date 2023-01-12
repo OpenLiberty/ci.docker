@@ -31,7 +31,7 @@ RUN set -eu; \
     cd /tmp; \
     git clone -b criu-dev https://github.com/checkpoint-restore/criu.git; \
     cd criu; \
-    git reset --hard 18c6426eaeebc5fe7d0f9ca0acb592a3ec828b0c; \
+    git reset --hard f7bcd1c8c32bd04df72dfac71ba8da3dbd36b245; \
     make install; \
     cd /; \
     rm -rf /tmp/criu; \
