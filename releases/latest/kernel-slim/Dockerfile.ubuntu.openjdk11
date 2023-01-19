@@ -3,8 +3,6 @@ ARG LIBERTY_VERSION=22.0.0.13
 ARG LIBERTY_SHA=c215f400783a775cdb2f39886324d8757b70a29f
 ARG LIBERTY_BUILD_LABEL=cl221320221205-1900
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
-ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/gm-22.0.0.13/LICENSE
-ARG LIBERTY_LICENSE_SHA=84f00503d6516c91190de866e78d6010899673b7
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
@@ -31,8 +29,7 @@ RUN apt-get update \
     && rm /tmp/wlp.zip \
     && rm /tmp/wlp.zip.sha1 \
     && mkdir -p /licenses \
-    && wget -q $LIBERTY_LICENSE_URL -O /licenses/LICENSE \
-    && echo "$LIBERTY_LICENSE_SHA /licenses/LICENSE" | sha1sum -c --strict --check \
+    && cp /opt/ol/wlp/LICENSE /licenses/ \
     && apt-get remove -y unzip \
     && apt-get remove -y wget \
     && rm -rf /var/lib/apt/lists/* \
