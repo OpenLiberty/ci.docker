@@ -68,8 +68,8 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
          BINARY_URL='junk'; \
          ;; \
        amd64|x86_64) \
-         ESUM='e9b92db33fdcd38c8b7b64340f6544bff11784a12a151914119d9adbfc2723c2'; \
-         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.5%2B8_november_22-preview_2/ibm-semeru-open-ea-jdk_x64_linux_17.0.5_8_november_22-preview_2.tar.gz'; \
+         ESUM='8ead64de8d19a360eb819afd57cdc0b40eef23edeb9e2aef05036801cd2fd3c7'; \
+         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.6%2B6_december_22-preview_1/ibm-semeru-open-ea-jdk_x64_linux_17.0.6_6_December_22-preview_1.tar.gz'; \
          ;; \
        *) \
          echo "Unsupported arch: ${ARCH}"; \
