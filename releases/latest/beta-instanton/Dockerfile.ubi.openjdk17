@@ -1,9 +1,9 @@
 FROM registry.access.redhat.com/ubi8/ubi:latest
 
 ARG LIBERTY_VERSION=23.0.0.1-beta
-ARG LIBERTY_SHA=6abb63b041df567b6afa91fafddf7b7d3d585241
+ARG LIBERTY_SHA=08a3810206cab3b8c5d69e10f99d5406ec4cf811
 ARG LIBERTY_BUILD_LABEL=cl221320221205-1900
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
+ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/nightly/2023-01-24_1101/openliberty-23.0.0.2-beta-cl230120230124-1101.zip
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
@@ -26,8 +26,8 @@ RUN set -eu; \
     useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default;
 
 RUN set -eu; \
-    CRIU_DIR_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/criu-build/b5; \
-    CRIU_SHA=8017d14b6392c5abe50948cf065bafb4c13ca0d63760b999d34b63aae9fdb304; \
+    CRIU_DIR_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/criu-build/b6; \
+    CRIU_SHA=54121c8a1def17f702a26f36c33206b126a15b9b0f81bbc98809f5097bbbfd8c; \
     CRIU_LIB_SHA=6aef6ae20062c64962b89591ee18b58a748d16b11101694c96677bad93704504; \
     echo "downloading ${CRIU_DIR_URL}/criu"; \
     curl -LfsSo /usr/sbin/criu ${CRIU_DIR_URL}/criu; \
