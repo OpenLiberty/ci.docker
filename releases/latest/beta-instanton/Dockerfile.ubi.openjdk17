@@ -1,9 +1,9 @@
 FROM registry.access.redhat.com/ubi8/ubi:latest
 
-ARG LIBERTY_VERSION=23.0.0.1-beta
-ARG LIBERTY_SHA=08a3810206cab3b8c5d69e10f99d5406ec4cf811
-ARG LIBERTY_BUILD_LABEL=cl221320221205-1900
-ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/nightly/2023-01-24_1101/openliberty-23.0.0.2-beta-cl230120230124-1101.zip
+ARG LIBERTY_VERSION=23.0.0.2-beta
+ARG LIBERTY_SHA=7c737c80ffbcf9caeeff6af3b822c05a03ce014b
+ARG LIBERTY_BUILD_LABEL=cl230120230123-2118
+ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/nightly/2023-01-23_2118/openliberty-23.0.0.2-beta-cl230120230123-2118.zip
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
@@ -81,7 +81,6 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
     mkdir -p /opt/java/openjdk; \
     cd /opt/java/openjdk; \
     tar -xf /tmp/openjdk.tar.xz --strip-components=1; \
-
     rm -rf /tmp/openjdk.tar.xz;
 
 ENV JAVA_HOME=/opt/java/openjdk \
