@@ -31,7 +31,7 @@ RUN set -eu; \
     cd /tmp; \
     git clone -b instanton https://github.com/ymanton/criu.git; \
     cd criu; \
-    git reset --hard 238d4bb11dc77a7f0a8a7279f8c985af5c71bca4; \
+    git reset --hard 41c4061e1b14a8c6ff676906026c1652870fc5c3; \
     make install; \
     cd /; \
     rm -rf /tmp/criu; \

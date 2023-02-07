@@ -1,8 +1,8 @@
 FROM registry.access.redhat.com/ubi8/ubi:latest
 
-ARG LIBERTY_VERSION=23.0.0.1-beta
-ARG LIBERTY_SHA=6abb63b041df567b6afa91fafddf7b7d3d585241
-ARG LIBERTY_BUILD_LABEL=cl221320221205-1900
+ARG LIBERTY_VERSION=23.0.0.2-beta
+ARG LIBERTY_SHA=7c737c80ffbcf9caeeff6af3b822c05a03ce014b
+ARG LIBERTY_BUILD_LABEL=cl230120230123-2118
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
@@ -26,8 +26,8 @@ RUN set -eu; \
     useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default;
 
 RUN set -eu; \
-    CRIU_DIR_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/criu-build/b5; \
-    CRIU_SHA=8017d14b6392c5abe50948cf065bafb4c13ca0d63760b999d34b63aae9fdb304; \
+    CRIU_DIR_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/criu-build/b6; \
+    CRIU_SHA=54121c8a1def17f702a26f36c33206b126a15b9b0f81bbc98809f5097bbbfd8c; \
     CRIU_LIB_SHA=6aef6ae20062c64962b89591ee18b58a748d16b11101694c96677bad93704504; \
     echo "downloading ${CRIU_DIR_URL}/criu"; \
     curl -LfsSo /usr/sbin/criu ${CRIU_DIR_URL}/criu; \
@@ -68,8 +68,8 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
          BINARY_URL='junk'; \
          ;; \
        amd64|x86_64) \
-         ESUM='e9b92db33fdcd38c8b7b64340f6544bff11784a12a151914119d9adbfc2723c2'; \
-         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.5%2B8_november_22-preview_2/ibm-semeru-open-ea-jdk_x64_linux_17.0.5_8_november_22-preview_2.tar.gz'; \
+         ESUM='8ead64de8d19a360eb819afd57cdc0b40eef23edeb9e2aef05036801cd2fd3c7'; \
+         BINARY_URL='https://github.com/ibmruntimes/semeru17-ea-binaries/releases/download/jdk-17.0.6%2B6_december_22-preview_1/ibm-semeru-open-ea-jdk_x64_linux_17.0.6_6_December_22-preview_1.tar.gz'; \
          ;; \
        *) \
          echo "Unsupported arch: ${ARCH}"; \
@@ -81,7 +81,6 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
     mkdir -p /opt/java/openjdk; \
     cd /opt/java/openjdk; \
     tar -xf /tmp/openjdk.tar.xz --strip-components=1; \
-
     rm -rf /tmp/openjdk.tar.xz;
 
 ENV JAVA_HOME=/opt/java/openjdk \
@@ -162,8 +161,9 @@ RUN if [ ! -d "/opt/java/.scc" ]; then mkdir /opt/java/.scc; chmod -R 0777 /opt/
     && chmod -R g+rwx /opt/ol/wlp/output
 
 #These settings are needed so that we can run as a different user than 1001 after server warmup
+# TODO the addition of -Xgcthreads4 is a temporary workaround until we get a j9 fix
 ENV RANDFILE=/tmp/.rnd \
-    OPENJ9_JAVA_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:+IdleTuningGcOnIdle -Xshareclasses:name=openj9_system_scc,cacheDir=/opt/java/.scc,readonly,nonFatal -Dosgi.checkConfiguration=false"
+    OPENJ9_JAVA_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:+IdleTuningGcOnIdle -Xshareclasses:name=openj9_system_scc,cacheDir=/opt/java/.scc,readonly,nonFatal -Dosgi.checkConfiguration=false, -Xgcthreads4"
 
 USER 1001
 
