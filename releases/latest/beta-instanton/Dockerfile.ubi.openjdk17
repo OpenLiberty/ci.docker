@@ -4,6 +4,7 @@ ARG LIBERTY_VERSION=23.0.0.2-beta
 ARG LIBERTY_SHA=7c737c80ffbcf9caeeff6af3b822c05a03ce014b
 ARG LIBERTY_BUILD_LABEL=cl230120230123-2118
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
+ARG LIBERTY_TAG=$LIBERTY_VERSION-java17-openj9-ubi
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
@@ -14,7 +15,8 @@ LABEL org.opencontainers.image.authors="Thomas Watson, Michal Broz" \
       org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
       org.opencontainers.image.description="This image contains the Open Liberty InstantOn beta runtime with IBM Semeru Runtime Open Edition OpenJDK 17 with OpenJ9 and UBI 8 as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
       org.opencontainers.image.title="Open Liberty InstantOn Beta" \
-      org.opencontainers.image.version="$LIBERTY_VERSION"
+      org.opencontainers.image.version="$LIBERTY_VERSION" \
+      org.opencontainers.image.tag="$LIBERTY_TAG"
 
 RUN set -eu; \
     dnf install -y \
