@@ -3,6 +3,7 @@ ARG LIBERTY_VERSION=23.0.0.2-beta
 ARG LIBERTY_SHA=7c737c80ffbcf9caeeff6af3b822c05a03ce014b
 ARG LIBERTY_BUILD_LABEL=cl230120230123-2118
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
+ARG LIBERTY_TAG=LIBERTY_VERSION-java8-openj9
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
@@ -13,7 +14,8 @@ LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo C
       org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
       org.opencontainers.image.description="This image contains the Open Liberty beta runtime with IBM Semeru Runtime Open Edition OpenJDK 8 with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
       org.opencontainers.image.title="Open Liberty Beta" \
-      org.opencontainers.image.version="${LIBERTY_VERSION}"
+      org.opencontainers.image.version="$LIBERTY_VERSION" \
+      org.opencontainers.image.tag="$LIBERTY_TAG"
 
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
