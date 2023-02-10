@@ -5,6 +5,7 @@ ARG LIBERTY_BUILD_LABEL=cl220920220815-1900
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/gm-22.0.0.9/LICENSE
 ARG LIBERTY_LICENSE_SHA=84f00503d6516c91190de866e78d6010899673b7
+ARG LIBERTY_TAG=$LIBERTY_VERSION-kernel-slim-java17-openj9
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
@@ -15,7 +16,8 @@ LABEL org.opencontainers.image.authors="Chris Potter, Leo Christy Jesuraj, Melis
       org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
       org.opencontainers.image.description="This image contains the Open Liberty runtime with IBM Semeru Runtime Open Edition OpenJDK with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
       org.opencontainers.image.title="Open Liberty" \
-      org.opencontainers.image.version="$LIBERTY_VERSION"
+      org.opencontainers.image.version="$LIBERTY_VERSION" \
+      org.opencontainers.image.tag="$LIBERTY_TAG"
 
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/

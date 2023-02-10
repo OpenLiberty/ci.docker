@@ -5,6 +5,7 @@ ARG LIBERTY_BUILD_LABEL=cl221220221107-1900
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 ARG LIBERTY_LICENSE_URL=https://raw.githubusercontent.com/OpenLiberty/open-liberty/gm-22.0.0.12/LICENSE
 ARG LIBERTY_LICENSE_SHA=84f00503d6516c91190de866e78d6010899673b7
+ARG LIBERTY_TAG=$LIBERTY_VERSION-kernel-slim-java8-openj9-ubi
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
@@ -14,9 +15,11 @@ LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo C
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
       org.opencontainers.image.version="$LIBERTY_VERSION" \
       org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
+      org.opencontainers.image.tag="$LIBERTY_TAG" \
       vendor="Open Liberty" \
       name="Open Liberty" \
       version="$LIBERTY_VERSION" \
+      tag="$LIBERTY_TAG" \
       summary="Image for Open Liberty with IBM Semeru Runtime Open Edition OpenJDK with OpenJ9 and UBI 8" \
       description="This image contains the Open Liberty runtime with IBM Semeru Runtime Open Edition OpenJDK with OpenJ9 and Red Hat UBI 8 as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
 
