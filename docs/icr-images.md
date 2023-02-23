@@ -3,7 +3,7 @@
 
 Open Liberty container images are available from IBM Container Registry (ICR) at `icr.io/appcafe/open-liberty`. Our recommendation is to use ICR instead of Docker Hub, since ICR doesn't impose rate limits on image pulls. Images can be pulled from ICR without authentication. Only images with Universal Base Image (UBI) as the Operating System are available in ICR at the moment.
 
-The images for the latest release and the last two quarterly releases are available at all times and are refreshed regularly.
+The images for the latest release and the last two quarterly releases are available and are refreshed regularly.
 
 Available image tags are listed below. The tags follow this naming convention: 
 ```
@@ -38,18 +38,18 @@ beta
 beta-instanton
 ```
 
-## 22.0.0.13
+## 23.0.0.1
 
 ```
-22.0.0.13-kernel-slim-java8-openj9-ubi
-22.0.0.13-kernel-slim-java8-ibmjava-ubi
-22.0.0.13-kernel-slim-java11-openj9-ubi
-22.0.0.13-kernel-slim-java17-openj9-ubi
+23.0.0.1-kernel-slim-java8-openj9-ubi
+23.0.0.1-kernel-slim-java8-ibmjava-ubi
+23.0.0.1-kernel-slim-java11-openj9-ubi
+23.0.0.1-kernel-slim-java17-openj9-ubi
 
-22.0.0.13-full-java8-openj9-ubi
-22.0.0.13-full-java8-ibmjava-ubi
-22.0.0.13-full-java11-openj9-ubi
-22.0.0.13-full-java17-openj9-ubi
+23.0.0.1-full-java8-openj9-ubi
+23.0.0.1-full-java8-ibmjava-ubi
+23.0.0.1-full-java11-openj9-ubi
+23.0.0.1-full-java17-openj9-ubi
 ```
 
 ## 22.0.0.12
