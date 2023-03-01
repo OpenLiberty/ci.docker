@@ -21,7 +21,7 @@ function importKeyCert() {
   local KEYSTORE_FILE="/output/resources/security/key.p12"
   local TRUSTSTORE_FILE="/output/resources/security/trust.p12"
 
-  # Import the private key and certificate into new keytore
+  # Import the private key and certificate into new keystore
   if [ -f "${CERT_FOLDER}/${KEY_FILE}" ] && [ -f "${CERT_FOLDER}/${CRT_FILE}" ]; then
     echo "Found mounted TLS certificates, generating keystore"
     setPasswords PASSWORD TRUSTSTORE_PASSWORD
