@@ -13,7 +13,7 @@
   - [Applying Interim Fixes](#applying-interim-fixes)
   - [Known Issues](#known-issues)
     - [Generating system dumps for pods in Kubernetes](#generating-system-dumps-for-pods-in-kubernetes)
-  
+
 ----
 
 ## Container Images
@@ -23,7 +23,7 @@
     *  Another set, using Ubuntu as the Operating System, can be found on [Docker Hub](https://hub.docker.com/_/open-liberty).  These are re-built automatically anytime something changes in the layers below.
 
 1. **Beta Images**
-    * The latest Open Liberty beta runtime can be found on [Docker Hub](https://hub.docker.com/_/open-liberty). It's available via the `beta` and `beta-java11` tags. 
+    * The latest Open Liberty beta runtime can be found on [Docker Hub](https://hub.docker.com/_/open-liberty). It's available via the `beta` and `beta-java11` tags.
 
 1. **Daily Images**
     *  Images with the daily Open Liberty binaries are available [here](https://hub.docker.com/r/openliberty/daily).  The scripts used for this image can be found [here](https://github.com/OpenLiberty/ci.docker.daily).
@@ -46,7 +46,7 @@ COPY --chown=1001:0  server.xml /config/
 # A sample is in the 'Getting Required Features' section below
 COPY --chown=1001:0 featureUtility.properties /opt/ol/wlp/etc/
 
-# This script will add the requested XML snippets to enable Liberty features and grow image to be fit-for-purpose using featureUtility. 
+# This script will add the requested XML snippets to enable Liberty features and grow image to be fit-for-purpose using featureUtility.
 # Only available in 'kernel-slim'. The 'full' tag already includes all features for convenience.
 RUN features.sh
 
@@ -66,8 +66,8 @@ Refer to [Open Liberty Docs](https://openliberty.io/docs) for server configurati
 
 ### Getting Required Features
 
-The `kernel-slim` tag provides just the bare minimum server. You can grow it to include the features needed by your application by invoking `features.sh`. 
-Liberty features are downloaded from Maven Central repository by default. But you can specify alternatives using `/opt/ol/wlp/etc/featureUtility.properties`: 
+The `kernel-slim` tag provides just the bare minimum server. You can grow it to include the features needed by your application by invoking `features.sh`.
+Liberty features are downloaded from Maven Central repository by default. But you can specify alternatives using `/opt/ol/wlp/etc/featureUtility.properties`:
 ```
 remoteRepo.url=https://my-remote-server/secure/maven2
 remoteRepo.user=operator
@@ -129,6 +129,12 @@ This feature can be controlled via the following variables:
 * `OPENJ9_SCC` (environment variable)
   *  Decription: If `"true"`, cache application-specific in an SCC and include it in the image. A new SCC will be created if needed, otherwise data will be added to the existing SCC.
   *  Default: `"true"`.
+* `TRIM_SCC` (environment variable)
+  * Description: If `"true"`, the application-specific SCC layer will be sized-down to accomodate only the data populated during image build process. To allow the application to add more data to the SCC at runtime, set this variable to `"false"`, but also ensure the SCC is not marked read-only. This can be done by setting the OPENJ9_JAVA_OPTIONS environment variable in your application Dockerfile like so: `ENV OPENJ9_JAVA_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:+IdleTuningGcOnIdle -Xshareclasses:name=openj9_system_scc,cacheDir=/opt/java/.scc,nonFatal -Dosgi.checkConfiguration=false"`. Note that OPENJ9_JAVA_OPTIONS is already defined in the base Liberty image dockerfile, but includes the `readonly` sub-option.
+  * Default: `"true"`.
+* `SCC_SIZE` (environment variable)
+  * Description: The size of the application-specific SCC layer in the image. This value is only used if `TRIM_SCC` is set to `"false"`.
+  * Default: `"80m"`.
 
 To customize one of the built-in XML snippets, make a copy of the snippet from Github and edit it locally. Once you have completed your changes, use the `COPY` command inside your Dockerfile to copy the snippet into `/config/configDropins/overrides`. It is important to note that you do not need to set build-arguments (`ARG`) for any customized XML snippets. The following Dockerfile snippet is an example of how you should include the customized snippet.
 
@@ -284,13 +290,13 @@ $ cat /proc/sys/kernel/core_pattern
 ```
 
 If the first character of the `/proc/sys/kernel/core_pattern` file is a pipe symbol (`|`), then the remainder of the line is interpreted as the command-line for a user-space program (or script) that is to be executed and processing the dump.
- 
+
 To access the core dump:
 
 * If the program is `/usr/lib/systemd/systemd-coredump`, then the core dump should go to `/var/lib/systemd/coredump/` by default (overridden configuration in `/etc/systemd/coredump.conf`). To get this coredump, from the host, run `sudo coredumpctl -o core.dmp dump ${PID}` and transfer the `core.dmp` file.
 * If the program is `/usr/share/apport/apport`, then the core dump should go to `/var/crash/` by default (overridden configuration in `/etc/default/apport`). To get this core dump, from the host, gather the file from `/var/crash` on the host.
 
-If the core dump is not found in these locations, review the host’s kernel log (e.g. `journalctl`) to see if there were errors in those programs. 
+If the core dump is not found in these locations, review the host’s kernel log (e.g. `journalctl`) to see if there were errors in those programs.
 
 When the issue is encountered, the user encounters the following messages in the logs from the server:
 
@@ -304,4 +310,4 @@ JVMDUMP012E Error in System dump: The core file created by child process with pi
 
 Since JVM cannot find the system dump, it is not able to add some useful metadata to the core dump but this is usually not required. An example of this information includes some extra memory region metadata for the info map command in `jdmpview` which is useful for native memory leak analysis.
 
-Users generating other types of dumps such as thread dump and heap dump should not see this issue. 
+Users generating other types of dumps such as thread dump and heap dump should not see this issue.
