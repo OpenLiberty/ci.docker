@@ -3,8 +3,7 @@ FROM registry.access.redhat.com/ubi8/ubi:latest
 ARG LIBERTY_VERSION=23.0.0.3-beta
 ARG LIBERTY_SHA=6de6c2e8594fcdb7e3d54e5c284d1a624b4e159b
 ARG LIBERTY_BUILD_LABEL=cl230220230222-1257
-ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/nightly/2023-02-22_1257/openliberty-23.0.0.3-beta-cl230220230222-1257.zip
-#ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
