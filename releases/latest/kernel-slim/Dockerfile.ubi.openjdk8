@@ -18,8 +18,33 @@ LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo C
       summary="Image for Open Liberty with IBM Semeru Runtime Open Edition OpenJDK with OpenJ9 and UBI 8" \
       description="This image contains the Open Liberty runtime with IBM Semeru Runtime Open Edition OpenJDK with OpenJ9 and Red Hat UBI 8 as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
 
+COPY NOTICES /opt/NOTICES
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
+
+# Install dumb-init
+RUN set -eux; \
+    ARCH="$(uname -m)"; \
+    case "${ARCH}" in \
+       aarch64|arm64) \
+         DUMB_INIT_URL='https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_aarch64'; \
+         ;; \
+       amd64|x86_64) \
+         DUMB_INIT_URL='https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x86_64'; \
+         ;; \
+       ppc64el|ppc64le) \
+         DUMB_INIT_URL='https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_ppc64le'; \
+         ;; \
+       s390x) \
+         DUMB_INIT_URL='https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_s390x'; \
+         ;;\
+       *) \
+         echo "Unsupported arch: ${ARCH}"; \
+         exit 1; \
+         ;; \
+    esac; \
+    curl -LfsSo /usr/bin/dumb-init ${DUMB_INIT_URL}; \
+    chmod +x /usr/bin/dumb-init;
 
 # Install Open Liberty
 RUN yum -y install shadow-utils wget unzip openssl \
@@ -47,8 +72,8 @@ ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \
 
 # Configure Open Liberty
 RUN /opt/ol/wlp/bin/server create \
-    && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea
-
+    && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea \
+    && rm -rf /opt/ol/wlp/usr/servers/defaultServer/server.env
 
 # Create symlinks && set permissions for non-root user
 RUN mkdir /logs \
