@@ -7,7 +7,7 @@ do
 done
 
 echo "Performing checkpoint --at=$1"
-/opt/ol/wlp/bin/server checkpoint defaultServer --at=$1 -Dcom.ibm.ws.beta.edition=true
+/opt/ol/wlp/bin/server checkpoint defaultServer --at=$1
 
 rc=$?
 if [ $rc -ne 0 ] && [ -f "/logs/checkpoint/checkpoint.log" ]; then
