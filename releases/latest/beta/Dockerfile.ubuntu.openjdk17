@@ -1,5 +1,5 @@
 FROM ibm-semeru-runtimes:open-17-jre-focal
-ARG LIBERTY_VERSION=23.0.0.3-beta
+ARG LIBERTY_VERSION=23.0.0.4-beta
 ARG LIBERTY_SHA=b168fd428ce15e6c7fe04a6ff3533f9869749483
 ARG LIBERTY_BUILD_LABEL=cl230320230319-1900
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip

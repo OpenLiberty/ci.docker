@@ -9,7 +9,6 @@ sudo: required
 before_install:
   - sudo apt-get update
 env:
-  - RELEASE=../releases/22.0.0.9
   - RELEASE=../releases/22.0.0.12
   - RELEASE=../releases/23.0.0.3
   - RELEASE=../releases/latest
