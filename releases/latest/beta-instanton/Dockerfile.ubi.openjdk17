@@ -15,7 +15,7 @@ LABEL org.opencontainers.image.authors="Thomas Watson, Michal Broz" \
       org.opencontainers.image.title="Open Liberty InstantOn Beta" \
       org.opencontainers.image.version="$LIBERTY_VERSION"
 
-COPY NOTICES /opt/NOTICES
+COPY NOTICES /opt/ol/NOTICES
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
 
@@ -32,6 +32,7 @@ RUN yum -y install shadow-utils wget unzip openssl \
     && cp /opt/ol/wlp/LICENSE /licenses/ \
     && wget -O /usr/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x86_64 \
     && chmod +x /usr/bin/dumb-init \
+    && sed -i "s|@LIBERTY_VERSION@|$LIBERTY_VERSION|g" /opt/ol/NOTICES \
     && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
     && yum -y remove shadow-utils wget unzip \
     && yum clean all \
