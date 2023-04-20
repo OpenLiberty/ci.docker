@@ -12,7 +12,7 @@ Available image tags are listed below. The tags follow this naming convention:
 
 Append a tag to `icr.io/appcafe/open-liberty` to pull a specific image. For example: 
 ```
-icr.io/appcafe/open-liberty:22.0.0.12-kernel-slim-java17-openj9-ubi
+icr.io/appcafe/open-liberty:23.0.0.3-kernel-slim-java17-openj9-ubi
 ```
 
 Available images can be listed using [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started). Log in with your IBMid prior to running the following commands. Note that authentication is only required to list the images. **Images can be pulled from ICR without authentication**: 
@@ -38,18 +38,18 @@ beta
 beta-instanton
 ```
 
-## 23.0.0.2
+## 23.0.0.3
 
 ```
-23.0.0.2-kernel-slim-java8-openj9-ubi
-23.0.0.2-kernel-slim-java8-ibmjava-ubi
-23.0.0.2-kernel-slim-java11-openj9-ubi
-23.0.0.2-kernel-slim-java17-openj9-ubi
+23.0.0.3-kernel-slim-java8-openj9-ubi
+23.0.0.3-kernel-slim-java8-ibmjava-ubi
+23.0.0.3-kernel-slim-java11-openj9-ubi
+23.0.0.3-kernel-slim-java17-openj9-ubi
 
-23.0.0.2-full-java8-openj9-ubi
-23.0.0.2-full-java8-ibmjava-ubi
-23.0.0.2-full-java11-openj9-ubi
-23.0.0.2-full-java17-openj9-ubi
+23.0.0.3-full-java8-openj9-ubi
+23.0.0.3-full-java8-ibmjava-ubi
+23.0.0.3-full-java11-openj9-ubi
+23.0.0.3-full-java17-openj9-ubi
 ```
 
 ## 22.0.0.12
@@ -64,18 +64,4 @@ beta-instanton
 22.0.0.12-full-java8-ibmjava-ubi
 22.0.0.12-full-java11-openj9-ubi
 22.0.0.12-full-java17-openj9-ubi
-```
-
-## 22.0.0.9
-
-```
-22.0.0.9-kernel-slim-java8-openj9-ubi
-22.0.0.9-kernel-slim-java8-ibmjava-ubi
-22.0.0.9-kernel-slim-java11-openj9-ubi
-22.0.0.9-kernel-slim-java17-openj9-ubi
-
-22.0.0.9-full-java8-openj9-ubi
-22.0.0.9-full-java8-ibmjava-ubi
-22.0.0.9-full-java11-openj9-ubi
-22.0.0.9-full-java17-openj9-ubi
 ```
