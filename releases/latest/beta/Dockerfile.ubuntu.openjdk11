@@ -6,7 +6,7 @@ ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/open
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
-LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo Christy Jesuraj" \
+LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo Christy Jesuraj, Thomas Watson, Michal Broz" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
@@ -30,6 +30,8 @@ RUN apt-get update \
     && rm /tmp/wlp.zip.sha1 \
     && mkdir -p /licenses \
     && cp /opt/ol/wlp/LICENSE /licenses/ \
+    && wget -O /usr/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x86_64 \
+    && chmod +x /usr/bin/dumb-init \
     && apt-get remove -y unzip \
     && apt-get remove -y wget \
     && rm -rf /var/lib/apt/lists/* \
@@ -46,7 +48,8 @@ ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \
 
 # Configure Open Liberty
 RUN /opt/ol/wlp/bin/server create --template=javaee8 \
-    && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea
+    && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea \
+    && rm -rf /opt/ol/wlp/usr/servers/defaultServer/server.env
 
 # Create symlinks && set permissions for non-root user
 RUN mkdir /logs \
@@ -75,7 +78,7 @@ RUN mkdir /logs \
     && mkdir /etc/wlp \
     && chown -R 1001:0 /etc/wlp \
     && chmod -R g+rw /etc/wlp \
-    && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml
+    && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml    
 
 # Create a new SCC layer
 RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \

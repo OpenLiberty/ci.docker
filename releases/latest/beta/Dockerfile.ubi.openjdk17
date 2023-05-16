@@ -1,4 +1,4 @@
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-17-jdk-ubi
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-17-ea-jdk-ubi-amd64
 ARG LIBERTY_VERSION=23.0.0.5-beta
 ARG LIBERTY_SHA=343ce21ecaea9ce48ab5fcf77d2d42a9c68448f5
 ARG LIBERTY_BUILD_LABEL=cl230420230418-0035
@@ -6,7 +6,7 @@ ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/open
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
-LABEL org.opencontainers.image.authors="Chris Potter, Leo Christy Jesuraj, Melissa Lee" \
+LABEL org.opencontainers.image.authors="Chris Potter, Leo Christy Jesuraj, Melissa Lee, Thomas Watson, Michal Broz" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
@@ -18,6 +18,7 @@ LABEL org.opencontainers.image.authors="Chris Potter, Leo Christy Jesuraj, Melis
       summary="Image for Open Liberty Beta with IBM Semeru Runtime Open Edition OpenJDK 17 with OpenJ9 and UBI 8" \
       description="This image contains the Open Liberty beta runtime with IBM Semeru Runtime Open Edition OpenJDK 17 with OpenJ9 and Red Hat UBI 8 as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
 
+COPY NOTICES /opt/NOTICES
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
 
@@ -32,6 +33,8 @@ RUN yum -y install shadow-utils wget unzip openssl \
     && rm /tmp/wlp.zip.sha1 \
     && mkdir -p /licenses \
     && cp /opt/ol/wlp/LICENSE /licenses/ \
+    && wget -O /usr/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x86_64 \
+    && chmod +x /usr/bin/dumb-init \
     && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
     && yum -y remove shadow-utils wget unzip \
     && yum clean all \
@@ -47,7 +50,8 @@ ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \
 
 # Configure Open Liberty
 RUN /opt/ol/wlp/bin/server create --template=javaee8 \
-    && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea
+    && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea \
+    && rm -rf /opt/ol/wlp/usr/servers/defaultServer/server.env
 
 # Create symlinks && set permissions for non-root user
 RUN mkdir /logs \
@@ -76,7 +80,9 @@ RUN mkdir /logs \
     && mkdir /etc/wlp \
     && chown -R 1001:0 /etc/wlp \
     && chmod -R g+rw /etc/wlp \
-    && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml
+    && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml \
+    # TODO When InstantOn GAs we need to remove this
+    && echo "<server><featureManager><feature>checkpoint-1.0</feature></featureManager></server>" > /config/configDropins/defaults/checkpoint.xml
 
 # Create a new SCC layer
 RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
