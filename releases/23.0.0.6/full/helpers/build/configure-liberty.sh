@@ -29,8 +29,8 @@ if [ "$SERVER_NAME" != "$ORIGINAL_SERVER_NAME" ] && [ -d "$OPT_PREFIX/wlp/usr/se
   chmod -R g+w $OPT_PREFIX/wlp/usr/servers/$SERVER_NAME
 
   # Delete old symlinks
-  rm /opt/ol/links/output
-  rm /opt/ol/links/config
+  rm $OPT_PREFIX/links/output
+  rm $OPT_PREFIX/links/config
 
   # Add new output folder symlink and resolve group write permissions
   SERVER_OUTPUT_DIR=$WLP_OUTPUT_DIR/$SERVER_NAME
