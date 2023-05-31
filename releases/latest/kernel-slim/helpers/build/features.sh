@@ -7,7 +7,7 @@ fi
 set -Eeox pipefail
 
 # Resolve liberty server symlinks and creation for server name changes
-/opt/ol/helpers/runtime/configure-liberty.sh
+/opt/ol/helpers/build/configure-liberty.sh
 if [ $? -ne 0 ]; then
   exit
 fi
@@ -36,6 +36,6 @@ if [ "$SSL" == "true" ] || [ "$TLS" == "true" ]; then
 fi
 
 # Install necessary features using featureUtility
-featureUtility installServerFeatures --acceptLicense ${SERVER_NAME} --noCache
+featureUtility installServerFeatures --acceptLicense $SERVER_NAME --noCache
 find /opt/ol/wlp/lib /opt/ol/wlp/bin ! -perm -g=rw -print0 | xargs -0 -r chmod g+rw
 

@@ -9,6 +9,8 @@ ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliber
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
+ENV SERVER_NAME=defaultServer
+
 LABEL org.opencontainers.image.authors="Chris Potter, Leo Christy Jesuraj, Melissa Lee" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
@@ -96,4 +98,4 @@ USER 1001
 EXPOSE 9080 9443
 
 ENTRYPOINT ["/opt/ol/helpers/runtime/docker-server.sh"]
-CMD ["/opt/ol/wlp/bin/server", "run", "defaultServer"]
+CMD ["/opt/ol/wlp/bin/server", "run"]
