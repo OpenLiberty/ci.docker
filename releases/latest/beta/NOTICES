@@ -17,8 +17,7 @@ MIT LICENSE
 The Program includes some or all of the following that IBM obtained
 under the MIT License:
 
-DUMB-INIT (Copyright: 2015 Yelp, Inc.
-2016-2019 Dmitry Smirnov <onlyjob@debian.org>)
+DUMB_INIT Copyright (c) 2015 Yelp, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a 
 copy of this software and associated documentation files (the 
