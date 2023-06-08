@@ -38,6 +38,20 @@ beta
 beta-instanton
 ```
 
+## 23.0.0.5
+
+```
+23.0.0.5-kernel-slim-java8-openj9-ubi
+23.0.0.5-kernel-slim-java8-ibmjava-ubi
+23.0.0.5-kernel-slim-java11-openj9-ubi
+23.0.0.5-kernel-slim-java17-openj9-ubi
+
+23.0.0.5-full-java8-openj9-ubi
+23.0.0.5-full-java8-ibmjava-ubi
+23.0.0.5-full-java11-openj9-ubi
+23.0.0.5-full-java17-openj9-ubi
+```
+
 ## 23.0.0.3
 
 ```
