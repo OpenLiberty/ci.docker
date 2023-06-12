@@ -86,7 +86,9 @@ function main() {
   fi
 
   if [[ -n "$SEC_SSO_PROVIDERS" ]]; then
-    cp $SNIPPETS_SOURCE/sso-features.xml $SNIPPETS_TARGET_DEFAULTS
+    if [[ "$SKIP_SSO_FEATURE_INSTALL" != "true" ]]; then
+      cp $SNIPPETS_SOURCE/sso-features.xml $SNIPPETS_TARGET_DEFAULTS
+    fi
     parseProviders $SEC_SSO_PROVIDERS
   fi
 
