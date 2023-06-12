@@ -17,7 +17,7 @@ RUN features.sh
 
 RUN configure.sh
 ```
-
+Running this container will produce output similar to:
 ```
 Launching liberty1 (Open Liberty 23.0.0.5/wlp-1.0.77.cl230520230514-1901) on Eclipse OpenJ9 VM, version 1.8.0_362-b09 (en_US)
 [AUDIT   ] CWWKE0001I: The server liberty1 has been launched.
@@ -57,7 +57,7 @@ RUN configure.sh
 
 ### Renaming a Liberty server using Liberty InstantOn
 
-To rename a Liberty server using Liberty InstantOn, include the `SERVER_NAME` variable when building the image.
+To rename a Liberty server using Liberty InstantOn, include the `SERVER_NAME` environment variable before configuring the image.
 
 ```Dockerfile
 FROM icr.io/appcafe/open-liberty:beta-instanton
@@ -68,6 +68,14 @@ COPY --chown=1001:0 src/main/liberty/config/ /config/
 COPY --chown=1001:0 target/*.war /config/apps/
 
 RUN configure.sh
+RUN checkpoint.sh applications
+```
+Running this container will produce output similar to:
+```
+[AUDIT   ] Launching liberty-instanton (Open Liberty 23.0.0.6-beta/wlp-1.0.77.cl230520230514-1901) on Eclipse OpenJ9 VM, version 17.0.7+7 (en_US)
+[AUDIT   ] CWWKC0452I: The Liberty server process resumed operation from a checkpoint in 0.126 seconds.
+[AUDIT   ] CWWKF0012I: The server installed the following features: [checkpoint-1.0].
+[AUDIT   ] CWWKF0011I: The liberty-instanton server is ready to run a smarter planet. The liberty-instanton server started in 0.130 seconds.
 ```
 
 ### Notes
