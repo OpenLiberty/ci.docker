@@ -20,7 +20,7 @@ if [ -n "$INFINISPAN_SERVICE_NAME" ] || [ "${HZ_SESSION_CACHE}" == "client" ] ||
 fi
 
 # SSO
-if [[ -n "$SEC_SSO_PROVIDERS" ]]; then
+if [[ -n "$SEC_SSO_PROVIDERS" ]] && [[ "$SKIP_SSO_FEATURE_INSTALL" != "true" ]]; then
   cp $SNIPPETS_SOURCE/sso-features.xml $SNIPPETS_TARGET_DEFAULTS
 fi
 
