@@ -1,8 +1,8 @@
 FROM ibm-semeru-runtimes:open-8-jre-focal
 ARG LIBERTY_VERSION=23.0.0.7-beta
-ARG LIBERTY_SHA=89c80c598a9ed1632e3dbd9af748337e62a21e87
-ARG LIBERTY_BUILD_LABEL=cl230620230606-1101
-ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/instanton/openliberty-23.0.0.7-beta-cl230620230606-1101.zip
+ARG LIBERTY_SHA=c631c24c3043984a42dd853817f262b9030691c3
+ARG LIBERTY_BUILD_LABEL=cl230620230612-1100
+ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/instanton/openliberty-23.0.0.7-beta-cl230620230612-1100.zip
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 

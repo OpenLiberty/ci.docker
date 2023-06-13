@@ -1,8 +1,8 @@
 FROM icr.io/appcafe/ibm-semeru-runtimes:open-8-jdk-ubi
 ARG LIBERTY_VERSION=23.0.0.6
-ARG LIBERTY_SHA=5b82c0250fb74bfa804bd551232e834cab9c9509
-ARG LIBERTY_BUILD_LABEL=cl230620230606-1101
-ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/instanton/openliberty-23.0.0.6-cl230620230606-1101.zip
+ARG LIBERTY_SHA=bd69a21ba94f5707aff2c51174c95af66cf27b37
+ARG LIBERTY_BUILD_LABEL=cl230620230612-1100
+ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/instanton/openliberty-23.0.0.6-cl230620230612-1100.zip
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
