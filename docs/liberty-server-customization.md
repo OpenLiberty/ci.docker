@@ -9,7 +9,7 @@ You can provide a custom name for your Liberty server by specifying the `SERVER_
 
 Specifying the `ENV SERVER_NAME=<your-server-name>` variable allows you to run a Liberty server with a custom name, as in the Dockerfile below.
 ```Dockerfile
-FROM openliberty/open-liberty:kernel-slim-java8-openj9-ubi
+FROM openliberty/open-liberty:kernel-slim-java17-openj9-ubi
 
 ENV SERVER_NAME=liberty1
 
@@ -19,13 +19,13 @@ RUN configure.sh
 ```
 Running this container will produce output similar to:
 ```
-Launching liberty1 (Open Liberty 23.0.0.5/wlp-1.0.77.cl230520230514-1901) on Eclipse OpenJ9 VM, version 1.8.0_362-b09 (en_US)
+Launching liberty1 (Open Liberty 23.0.0.5/wlp-1.0.77.cl230520230514-1901) on Eclipse OpenJ9 VM, version 17.0.7+7 (en_US)
 [AUDIT   ] CWWKE0001I: The server liberty1 has been launched.
 [AUDIT   ] CWWKG0093A: Processing configuration drop-ins resource: /opt/ol/wlp/usr/servers/liberty1/configDropins/defaults/keystore.xml
 [AUDIT   ] CWWKG0093A: Processing configuration drop-ins resource: /opt/ol/wlp/usr/servers/liberty1/configDropins/defaults/open-default-port.xml
 [AUDIT   ] CWWKZ0058I: Monitoring dropins for applications.
 [AUDIT   ] CWWKF0012I: The server installed the following features: [el-3.0, jsp-2.3, servlet-3.1].
-[AUDIT   ] CWWKF0011I: The liberty1 server is ready to run a smarter planet. The liberty1 server started in 0.384 seconds.
+[AUDIT   ] CWWKF0011I: The liberty1 server is ready to run a smarter planet. The liberty1 server started in 0.730 seconds.
 ```
 
 ### Renaming an existing Liberty server
@@ -33,7 +33,7 @@ Launching liberty1 (Open Liberty 23.0.0.5/wlp-1.0.77.cl230520230514-1901) on Ecl
 Liberty server configurations and existing output data under `/config` and `/output`, respectively, will be relocated to the server with new name, allowing you to **rename** servers `FROM` any Liberty image.
 
 ```Dockerfile
-FROM openliberty/open-liberty:kernel-slim-java8-openj9-ubi as staging
+FROM openliberty/open-liberty:kernel-slim-java17-openj9-ubi as staging
 
 ENV SERVER_NAME=liberty1
 
