@@ -25,7 +25,7 @@ func TestTest(t *testing.T) {
 }
 
 var _ = Describe("Open Liberty container images", func() {
-	// Set ENV CONTAINER_HOST and CONTAINER_SSHKEY
+	// Set CONTAINER_HOST and CONTAINER_SSHKEY environment variables beforehand
 	Context("kernel-slim images", func() {
 		var imageDir string = "../releases/latest/kernel-slim"
 		BeforeEach(func() {
@@ -42,7 +42,7 @@ var _ = Describe("Open Liberty container images", func() {
 		})
 
 		It("can build an UBI image and run spring-petclinic", func() {
-			var baseImage string = "open-liberty-test:kernel-slim-ubi-openjdk8"
+			var baseImage string = "open-liberty-test:kernel-slim-ubi-openjdk17"
 			var petClinicImage string = "open-liberty-test:kernel-slim-ubi-petclinic"
 			var petClinicImageName string = "petclinic"
 			conn, err := bindings.NewConnectionWithIdentity(context.Background(), "", "", true)
@@ -52,7 +52,7 @@ var _ = Describe("Open Liberty container images", func() {
 			}
 
 			// Build a kernel-slim image from scratch
-			containerFiles := []string{imageDir + "/Dockerfile.ubi.openjdk8"}
+			containerFiles := []string{imageDir + "/Dockerfile.ubi.openjdk17"}
 			// Check the full list of BuildOptions from https://github.com/containers/buildah/blob/aa6a281df7c54aa42a060baa9d0504040c7551a6/define/build.go#L112
 			buildOptions := entities.BuildOptions{}
 			buildOptions.ContextDirectory = imageDir
@@ -119,7 +119,7 @@ var _ = Describe("Open Liberty container images", func() {
 		})
 
 		It("can build an Ubuntu image and run spring-petclinic", func() {
-			var baseImage string = "open-liberty-test:kernel-slim-ubuntu-openjdk8"
+			var baseImage string = "open-liberty-test:kernel-slim-ubuntu-openjdk17"
 			var petClinicImage string = "open-liberty-test:kernel-slim-ubuntu-petclinic"
 			var petClinicImageName string = "petclinic"
 			conn, err := bindings.NewConnectionWithIdentity(context.Background(), "", "", true)
@@ -129,7 +129,7 @@ var _ = Describe("Open Liberty container images", func() {
 			}
 
 			// Build a kernel-slim image from scratch
-			containerFiles := []string{imageDir + "/Dockerfile.ubuntu.openjdk8"}
+			containerFiles := []string{imageDir + "/Dockerfile.ubuntu.openjdk17"}
 			// Check the full list of BuildOptions from https://github.com/containers/buildah/blob/aa6a281df7c54aa42a060baa9d0504040c7551a6/define/build.go#L112
 			buildOptions := entities.BuildOptions{}
 			buildOptions.ContextDirectory = imageDir
