@@ -6,7 +6,7 @@ ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliber
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
-LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo Christy Jesuraj" \
+LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas Watson, Michal Broz, Wendy Raschke" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
@@ -21,9 +21,12 @@ LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo C
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
 
+# If there is a local copy of the image use that instead
+COPY resources/ /tmp/
+
 # Install Open Liberty
 RUN yum -y install shadow-utils wget unzip openssl \
-    && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
+    && if [ ! -f /tmp/wlp.zip ]; then wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip; fi \
     && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
     && sha1sum -c /tmp/wlp.zip.sha1 \
     && chmod -R u+x /usr/bin \

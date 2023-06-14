@@ -6,7 +6,7 @@ ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/open
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
-LABEL org.opencontainers.image.authors="Chris Potter, Leo Christy Jesuraj, Melissa Lee, Thomas Watson, Michal Broz" \
+LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas Watson, Michal Broz, Wendy Raschke" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
@@ -47,11 +47,14 @@ RUN set -eux; \
     echo "${DUBM_INIT_SHA256} */usr/bin/dumb-init" | sha256sum -c -; \
     chmod +x /usr/bin/dumb-init;
 
+# If there is a local copy of the image use that instead
+COPY resources/ /tmp/
+
 # Install Open Liberty
 RUN apt-get update \
     && apt-get install -y --no-install-recommends unzip openssl wget \
     && rm -rf /var/lib/apt/lists/* \
-    && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
+    && if [ ! -f /tmp/wlp.zip ]; then wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip; fi \
     && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
     && sha1sum -c /tmp/wlp.zip.sha1 \
     && unzip -q /tmp/wlp.zip -d /opt/ol \
