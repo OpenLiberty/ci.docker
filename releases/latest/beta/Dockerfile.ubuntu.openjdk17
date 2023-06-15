@@ -1,4 +1,7 @@
 FROM ibm-semeru-runtimes:open-17-jre-focal AS getRuntime
+
+USER root
+
 ARG LIBERTY_VERSION=23.0.0.6-beta
 ARG LIBERTY_SHA=58fb5e7acff80aa6d84de7a32e9fc9f25e0157cb
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
@@ -21,6 +24,9 @@ RUN apt-get update \
     && chmod -R g+rw /opt/ol/wlp
 
 FROM ibm-semeru-runtimes:open-17-jre-focal
+
+USER root
+
 ARG LIBERTY_VERSION=23.0.0.6-beta
 ARG LIBERTY_BUILD_LABEL=cl230520230514-1901
 
@@ -71,6 +77,9 @@ RUN set -eux; \
 # Copy the runtime and licenses
 COPY --from=getRuntime /opt/ol/wlp /opt/ol/wlp
 COPY --from=getRuntime /licenses /licenses
+
+# Add default user 1001
+RUN adduser -u 1001 -r -g root -s /usr/sbin/nologin default
 
 # Set Path Shortcuts
 ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \

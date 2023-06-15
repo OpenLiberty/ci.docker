@@ -1,4 +1,7 @@
 FROM ibm-semeru-runtimes:open-11-jre-focal AS getRuntime
+
+USER root
+
 ARG LIBERTY_VERSION=23.0.0.5
 ARG LIBERTY_SHA=64fdc2ab454e81337631bc96a70d50cb710aa8ac
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
@@ -21,6 +24,9 @@ RUN apt-get update \
     && chmod -R g+rw /opt/ol/wlp
 
 FROM ibm-semeru-runtimes:open-11-jre-focal
+
+USER root
+
 ARG LIBERTY_VERSION=23.0.0.5
 ARG LIBERTY_BUILD_LABEL=cl230520230514-1901
 
@@ -42,6 +48,9 @@ COPY fixes/ /opt/ol/fixes/
 # Copy the runtime and licenses
 COPY --from=getRuntime /opt/ol/wlp /opt/ol/wlp
 COPY --from=getRuntime /licenses /licenses
+
+# Add default user 1001
+RUN adduser -u 1001 -r -g root -s /usr/sbin/nologin default
 
 # Set Path Shortcuts
 ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \

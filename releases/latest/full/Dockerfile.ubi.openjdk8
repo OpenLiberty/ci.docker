@@ -1,4 +1,7 @@
 FROM icr.io/appcafe/ibm-semeru-runtimes:open-8-jdk-ubi AS getRuntime
+
+USER root
+
 ARG LIBERTY_VERSION=23.0.0.5
 ARG LIBERTY_SHA=4ee902cc2b5a775349510c9025af50d90f1c072a
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
@@ -19,6 +22,9 @@ RUN yum -y install shadow-utils wget unzip openssl \
     && chmod -R g+rw /opt/ol/wlp
 
 FROM icr.io/appcafe/ibm-semeru-runtimes:open-8-jdk-ubi
+
+USER root
+
 ARG LIBERTY_VERSION=23.0.0.5
 ARG LIBERTY_BUILD_LABEL=cl230520230514-1901
 
@@ -43,6 +49,9 @@ COPY fixes/ /opt/ol/fixes/
 # Copy the runtime and licenses
 COPY --from=getRuntime /opt/ol/wlp /opt/ol/wlp
 COPY --from=getRuntime /licenses /licenses
+
+# Add default user 1001
+RUN adduser -u 1001 -r -g root -s /usr/sbin/nologin default
 
 # Set Path Shortcuts
 ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \
