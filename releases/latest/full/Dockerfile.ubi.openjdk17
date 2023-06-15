@@ -1,4 +1,7 @@
 FROM icr.io/appcafe/ibm-semeru-runtimes:open-17-jdk-ubi
+
+USER root
+
 ARG LIBERTY_VERSION=23.0.0.6
 ARG LIBERTY_SHA=bd69a21ba94f5707aff2c51174c95af66cf27b37
 ARG LIBERTY_BUILD_LABEL=cl230620230612-1100
