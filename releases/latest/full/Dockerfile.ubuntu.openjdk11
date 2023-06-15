@@ -8,6 +8,10 @@ ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/op
 
 ARG VERBOSE=false
 
+# If there is a local copy of the image use that instead
+COPY resources/ /tmp/
+
+# Install Open Liberty
 RUN apt-get update \
     && apt-get install -y --no-install-recommends unzip openssl wget \
     && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
