@@ -1,15 +1,36 @@
-FROM ibm-semeru-runtimes:open-11-jre-focal
+FROM ibm-semeru-runtimes:open-11-jre-focal AS getRuntime
 
 USER root
 
 ARG LIBERTY_VERSION=23.0.0.6
 ARG LIBERTY_SHA=bd69a21ba94f5707aff2c51174c95af66cf27b37
-ARG LIBERTY_BUILD_LABEL=cl230620230612-1100
 ARG LIBERTY_DOWNLOAD_URL=https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/instanton/openliberty-23.0.0.6-cl230620230612-1100.zip
+
+ARG VERBOSE=false
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends unzip openssl wget \
+    && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
+    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
+    && sha1sum -c /tmp/wlp.zip.sha1 \
+    && unzip -q /tmp/wlp.zip -d /opt/ol \
+    && mkdir -p /licenses \
+    && cp /opt/ol/wlp/LICENSE /licenses/ \
+    && useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default \
+    && chown -R 1001:0 /opt/ol/wlp \
+    && chmod -R g+rw /opt/ol/wlp
+
+FROM ibm-semeru-runtimes:open-11-jre-focal
+
+USER root
+
+ARG LIBERTY_VERSION=23.0.0.6
+ARG LIBERTY_BUILD_LABEL=cl230620230612-1100
+
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
-LABEL org.opencontainers.image.authors="Arthur De Magalhaes, Chris Potter, Leo Christy Jesuraj" \
+LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas Watson, Michal Broz, Wendy Raschke" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
@@ -51,25 +72,12 @@ RUN set -eux; \
     echo "${DUMB_INIT_SHA256} */usr/bin/dumb-init" | sha256sum -c -; \
     chmod +x /usr/bin/dumb-init;
 
-# Install Open Liberty
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends unzip openssl wget \
-    && rm -rf /var/lib/apt/lists/* \
-    && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
-    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
-    && sha1sum -c /tmp/wlp.zip.sha1 \
-    && unzip -q /tmp/wlp.zip -d /opt/ol \
-    && rm /tmp/wlp.zip \
-    && rm /tmp/wlp.zip.sha1 \
-    && mkdir -p /licenses \
-    && cp /opt/ol/wlp/LICENSE /licenses/ \
-    && sed -i "s|@LIBERTY_VERSION@|$LIBERTY_VERSION|g" /opt/ol/NOTICES \
-    && apt-get remove -y unzip \
-    && apt-get remove -y wget \
-    && rm -rf /var/lib/apt/lists/* \
-    && useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default \
-    && chown -R 1001:0 /opt/ol/wlp \
-    && chmod -R g+rw /opt/ol/wlp
+# Copy the runtime and licenses
+COPY --from=getRuntime /opt/ol/wlp /opt/ol/wlp
+COPY --from=getRuntime /licenses /licenses
+
+# Add default user 1001
+RUN adduser -u 1001 -r -g root -s /usr/sbin/nologin default
 
 # Set Path Shortcuts
 ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \

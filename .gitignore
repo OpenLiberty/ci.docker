@@ -1,4 +1,4 @@
 # Ignore .DS_Store 
 .DS_Store
-
-/.project
+.project
+releases/*/*/resources/*
