@@ -1,4 +1,7 @@
 FROM ibm-semeru-runtimes:open-11-jre-focal
+
+USER root
+
 ARG LIBERTY_VERSION=23.0.0.6-beta
 ARG LIBERTY_SHA=58fb5e7acff80aa6d84de7a32e9fc9f25e0157cb
 ARG LIBERTY_BUILD_LABEL=cl230520230514-1901
