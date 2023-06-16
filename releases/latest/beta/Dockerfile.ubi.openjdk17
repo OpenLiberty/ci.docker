@@ -1,4 +1,4 @@
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-17-ea-jdk-ubi-amd64 AS getRuntime
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-17-jdk-ubi AS getRuntime
 
 USER root
 
@@ -46,7 +46,7 @@ LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas
       summary="Image for Open Liberty Beta with IBM Semeru Runtime Open Edition OpenJDK 17 with OpenJ9 and UBI 8" \
       description="This image contains the Open Liberty beta runtime with IBM Semeru Runtime Open Edition OpenJDK 17 with OpenJ9 and Red Hat UBI 8 as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
 
-COPY NOTICES /opt/NOTICES
+COPY NOTICES /opt/ol/NOTICES
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
 
@@ -56,19 +56,19 @@ RUN set -eux; \
     case "${ARCH}" in \
        aarch64|arm64) \
          DUMB_INIT_URL='https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_aarch64'; \
-         DUBM_INIT_SHA256=b7d648f97154a99c539b63c55979cd29f005f88430fb383007fe3458340b795e; \
+         DUMB_INIT_SHA256=b7d648f97154a99c539b63c55979cd29f005f88430fb383007fe3458340b795e; \
          ;; \
        amd64|x86_64) \
          DUMB_INIT_URL='https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x86_64'; \
-         DUBM_INIT_SHA256=e874b55f3279ca41415d290c512a7ba9d08f98041b28ae7c2acb19a545f1c4df; \
+         DUMB_INIT_SHA256=e874b55f3279ca41415d290c512a7ba9d08f98041b28ae7c2acb19a545f1c4df; \
          ;; \
        ppc64el|ppc64le) \
          DUMB_INIT_URL='https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_ppc64le'; \
-         DUBM_INIT_SHA256=3d15e80e29f0f4fa1fc686b00613a2220bc37e83a35283d4b4cca1fbd0a5609f; \
+         DUMB_INIT_SHA256=3d15e80e29f0f4fa1fc686b00613a2220bc37e83a35283d4b4cca1fbd0a5609f; \
          ;; \
        s390x) \
          DUMB_INIT_URL='https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_s390x'; \
-         DUBM_INIT_SHA256=47e4601b152fc6dcb1891e66c30ecc62a2939fd7ffd1515a7c30f281cfec53b7; \
+         DUMB_INIT_SHA256=47e4601b152fc6dcb1891e66c30ecc62a2939fd7ffd1515a7c30f281cfec53b7; \
          ;;\
        *) \
          echo "Unsupported arch: ${ARCH}"; \
@@ -76,7 +76,7 @@ RUN set -eux; \
          ;; \
     esac; \
     curl -LfsSo /usr/bin/dumb-init ${DUMB_INIT_URL}; \
-    echo "${DUBM_INIT_SHA256} */usr/bin/dumb-init" | sha256sum -c -; \
+    echo "${DUMB_INIT_SHA256} */usr/bin/dumb-init" | sha256sum -c -; \
     chmod +x /usr/bin/dumb-init;
 
 # Copy the runtime and licenses
@@ -126,9 +126,7 @@ RUN mkdir /logs \
     && mkdir /etc/wlp \
     && chown -R 1001:0 /etc/wlp \
     && chmod -R g+rw /etc/wlp \
-    && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml \
-    # TODO When InstantOn GAs we need to remove this
-    && echo "<server><featureManager><feature>checkpoint-1.0</feature></featureManager></server>" > /config/configDropins/defaults/checkpoint.xml
+    && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml
 
 # Create a new SCC layer
 RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
