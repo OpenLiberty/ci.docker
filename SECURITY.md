@@ -51,7 +51,7 @@ The following variables configure container security for Single Sign-On using th
   Your configuration is not supported. Update the configuration to use features that support either the Jakarta EE or Java EE programming models, but not both.
   ```
 
-  * To avoid this error, set `ARG SKIP_SSO_FEATURE_INSTALL=true` in your Dockerfile.
+  * To avoid this error, set `ARG EXCLUDE_CONFIG_SSO_FEATURES=true` in your Dockerfile.
 
 ### Configuration needed at image build time or at container deploy time:
 
