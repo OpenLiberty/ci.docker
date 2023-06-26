@@ -83,6 +83,8 @@ RUN set -eux; \
 COPY --from=getRuntime /opt/ol/wlp /opt/ol/wlp
 COPY --from=getRuntime /licenses /licenses
 
+RUN yum -y install openssl
+
 # Add default user 1001
 RUN adduser -u 1001 -r -g root -s /usr/sbin/nologin default
 
