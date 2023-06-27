@@ -24,7 +24,7 @@ RUN yum -y install shadow-utils wget unzip openssl \
     && chown -R 1001:0 /opt/ol/wlp \
     && chmod -R g+rw /opt/ol/wlp
 
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-17-ea-jdk-ubi-amd64
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-17-jdk-ubi
 
 USER root
 
