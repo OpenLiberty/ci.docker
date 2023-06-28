@@ -37,12 +37,15 @@ then
     testBuild="./build.sh --dir=$test --dockerfile=Dockerfile --tag=$test"
     echo "Running build script for test - $testBuild"
     eval $testBuild
-    if [ "$test" == "test-liberty-certificates" ]; then
-      verifyCommand="./verifyLibertyCertificates.sh $test"
-    elif
-      verifyCommand="./verify.sh $test"
-    fi
+
+    verifyCommand="./verify.sh $test"
     echo "Running verify script - $verifyCommand"
     eval $verifyCommand
+
+    if [ "$test" == "test-liberty-certificates" ]; then
+      verifyCommand="./verifyLibertyCertificates.sh $test"
+      echo "Running verify script - $verifyCommand"
+      eval $verifyCommand
+    fi
   done
 fi

@@ -15,36 +15,41 @@ DOCKER=docker
 
 testLibertyCertificates()
 {
-   cid=$1
-   # Validate that openssl package is present in the Liberty image
-   $DOCKER exec -it $cid sh -c "which openssl"
-   if [ $? != 0 ]
-   then
-      echo "Server failed to generate keystore"
-      $DOCKER logs $cid
-      $DOCKER rm -f $cid >/dev/null
-      exit 1
-   fi
+    cid=$($DOCKER run -d $image)
+    # Validate that openssl package is present in the Liberty image
+    $DOCKER exec -it $cid sh -c "which openssl"
+    if [ $? != 0 ]
+    then
+        echo "Server failed to generate keystore"
+        $DOCKER logs $cid
+        $DOCKER stop $cid >/dev/null
+        $DOCKER rm -f $cid >/dev/null
+        exit 1
+    fi
 
-   # Validate that the certificate is added to the Liberty default keystore
-   $DOCKER exec -it $cid sh -c "ls /output/resources/security/key.p12"
-   if [ $? != 0 ]
-   then
-      echo "Server failed to add certificate to keystore"
-      $DOCKER logs $cid
-      $DOCKER rm -f $cid >/dev/null
-      exit 1
-   fi
+    # Validate that the certificate is added to the Liberty default keystore
+    $DOCKER exec -it $cid sh -c "ls /output/resources/security/key.p12"
+    if [ $? != 0 ]
+    then
+        echo "Server failed to add certificate to keystore"
+        $DOCKER logs $cid
+        $DOCKER stop $cid >/dev/null
+        $DOCKER rm -f $cid >/dev/null
+        exit 1
+    fi
 
-   # Validate that the certificate is added to the Liberty default truststore
-   $DOCKER exec -it $cid sh -c "ls /output/resources/security/trust.p12"
-   if [ $? != 0 ]
-   then
-      echo "Server failed to add certificate to truststore"
-      $DOCKER logs $cid
-      $DOCKER rm -f $cid >/dev/null
-      exit 1
-   fi
+    # Validate that the certificate is added to the Liberty default truststore
+    $DOCKER exec -it $cid sh -c "ls /output/resources/security/trust.p12"
+    if [ $? != 0 ]
+    then
+        echo "Server failed to add certificate to truststore"
+        $DOCKER logs $cid
+        $DOCKER stop $cid >/dev/null
+        $DOCKER rm -f $cid >/dev/null
+        exit 1
+    fi
+    $DOCKER stop $cid >/dev/null
+    $DOCKER rm -f $cid >/dev/null
 }
 
 tests=$(declare -F | cut -d" " -f3 | grep "test")
