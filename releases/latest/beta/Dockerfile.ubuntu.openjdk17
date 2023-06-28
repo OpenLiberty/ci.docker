@@ -1,15 +1,40 @@
+FROM ibm-semeru-runtimes:open-17-jre-focal AS getRuntime
+
+USER root
+
+ARG LIBERTY_VERSION=23.0.0.7-beta
+ARG LIBERTY_SHA=c631c24c3043984a42dd853817f262b9030691c3
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
+
+ARG VERBOSE=false
+
+# If there is a local copy of the image use that instead
+COPY resources/ /tmp/
+
+# Install Open Liberty
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends unzip openssl wget \
+    && if [ ! -f /tmp/wlp.zip ]; then wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip; fi \
+    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
+    && sha1sum -c /tmp/wlp.zip.sha1 \
+    && unzip -q /tmp/wlp.zip -d /opt/ol \
+    && mkdir -p /licenses \
+    && cp /opt/ol/wlp/LICENSE /licenses/ \
+    && useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default \
+    && chown -R 1001:0 /opt/ol/wlp \
+    && chmod -R g+rw /opt/ol/wlp
+
 FROM ibm-semeru-runtimes:open-17-jre-focal
 
 USER root
 
-ARG LIBERTY_VERSION=23.0.0.6-beta
-ARG LIBERTY_SHA=58fb5e7acff80aa6d84de7a32e9fc9f25e0157cb
-ARG LIBERTY_BUILD_LABEL=cl230520230514-1901
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
+ARG LIBERTY_VERSION=23.0.0.7-beta
+ARG LIBERTY_BUILD_LABEL=cl230620230612-1100
+
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
-LABEL org.opencontainers.image.authors="Chris Potter, Leo Christy Jesuraj, Melissa Lee, Thomas Watson, Michal Broz" \
+LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas Watson, Michal Broz, Wendy Raschke" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
@@ -18,6 +43,7 @@ LABEL org.opencontainers.image.authors="Chris Potter, Leo Christy Jesuraj, Melis
       org.opencontainers.image.title="Open Liberty Beta" \
       org.opencontainers.image.version="$LIBERTY_VERSION"
 
+COPY NOTICES /opt/ol/NOTICES
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
 
@@ -27,19 +53,19 @@ RUN set -eux; \
     case "${ARCH}" in \
        aarch64|arm64) \
          DUMB_INIT_URL='https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_aarch64'; \
-         DUBM_INIT_SHA256=b7d648f97154a99c539b63c55979cd29f005f88430fb383007fe3458340b795e; \
+         DUMB_INIT_SHA256=b7d648f97154a99c539b63c55979cd29f005f88430fb383007fe3458340b795e; \
          ;; \
        amd64|x86_64) \
          DUMB_INIT_URL='https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x86_64'; \
-         DUBM_INIT_SHA256=e874b55f3279ca41415d290c512a7ba9d08f98041b28ae7c2acb19a545f1c4df; \
+         DUMB_INIT_SHA256=e874b55f3279ca41415d290c512a7ba9d08f98041b28ae7c2acb19a545f1c4df; \
          ;; \
        ppc64el|ppc64le) \
          DUMB_INIT_URL='https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_ppc64le'; \
-         DUBM_INIT_SHA256=3d15e80e29f0f4fa1fc686b00613a2220bc37e83a35283d4b4cca1fbd0a5609f; \
+         DUMB_INIT_SHA256=3d15e80e29f0f4fa1fc686b00613a2220bc37e83a35283d4b4cca1fbd0a5609f; \
          ;; \
        s390x) \
          DUMB_INIT_URL='https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_s390x'; \
-         DUBM_INIT_SHA256=47e4601b152fc6dcb1891e66c30ecc62a2939fd7ffd1515a7c30f281cfec53b7; \
+         DUMB_INIT_SHA256=47e4601b152fc6dcb1891e66c30ecc62a2939fd7ffd1515a7c30f281cfec53b7; \
          ;;\
        *) \
          echo "Unsupported arch: ${ARCH}"; \
@@ -47,27 +73,21 @@ RUN set -eux; \
          ;; \
     esac; \
     curl -LfsSo /usr/bin/dumb-init ${DUMB_INIT_URL}; \
-    echo "${DUBM_INIT_SHA256} */usr/bin/dumb-init" | sha256sum -c -; \
+    echo "${DUMB_INIT_SHA256} */usr/bin/dumb-init" | sha256sum -c -; \
     chmod +x /usr/bin/dumb-init;
 
-# Install Open Liberty
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends unzip openssl wget \
-    && rm -rf /var/lib/apt/lists/* \
-    && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
-    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
-    && sha1sum -c /tmp/wlp.zip.sha1 \
-    && unzip -q /tmp/wlp.zip -d /opt/ol \
-    && rm /tmp/wlp.zip \
-    && rm /tmp/wlp.zip.sha1 \
-    && mkdir -p /licenses \
-    && cp /opt/ol/wlp/LICENSE /licenses/ \
-    && apt-get remove -y unzip \
-    && apt-get remove -y wget \
-    && rm -rf /var/lib/apt/lists/* \
-    && useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default \
+# Add default user 1001 and create wlp with right user/permissions before copying
+RUN adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
+    && mkdir -p /opt/ol/wlp \
     && chown -R 1001:0 /opt/ol/wlp \
     && chmod -R g+rw /opt/ol/wlp
+
+# Copy the runtime and licenses
+COPY --from=getRuntime --chown=1001:0 /opt/ol/wlp /opt/ol/wlp
+COPY --from=getRuntime /licenses /licenses
+
+RUN apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set Path Shortcuts
 ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \
