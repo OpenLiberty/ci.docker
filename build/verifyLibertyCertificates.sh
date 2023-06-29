@@ -16,6 +16,28 @@ DOCKER=docker
 testLibertyCertificates()
 {
     cid=$($DOCKER run -d $image)
+    # Wait until the server starts to know that the certs have been loaded 
+    maxRetry=10
+    i=0
+    serverLaunched=false
+    while [ $serverLaunched = false ] && [ $i -lt $maxRetry ]; do
+        sleep 1
+        echo "Checking logs ($(( $i + 1 ))/$maxRetry)"
+        launchMessage=$($DOCKER logs $cid | grep "Launching defaultServer" -c)
+        if [ $launchMessage -eq 1 ]; then
+            echo "Launch message found!"
+            serverLaunched=true
+        fi
+        i=$(( $i + 1 ))
+    done
+    if [ $serverLaunched = false ]; then
+        echo "Server failed to start"
+        $DOCKER logs $cid
+        $DOCKER stop $cid >/dev/null
+        $DOCKER rm -f $cid >/dev/null
+        exit 1
+    fi
+
     # Validate that openssl package is present in the Liberty image
     $DOCKER exec -it $cid sh -c "which openssl"
     if [ $? != 0 ]
