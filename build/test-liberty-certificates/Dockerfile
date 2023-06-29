@@ -17,7 +17,7 @@ COPY --from=staging --chown=1001:0 tls.key /config/certs/
 COPY --from=staging --chown=1001:0 tls.crt /config/certs/ca.crt
 
 # Add rw perms for non-default user
-RUN setfacl -R -m g:root:rw /config
+RUN setfacl -R -Lm g:root:rw /config/certs
 
 # This script will add the requested XML snippets to enable Liberty features and grow image to be fit-for-purpose using featureUtility
 RUN features.sh
