@@ -54,9 +54,9 @@ testLibertyStopsAndRestarts()
    if [ "$1" == "OpenShift" ]; then
       timestamp=$(date '+%Y/%m/%d %H:%M:%S')
       echo "$timestamp *** testLibertyStopsAndRestarts on OpenShift"
-      $DOCKER run -d -u 1005:0 $security_opt $image
+      $DOCKER run --name $image -d -u 1005:0 $security_opt $image
    else
-      $DOCKER run -d $security_opt $image
+      $DOCKER run --name $image -d $security_opt $image
    fi
    
    if [ $? != 0 ]

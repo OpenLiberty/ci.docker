@@ -44,10 +44,8 @@ testLibertyCertificates()
     serverLaunched=false
     while [ $serverLaunched = false ] && [ $i -lt $maxRetry ]; do
         sleep 1
-        echo "Checking logs ($(( $i + 1 ))/$maxRetry)"
         launchMessage=$($DOCKER logs $cid | grep "Launching defaultServer" -c)
         if [ $launchMessage -eq 1 ]; then
-            echo "Launch message found!"
             serverLaunched=true
         fi
         i=$(( $i + 1 ))
