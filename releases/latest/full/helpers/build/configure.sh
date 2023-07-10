@@ -6,12 +6,6 @@ fi
 
 set -Eeox pipefail
 
-# Resolve liberty server symlinks and creation for server name changes
-/opt/ol/helpers/build/configure-liberty.sh
-if [ $? -ne 0 ]; then
-  exit
-fi
-
 function main() {
   # Resolve liberty server symlinks and creation for server name changes
   /opt/ol/helpers/build/configure-liberty.sh
