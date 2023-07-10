@@ -40,8 +40,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default \
     && chown -R 1001:0 /opt/ol/wlp \
-    && chmod -R g+rw /opt/ol/wlp \
-    && setfacl -R -dm g:root:rw /opt/ol/wlp
+    && chmod -R g+rw /opt/ol/wlp
 
 # Set Path Shortcuts
 ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \
