@@ -71,9 +71,8 @@ RUN mkdir /logs \
     && chmod -R g+rwx /opt/ol/fixes \
     && mkdir /etc/wlp \
     && chown -R 1001:0 /etc/wlp \
-    && chmod -R g+rw /etc/wlp
-
-RUN mkdir -p /opt/ol/links \
+    && chmod -R g+rw /etc/wlp \
+    && mkdir -p /opt/ol/links \
     && chown -R 1001:0 /opt/ol/links \
     && chmod -R g+rw /opt/ol/links
 
