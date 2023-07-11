@@ -140,7 +140,7 @@ RUN mkdir -p $WLP_OUTPUT_DIR/defaultServer \
     && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /opt/ol/links/config/configDropins/defaults/open-default-port.xml
 
 # Create first-level symlinks as root user
-USER 0
+USER root
 
 RUN ln -s /opt/ol/links/output /output \
     && ln -s /opt/ol/links/config /config \
