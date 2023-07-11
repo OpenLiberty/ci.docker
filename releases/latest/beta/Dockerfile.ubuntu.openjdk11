@@ -2,10 +2,10 @@ FROM ibm-semeru-runtimes:open-11-jre-jammy
 
 USER root
 
-ARG LIBERTY_VERSION=23.0.0.7-beta
-ARG LIBERTY_SHA=c631c24c3043984a42dd853817f262b9030691c3
+ARG LIBERTY_VERSION=23.0.0.8-beta
+ARG LIBERTY_SHA=da39a3ee5e6b4b0d3255bfef95601890afd80709
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
-ARG LIBERTY_BUILD_LABEL=cl230620230612-1100
+ARG LIBERTY_BUILD_LABEL=cl230720230710-1201
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
@@ -128,3 +128,4 @@ EXPOSE 9080 9443
 
 ENTRYPOINT ["/opt/ol/helpers/runtime/docker-server.sh"]
 CMD ["/opt/ol/wlp/bin/server", "run", "defaultServer"]
+
