@@ -139,7 +139,7 @@ RUN mkdir -p $WLP_OUTPUT_DIR/defaultServer \
     && mkdir -p /opt/ol/links/config/configDropins/overrides \
     && mkdir -p /opt/ol/links/config/dropins \
     && mkdir -p /opt/ol/links/config/apps \
-    && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml
+    && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /opt/ol/links/config/configDropins/defaults/open-default-port.xml
 
 # Create first-level symlinks as root user
 USER root
