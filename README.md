@@ -39,6 +39,9 @@ Your application image template should follow a pattern similar to:
 ```dockerfile
 FROM icr.io/appcafe/open-liberty:kernel-slim-java8-openj9-ubi
 
+# Modify the server name (optional)
+ENV SERVER_NAME=liberty1
+
 # Add Liberty server configuration including all necessary features
 COPY --chown=1001:0  server.xml /config/
 
@@ -78,7 +81,7 @@ Refer to [Repository and proxy modifications](https://openliberty.io/docs/ref/co
 
 ## Enterprise Functionality
 
-This section describes the optional enterprise functionality that can be enabled via the Dockerfile during `build` time, by setting particular build-arguments (`ARG`) and calling `RUN configure.sh`.  Each of these options trigger the inclusion of specific configuration via XML snippets (except for `VERBOSE`), described below:
+This section describes the optional enterprise functionality that can be enabled via the Dockerfile during `build` time, by setting particular build-arguments (`ARG`) and calling `RUN configure.sh`.  Each of these options trigger the inclusion of specific configuration via XML snippets (except for `SERVER_NAME` and `VERBOSE`), described below:
 
 * `TLS` (`SSL` is deprecated)
   *  Description: Enable Transport Security in Liberty by adding the `transportSecurity-1.0` feature (includes support for SSL).
@@ -86,6 +89,12 @@ This section describes the optional enterprise functionality that can be enabled
 * `HZ_SESSION_CACHE`
   *  Description: Enable the persistence of HTTP sessions using JCache by adding the `sessionCache-1.0` feature.
   *  XML Snippet Location: [hazelcast-sessioncache.xml](/releases/latest/kernel-slim/helpers/build/configuration_snippets/hazelcast-sessioncache.xml)
+* `SERVER_NAME`
+  * Description: A name for the server. If no server is specified, a server called `defaultServer` is automatically created.
+  * Naming constraints:
+    * Use only Unicode alphanumeric (e.g. 0-9, a-z, A-Z), underscore (_), dash (-), plus (+), and period (.) characters.
+    * Do not begin the name with a dash (-) or a period (.).
+    * Be aware that your file system, operating system, or compressed file directory might impose more restrictions.
 * `VERBOSE`
   *  Description: When set to `true` it outputs the commands and results to stdout from `configure.sh`. Otherwise, default setting is `false` and `configure.sh` is silenced.
 
