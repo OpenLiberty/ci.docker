@@ -35,7 +35,20 @@ full-java11-openj9-ubi
 full-java17-openj9-ubi
 
 beta
-beta-instanton
+```
+
+## 23.0.0.7
+
+```
+23.0.0.7-kernel-slim-java8-openj9-ubi
+23.0.0.7-kernel-slim-java8-ibmjava-ubi
+23.0.0.7-kernel-slim-java11-openj9-ubi
+23.0.0.7-kernel-slim-java17-openj9-ubi
+
+23.0.0.7-full-java8-openj9-ubi
+23.0.0.7-full-java8-ibmjava-ubi
+23.0.0.7-full-java11-openj9-ubi
+23.0.0.7-full-java17-openj9-ubi
 ```
 
 ## 23.0.0.6
