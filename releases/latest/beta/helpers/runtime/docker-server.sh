@@ -146,5 +146,3 @@ else
   # The default is to just exec the supplied CMD
   exec "$@"
 fi
-exec "$@"
-
