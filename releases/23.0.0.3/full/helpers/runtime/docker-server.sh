@@ -21,8 +21,9 @@ function importKeyCert() {
   local KEYSTORE_FILE="/output/resources/security/key.p12"
   local TRUSTSTORE_FILE="/output/resources/security/trust.p12"
 
+  
   # Import the private key and certificate into new keystore
-  if [ -f "${CERT_FOLDER}/${KEY_FILE}" ] && [ -f "${CERT_FOLDER}/${CRT_FILE}" ]; then
+  if [ "$EXCLUDE_CONFIG_KEYSTORE" != "false" ] && [ -f "${CERT_FOLDER}/${KEY_FILE}" ] && [ -f "${CERT_FOLDER}/${CRT_FILE}" ]; then
     echo "Found mounted TLS certificates, generating keystore"
     setPasswords PASSWORD TRUSTSTORE_PASSWORD
     mkdir -p /output/resources/security
@@ -47,7 +48,7 @@ function importKeyCert() {
     sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $SNIPPETS_TARGET_DEFAULTS/keystore.xml
     
     # Add mounted CA to the truststore
-    if [ -f "${CERT_FOLDER}/${CA_FILE}" ]; then
+    if [ "$EXCLUDE_CONFIG_TRUSTSTORE" != "false" ] && [ -f "${CERT_FOLDER}/${CA_FILE}" ]; then
         echo "Found mounted TLS CA certificate, adding to truststore"
         keytool -import -storetype pkcs12 -noprompt -keystore "${TRUSTSTORE_FILE}" -file "${CERT_FOLDER}/${CA_FILE}" \
           -storepass "${TRUSTSTORE_PASSWORD}" -alias "service-ca" >&/dev/null    
@@ -56,7 +57,7 @@ function importKeyCert() {
 
   # Add kubernetes CA certificates to the truststore
   # CA bundles need to be split and added as individual certificates
-  if [ "$SEC_IMPORT_K8S_CERTS" = "true" ] && [ -d "${KUBE_SA_FOLDER}" ]; then
+  if [ "$EXCLUDE_CONFIG_TRUSTSTORE" != "false" ] && [ "$SEC_IMPORT_K8S_CERTS" = "true" ] && [ -d "${KUBE_SA_FOLDER}" ]; then
     mkdir /tmp/certs
     pushd /tmp/certs >&/dev/null
     cat ${KUBE_SA_FOLDER}/*.crt >${TMP_CERT}
@@ -71,15 +72,17 @@ function importKeyCert() {
   fi
 
   # Add the keystore password to server configuration
-  if [ ! -e $keystorePath ]; then
+  if [ "$EXCLUDE_CONFIG_KEYSTORE" != "false" ] && [ ! -e $keystorePath ]; then
     setPasswords PASSWORD TRUSTSTORE_PASSWORD
     sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $SNIPPETS_TARGET_DEFAULTS/keystore.xml
   fi
-  if [ -e $TRUSTSTORE_FILE ]; then
-    setPasswords PASSWORD TRUSTSTORE_PASSWORD
-    sed "s|PWD_TRUST|$TRUSTSTORE_PASSWORD|g" $SNIPPETS_SOURCE/truststore.xml > $SNIPPETS_TARGET_OVERRIDES/truststore.xml
-  elif [ ! -z $SEC_TLS_TRUSTDEFAULTCERTS ]; then
-    cp $SNIPPETS_SOURCE/trustDefault.xml $SNIPPETS_TARGET_OVERRIDES/trustDefault.xml  
+  if [ "$EXCLUDE_CONFIG_TRUSTSTORE" != "false" ]; then
+    if [ -e $TRUSTSTORE_FILE ]; then
+      setPasswords PASSWORD TRUSTSTORE_PASSWORD
+      sed "s|PWD_TRUST|$TRUSTSTORE_PASSWORD|g" $SNIPPETS_SOURCE/truststore.xml > $SNIPPETS_TARGET_OVERRIDES/truststore.xml
+    elif [ ! -z $SEC_TLS_TRUSTDEFAULTCERTS ]; then
+      cp $SNIPPETS_SOURCE/trustDefault.xml $SNIPPETS_TARGET_OVERRIDES/trustDefault.xml  
+    fi
   fi
 }
 
