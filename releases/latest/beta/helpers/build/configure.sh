@@ -70,18 +70,21 @@ function main() {
     fi
   fi
 
-  # Key Store
-  keystorePath="$SNIPPETS_TARGET_DEFAULTS/keystore.xml"
+  # Key Store Features
   if [ "$SSL" == "true" ] || [ "$TLS" == "true" ]; then
     cp $SNIPPETS_SOURCE/tls.xml $SNIPPETS_TARGET/tls.xml
   fi
 
-  if [ "$SSL" != "false" ] && [ "$TLS" != "false" ]; then
-    if [ ! -e $keystorePath ]; then
-      # Generate the keystore.xml
-      export KEYSTOREPWD=$(openssl rand -base64 32)
-      sed "s|REPLACE|$KEYSTOREPWD|g" $SNIPPETS_SOURCE/keystore.xml >$SNIPPETS_TARGET_DEFAULTS/keystore.xml
-      chmod g+w $SNIPPETS_TARGET_DEFAULTS/keystore.xml
+  # Key Store
+  if [ "$EXCLUDE_CONFIG_KEYSTORE" != "false" ]; then
+    if [ "$SSL" != "false" ] && [ "$TLS" != "false" ]; then
+      keystorePath="$SNIPPETS_TARGET_DEFAULTS/keystore.xml"
+      if [ ! -e $keystorePath ]; then
+        # Generate the keystore.xml
+        export KEYSTOREPWD=$(openssl rand -base64 32)
+        sed "s|REPLACE|$KEYSTOREPWD|g" $SNIPPETS_SOURCE/keystore.xml >$SNIPPETS_TARGET_DEFAULTS/keystore.xml
+        chmod g+w $SNIPPETS_TARGET_DEFAULTS/keystore.xml
+      fi
     fi
   fi
 
