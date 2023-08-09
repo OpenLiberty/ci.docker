@@ -2,10 +2,10 @@ FROM ibm-semeru-runtimes:open-11-jre-jammy
 
 USER root
 
-ARG LIBERTY_VERSION=23.0.0.8-beta
-ARG LIBERTY_SHA=7bd9ae608dec65669dde34c56d93cee4b964cda4
+ARG LIBERTY_VERSION=23.0.0.9-beta
+ARG LIBERTY_SHA={replace_with_correct_sha}
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
-ARG LIBERTY_BUILD_LABEL=cl230720230710-1201
+ARG LIBERTY_BUILD_LABEL=cl230820230807-0401
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
