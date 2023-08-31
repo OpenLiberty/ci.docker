@@ -54,6 +54,9 @@ function main() {
   # Note: This step should only be done ONCE needed features are enabled and installed.
   find /opt/ol/fixes -type f -name "*.jar"  -print0 | sort -z | xargs -0 -n 1 -r -I {} java -jar {} --installLocation $WLP_INSTALL_DIR
 
+  # Force the server.xml to be processed by updating its timestamp
+  touch /config/server.xml
+
   # Create a new SCC layer. This should be invoked when server configuration is complete.
   if [ "$OPENJ9_SCC" == "true" ]; then
     cmd="populate_scc.sh -i 1"
