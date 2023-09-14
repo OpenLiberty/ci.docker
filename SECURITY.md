@@ -38,7 +38,20 @@ The following variables configure container security for Single Sign-On using th
 
  * Providers usually require the use of HTTPS.  Specify `ARG TLS=true` in your Dockerfile. 
 
- * Your Dockerfile must call `RUN configure.sh` for these to take effect. 
+ * Your Dockerfile must call `RUN configure.sh` for these to take effect.
+
+#### The `<feature>` and `appSecurity-2.0` configured features include an incompatible combination of features. 
+
+ * When specifying the `SEC_SSO_PROVIDERS` ARG, you might get an incompatible set of features with `appSecurity-2.0` similar to the snippet below:   
+
+  ```
+  CWWKF0044E: The persistence-3.1 and appSecurity-2.0 features cannot be loaded at the same time. 
+  The persistence-3.1 feature of Jakarta EE 10 is incompatible with the appSecurity-2.0 feature of Java EE 6. 
+  The persistence-3.1 and appSecurity-2.0 configured features include an incompatible combination of features. 
+  Your configuration is not supported. Update the configuration to use features that support either the Jakarta EE or Java EE programming models, but not both.
+  ```
+
+  * To avoid this error, set `ARG EXCLUDE_CONFIG_SSO_FEATURES=true` in your Dockerfile.
 
 ### Configuration needed at image build time or at container deploy time:
 

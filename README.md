@@ -78,16 +78,19 @@ Refer to [Repository and proxy modifications](https://openliberty.io/docs/ref/co
 
 ## Enterprise Functionality
 
-This section describes the optional enterprise functionality that can be enabled via the Dockerfile during `build` time, by setting particular build-arguments (`ARG`) and calling `RUN configure.sh`.  Each of these options trigger the inclusion of specific configuration via XML snippets (except for `VERBOSE`), described below:
+This section describes the optional enterprise functionality that can be enabled via the Dockerfile during `build` time, by setting particular build-arguments (`ARG`) and calling `RUN configure.sh`.  Each of these options trigger the inclusion/exclusion of specific configuration via XML snippets (except for `VERBOSE`), described below:
 
-* `TLS` (`SSL` is deprecated)
-  *  Description: Enable Transport Security in Liberty by adding the `transportSecurity-1.0` feature (includes support for SSL).
-  *  XML Snippet Location:  [keystore.xml](/releases/latest/kernel-slim/helpers/build/configuration_snippets/keystore.xml).
+* `EXCLUDE_CONFIG_SSO_FEATURES`
+  *  Description: When set to `true` the `sso_features.xml` config will be excluded from feature installation (see [SECURITY.md](/SECURITY.md) for usage).
+  *  XML Snippet Location: [sso-features.xml](/releases/latest/kernel-slim/helpers/build/configuration_snippets/sso-features.xml)
 * `HZ_SESSION_CACHE`
   *  Description: Enable the persistence of HTTP sessions using JCache by adding the `sessionCache-1.0` feature.
   *  XML Snippet Location: [hazelcast-sessioncache.xml](/releases/latest/kernel-slim/helpers/build/configuration_snippets/hazelcast-sessioncache.xml)
+* `TLS` (`SSL` is deprecated)
+  *  Description: Enable Transport Security in Liberty by adding the `transportSecurity-1.0` feature (includes support for SSL).
+  *  XML Snippet Location:  [keystore.xml](/releases/latest/kernel-slim/helpers/build/configuration_snippets/keystore.xml).
 * `VERBOSE`
-  *  Description: When set to `true` it outputs the commands and results to stdout from `configure.sh`. Otherwise, default setting is `false` and `configure.sh` is silenced.
+  *  Description: When set to `true` it outputs the commands and results to stdout from `features.sh` and `configure.sh`. Otherwise, default setting is `false` and `features.sh` and `configure.sh` are silenced.
 
 ### Deprecated Enterprise Functionality
 
