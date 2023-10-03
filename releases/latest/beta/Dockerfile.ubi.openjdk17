@@ -43,8 +43,8 @@ LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas
       vendor="Open Liberty" \
       name="Open Liberty Beta" \
       version="$LIBERTY_VERSION" \
-      summary="Image for Open Liberty Beta with IBM Semeru Runtime Open Edition OpenJDK 17 with OpenJ9 and UBI 8" \
-      description="This image contains the Open Liberty beta runtime with IBM Semeru Runtime Open Edition OpenJDK 17 with OpenJ9 and Red Hat UBI 8 as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
+      summary="Image for Open Liberty Beta with IBM Semeru Runtime Open Edition OpenJDK 17 with OpenJ9 and UBI 9" \
+      description="This image contains the Open Liberty beta runtime with IBM Semeru Runtime Open Edition OpenJDK 17 with OpenJ9 and Red Hat UBI 9 as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
 
 COPY NOTICES /opt/ol/NOTICES
 COPY helpers /opt/ol/helpers
