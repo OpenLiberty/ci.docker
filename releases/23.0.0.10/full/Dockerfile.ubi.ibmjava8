@@ -1,4 +1,4 @@
-FROM ibmjava:8-ubi9 AS getRuntime
+FROM ibmjava:8-ubi AS getRuntime
 
 USER root
 
@@ -24,7 +24,7 @@ RUN yum -y install shadow-utils wget unzip openssl \
     && chown -R 1001:0 /opt/ol/wlp \
     && chmod -R g+rw /opt/ol/wlp
 
-FROM ibmjava:8-ubi9
+FROM ibmjava:8-ubi
 
 USER root
 
