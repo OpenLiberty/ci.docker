@@ -49,6 +49,13 @@ function importKeyCert() {
     # Since we are creating new keystore, always write new password to a file
     # ILC this is now going to overrides
     sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $keystorePathOverride
+    # If configure.sh has been run, then there will be a keystore.xml in configDropins/defaults
+    # This will cause a conflict and a warning on server startup, so we should try to delete it
+    echo "Attempting to remove a previous keystore.xml"
+    if [ -e "$keystorePathDefault" ];
+    then
+        rm "$keystorePathDefault"
+    fi
     
     # Add mounted CA to the truststore
     if [ -f "${CERT_FOLDER}/${CA_FILE}" ]; then
