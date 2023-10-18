@@ -23,6 +23,9 @@ function importKeyCert() {
 
   # Import the private key and certificate into new keystore
   if [ -f "${CERT_FOLDER}/${KEY_FILE}" ] && [ -f "${CERT_FOLDER}/${CRT_FILE}" ]; then
+  # ILC - at this point, we have found mounted certificates. We are going to
+  #  1. create a new keystore (this will overwrite an existing one
+  #  2. put the liberty keystore config into an override snippet
     echo "Found mounted TLS certificates, generating keystore"
     setPasswords PASSWORD TRUSTSTORE_PASSWORD
     mkdir -p /output/resources/security
@@ -44,7 +47,8 @@ function importKeyCert() {
     fi
 
     # Since we are creating new keystore, always write new password to a file
-    sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $SNIPPETS_TARGET_DEFAULTS/keystore.xml
+    # ILC this is now going to overrides
+    sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $keystorePathOverride
     
     # Add mounted CA to the truststore
     if [ -f "${CERT_FOLDER}/${CA_FILE}" ]; then
@@ -71,9 +75,21 @@ function importKeyCert() {
   fi
 
   # Add the keystore password to server configuration
-  if [ ! -e $keystorePath ]; then
+  # ILC - this is checking if keystore.xml exists in defaults, and creating it if it doesn't
+  # This doesn't actually create a keystore, and it would be overriden by something in server.xml
+  # and it would be overriden by the stuff in overrides.
+  # so this shouldn't interfere with any customer config.
+  # the main effect would seem to be that the password ends up in keystore.xml
+  # rather than in server.env, if liberty creates everything on startup
+  # where does configure.sh put the password if it creates it?
+  # configure.sh creates a password and puts it in keystore.xml
+  # but configure.sh may not have been run
+  # so we probably need want to keep this but gate it on differently on the above
+  # creation of an override
+  
+  if [ ! -e "$keystorePathDefault" ] && [ ! -e "$keystorePathOverride" ]; then
     setPasswords PASSWORD TRUSTSTORE_PASSWORD
-    sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $SNIPPETS_TARGET_DEFAULTS/keystore.xml
+    sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $keystorePathDefault
   fi
   if [ -e $TRUSTSTORE_FILE ]; then
     setPasswords PASSWORD TRUSTSTORE_PASSWORD
@@ -89,7 +105,8 @@ SNIPPETS_SOURCE=/opt/ol/helpers/build/configuration_snippets
 SNIPPETS_TARGET_DEFAULTS=/config/configDropins/defaults
 SNIPPETS_TARGET_OVERRIDES=/config/configDropins/overrides
 
-keystorePath="$SNIPPETS_TARGET_DEFAULTS/keystore.xml"
+keystorePathDefault="$SNIPPETS_TARGET_DEFAULTS/keystore.xml"
+keystorePathOverride="$SNIPPETS_TARGET_OVERRIDES/keystore.xml"
 
 if [ "$SSL" = "true" ] || [ "$TLS" = "true" ]; then
   cp $SNIPPETS_SOURCE/tls.xml $SNIPPETS_TARGET_OVERRIDES/tls.xml
