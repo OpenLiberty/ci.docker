@@ -1,7 +1,7 @@
 
 # IBM Container Registry (ICR)
 
-Open Liberty container images are available from the IBM Container Registry (ICR) at `icr.io/appcafe/open-liberty`. Our recommendation is to use ICR instead of Docker Hub since ICR doesn't impose rate limits on image pulls. Images can be pulled from ICR without authentication. Only images with Universal Base Image (UBI) as the Operating System are available in ICR at the moment.
+Open Liberty container images are available from the IBM Container Registry (ICR) at `icr.io/appcafe/open-liberty`. Our recommendation is to use ICR instead of Docker Hub since ICR doesn't impose rate limits on image pulls. Images can be pulled from ICR without authentication. Only images with Universal Base Image (UBI) as the Operating System are available in ICR.
 
 The images for the latest release and the last two quarterly releases are available and are refreshed regularly to include fixes for the operating system (OS) and Java.
 
