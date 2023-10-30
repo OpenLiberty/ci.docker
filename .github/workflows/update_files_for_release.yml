@@ -17,8 +17,9 @@ on:
         required: true
         type: string
       BETA_VERSION:
-        description: 'Enter new version'
-        default: '23.0.0.13-beta'
+        description: 'Enter beta version'
+        default: '24.0.0.1'
+        required: true
         type: string
       BUILD_LABEL:
         description: 'Enter build label of release driver'
@@ -41,10 +42,10 @@ jobs:
       uses: actions/checkout@v4
       with:
         ref: vNext
-        repository: OpenLiberty/ci.docker
+        repository: wraschke/ci.docker-1
 
     - name: Run update.sh script
-      run: bash ./update.sh ${{ inputs.OLD_VERSION }} ${{ inputs.NEW_VERSION }} ${{ inputs.BUILD_LABEL }}
+      run: bash ./update.sh ${{ inputs.OLD_VERSION }} ${{ inputs.NEW_VERSION }} ${{ inputs.BETA_VERSION }} ${{ inputs.BUILD_LABEL }}
 
     - name: Commit changes
       uses: EndBug/add-and-commit@v9
@@ -52,7 +53,7 @@ jobs:
         default_author: github_actions
         author_name: GitHub Actions
         message: "Updates for the release of ${{ inputs.NEW_VERSION }}"
-        add: '${{ github.workspace }}/ga/*'
+        add: '${{ github.workspace }}/releases/* ${{ github.workspace }}/.travis.yml'
         new_branch: "${{ inputs.NEW_VERSION }}-release"
         push: true
         tag_push: '--force'
