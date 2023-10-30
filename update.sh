@@ -34,10 +34,11 @@ cp -r ./releases/latest ./releases/$NEW_VERSION
 for file in $(find ./releases/latest ./releases/$NEW_VERSION -name Dockerfile.*); do
    echo "Processing $file";
 
-   sed -i'.bak' -e "s/$NEW_VERSION/$BETA_VERSION/" releases/latest/beta/Dockerfile.ubuntu.openjdk8;
-   sed -i'.bak' -e "s/$NEW_VERSION/$BETA_VERSION/" releases/latest/beta/Dockerfile.ubuntu.openjdk11;
-   sed -i'.bak' -e "s/$NEW_VERSION/$BETA_VERSION/" releases/latest/beta/Dockerfile.ubi.openjdk17;
-   sed -i'.bak' -e "s/$NEW_VERSION/$BETA_VERSION/" releases/latest/beta/Dockerfile.ubuntu.openjdk17;
+   # Do these substitutions only in releases/latest/beta Docker files.
+   if [[ "$file" == "./releases/latest/beta/"* ]];
+   then
+      sed -i'.bak' -e "s/$NEW_VERSION/$BETA_VERSION/" $file;
+   fi
 
    sed -i'.bak' -e "s/$OLD_VERSION/$NEW_VERSION/" $file;
    sed -i'.bak' -e "s/ARG LIBERTY_BUILD_LABEL=.*/ARG LIBERTY_BUILD_LABEL=$BUILD_LABEL/g" $file;
@@ -50,13 +51,15 @@ for file in $(find ./releases/latest ./releases/$NEW_VERSION -name Dockerfile.*)
 done
 
 # Update the .travis.yml file.
-sed -i'.bak' -e "s/RELEASE=\.\.\/releases\/$OLD_VERSION/RELEASE=\.\.\/releases\/$NEW_VERSION/" .travis.yml;
+sed -i'.bak' -e "s/RELEASE=\.\.\/releases\/$OLD_VERSION/RELEASE=\.\.\/releases\/$NEW_VERSION/" ./.travis.yml;
+rm ./.travis.yml.bak;
 
 # Update the images.txt file
 cp ./releases/$OLD_VERSION/images.txt ./releases/$NEW_VERSION/images.txt;
 sed -i'.bak' -e "s/$OLD_VERSION/$NEW_VERSION/g" ./releases/$NEW_VERSION/images.txt;
 rm ./releases/$NEW_VERSION/images.txt.bak;
 
+# If the old version is a still supported N-2 quarterly release, keep it.
 if [[ $(( $OLD_SHORT_VERSION % 3 )) -eq 0 ]]
   then
       :
