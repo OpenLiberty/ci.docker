@@ -42,7 +42,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         ref: vNext
-        repository: wraschke/ci.docker-1
+        repository: OpenLiberty/ci.docker
 
     - name: Run update.sh script
       run: bash ./update.sh ${{ inputs.OLD_VERSION }} ${{ inputs.NEW_VERSION }} ${{ inputs.BETA_VERSION }} ${{ inputs.BUILD_LABEL }}
