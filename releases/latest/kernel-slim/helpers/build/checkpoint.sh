@@ -6,6 +6,10 @@ do
     pidplus.sh
 done
 
+if [ -e /etc/instanton.ld.so.cache ]; then
+    cp /etc/instanton.ld.so.cache /etc/ld.so.cache
+fi
+
 echo "Performing checkpoint --at=$1"
 /opt/ol/wlp/bin/server checkpoint defaultServer --at=$1
 
