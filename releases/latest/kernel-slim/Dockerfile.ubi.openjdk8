@@ -2,8 +2,8 @@ FROM icr.io/appcafe/ibm-semeru-runtimes:open-8-jdk-ubi AS getRuntime
 
 USER root
 
-ARG LIBERTY_VERSION=23.0.0.10
-ARG LIBERTY_SHA=347b762d21caba2e2d3d117759c318c47a23721e
+ARG LIBERTY_VERSION=23.0.0.11
+ARG LIBERTY_SHA=04769ecf029f5198aae6b9d6b8b708202567b501
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 
 ARG VERBOSE=false
@@ -28,8 +28,8 @@ FROM icr.io/appcafe/ibm-semeru-runtimes:open-8-jdk-ubi
 
 USER root
 
-ARG LIBERTY_VERSION=23.0.0.10
-ARG LIBERTY_BUILD_LABEL=cl231020231002-1201
+ARG LIBERTY_VERSION=23.0.0.11
+ARG LIBERTY_BUILD_LABEL=cl231120231030-1102
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
@@ -130,6 +130,7 @@ RUN mkdir /logs \
     && mkdir /etc/wlp \
     && chown -R 1001:0 /etc/wlp \
     && chmod -R g+rw /etc/wlp \
+    && if [ -e /etc/instanton.ld.so.cache ]; then chmod g+w /etc/ld.so.cache; fi \
     && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml
 
 # Create a new SCC layer
