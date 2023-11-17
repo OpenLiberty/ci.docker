@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Hello from the update.sh script!"
+echo "Hello from the create-new-release.sh script!"
 echo $(date)
 
 # Set variables to the positional parameters
@@ -29,6 +29,9 @@ echo "OLD_SHORT_VERSION = $OLD_SHORT_VERSION"
 
 echo "Copying latest files to $NEW_VERSION"
 cp -r ./releases/latest ./releases/$NEW_VERSION
+# Remove the beta subdir from the new release directory.
+# There is probably a more efficient way to exclude during a copy.
+rm -r ./releases/$NEW_VERSION/beta
 
 # Perform the substitutions in both latest and $NEW_VERSION directories.
 for file in $(find ./releases/latest ./releases/$NEW_VERSION -name Dockerfile.*); do
