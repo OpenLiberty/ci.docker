@@ -10,7 +10,7 @@ before_install:
   - sudo apt-get update
 env:
   - RELEASE=../releases/23.0.0.9
-  - RELEASE=../releases/23.0.0.12
+  - RELEASE=../releases/24.0.0.1
   - RELEASE=../releases/latest
 
 script:
