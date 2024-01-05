@@ -2,7 +2,7 @@ FROM icr.io/appcafe/ibm-semeru-runtimes:open-21-ea-jre-ubi9-minimal AS getRuntim
 
 USER root
 
-ARG LIBERTY_VERSION=23.0.0.12
+ARG LIBERTY_VERSION=24.0.0.1
 ARG LIBERTY_SHA={replace_with_correct_sha}
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 
@@ -28,7 +28,7 @@ FROM icr.io/appcafe/ibm-semeru-runtimes:open-21-ea-jre-ubi9-minimal
 
 USER root
 
-ARG LIBERTY_VERSION=23.0.0.12
+ARG LIBERTY_VERSION=24.0.0.1
 ARG LIBERTY_BUILD_LABEL=replace_with_gm_driver_label
 
 ARG OPENJ9_SCC=true
