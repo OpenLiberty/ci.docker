@@ -10,15 +10,6 @@ ARG LIBERTY_BUILD_LABEL={replace_with_gm_driver_label}
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
-LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas Watson, Michal Broz, Wendy Raschke" \
-      org.opencontainers.image.vendor="Open Liberty" \
-      org.opencontainers.image.url="https://openliberty.io/" \
-      org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
-      org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
-      org.opencontainers.image.description="This image contains the Open Liberty runtime with IBM Semeru Runtime Open Edition OpenJDK with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
-      org.opencontainers.image.title="Open Liberty" \
-      org.opencontainers.image.version="$LIBERTY_VERSION"
-
 COPY NOTICES /opt/ol/NOTICES
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
@@ -51,6 +42,15 @@ RUN set -eux; \
     curl -LfsSo /usr/bin/dumb-init ${DUMB_INIT_URL}; \
     echo "${DUMB_INIT_SHA256} */usr/bin/dumb-init" | sha256sum -c -; \
     chmod +x /usr/bin/dumb-init;
+
+LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas Watson, Michal Broz, Wendy Raschke" \
+      org.opencontainers.image.vendor="Open Liberty" \
+      org.opencontainers.image.url="https://openliberty.io/" \
+      org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
+      org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
+      org.opencontainers.image.description="This image contains the Open Liberty runtime with IBM Semeru Runtime Open Edition OpenJDK with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
+      org.opencontainers.image.title="Open Liberty" \
+      org.opencontainers.image.version="$LIBERTY_VERSION"
 
 # Install Open Liberty
 RUN apt-get update \
