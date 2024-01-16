@@ -11,7 +11,7 @@ COPY resources/ /tmp/
 # Install the base bundle
 RUN set -eux; \
   if [ ! -f /tmp/features-$LIBERTY_VERSION.json ]; then curl https://repo1.maven.org/maven2/io/openliberty/features/features/$LIBERTY_VERSION/features-$LIBERTY_VERSION.json > /tmp/features-$LIBERTY_VERSION.json; fi; \
-  grep \"shortName\" /tmp/features-$LIBERTY_VERSION.json | sed -e 's/.* //' -e 's/,//' | xargs featureUtility installFeature; \
+  grep \"shortName\" /tmp/features-$LIBERTY_VERSION.json | sed -e 's/.* //' -e 's/,//' | xargs featureUtility installFeature --acceptLicense --noCache; \
   rm -rf /output/workarea /output/logs; \
   find /opt/ol/wlp ! -perm -g=rw -print0 | xargs -r -0 chmod g+rw;
 
