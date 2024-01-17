@@ -8,9 +8,22 @@ ARG LIBERTY_VERSION=24.0.0.1
 # If there is a local copy of the repository use that instead
 COPY resources/ /tmp/
 
-# Install the base bundle
+# We need unzip when using a local repo
+USER root
+RUN microdnf -y install unzip
+USER 1001
+
+# Install all features
 RUN set -eux; \
-  if [ ! -f /tmp/features-$LIBERTY_VERSION.json ]; then curl https://repo1.maven.org/maven2/io/openliberty/features/features/$LIBERTY_VERSION/features-$LIBERTY_VERSION.json > /tmp/features-$LIBERTY_VERSION.json; fi; \
+  if [ ! -f /tmp/openliberty-MavenArtifact-$LIBERTY_VERSION.zip ]; then \
+    curl https://repo1.maven.org/maven2/io/openliberty/features/features/$LIBERTY_VERSION/features-$LIBERTY_VERSION.json > /tmp/features-$LIBERTY_VERSION.json; \
+  else \
+    mkdir /tmp/feature-repo-$LIBERTY_VERSION; \
+    unzip -d /tmp/feature-repo-$LIBERTY_VERSION /tmp/openliberty-MavenArtifact-$LIBERTY_VERSION.zip; \
+    cp /tmp/feature-repo-$LIBERTY_VERSION/io/openliberty/features/features/$LIBERTY_VERSION/features-$LIBERTY_VERSION.json /tmp; \
+    export FEATURE_LOCAL_REPO=/tmp/feature-repo-$LIBERTY_VERSION; \
+    export FEATURE_VERIFY=skip; \
+  fi; \
   grep \"shortName\" /tmp/features-$LIBERTY_VERSION.json | sed -e 's/.* //' -e 's/,//' | xargs featureUtility installFeature --acceptLicense --noCache; \
   rm -rf /output/workarea /output/logs; \
   find /opt/ol/wlp ! -perm -g=rw -print0 | xargs -r -0 chmod g+rw;
