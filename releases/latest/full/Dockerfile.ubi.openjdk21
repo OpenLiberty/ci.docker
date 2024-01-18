@@ -4,6 +4,7 @@ FROM $PARENT_IMAGE AS installBundle
 
 ARG VERBOSE=false
 ARG LIBERTY_VERSION=24.0.0.1
+ARG FEATURES_SHA={replace_with_correct_sha}
 
 # If there is a local copy of the repository use that instead
 COPY resources/ /tmp/
@@ -17,7 +18,11 @@ USER 1001
 RUN set -eux; \
   if [ ! -f /tmp/openliberty-MavenArtifact-$LIBERTY_VERSION.zip ]; then \
     curl https://repo1.maven.org/maven2/io/openliberty/features/features/$LIBERTY_VERSION/features-$LIBERTY_VERSION.json > /tmp/features-$LIBERTY_VERSION.json; \
+    echo "$FEATURES_SHA  /tmp/features-$LIBERTY_VERSION.json" > /tmp/features-$LIBERTY_VERSION.json.sha1; \
+    sha1sum -c /tmp/features-$LIBERTY_VERSION.json.sha1; \
   else \
+    echo "$FEATURES_SHA  /tmp/openliberty-MavenArtifact-$LIBERTY_VERSION.zip" > /tmp/openliberty-MavenArtifact-$LIBERTY_VERSION.zip.sha1; \
+    sha1sum -c /tmp/openliberty-MavenArtifact-$LIBERTY_VERSION.zip.sha1; \
     mkdir /tmp/feature-repo-$LIBERTY_VERSION; \
     unzip -d /tmp/feature-repo-$LIBERTY_VERSION /tmp/openliberty-MavenArtifact-$LIBERTY_VERSION.zip; \
     cp /tmp/feature-repo-$LIBERTY_VERSION/io/openliberty/features/features/$LIBERTY_VERSION/features-$LIBERTY_VERSION.json /tmp; \
