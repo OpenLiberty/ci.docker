@@ -1,4 +1,4 @@
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-11-jdk-ubi AS getRuntime
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-8-jdk-ubi AS getRuntime
 
 USER root
 
