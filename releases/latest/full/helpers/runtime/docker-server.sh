@@ -23,6 +23,8 @@ function importKeyCert() {
 
   # Import the private key and certificate into new keystore
   if [ -f "${CERT_FOLDER}/${KEY_FILE}" ] && [ -f "${CERT_FOLDER}/${CRT_FILE}" ]; then
+    # Mounted certificates found. Assume the user wants to overwrite any existing keystore
+    # and add these certificates
     echo "Found mounted TLS certificates, generating keystore"
     setPasswords PASSWORD TRUSTSTORE_PASSWORD
     mkdir -p /output/resources/security
@@ -44,7 +46,14 @@ function importKeyCert() {
     fi
 
     # Since we are creating new keystore, always write new password to a file
-    sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $SNIPPETS_TARGET_DEFAULTS/keystore.xml
+    sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $keystorePathOverride
+    # If configure.sh was run at container build time, there will be a keystore.xml in configDropins/defaults
+    # This will cause a conflict and a warning on server startup, so we should try to delete it
+    if [ -e "$keystorePathDefault" ];
+    then
+        echo "Attempting to remove a previous keystore.xml"
+        rm "$keystorePathDefault"
+    fi
     
     # Add mounted CA to the truststore
     if [ -f "${CERT_FOLDER}/${CA_FILE}" ]; then
@@ -70,10 +79,10 @@ function importKeyCert() {
     rm -rf /tmp/certs
   fi
 
-  # Add the keystore password to server configuration
-  if [ ! -e $keystorePath ]; then
+  # If no keystore has been created, add a keystore password to server configuration
+  if [ ! -e "$keystorePathDefault" ] && [ ! -e "$keystorePathOverride" ]; then
     setPasswords PASSWORD TRUSTSTORE_PASSWORD
-    sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $SNIPPETS_TARGET_DEFAULTS/keystore.xml
+    sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $keystorePathDefault
   fi
   if [ -e $TRUSTSTORE_FILE ]; then
     setPasswords PASSWORD TRUSTSTORE_PASSWORD
@@ -89,7 +98,8 @@ SNIPPETS_SOURCE=/opt/ol/helpers/build/configuration_snippets
 SNIPPETS_TARGET_DEFAULTS=/config/configDropins/defaults
 SNIPPETS_TARGET_OVERRIDES=/config/configDropins/overrides
 
-keystorePath="$SNIPPETS_TARGET_DEFAULTS/keystore.xml"
+keystorePathDefault="$SNIPPETS_TARGET_DEFAULTS/keystore.xml"
+keystorePathOverride="$SNIPPETS_TARGET_OVERRIDES/keystore.xml"
 
 if [ "$SSL" = "true" ] || [ "$TLS" = "true" ]; then
   cp $SNIPPETS_SOURCE/tls.xml $SNIPPETS_TARGET_OVERRIDES/tls.xml
