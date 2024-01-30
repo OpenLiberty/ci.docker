@@ -14,7 +14,7 @@ Liberty images with Java 21 are based on UBI 9 minimal and include IBM Semeru Ru
 
 Liberty images with Java 8, 11 and 17 and with the `openj9` type are based on UBI 8 standard and include IBM Semeru Runtime for the respective Java version with the JDK. Images with the `ibmjava` type are based on UBI 8 standard and include IBM Java 8 JRE.
 
-The `latest` tag simplifies pulling the full latest Open Liberty release with the latest Java JRE. It is an alias for the full-java21-openj9-ubi-minimal tag. If you do not specify a tag value, `latest` is used by default.
+The `latest` tag simplifies pulling the full latest Open Liberty release with the latest Java JRE. It is an alias for the `full-java21-openj9-ubi-minimal` tag. If you do not specify a tag value, `latest` is used by default.
 
 The `beta` tag is based on UBI 9 minimal and the latest Java JRE and provides the most recent beta release of Liberty, which includes all the features and capabilities from the most recent release, plus new and updated features that are currently in development.
 
@@ -32,17 +32,17 @@ ibmcloud cr images --restrict appcafe/open-liberty
 ## Latest version (24.0.0.1)
 
 ```
+kernel-slim-java21-openj9-ubi-minimal
+kernel-slim-java17-openj9-ubi
+kernel-slim-java11-openj9-ubi
 kernel-slim-java8-openj9-ubi
 kernel-slim-java8-ibmjava-ubi
-kernel-slim-java11-openj9-ubi
-kernel-slim-java17-openj9-ubi
-kernel-slim-java21-openj9-ubi-minimal
 
+full-java21-openj9-ubi-minimal
+full-java17-openj9-ubi
+full-java11-openj9-ubi
 full-java8-openj9-ubi
 full-java8-ibmjava-ubi
-full-java11-openj9-ubi
-full-java17-openj9-ubi
-full-java21-openj9-ubi-minimal
 
 latest
 beta
@@ -51,43 +51,43 @@ beta
 ## 24.0.0.1
 
 ```
+24.0.0.1-kernel-slim-java21-openj9-ubi-minimal
+24.0.0.1-kernel-slim-java17-openj9-ubi
+24.0.0.1-kernel-slim-java11-openj9-ubi
 24.0.0.1-kernel-slim-java8-openj9-ubi
 24.0.0.1-kernel-slim-java8-ibmjava-ubi
-24.0.0.1-kernel-slim-java11-openj9-ubi
-24.0.0.1-kernel-slim-java17-openj9-ubi
-24.0.0.1-kernel-slim-java21-openj9-ubi-minimal
 
+24.0.0.1-full-java21-openj9-ubi-minimal
+24.0.0.1-full-java17-openj9-ubi
+24.0.0.1-full-java11-openj9-ubi
 24.0.0.1-full-java8-openj9-ubi
 24.0.0.1-full-java8-ibmjava-ubi
-24.0.0.1-full-java11-openj9-ubi
-24.0.0.1-full-java17-openj9-ubi
-24.0.0.1-full-java21-openj9-ubi-minimal
 ```
 
 ## 23.0.0.12
 
 ```
+23.0.0.12-kernel-slim-java17-openj9-ubi
+23.0.0.12-kernel-slim-java11-openj9-ubi
 23.0.0.12-kernel-slim-java8-openj9-ubi
 23.0.0.12-kernel-slim-java8-ibmjava-ubi
-23.0.0.12-kernel-slim-java11-openj9-ubi
-23.0.0.12-kernel-slim-java17-openj9-ubi
 
+23.0.0.12-full-java17-openj9-ubi
+23.0.0.12-full-java11-openj9-ubi
 23.0.0.12-full-java8-openj9-ubi
 23.0.0.12-full-java8-ibmjava-ubi
-23.0.0.12-full-java11-openj9-ubi
-23.0.0.12-full-java17-openj9-ubi
 ```
 
 ## 23.0.0.9
 
 ```
+23.0.0.9-kernel-slim-java17-openj9-ubi
+23.0.0.9-kernel-slim-java11-openj9-ubi
 23.0.0.9-kernel-slim-java8-openj9-ubi
 23.0.0.9-kernel-slim-java8-ibmjava-ubi
-23.0.0.9-kernel-slim-java11-openj9-ubi
-23.0.0.9-kernel-slim-java17-openj9-ubi
 
+23.0.0.9-full-java17-openj9-ubi
+23.0.0.9-full-java11-openj9-ubi
 23.0.0.9-full-java8-openj9-ubi
 23.0.0.9-full-java8-ibmjava-ubi
-23.0.0.9-full-java11-openj9-ubi
-23.0.0.9-full-java17-openj9-ubi
 ```
