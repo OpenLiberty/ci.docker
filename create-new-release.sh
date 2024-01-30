@@ -47,6 +47,8 @@ for file in $(find ./releases/latest ./releases/$NEW_VERSION -name Dockerfile.*)
    sed -i'.bak' -e "s/ARG LIBERTY_BUILD_LABEL=.*/ARG LIBERTY_BUILD_LABEL=$BUILD_LABEL/g" $file;
 
    sed -i'.bak' -e "s/LIBERTY_SHA=.*/LIBERTY_SHA={replace_with_correct_sha}/" $file;
+   
+   sed -i'.bak' -e "s/FEATURES_SHA=.*/FEATURES_SHA={replace_with_correct_sha}/" $file;
 
    # Clean up temp files
    rm $file.bak
