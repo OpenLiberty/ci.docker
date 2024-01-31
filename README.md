@@ -19,16 +19,8 @@
 ## Container Images
 
 1. **Supported Images**
-    *  Our recommended set uses Red Hat's [Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image) as the Operating System and are re-built daily. They are available from [IBM Container Registry](docs/icr-images.md) and [Docker Hub](https://hub.docker.com/r/openliberty/open-liberty).
-    *  Another set, using Ubuntu as the Operating System, can be found on [Docker Hub](https://hub.docker.com/_/open-liberty).  These are re-built automatically anytime something changes in the layers below.
-
-1. **Beta Images**
-    * The latest Open Liberty beta runtime can be found on [Docker Hub](https://hub.docker.com/_/open-liberty). It's available via the `beta` and `beta-java11` tags.
-
-1. **Daily Images**
-    *  Images with the daily Open Liberty binaries are available [here](https://hub.docker.com/r/openliberty/daily).  The scripts used for this image can be found [here](https://github.com/OpenLiberty/ci.docker.daily).
-
-_**Important Notice:**_ The `kernel` **tag is now deprecated** and it will not be updated (starting with 20.0.0.11). The new tag, that provides kernel binary, is named `kernel-slim`.
+    *  Our recommended set uses Red Hat's [Universal Base Image (UBI)](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image) as the Operating System and are rebuilt periodically. They are available from IBM Container Registry (icr.io) and are listed [here](docs/icr-images.md).
+    *  Another set, using Ubuntu as the Operating System, can be found on [Docker Hub](https://hub.docker.com/_/open-liberty).
 
 ## Building an Application Image
 
@@ -37,7 +29,7 @@ According to best practices for container images, you should create a new image 
 Your application image template should follow a pattern similar to:
 
 ```dockerfile
-FROM icr.io/appcafe/open-liberty:kernel-slim-java8-openj9-ubi
+FROM icr.io/appcafe/open-liberty:kernel-slim-java17-openj9-ubi
 
 # Add Liberty server configuration including all necessary features
 COPY --chown=1001:0  server.xml /config/
@@ -91,7 +83,7 @@ This section describes the optional enterprise functionality that can be enabled
 
 ### Deprecated Enterprise Functionality
 
-The following enterprise functionalities are now **deprecated**. You should **stop** using them. They are still available in `full` but not available in `kernel-slim`:
+The following enterprise functionalities are now **deprecated**. You should **stop** using them. They are still available in `full` but not available in `kernel-slim`. They have been removed from the Open Liberty images based on Java 21 and above.:
 
 * `HTTP_ENDPOINT`
   *  Description: Add configuration properties for an HTTP endpoint.
