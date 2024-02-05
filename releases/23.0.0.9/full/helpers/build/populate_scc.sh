@@ -95,7 +95,7 @@ then
 
   if [ ${WARM_ENDPOINT} == true ]
   then
-    curl --silent --output /dev/null --show-error --fail ${WARM_ENDPOINT_URL} 2>&1 || echo "WARM_ENDPOINT call failed, continuing"
+    curl --silent --output /dev/null --show-error --fail --max-time 5 ${WARM_ENDPOINT_URL} 2>&1 || echo "WARM_ENDPOINT call failed, continuing"
   fi
 
   /opt/ol/wlp/bin/server stop
@@ -126,7 +126,7 @@ do
 
   if [ ${WARM_ENDPOINT} == true ]
   then
-    curl --silent --output /dev/null --show-error --fail ${WARM_ENDPOINT_URL} 2>&1 || echo "WARM_ENDPOINT call failed, continuing"
+    curl --silent --output /dev/null --show-error --fail --max-time 5 ${WARM_ENDPOINT_URL} 2>&1 || echo "WARM_ENDPOINT call failed, continuing"
   fi
 
   /opt/ol/wlp/bin/server stop
