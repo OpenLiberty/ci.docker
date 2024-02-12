@@ -8,6 +8,8 @@ set -Eeox pipefail
 SCC_SIZE="80m"  # Default size of the SCC layer.
 ITERATIONS=2    # Number of iterations to run to populate it.
 TRIM_SCC=yes    # Trim the SCC to eliminate any wasted space.
+WARM_ENDPOINT=true
+WARM_ENDPOINT_URL=localhost:9080/
 
 # If this directory exists and has at least ug=rwx permissions, assume the base image includes an SCC called 'openj9_system_scc' and build on it.
 # If not, build on our own SCC.
@@ -32,7 +34,7 @@ CREATE_LAYER="$OPENJ9_JAVA_OPTIONS,createLayer,groupAccess"
 DESTROY_LAYER="$OPENJ9_JAVA_OPTIONS,destroy"
 PRINT_LAYER_STATS="$OPENJ9_JAVA_OPTIONS,printTopLayerStats"
 
-while getopts ":i:s:tdh" OPT
+while getopts ":i:s:u:tdhwc" OPT
 do
   case "$OPT" in
     i)
@@ -48,13 +50,24 @@ do
     d)
       TRIM_SCC=no
       ;;
+    w)
+      WARM_ENDPOINT=true
+      ;;
+    c)
+      WARM_ENDPOINT=false
+      ;;
+    u)
+      WARM_ENDPOINT_URL="${OPTARG}"
+      ;;
     h)
       echo \
-"Usage: $0 [-i iterations] [-s size] [-t] [-d]
+"Usage: $0 [-i iterations] [-s size] [-t] [-d] [-w] [-u url]
   -i <iterations> Number of iterations to run to populate the SCC. (Default: $ITERATIONS)
   -s <size>       Size of the SCC in megabytes (m suffix required). (Default: $SCC_SIZE)
   -t              Trim the SCC to eliminate most of the free space, if any.
   -d              Don't trim the SCC.
+  -w              Use curl to warm an endpoint during SCC creation. (Default: $WARM_ENDPOINT)
+  -u              The URL endpoint to warm during SCC creation. (Default: $WARM_ENDPOINT_URL)
 
   Trimming enabled=$TRIM_SCC"
       exit 1
@@ -82,7 +95,14 @@ then
   echo "Calculating SCC layer upper bound, starting with initial size $SCC_SIZE."
   # Populate the newly created class cache layer.
   /opt/ol/wlp/bin/server start
+
+  if [ ${WARM_ENDPOINT} == true ]
+  then
+    curl --silent --output /dev/null --show-error --fail --max-time 5 ${WARM_ENDPOINT_URL} 2>&1 || echo "WARM_ENDPOINT call failed, continuing"
+  fi
+
   /opt/ol/wlp/bin/server stop
+
   # Find out how full it is.
   FULL=`( java $PRINT_LAYER_STATS || true ) 2>&1 | awk '/^Cache is [0-9.]*% .*full/ {print substr($3, 1, length($3)-1)}'`
   echo "SCC layer is $FULL% full. Destroying layer."
@@ -106,6 +126,12 @@ fi
 for ((i=0; i<$ITERATIONS; i++))
 do
   /opt/ol/wlp/bin/server start
+
+  if [ ${WARM_ENDPOINT} == true ]
+  then
+    curl --silent --output /dev/null --show-error --fail --max-time 5 ${WARM_ENDPOINT_URL} 2>&1 || echo "WARM_ENDPOINT call failed, continuing"
+  fi
+
   /opt/ol/wlp/bin/server stop
 done
 
