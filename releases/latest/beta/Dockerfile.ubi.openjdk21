@@ -3,7 +3,7 @@ FROM icr.io/appcafe/ibm-semeru-runtimes:open-21-jre-ubi9-minimal AS getRuntime
 USER root
 
 ARG LIBERTY_VERSION=24.0.0.3-beta
-ARG LIBERTY_SHA={replace_with_correct_sha}
+ARG LIBERTY_SHA=baccad3f18d540a9212c904e40731db40717e713
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 
 ARG VERBOSE=false
