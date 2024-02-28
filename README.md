@@ -119,7 +119,7 @@ Note that currently some content in the SCC is sensitive to heap geometry. If th
 This feature can be controlled via the following variables:
 
 * `OPENJ9_SCC` (environment variable)
-  *  Decription: If `"true"`, cache application-specific in an SCC and include it in the image. A new SCC will be created if needed, otherwise data will be added to the existing SCC.
+  *  Description: If `"true"`, cache application-specific in an SCC and include it in the image. A new SCC will be created if needed, otherwise data will be added to the existing SCC.
   *  Default: `"true"`.
 * `TRIM_SCC` (environment variable)
   * Description: If `"true"`, the application-specific SCC layer will be sized-down to accomodate only the data populated during image build process. To allow the application to add more data to the SCC at runtime, set this variable to `"false"`, but also ensure the SCC is not marked read-only. This can be done by setting the OPENJ9_JAVA_OPTIONS environment variable in your application Dockerfile like so: `ENV OPENJ9_JAVA_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:+IdleTuningGcOnIdle -Xshareclasses:name=openj9_system_scc,cacheDir=/opt/java/.scc,nonFatal -Dosgi.checkConfiguration=false"`. Note that OPENJ9_JAVA_OPTIONS is already defined in the base Liberty image dockerfile, but includes the `readonly` sub-option.
@@ -127,6 +127,12 @@ This feature can be controlled via the following variables:
 * `SCC_SIZE` (environment variable)
   * Description: The size of the application-specific SCC layer in the image. This value is only used if `TRIM_SCC` is set to `"false"`.
   * Default: `"80m"`.
+* `WARM_ENDPOINT` (environment variable)
+  * Description: If `"true"`, curl will be used to access the WARM_ENDPOINT_URL (see below) during the population of the SCC. This will increase the amount of information in the SCC and improve first request time in subsequent starts of the image.
+  * Default: `"true"`
+* `WARM_ENDPOINT_URL` (enviornment variable)
+  * Description: The URL to access during SCC population if WARM_ENDPOINT is true.
+  * Default: `"localhost:9080/"`
 
 To customize one of the built-in XML snippets, make a copy of the snippet from Github and edit it locally. Once you have completed your changes, use the `COPY` command inside your Dockerfile to copy the snippet into `/config/configDropins/overrides`. It is important to note that you do not need to set build-arguments (`ARG`) for any customized XML snippets. The following Dockerfile snippet is an example of how you should include the customized snippet.
 
