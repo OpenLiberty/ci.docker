@@ -1,9 +1,9 @@
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-11-jdk-ubi AS getRuntime
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-17-jdk-ubi AS getRuntime
 
 USER root
 
-ARG LIBERTY_VERSION=24.0.0.2
-ARG LIBERTY_SHA=be61496d32209aff1e23d989a093f2b45aaa9d55
+ARG LIBERTY_VERSION=24.0.0.3
+ARG LIBERTY_SHA={replace_with_correct_sha}
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 
 ARG VERBOSE=false
@@ -24,12 +24,12 @@ RUN yum -y install shadow-utils wget unzip openssl \
     && chown -R 1001:0 /opt/ol/wlp \
     && chmod -R g+rw /opt/ol/wlp
 
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-11-jdk-ubi
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-17-jdk-ubi
 
 USER root
 
-ARG LIBERTY_VERSION=24.0.0.2
-ARG LIBERTY_BUILD_LABEL=cl240220240212-1928
+ARG LIBERTY_VERSION=24.0.0.3
+ARG LIBERTY_BUILD_LABEL={replace_with_gm_driver_label}
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
