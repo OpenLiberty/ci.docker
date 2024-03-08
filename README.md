@@ -133,6 +133,12 @@ This feature can be controlled via the following variables:
 * `WARM_ENDPOINT_URL` (enviornment variable)
   * Description: The URL to access during SCC population if WARM_ENDPOINT is true.
   * Default: `"localhost:9080/"`
+* `WARM_OPENAPI_ENDPOINT` (environment variable)
+  * Description: If `"true"`, curl will be used to access the WARM_OPENAPI_ENDPOINT_URL (see below) during the population of the SCC. This will increase the amount of information in the SCC and improve first request time in subsequent starts of the image.
+  * Default: `"true"`
+* `WARM_OPENAPI_ENDPOINT_URL` (enviornment variable)
+  * Description: The URL to access during SCC population if WARM_OPENAPI_ENDPOINT is true.
+  * Default: `"localhost:9080/openapi"`
 
 To customize one of the built-in XML snippets, make a copy of the snippet from Github and edit it locally. Once you have completed your changes, use the `COPY` command inside your Dockerfile to copy the snippet into `/config/configDropins/overrides`. It is important to note that you do not need to set build-arguments (`ARG`) for any customized XML snippets. The following Dockerfile snippet is an example of how you should include the customized snippet.
 
