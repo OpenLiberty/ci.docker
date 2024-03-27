@@ -20,7 +20,7 @@ The `beta` tag is based on UBI 9 minimal and the latest Java JRE and provides th
 
 Append a tag to `icr.io/appcafe/open-liberty` to pull a specific image. For example: 
 ```
-icr.io/appcafe/open-liberty:23.0.0.12-kernel-slim-java17-openj9-ubi
+icr.io/appcafe/open-liberty:24.0.0.3-kernel-slim-java17-openj9-ubi
 ```
 
 Available images can be listed using [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started). Log in with your IBMid prior to running the following commands. Note that authentication is only required to list the images. **Images can be pulled from ICR without authentication**: 
@@ -29,7 +29,7 @@ ibmcloud cr region-set global
 ibmcloud cr images --restrict appcafe/open-liberty
 ```
 
-## Latest version (24.0.0.2)
+## Latest version (24.0.0.3)
 
 ```
 kernel-slim-java21-openj9-ubi-minimal
@@ -48,20 +48,20 @@ latest
 beta
 ```
 
-## 24.0.0.2
+## 24.0.0.3
 
 ```
-24.0.0.2-kernel-slim-java21-openj9-ubi-minimal
-24.0.0.2-kernel-slim-java17-openj9-ubi
-24.0.0.2-kernel-slim-java11-openj9-ubi
-24.0.0.2-kernel-slim-java8-openj9-ubi
-24.0.0.2-kernel-slim-java8-ibmjava-ubi
+24.0.0.3-kernel-slim-java21-openj9-ubi-minimal
+24.0.0.3-kernel-slim-java17-openj9-ubi
+24.0.0.3-kernel-slim-java11-openj9-ubi
+24.0.0.3-kernel-slim-java8-openj9-ubi
+24.0.0.3-kernel-slim-java8-ibmjava-ubi
 
-24.0.0.2-full-java21-openj9-ubi-minimal
-24.0.0.2-full-java17-openj9-ubi
-24.0.0.2-full-java11-openj9-ubi
-24.0.0.2-full-java8-openj9-ubi
-24.0.0.2-full-java8-ibmjava-ubi
+24.0.0.3-full-java21-openj9-ubi-minimal
+24.0.0.3-full-java17-openj9-ubi
+24.0.0.3-full-java11-openj9-ubi
+24.0.0.3-full-java8-openj9-ubi
+24.0.0.3-full-java8-ibmjava-ubi
 ```
 
 ## 23.0.0.12
@@ -76,18 +76,4 @@ beta
 23.0.0.12-full-java11-openj9-ubi
 23.0.0.12-full-java8-openj9-ubi
 23.0.0.12-full-java8-ibmjava-ubi
-```
-
-## 23.0.0.9
-
-```
-23.0.0.9-kernel-slim-java17-openj9-ubi
-23.0.0.9-kernel-slim-java11-openj9-ubi
-23.0.0.9-kernel-slim-java8-openj9-ubi
-23.0.0.9-kernel-slim-java8-ibmjava-ubi
-
-23.0.0.9-full-java17-openj9-ubi
-23.0.0.9-full-java11-openj9-ubi
-23.0.0.9-full-java8-openj9-ubi
-23.0.0.9-full-java8-ibmjava-ubi
 ```
