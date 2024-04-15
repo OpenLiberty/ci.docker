@@ -14,7 +14,7 @@ RUN microdnf -y install shadow-utils wget unzip openssl \
     && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
     && sha1sum -c /tmp/wlp.zip.sha1 \
     && chmod -R u+x /usr/bin \
-    && if [ -f resources/wlp.zip ] unzip -q resources/wlp.zip -d /opt/ol; elif [ -f /tmp/wlp.zip ]; then unzip -q /tmp/wlp.zip -d /opt/ol; fi \
+    && if [ -f resources/wlp.zip ]; then unzip -q resources/wlp.zip -d /opt/ol; elif [ -f /tmp/wlp.zip ]; then unzip -q /tmp/wlp.zip -d /opt/ol; fi \
     && mkdir -p /licenses \
     && cp /opt/ol/wlp/LICENSE /licenses/ \
     && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
