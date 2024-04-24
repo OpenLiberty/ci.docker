@@ -29,7 +29,7 @@ ibmcloud cr region-set global
 ibmcloud cr images --restrict appcafe/open-liberty
 ```
 
-## Latest version (24.0.0.3)
+## Latest version (24.0.0.4)
 
 ```
 kernel-slim-java21-openj9-ubi-minimal
@@ -46,6 +46,22 @@ full-java8-ibmjava-ubi
 
 latest
 beta
+```
+
+## 24.0.0.4
+
+```
+24.0.0.4-kernel-slim-java21-openj9-ubi-minimal
+24.0.0.4-kernel-slim-java17-openj9-ubi
+24.0.0.4-kernel-slim-java11-openj9-ubi
+24.0.0.4-kernel-slim-java8-openj9-ubi
+24.0.0.4-kernel-slim-java8-ibmjava-ubi
+
+24.0.0.4-full-java21-openj9-ubi-minimal
+24.0.0.4-full-java17-openj9-ubi
+24.0.0.4-full-java11-openj9-ubi
+24.0.0.4-full-java8-openj9-ubi
+24.0.0.4-full-java8-ibmjava-ubi
 ```
 
 ## 24.0.0.3
