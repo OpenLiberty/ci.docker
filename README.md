@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/OpenLiberty/ci.docker.svg?branch=master)](https://travis-ci.org/OpenLiberty/ci.docker)
-
 # Open Liberty Images
 
 - [Open Liberty Images](#open-liberty-images)
