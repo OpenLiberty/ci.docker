@@ -5,7 +5,7 @@ Open Liberty container images are available from the IBM Container Registry (ICR
 
 The images for the latest Liberty release and the last two quarterly releases (versions ending in _.3_, _.6_, _.9_ and _.12_) are available and are refreshed regularly (every 1-2 weeks) to include fixes for the operating system (OS) and Java.
 
-Available image tags are listed below. The tags use the following naming convention. For more information on tags, see [Container image tags naming conventions](https://docs-draft-openlibertyio.mqj6zf7jocq.us-south.codeengine.appdomain.cloud/docs/latest/container-images.html#tags) documentation.
+Available image tags are listed below. The tags use the following naming convention. For more information on tags, see [Container image tags naming conventions](https://openliberty.io/docs/latest/container-images.html#tags) documentation.
 ```
 <optional fix pack version-><liberty image type>-<java version>-<java type>-<base image type>
 ```
