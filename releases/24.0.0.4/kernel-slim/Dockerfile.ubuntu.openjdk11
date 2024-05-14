@@ -19,6 +19,9 @@ LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas
       org.opencontainers.image.title="Open Liberty" \
       org.opencontainers.image.version="$LIBERTY_VERSION"
 
+LABEL liberty.version=$LIBERTY_VERSION \
+      io.openliberty.version=$LIBERTY_VERSION
+
 COPY NOTICES /opt/ol/NOTICES
 COPY helpers /opt/ol/helpers
 COPY fixes/ /opt/ol/fixes/
