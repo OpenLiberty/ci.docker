@@ -31,7 +31,7 @@ ibmcloud cr images --restrict appcafe/open-liberty
 
 ## Latest version
 
-The following tags include the most recent Liberty version: `24.0.0.5`.
+The following tags include the most recent Open Liberty version: `24.0.0.5`
 
 ```
 kernel-slim-java21-openj9-ubi-minimal
