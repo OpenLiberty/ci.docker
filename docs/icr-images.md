@@ -47,7 +47,6 @@ full-java8-openj9-ubi
 full-java8-ibmjava-ubi
 
 latest
-beta
 ```
 
 ## Beta
