@@ -61,10 +61,6 @@ for file in $(find ./releases/latest ./releases/$NEW_VERSION -name Dockerfile.*)
 
 done
 
-# Update the .travis.yml file.
-sed -i'.bak' -e "s/RELEASE=\.\.\/releases\/$OLD_VERSION/RELEASE=\.\.\/releases\/$NEW_VERSION/" ./.travis.yml;
-rm ./.travis.yml.bak;
-
 # Update the images.txt file
 cp ./releases/$OLD_VERSION/images.txt ./releases/$NEW_VERSION/images.txt;
 sed -i'.bak' -e "s/$OLD_VERSION/$NEW_VERSION/g" ./releases/$NEW_VERSION/images.txt;
