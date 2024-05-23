@@ -1,10 +1,10 @@
-ARG PARENT_IMAGE=icr.io/appcafe/open-liberty:24.0.0.5-kernel-slim-java21-openj9-ubi-minimal
+ARG PARENT_IMAGE=icr.io/appcafe/open-liberty:24.0.0.6-kernel-slim-java21-openj9-ubi-minimal
 
 FROM $PARENT_IMAGE AS installBundle
 
 ARG VERBOSE=false
-ARG LIBERTY_VERSION=24.0.0.5
-ARG FEATURES_SHA=a0061e2a371c7bfad8f38d875971ad2f539ad2ac
+ARG LIBERTY_VERSION=24.0.0.6
+ARG FEATURES_SHA={replace_with_correct_sha}
 
 # If there is a local copy of the repository use that instead
 COPY resources/ /tmp/
@@ -33,7 +33,7 @@ RUN set -eux; \
   rm -rf /output/workarea /output/logs; \
   find /opt/ol/wlp ! -perm -g=rw -print0 | xargs -r -0 chmod g+rw;
 
-ARG PARENT_IMAGE=icr.io/appcafe/open-liberty:24.0.0.5-kernel-slim-java21-openj9-ubi-minimal
+ARG PARENT_IMAGE=icr.io/appcafe/open-liberty:24.0.0.6-kernel-slim-java21-openj9-ubi-minimal
 FROM $PARENT_IMAGE
 ARG VERBOSE=false
 
