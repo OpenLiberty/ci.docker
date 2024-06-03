@@ -1,8 +1,6 @@
 #!/bin/bash
 
-if [ "$VERBOSE" != "true" ]; then
-  exec >/dev/null
-fi
+. /opt/ol/helpers/build/internal/logger.sh
 
 set -Eeox pipefail
 
@@ -38,8 +36,10 @@ function main() {
   if [ "$SSL" != "false" ] && [ "$TLS" != "false" ]; then
     if [ ! -e $keystorePath ]; then
       # Generate the keystore.xml
-      export KEYSTOREPWD=$(openssl rand -base64 32)
+      hideLogs
+      KEYSTOREPWD=$(openssl rand -base64 32)
       sed "s|REPLACE|$KEYSTOREPWD|g" $SNIPPETS_SOURCE/keystore.xml >$SNIPPETS_TARGET_DEFAULTS/keystore.xml
+      showLogs
       chmod g+w $SNIPPETS_TARGET_DEFAULTS/keystore.xml
     fi
   fi
