@@ -2,8 +2,8 @@ FROM icr.io/appcafe/ibm-semeru-runtimes:open-21-jre-ubi9-minimal AS getRuntime
 
 USER root
 
-ARG LIBERTY_VERSION=24.0.0.7-beta
-ARG LIBERTY_SHA=ced06392041d7ba439b48bdcb8f8400c0542e064
+ARG LIBERTY_VERSION=24.0.0.8-beta
+ARG LIBERTY_SHA=b3f82c191e1dcbe8a64fe7395b6b25dcc0943869
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 
 ARG VERBOSE=false
@@ -28,8 +28,8 @@ FROM icr.io/appcafe/ibm-semeru-runtimes:open-21-jre-ubi9-minimal
 
 USER root
 
-ARG LIBERTY_VERSION=24.0.0.7-beta
-ARG LIBERTY_BUILD_LABEL=cl240620240603-2001
+ARG LIBERTY_VERSION=24.0.0.8-beta
+ARG LIBERTY_BUILD_LABEL=cl240720240701-1102
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
