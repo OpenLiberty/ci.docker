@@ -2,9 +2,9 @@ FROM ibmjava:8-ubi AS getRuntime
 
 USER root
 
-ARG LIBERTY_VERSION=24.0.0.7
-ARG LIBERTY_SHA=c5a156435340ad754d03375f0ac070dbadb67381
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
+ARG LIBERTY_VERSION=24.0.0.8
+ARG LIBERTY_SHA={replace_with_correct_sha}
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 
 ARG VERBOSE=false
 
@@ -28,8 +28,8 @@ FROM ibmjava:8-ubi
 
 USER root
 
-ARG LIBERTY_VERSION=24.0.0.7
-ARG LIBERTY_BUILD_LABEL=cl240720240701-1102
+ARG LIBERTY_VERSION=24.0.0.8
+ARG LIBERTY_BUILD_LABEL={replace_with_gm_driver_label}
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
@@ -100,7 +100,7 @@ ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \
     OPENJ9_SCC=$OPENJ9_SCC
 
 # Configure Open Liberty
-RUN /opt/ol/wlp/bin/server create --template=javaee8 \
+RUN /opt/ol/wlp/bin/server create \
     && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea \
     && rm -rf /opt/ol/wlp/usr/servers/defaultServer/server.env
 
@@ -113,8 +113,6 @@ RUN mkdir /logs \
     && ln -s /opt/ol/wlp/usr/servers/defaultServer /config \
     && mkdir -p /config/configDropins/defaults \
     && mkdir -p /config/configDropins/overrides \
-    && mkdir -p /config/dropins \
-    && mkdir -p /config/apps \
     && ln -s /opt/ol/wlp /liberty \
     && ln -s /opt/ol/fixes /fixes \
     && chown -R 1001:0 /config \
@@ -136,7 +134,7 @@ RUN mkdir /logs \
 
 # Create a new SCC layer
 RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
-    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache \
+    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache /output/workarea \
     && chown -R 1001:0 /opt/ol/wlp/output \
     && chmod -R g+rwx /opt/ol/wlp/output
 

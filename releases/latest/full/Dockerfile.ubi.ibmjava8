@@ -2,8 +2,8 @@ FROM ibmjava:8-ubi AS getRuntime
 
 USER root
 
-ARG LIBERTY_VERSION=24.0.0.7
-ARG LIBERTY_SHA=c5a156435340ad754d03375f0ac070dbadb67381
+ARG LIBERTY_VERSION=24.0.0.8
+ARG LIBERTY_SHA={replace_with_correct_sha}
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 
 ARG VERBOSE=false
@@ -28,8 +28,8 @@ FROM ibmjava:8-ubi
 
 USER root
 
-ARG LIBERTY_VERSION=24.0.0.7
-ARG LIBERTY_BUILD_LABEL=cl240720240701-1102
+ARG LIBERTY_VERSION=24.0.0.8
+ARG LIBERTY_BUILD_LABEL={replace_with_gm_driver_label}
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
