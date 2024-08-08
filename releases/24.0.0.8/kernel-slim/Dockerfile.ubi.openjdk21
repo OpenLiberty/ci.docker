@@ -29,7 +29,7 @@ FROM icr.io/appcafe/ibm-semeru-runtimes:open-21-jre-ubi9-minimal
 USER root
 
 ARG LIBERTY_VERSION=24.0.0.8
-ARG LIBERTY_BUILD_LABEL={replace_with_gm_driver_label}
+ARG LIBERTY_BUILD_LABEL=cl240820240729-1903
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
