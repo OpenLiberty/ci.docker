@@ -1,35 +1,11 @@
-FROM ibmjava:8-ubi AS getRuntime
+FROM ibm-semeru-runtimes:open-11-jre-jammy
 
 USER root
 
-ARG LIBERTY_VERSION=24.0.0.7
-ARG LIBERTY_SHA=c5a156435340ad754d03375f0ac070dbadb67381
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
-
-ARG VERBOSE=false
-
-# If there is a local copy of the image use that instead
-COPY resources/ /tmp/
-
-# Install Open Liberty
-RUN yum -y install shadow-utils wget unzip openssl \
-    && if [ ! -f /tmp/wlp.zip ]; then wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip; fi \
-    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
-    && sha1sum -c /tmp/wlp.zip.sha1 \
-    && chmod -R u+x /usr/bin \
-    && unzip -q /tmp/wlp.zip -d /opt/ol \
-    && mkdir -p /licenses \
-    && cp /opt/ol/wlp/LICENSE /licenses/ \
-    && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
-    && chown -R 1001:0 /opt/ol/wlp \
-    && chmod -R g+rw /opt/ol/wlp
-
-FROM ibmjava:8-ubi
-
-USER root
-
-ARG LIBERTY_VERSION=24.0.0.7
-ARG LIBERTY_BUILD_LABEL=cl240720240701-1102
+ARG LIBERTY_VERSION=24.0.0.8
+ARG LIBERTY_SHA=18023498babb193fdd3fcd6e39e8d793b55140a2
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
+ARG LIBERTY_BUILD_LABEL=cl240820240729-1903
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
@@ -38,13 +14,10 @@ LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
-      org.opencontainers.image.version="$LIBERTY_VERSION" \
       org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
-      vendor="Open Liberty" \
-      name="Open Liberty" \
-      version="$LIBERTY_VERSION" \
-      summary="Image for Open Liberty with IBM's Java and UBI 8" \
-      description="This image contains the Open Liberty runtime with IBM's Java and Red Hat UBI 8 as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
+      org.opencontainers.image.description="This image contains the Open Liberty runtime with IBM Semeru Runtime Open Edition OpenJDK with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
+      org.opencontainers.image.title="Open Liberty" \
+      org.opencontainers.image.version="$LIBERTY_VERSION"
 
 COPY NOTICES /opt/ol/NOTICES
 COPY helpers /opt/ol/helpers
@@ -52,7 +25,7 @@ COPY fixes/ /opt/ol/fixes/
 
 # Install dumb-init
 RUN set -eux; \
-    ARCH="$(uname -m)"; \
+    ARCH="$(dpkg --print-architecture)"; \
     case "${ARCH}" in \
        aarch64|arm64) \
          DUMB_INIT_URL='https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_aarch64'; \
@@ -79,18 +52,23 @@ RUN set -eux; \
     echo "${DUMB_INIT_SHA256} */usr/bin/dumb-init" | sha256sum -c -; \
     chmod +x /usr/bin/dumb-init;
 
-# Add default user 1001 and create wlp with right user/permissions before copying
-RUN adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
-    && mkdir -p /opt/ol/wlp \
+# Install Open Liberty
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends unzip openssl wget \
+    && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
+    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
+    && sha1sum -c /tmp/wlp.zip.sha1 \
+    && unzip -q /tmp/wlp.zip -d /opt/ol \
+    && rm /tmp/wlp.zip \
+    && rm /tmp/wlp.zip.sha1 \
+    && mkdir -p /licenses \
+    && cp /opt/ol/wlp/LICENSE /licenses/ \
+    && apt-get remove -y unzip \
+    && apt-get remove -y wget \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default \
     && chown -R 1001:0 /opt/ol/wlp \
-    && chmod -R g+rw /opt/ol/wlp
-
-# Copy the runtime and licenses
-COPY --from=getRuntime --chown=1001:0 /opt/ol/wlp /opt/ol/wlp
-COPY --from=getRuntime /licenses /licenses
-
-RUN yum -y install openssl \
-    && yum clean all
+    && chmod -R g+rw /opt/ol/wlp 
 
 # Set Path Shortcuts
 ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \
@@ -100,7 +78,7 @@ ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \
     OPENJ9_SCC=$OPENJ9_SCC
 
 # Configure Open Liberty
-RUN /opt/ol/wlp/bin/server create --template=javaee8 \
+RUN /opt/ol/wlp/bin/server create \
     && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea \
     && rm -rf /opt/ol/wlp/usr/servers/defaultServer/server.env
 
@@ -113,8 +91,6 @@ RUN mkdir /logs \
     && ln -s /opt/ol/wlp/usr/servers/defaultServer /config \
     && mkdir -p /config/configDropins/defaults \
     && mkdir -p /config/configDropins/overrides \
-    && mkdir -p /config/dropins \
-    && mkdir -p /config/apps \
     && ln -s /opt/ol/wlp /liberty \
     && ln -s /opt/ol/fixes /fixes \
     && chown -R 1001:0 /config \
@@ -136,13 +112,13 @@ RUN mkdir /logs \
 
 # Create a new SCC layer
 RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
-    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache \
+    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache /output/workarea \
     && chown -R 1001:0 /opt/ol/wlp/output \
     && chmod -R g+rwx /opt/ol/wlp/output
 
 #These settings are needed so that we can run as a different user than 1001 after server warmup
 ENV RANDFILE=/tmp/.rnd \
-    IBM_JAVA_OPTIONS="-Xshareclasses:name=liberty,readonly,nonfatal,cacheDir=/output/.classCache/ -Dosgi.checkConfiguration=false ${IBM_JAVA_OPTIONS}"
+    OPENJ9_JAVA_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:+IdleTuningGcOnIdle -Xshareclasses:name=openj9_system_scc,cacheDir=/opt/java/.scc,readonly,nonFatal -Dosgi.checkConfiguration=false"
 
 USER 1001
 
