@@ -1,11 +1,11 @@
-FROM ibm-semeru-runtimes:open-11-jre-jammy
+FROM ibm-semeru-runtimes:open-17-jre-jammy
 
 USER root
 
-ARG LIBERTY_VERSION=24.0.0.8
-ARG LIBERTY_SHA=26cfc55612220bff2ce804ab154122674d24ded9
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
-ARG LIBERTY_BUILD_LABEL=cl240820240729-1903
+ARG LIBERTY_VERSION=24.0.0.9
+ARG LIBERTY_SHA={replace_with_correct_sha}
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
+ARG LIBERTY_BUILD_LABEL=cl241020240827-1743
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
@@ -68,7 +68,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default \
     && chown -R 1001:0 /opt/ol/wlp \
-    && chmod -R g+rw /opt/ol/wlp
+    && chmod -R g+rw /opt/ol/wlp 
 
 # Set Path Shortcuts
 ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \
@@ -78,7 +78,7 @@ ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \
     OPENJ9_SCC=$OPENJ9_SCC
 
 # Configure Open Liberty
-RUN /opt/ol/wlp/bin/server create --template=javaee8 \
+RUN /opt/ol/wlp/bin/server create \
     && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea \
     && rm -rf /opt/ol/wlp/usr/servers/defaultServer/server.env
 
@@ -91,8 +91,6 @@ RUN mkdir /logs \
     && ln -s /opt/ol/wlp/usr/servers/defaultServer /config \
     && mkdir -p /config/configDropins/defaults \
     && mkdir -p /config/configDropins/overrides \
-    && mkdir -p /config/dropins \
-    && mkdir -p /config/apps \
     && ln -s /opt/ol/wlp /liberty \
     && ln -s /opt/ol/fixes /fixes \
     && chown -R 1001:0 /config \
@@ -114,7 +112,7 @@ RUN mkdir /logs \
 
 # Create a new SCC layer
 RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
-    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache \
+    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache /output/workarea \
     && chown -R 1001:0 /opt/ol/wlp/output \
     && chmod -R g+rwx /opt/ol/wlp/output
 
