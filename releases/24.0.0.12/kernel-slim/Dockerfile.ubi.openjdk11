@@ -1,4 +1,5 @@
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-11-jdk-ubi AS getRuntime
+ARG PARENT_IMAGE=icr.io/appcafe/ibm-semeru-runtimes:open-11-jdk-ubi
+FROM $PARENT_IMAGE AS getRuntime
 
 USER root
 
