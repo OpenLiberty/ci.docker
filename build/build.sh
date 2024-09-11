@@ -52,7 +52,7 @@ then
 fi
 if [ ! -z "$from" ]
 then 
-  buildCommand="$buildCommand --build-arg IMAGE=$from"
+  buildCommand="$buildCommand --build-arg PARENT_IMAGE=$from"
 fi
 
 buildCommand="$buildCommand ."
