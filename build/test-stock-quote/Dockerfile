@@ -1,5 +1,5 @@
-ARG IMAGE=openliberty/open-liberty:kernel-slim-ubi
-FROM ${IMAGE}
+ARG PARENT_IMAGE=openliberty/open-liberty:kernel-slim-ubi
+FROM $PARENT_IMAGE
 
 ARG VERBOSE=false
 
