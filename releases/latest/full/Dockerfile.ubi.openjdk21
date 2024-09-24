@@ -4,7 +4,7 @@ FROM $PARENT_IMAGE AS installBundle
 
 ARG VERBOSE=false
 ARG LIBERTY_VERSION=24.0.0.10
-ARG FEATURES_SHA={replace_with_correct_sha}
+ARG FEATURES_SHA=363ab5b0737e606db77a4742b15ddfecb7a0d66f
 
 # If there is a local copy of the repository use that instead
 COPY resources/ /tmp/
