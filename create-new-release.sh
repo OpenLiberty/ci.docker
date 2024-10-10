@@ -81,3 +81,7 @@ sed -i'.bak' -e "s/releases\/\*\/\*\/resources\/\*/#releases\/\*\/\*\/resources\
 rm ./.gitignore.bak
 
 echo "Done performing file updates.";
+
+# Adding detect-secrets scan and audit
+detect-secrets scan --update .secrets.baseline
+detect-secrets audit .secrets.baseline
