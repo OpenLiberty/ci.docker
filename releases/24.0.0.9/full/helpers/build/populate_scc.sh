@@ -110,7 +110,7 @@ if [ $TRIM_SCC == yes ]
 then
   echo "Calculating SCC layer upper bound, starting with initial size $SCC_SIZE."
   # Populate the newly created class cache layer.
-  /opt/ol/wlp/bin/server start
+  /opt/ol/wlp/bin/server start || { rc=$?; cat /logs/console.log; exit $rc; }
 
   if [ ${WARM_ENDPOINT} == true ]
   then
@@ -145,7 +145,7 @@ fi
 # Server start/stop to populate the /output/workarea and make subsequent server starts faster.
 for ((i=0; i<$ITERATIONS; i++))
 do
-  /opt/ol/wlp/bin/server start
+  /opt/ol/wlp/bin/server start || { rc=$?; cat /logs/console.log; exit $rc; }
 
   if [ ${WARM_ENDPOINT} == true ]
   then
