@@ -158,7 +158,6 @@ static-scan:
     other_repos=$(mktemp)
 
     ## processing start ##
-    echo "app-repo" >> $other_repos
     ## processing end ##
 
     list_repos() {
@@ -268,9 +267,6 @@ containerize:
     export-properties "GLOBAL" && export-properties "${STAGE^^}"
 
     ## processing start ##
-    ${DEVSECOPS_SCRIPT_LIBRARY_DIR}/build-artifact/save-deployment-artifact.sh --source "samples/security/olapp.yaml" --repo-key "app-repo" --index "0" --tool "kubectl-liberty-app"
-    ${DEVSECOPS_SCRIPT_LIBRARY_DIR}/build-artifact/docker.sh --build-args "IMAGE,VERBOSE" --index "0" --source "build/test-pet-clinic/Dockerfile" --repo-key "app-repo"
-    ${DEVSECOPS_SCRIPT_LIBRARY_DIR}/build-artifact/docker.sh --build-args "IMAGE,VERBOSE" --index "1" --source "build/test-stock-quote/Dockerfile" --repo-key "app-repo"
     ## processing end ##
 sign-artifact:
   image: icr.io/continuous-delivery/toolchains/devsecops/csso-image-sign@sha256:819df056454ad53c012c4c61ea3b2eed017c0f1f46659ef4db906adc311c2fc5
