@@ -126,7 +126,7 @@ RUN mkdir /logs \
     && chown -R 1001:0 /opt/ol/wlp/output \
     && chmod -R g+rw /opt/ol/wlp/output \
     && chown -R 1001:0 /opt/ol/helpers \
-    && chmod -R g+rw /opt/ol/helpers \
+    && chmod -R ug+rwx /opt/ol/helpers \
     && chown -R 1001:0 /opt/ol/fixes \
     && chmod -R g+rwx /opt/ol/fixes \
     && mkdir /etc/wlp \
