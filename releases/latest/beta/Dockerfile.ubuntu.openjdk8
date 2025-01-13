@@ -17,7 +17,9 @@ LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas
       org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
       org.opencontainers.image.description="This image contains the Open Liberty beta runtime with IBM Semeru Runtime Open Edition OpenJDK 8 with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
       org.opencontainers.image.title="Open Liberty Beta" \
-      org.opencontainers.image.version="$LIBERTY_VERSION"
+      org.opencontainers.image.version="$LIBERTY_VERSION" \
+      liberty.version=$LIBERTY_VERSION \
+      io.openliberty.version=$LIBERTY_VERSION
 
 COPY NOTICES /opt/ol/NOTICES
 COPY helpers /opt/ol/helpers
