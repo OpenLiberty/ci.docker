@@ -1,7 +1,5 @@
 #!/bin/bash
-if [ "$VERBOSE" != "true" ]; then
-  exec >/dev/null
-fi
+. /opt/ol/helpers/build/internal/logger.sh
 
 set -Eeox pipefail
 
