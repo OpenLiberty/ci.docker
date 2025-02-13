@@ -132,15 +132,18 @@ RUN mkdir -p /opt/ol/wlp/usr/shared/resources/lib.index.cache \
     && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml \
     && mkdir -p /opt/ol/links \
     && chown -R 1001:0 /opt/ol/links \
-    && chmod -R g+rw /opt/ol/links
+    && chmod -R g+rw /opt/ol/links \
+    && mkdir -p /opt/ol/logs \
+    && chown -R 1001:0 /opt/ol/logs \
+    && chmod -R g+rw /opt/ol/logs \
+    && mkdir -p /serviceability \
+    && chown -R 1001:0 /serviceability \
+    && chmod -R g+rw /serviceability
 
 USER 1001
-RUN mkdir -p /serviceability/logs \
-    && ln -s /serviceability/logs /opt/ol/links/logs
+RUN ln -s /opt/ol/logs /opt/ol/links/logs
 USER root
-RUN ln -s /logs /opt/ol/links/logs \
-    && chown -R 1001:0 /logs \
-    && chmod -R g+rw /logs
+RUN ln -s /opt/ol/links/logs /logs
 
 # Create a new SCC layer
 RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
