@@ -1,5 +1,4 @@
 ARG PARENT_IMAGE=icr.io/appcafe/open-liberty:24.0.0.12-kernel-slim-java21-openj9-ubi-minimal
-
 FROM $PARENT_IMAGE AS installBundle
 
 ARG VERBOSE=false
@@ -33,7 +32,6 @@ RUN set -eux; \
   rm -rf /output/workarea /output/logs; \
   find /opt/ol/wlp ! -perm -g=rw -print0 | xargs -r -0 chmod g+rw;
 
-ARG PARENT_IMAGE=icr.io/appcafe/open-liberty:24.0.0.12-kernel-slim-java21-openj9-ubi-minimal
 FROM $PARENT_IMAGE
 ARG VERBOSE=false
 
