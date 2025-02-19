@@ -31,7 +31,7 @@ ibmcloud cr images --restrict appcafe/open-liberty
 
 ## Latest version
 
-The following tags include the most recent Open Liberty version: `25.0.0.8`
+The following tags include the most recent Open Liberty version: `25.0.0.2`
 
 ```
 kernel-slim-java21-openj9-ubi-minimal
@@ -67,70 +67,18 @@ The `beta` tag includes all the features and capabilities from the most recent r
 beta
 ```
 
-## 25.0.0.8
+## 25.0.0.2
 
 ```
-25.0.0.8-kernel-slim-java21-openj9-ubi-minimal
-25.0.0.8-kernel-slim-java17-openj9-ubi-minimal
-25.0.0.8-kernel-slim-java11-openj9-ubi-minimal
-25.0.0.8-kernel-slim-java8-openj9-ubi-minimal
-25.0.0.8-kernel-slim-java8-ibmjava-ubi-minimal
+25.0.0.2-kernel-slim-java21-openj9-ubi-minimal
+25.0.0.2-kernel-slim-java17-openj9-ubi
+25.0.0.2-kernel-slim-java11-openj9-ubi
+25.0.0.2-kernel-slim-java8-openj9-ubi
+25.0.0.2-kernel-slim-java8-ibmjava-ubi
 
-25.0.0.8-kernel-slim-java17-openj9-ubi
-25.0.0.8-kernel-slim-java11-openj9-ubi
-25.0.0.8-kernel-slim-java8-openj9-ubi
-25.0.0.8-kernel-slim-java8-ibmjava-ubi
-
-25.0.0.8-full-java21-openj9-ubi-minimal
-25.0.0.8-full-java17-openj9-ubi-minimal
-25.0.0.8-full-java11-openj9-ubi-minimal
-25.0.0.8-full-java8-openj9-ubi-minimal
-25.0.0.8-full-java8-ibmjava-ubi-minimal
-
-25.0.0.8-full-java17-openj9-ubi
-25.0.0.8-full-java11-openj9-ubi
-25.0.0.8-full-java8-openj9-ubi
-25.0.0.8-full-java8-ibmjava-ubi
-```
-
-## 25.0.0.6
-
-```
-25.0.0.6-kernel-slim-java21-openj9-ubi-minimal
-25.0.0.6-kernel-slim-java17-openj9-ubi-minimal
-25.0.0.6-kernel-slim-java11-openj9-ubi-minimal
-25.0.0.6-kernel-slim-java8-openj9-ubi-minimal
-25.0.0.6-kernel-slim-java8-ibmjava-ubi-minimal
-
-25.0.0.6-kernel-slim-java17-openj9-ubi
-25.0.0.6-kernel-slim-java11-openj9-ubi
-25.0.0.6-kernel-slim-java8-openj9-ubi
-25.0.0.6-kernel-slim-java8-ibmjava-ubi
-
-25.0.0.6-full-java21-openj9-ubi-minimal
-25.0.0.6-full-java17-openj9-ubi-minimal
-25.0.0.6-full-java11-openj9-ubi-minimal
-25.0.0.6-full-java8-openj9-ubi-minimal
-25.0.0.6-full-java8-ibmjava-ubi-minimal
-
-25.0.0.6-full-java17-openj9-ubi
-25.0.0.6-full-java11-openj9-ubi
-25.0.0.6-full-java8-openj9-ubi
-25.0.0.6-full-java8-ibmjava-ubi
-```
-
-## 25.0.0.3
-
-```
-25.0.0.3-kernel-slim-java21-openj9-ubi-minimal
-25.0.0.3-kernel-slim-java17-openj9-ubi
-25.0.0.3-kernel-slim-java11-openj9-ubi
-25.0.0.3-kernel-slim-java8-openj9-ubi
-25.0.0.3-kernel-slim-java8-ibmjava-ubi
-
-25.0.0.3-full-java21-openj9-ubi-minimal
-25.0.0.3-full-java17-openj9-ubi
-25.0.0.3-full-java11-openj9-ubi
-25.0.0.3-full-java8-openj9-ubi
-25.0.0.3-full-java8-ibmjava-ubi
+25.0.0.2-full-java21-openj9-ubi-minimal
+25.0.0.2-full-java17-openj9-ubi
+25.0.0.2-full-java11-openj9-ubi
+25.0.0.2-full-java8-openj9-ubi
+25.0.0.2-full-java8-ibmjava-ubi
 ```
