@@ -3,7 +3,7 @@
 - [Open Liberty Images](#open-liberty-images)
   - [Container Images](#container-images)
   - [Building an Application Image](#building-an-application-image)
-  - [Enterprise Functionality](#enterprise-functionality)
+  - [Build Variables](#build-variables)
   - [Security](#security)
   - [OpenJ9 Shared Class Cache (SCC)](#openj9-shared-class-cache-scc)
   - [Logging](#logging)
@@ -66,9 +66,9 @@ remoteRepo.password={aes}KM8dhwcv892Ss1sawu9R+
 
 Refer to [Repository and proxy modifications](https://openliberty.io/docs/ref/command/featureUtility-commands.html) for more information.
 
-## Enterprise Functionality
+## Build Variables
 
-This section describes the optional enterprise functionality that can be enabled via the Dockerfile during `build` time, by setting particular build-arguments (`ARG`) and calling `RUN configure.sh`.  Each of these options trigger the inclusion of specific configuration via XML snippets (except for `VERBOSE`), described below:
+This section describes the optional build variables that can be enabled via the Dockerfile during the`build` time, by setting particular build-arguments (`ARG`) and calling `RUN configure.sh`.  Each of these variables trigger the inclusion of specific configuration via XML snippets (except for `VERBOSE`), described below:
 
 * `TLS` (`SSL` is deprecated)
   *  Description: Enable Transport Security in Liberty by adding the `transportSecurity-1.0` feature (includes support for SSL).
