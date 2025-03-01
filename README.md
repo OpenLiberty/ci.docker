@@ -79,9 +79,9 @@ This section describes the optional enterprise functionality that can be enabled
 * `VERBOSE`
   *  Description: When set to `true` it outputs the commands and results to stdout from `configure.sh`. Otherwise, default setting is `false` and `configure.sh` is silenced.
 
-### Deprecated Enterprise Functionality
+### Deprecated Build Variables
 
-The following enterprise functionalities are now **deprecated**. You should **stop** using them. They are still available in `full` but not available in `kernel-slim`. They have been removed from the Open Liberty images based on Java 21 and above.:
+The following container image build variables are now **deprecated**. You should **stop** using them. They are still available in `full` but not available in `kernel-slim`. They have been removed from the Open Liberty images based on Java 21 and above:
 
 * `HTTP_ENDPOINT`
   *  Description: Add configuration properties for an HTTP endpoint.
