@@ -3,7 +3,7 @@
 - [Open Liberty Images](#open-liberty-images)
   - [Container Images](#container-images)
   - [Building an Application Image](#building-an-application-image)
-  - [Enterprise Functionality](#enterprise-functionality)
+  - [Build Variables](#build-variables)
   - [Security](#security)
   - [OpenJ9 Shared Class Cache (SCC)](#openj9-shared-class-cache-scc)
   - [Logging](#logging)
@@ -66,9 +66,9 @@ remoteRepo.password={aes}KM8dhwcv892Ss1sawu9R+
 
 Refer to [Repository and proxy modifications](https://openliberty.io/docs/ref/command/featureUtility-commands.html) for more information.
 
-## Enterprise Functionality
+## Build Variables
 
-This section describes the optional enterprise functionality that can be enabled via the Dockerfile during `build` time, by setting particular build-arguments (`ARG`) and calling `RUN configure.sh`.  Each of these options trigger the inclusion of specific configuration via XML snippets (except for `VERBOSE`), described below:
+This section describes the optional build variables that can be enabled via the Dockerfile during the`build` time, by setting particular build-arguments (`ARG`) and calling `RUN configure.sh`.  Each of these variables trigger the inclusion of specific configuration via XML snippets (except for `VERBOSE`), described below:
 
 * `TLS` (`SSL` is deprecated)
   *  Description: Enable Transport Security in Liberty by adding the `transportSecurity-1.0` feature (includes support for SSL).
@@ -79,9 +79,9 @@ This section describes the optional enterprise functionality that can be enabled
 * `VERBOSE`
   *  Description: When set to `true` it outputs the commands and results to stdout from `configure.sh`. Otherwise, default setting is `false` and `configure.sh` is silenced.
 
-### Deprecated Enterprise Functionality
+### Deprecated Build Variables
 
-The following enterprise functionalities are now **deprecated**. You should **stop** using them. They are still available in `full` but not available in `kernel-slim`. They have been removed from the Open Liberty images based on Java 21 and above.:
+The following container image build variables are now **deprecated**. You should **stop** using them. They are still available in `full` but not available in `kernel-slim`. They have been removed from the Open Liberty images based on Java 21 and above:
 
 * `HTTP_ENDPOINT`
   *  Description: Add configuration properties for an HTTP endpoint.
