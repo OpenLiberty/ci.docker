@@ -313,3 +313,36 @@ JVMDUMP012E Error in System dump: The core file created by child process with pi
 Since JVM cannot find the system dump, it is not able to add some useful metadata to the core dump but this is usually not required. An example of this information includes some extra memory region metadata for the info map command in `jdmpview` which is useful for native memory leak analysis.
 
 Users generating other types of dumps such as thread dump and heap dump should not see this issue.
+
+### Container build fails at step `RUN configure.sh` with exit status 22
+
+During the build stage of your Liberty container, the `configure.sh` script might exit with the following error:
+
+```
+The command status:start failed because of a communication error with the server.
+Server defaultServer start failed. Check server logs for details.
+Error: building at STEP “RUN configure.sh”: while running runtime: exit status 22
+```
+
+This error occurs when `configure.sh` runs the Liberty `server start` command but an issue with the configured application prevents it from starting correctly.
+
+A common issue is reading or writing to a directory without group read/write (g+rw) permissions. For instance, the Liberty server may boot up temporarily but then crash at a later stage caused by inadequate permissions to create new files/directories.
+
+Example:
+Users of the [Transaction Manager](https://openliberty.io/docs/latest/reference/config/transaction.html) feature may have configured the log location to a root-level directory which can cause the following error:
+  ```
+  [ERROR  ] CWRLS0024_EXC_DURING_RECOVERY
+                                                          Cannot lock server's own logs
+    at com.ibm.tx.jta.impl.TxRecoveryAgentImpl.initiateRecovery(TxRecoveryAgentImpl.java:375)
+    at [internal classes]
+  ```
+During server start, the Liberty server attempts to acquire a lock on the transaction log directory to prepare for reading/writing, but fails to obtain the lock due to inadequate permissions on the directory ending with the server crashing.
+
+To resolve this issue, set the log directory to a group read/write-able location (i.e. `/output/tranlog`) in the `server.xml` such as in the code snippet below:
+  ```
+  <transaction transactionLogDirectory="/tranlog"/>         <!-- WRONG: The Liberty process can not create the /tranlog root-level directory -->
+  <transaction transactionLogDirectory="/output/tranlog"/>  <!-- CORRECT: The Liberty process can create the /output/tranlog directory because /output has g+rw permissions  -->
+  ```
+  
+ 
+
