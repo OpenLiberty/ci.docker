@@ -1,4 +1,5 @@
-FROM openliberty/open-liberty:kernel-slim-ubi
+ARG PARENT_IMAGE=openliberty/open-liberty:kernel-slim-ubi
+FROM $PARENT_IMAGE
 
 # Add my app and config
 COPY --chown=1001:0  server.xml /config/

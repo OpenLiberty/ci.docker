@@ -1,4 +1,5 @@
-FROM ibm-semeru-runtimes:open-8-jre-jammy
+ARG PARENT_IMAGE=ibm-semeru-runtimes:open-8-jre-jammy
+FROM $PARENT_IMAGE
 
 USER root
 

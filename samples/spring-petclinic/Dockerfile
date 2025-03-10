@@ -1,5 +1,5 @@
-ARG IMAGE=openliberty/open-liberty:kernel-slim-java8-openj9-ubi
-FROM ${IMAGE} as staging
+ARG PARENT_IMAGE=openliberty/open-liberty:kernel-slim-java8-openj9-ubi
+FROM $PARENT_IMAGE as staging
 
 # Copy server config so springBootUtility can be downloaded by featureUtility in the next step
 COPY --chown=1001:0 server.xml /config/server.xml
@@ -14,7 +14,7 @@ RUN springBootUtility thin \
  --targetThinAppPath=/staging/myThinApp.jar \
  --targetLibCachePath=/staging/lib.index.cache
 
-FROM ${IMAGE}
+FROM $PARENT_IMAGE
 COPY --chown=1001:0 server.xml /config
 
 # This script will add the requested XML snippets to enable Liberty features and grow image to be fit-for-purpose using featureUtility
