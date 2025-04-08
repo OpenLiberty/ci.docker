@@ -1,3 +1,12 @@
+# This relies on a base image which needs to be built seperately
+# curl https://raw.githubusercontent.com/ibmruntimes/ci.docker/main/ibmjava/8/jre/ubi-min/Dockerfile -o java/Dockerfile.ubi9.minimal
+# The above file needs editing before it is built:
+# This changes to a UBI9 base, and corrects the microdnf command to work on UBI9.
+# $> sed -i -e 's/ubi8/ubi9/' -e 's/microdnf install/microdnf -y install/' -e 's/microdnf update/microdnf update -y/' Dockerfile.ubi9-minimal.ibmjava8
+# $> rm ./java/Dockerfile.ubi9.minimal.bak
+# Then build and tag as 'ibmjava:9-ubi'
+# $> docker build -t ibmjava:9-ubi -f ./java/Dockerfile.ubi9.minimal java
+
 FROM ibmjava:9-ubi AS getRuntime
 
 USER root
@@ -34,7 +43,7 @@ ARG LIBERTY_BUILD_LABEL=cl250320250310-1902
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
-LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas Watson, Michal Broz, Wendy Raschke" \
+LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Iain Lewis, Melissa Lee, Kirby Chin" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \

@@ -34,7 +34,7 @@ ARG LIBERTY_BUILD_LABEL=cl250320250310-1902
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
-LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas Watson, Michal Broz, Wendy Raschke" \
+LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Iain Lewis, Melissa Lee, Kirby Chin" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
