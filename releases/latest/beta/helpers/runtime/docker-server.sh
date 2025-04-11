@@ -147,8 +147,8 @@ else
   if [[ ! -z "$SERVICEABILITY_NAMESPACE" ]] && [[ ! -z $HOSTNAME ]]; then
     SERVICEABILITY_FOLDER="/serviceability/$SERVICEABILITY_NAMESPACE/$HOSTNAME"
     mkdir -p $SERVICEABILITY_FOLDER
-    rm -f /opt/ol/links/logs
-    ln -s $SERVICEABILITY_FOLDER /opt/ol/links/logs
+    rm /liberty/logs
+    ln -s $SERVICEABILITY_FOLDER /liberty/logs
   fi
   exec "$@"
 fi
