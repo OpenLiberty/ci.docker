@@ -134,7 +134,9 @@ RUN mkdir /logs \
     && mkdir /etc/wlp \
     && chown -R 1001:0 /etc/wlp \
     && chmod -R g+rw /etc/wlp \
-    && if [ -e /etc/instanton.ld.so.cache ]; then chmod g+w /etc/ld.so.cache; fi
+    && if [ -e /etc/instanton.ld.so.cache ]; then chmod g+w /etc/ld.so.cache; fi \
+    && ln -s /logs /liberty/logs \
+    && chown -d 1001:0 /liberty/logs
 
 # Create a new SCC layer
 RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
