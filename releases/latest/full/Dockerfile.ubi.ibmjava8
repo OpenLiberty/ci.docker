@@ -95,8 +95,8 @@ RUN yum -y install openssl \
     && yum clean all
 
 # Set Path Shortcuts
-ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build:/opt/ol/helpers/runtime \
-    LOG_DIR=/logs \
+ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \
+    LOG_DIR=/liberty/logs \
     WLP_OUTPUT_DIR=/opt/ol/wlp/output \
     WLP_SKIP_MAXPERMSIZE=true \
     OPENJ9_SCC=$OPENJ9_SCC
