@@ -5,7 +5,7 @@ Anyone can contribute to the Open Liberty Container Images project, and we welco
 There are multiple ways to contribute: report bugs, fix bugs, contribute code, improve upon documentation, etc. You must follow these guidelines:
 
 - [Raising issues](##-Raising-Issues)
-- [Contributor License Agreement](##-Contributor-License-Agreement)
+- [Legal](##-Legal)
 - [Coding Standards](##-Coding-Standards)
 
 ## Raising Issues
