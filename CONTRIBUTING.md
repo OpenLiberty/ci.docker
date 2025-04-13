@@ -1,8 +1,6 @@
 # Contributing to Open Liberty Container Images
 
-Anyone can contribute to the Open Liberty Container Images project, and we welcome your contributions!
-
-There are multiple ways to contribute: report bugs, fix bugs, contribute code, improve upon documentation, etc. You must follow these guidelines:
+There are multiple ways to contribute: report bugs, request features, fix bugs, contribute code, improve documentation, etc. You must follow the established process and guidelines. We welcome your contributions!
 
 - [Raising issues](#Raising-Issues)
 - [Legal](#Legal)
@@ -10,7 +8,7 @@ There are multiple ways to contribute: report bugs, fix bugs, contribute code, i
 
 ## Raising Issues
 
-Please raise any bug reports on the Open Liberty Container Images project repository's GitHub issue tracker. Search the list to see if your issue has already been raised.
+Please raise any bug reports or feature requests on the [Open Liberty Container Images project repository's GitHub issue tracker](https://github.com/OpenLiberty/ci.docker/issues). Search the list to see if your issue has already been raised.
 
 A good bug report is one that makes it easy for everyone to understand what you were trying to do and what went wrong. Please provide as much context as possible so we can try to recreate the issue.
 
@@ -62,7 +60,4 @@ If you are an IBMer, please contact us directly, as the contribution process is 
 
 ## Coding Standards
 
-Please ensure you follow the coding standards used throughout the existing code base. Some basic rules include:
-
-- All files must have a Copyright, including the EPL license in the header.
-- All PRs must have a passing build.
+Please ensure you follow the coding standards used throughout the existing code base.
