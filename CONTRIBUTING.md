@@ -1,37 +1,26 @@
 # Contributing to Open Liberty Container Images
 
-Anyone can contribute to the Open Liberty Container Images project and we welcome your contributions!
+There are multiple ways to contribute: report bugs, request features, fix bugs, contribute code, improve documentation, etc. You must follow the established process and guidelines. We welcome your contributions!
 
-There are multiple ways to contribute: report bugs, fix bugs, contribute code, improve upon documentation, etc. You must follow these guidelines:
-
-- [Raising issues](##-Raising-Issues)
-- [Contributor License Agreement](##-Contributor-License-Agreement)
-- [Coding Standards](##-Coding-Standards)
+- [Raising issues](#Raising-Issues)
+- [Legal](#Legal)
+- [Coding Standards](#Coding-Standards)
 
 ## Raising Issues
 
-Please raise any bug reports on the Open Liberty Container Images project repository's GitHub issue tracker. Be sure to search the list to see if your issue has already been raised.
+Please raise any bug reports or feature requests on the [Open Liberty Container Images project repository's GitHub issue tracker](https://github.com/OpenLiberty/ci.docker/issues). Search the list to see if your issue has already been raised.
 
-A good bug report is one that makes it easy for everyone to understand what you were trying to do and what went wrong. Provide as much context as possible so we can try to recreate the issue.
+A good bug report is one that makes it easy for everyone to understand what you were trying to do and what went wrong. Please provide as much context as possible so we can try to recreate the issue.
 
-## Contributor License Agreement
+## Legal
 
-In order for us to accept pull requests, you must declare that you wrote the code or, at least, have the right to contribute it to the repo under the open source licence of the project in the repo. It's dead easy...
+We use the same approach - the Developer's Certificate of Origin 1.1 (DCO) - that the Linux® Kernel community uses to manage code contributions.
 
-1. Read this (from [developercertificate.org](http://developercertificate.org/)):
+For us to accept pull requests, you must declare that you wrote the code or, at least, have the right to contribute it to the repo under the open source license of the project in the repo. It's that easy.
+
+1. Read the following terms from [DCO](https://elinux.org/Developer_Certificate_Of_Origin) :
 
   ```
-  Developer Certificate of Origin
-Version 1.1
-
-Copyright (C) 2004, 2006 The Linux Foundation and its contributors.
-660 York Street, Suite 102,
-San Francisco, CA 94110 USA
-
-Everyone is permitted to copy and distribute verbatim copies of this
-license document, but changing it is not allowed.
-
-
 Developer's Certificate of Origin 1.1
 
 By making a contribution to this project, I certify that:
@@ -61,18 +50,14 @@ By making a contribution to this project, I certify that:
 
 2. If you can certify that it is true, sign off your `git commit` with a message like this:
   ```
-  Signed-off-by: Laura Cowen <laura.cowen@email.com>
+  Signed-off-by: John Doe <john.doe@example.com>
   ```
   You must use your real name (no pseudonyms or anonymous contributions, sorry).
   
   Instead of typing that in every git commit message, your Git tools might let you automatically add the details for you. If you configure them to do that, when you issue the `git commit` command, just add the `-s` option.
 
-If you are an IBMer, please contact us directly as the contribution process is
-slightly different.
+If you are an IBMer, please contact us directly, as the contribution process is slightly different.
 
 ## Coding Standards
 
-Please ensure you follow the coding standards used throughout the existing code base. Some basic rules include:
-
-- all files must have a Copyright including EPL license in the header.
-- all PRs must have a passing build.
+Please ensure you follow the coding standards used throughout the existing code base.
