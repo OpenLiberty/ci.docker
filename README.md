@@ -313,3 +313,16 @@ JVMDUMP012E Error in System dump: The core file created by child process with pi
 Since JVM cannot find the system dump, it is not able to add some useful metadata to the core dump but this is usually not required. An example of this information includes some extra memory region metadata for the info map command in `jdmpview` which is useful for native memory leak analysis.
 
 Users generating other types of dumps such as thread dump and heap dump should not see this issue.
+
+### Build fails during `configure.sh` using the `--platform=linux/amd64` flag on `aarch64`
+
+When building a Liberty image using `--platform=linux/amd64` while on a different architecture, some emulators may fail to translate machine instructions during the `configure.sh` stage which leads to a build failure.
+
+Specifically, this happens in the docker build when `configure.sh` attempts to start and stop the Liberty server to generate the Java Shared Classes Cache (SCC).
+
+To solve this problem:
+- Match the build platform to the image's target architecture. For example, when building on a Mac M1, run an `amd64` virtual machine (such as with QEMU) to build the `amd64` Liberty image. 
+- Another solution is to set `ENV OPENJ9_SCC=false` in the Dockerfile which will opt out of generating SCC at build time. However, adding this flag will remove performance gains at container startup time that were previously obtained from caching.  
+
+
+
