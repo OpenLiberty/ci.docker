@@ -114,7 +114,6 @@ RUN mkdir /logs \
     && chmod -R g+rw /etc/wlp \
     && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml \
     && ln -s /logs /liberty/logs \
-    && chown 1001:0 /liberty/logs \
     && mkdir /serviceability \
     && chown -R 1001:0 /serviceability \
     && chmod -R g+rw /serviceability
