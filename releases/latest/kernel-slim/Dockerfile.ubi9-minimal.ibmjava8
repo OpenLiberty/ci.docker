@@ -144,7 +144,6 @@ RUN mkdir /logs \
     && chown -R 1001:0 /etc/wlp \
     && chmod -R g+rw /etc/wlp \
     && ln -s /logs /liberty/logs \
-    && chown 1001:0 /liberty/logs \
     && mkdir /serviceability \
     && chown -R 1001:0 /serviceability \
     && chmod -R g+rw /serviceability
