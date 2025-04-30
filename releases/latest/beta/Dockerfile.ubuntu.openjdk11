@@ -112,13 +112,11 @@ RUN mkdir /logs \
     && mkdir /etc/wlp \
     && chown -R 1001:0 /etc/wlp \
     && chmod -R g+rw /etc/wlp \
-   && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml \
+    && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml \
     && ln -s /logs /liberty/logs \
     && mkdir /serviceability \
     && chown -R 1001:0 /serviceability \
-    && chmod -R g+rw /serviceability \
-    && ln -s /logs /liberty/logs \
-    && chown -d 1001:0 /liberty/logs
+    && chmod -R g+rw /serviceability
 
 # Create a new SCC layer
 RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
