@@ -21,7 +21,7 @@ then
     timeout_seconds=${STARTUP_PROBE_TIMEOUT_SECONDS}
     timeout_milliseconds=$((timeout_seconds * 1000))
   else
-    echo "Expected only a numerical value for STARTUP_PROBE_TIMEOUT_SECONDS environment variable, but recieved: $2. This value will not be read in."
+    echo "Expected only a numerical value for STARTUP_PROBE_TIMEOUT_SECONDS environment variable, but recieved: ${STARTUP_PROBE_TIMEOUT_SECONDS}. This value will not be used."
   fi
 fi
 
@@ -52,7 +52,7 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
 	--help)
-	  printf "This script is used to query the 'started' health check file to determine if the continaer is started. The default location is '/output/health/started' but can be configured with the -f/--file option or with the environment variable 'STARTED_FILE_LOCATION' if the file exists in another location. This script will check until the timeout duration has expired (default is 1 second) unless configured otherwise. It is important to configure the timeout option for this script if the Kubernetes timeoutSeconds field of the startup probe is configured. This can be achieved by using the -t/--timeout-seconds option or with the environment variable 'STARTUP_PROBE_TIMEOUT_SECONDS'. Failure to do so will result in the script not being able to capture a successful startup response as soon as possible.\n\nNote that the options passed directly in to the script will supersede the environment variable configuration.\n\nUsage: ./startupHealthCheck.sh <option>...\nOptions:\n\n\t-t/--timeout-seconds\n\t\t A numerical value that must match the timeoutSeconds field of the Kubernetes startup probe configuration. The timeout value is used by this script to establish a timeout duration. Defaults to 1 (second).\n\n\t-f/--file\n\t\tThis value is used to inform the script of the location of the 'started' health-check file. The default is '/output/health/started'\n"
+	  printf "This script is used to query the 'started' health check file to determine if the container is started. The default location is '/output/health/started' but can be configured with the '-f' or '--file' option or the environment variable 'STARTED_FILE_LOCATION' if the file exists in another location. This script will check until the timeout duration has expired (default is 1 second) unless configured otherwise. Configuring the timeout option for this script is important if the 'timeoutSeconds' field of the Kubernetes startup probe is configured. This can be achieved by using the '-t' or '--timeout-seconds' option or with the environment variable 'STARTUP_PROBE_TIMEOUT_SECONDS'. Failure to do so will result in the script not being able to capture a successful startup response as soon as possible.\n\nNote that the options passed directly into the script will supersede the environment variable configuration.\n\nUsage: ./startupHealthCheck.sh <option>...\nOptions:\n\n\t-t/--timeout-seconds\n\t\t A numerical value that must match the 'timeoutSeconds' field of the Kubernetes startup probe configuration. The timeout value is used by this script to establish a timeout duration. Defaults to 1 (second).\n\n\t-f/--file\n\t\tThis value is used to inform the script of the location of the 'started' health-check file. The default is '/output/health/started'\n"
 	  exit 1
 	  ;;
     *)

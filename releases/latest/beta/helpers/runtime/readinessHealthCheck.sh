@@ -17,7 +17,7 @@ then
     period_seconds=${READINESS_PROBE_PERIOD_SECONDS}
     period_milliseconds=$((period_seconds * 1000))
   else
-    echo "Expected only a numerical value for READINESS_PROBE_PERIOD_SECONDS environment variable, but recieved: $2. This value will not be read in."
+    echo "Expected only a numerical value for READINESS_PROBE_PERIOD_SECONDS environment variable, but recieved: ${READINESS_PROBE_PERIOD_SECONDS}. This value will not be used."
   fi
 fi
 
@@ -37,7 +37,7 @@ while [[ $# -gt 0 ]]; do
         period_seconds=$2
         period_milliseconds=$((period_seconds*1000))
       else
-        echo "Expected only a numerical value for the -p/--period-seconds parameter, but recieved: $2. Defaulting to 1 second timeoutSeconds or environment variable defined value if valid."
+        echo "Expected only a numerical value for the -p/--period-seconds parameter, but recieved: $2. Defaulting to 10 second period seconds or environment variable defined value if valid."
       fi
       shift
       shift
@@ -48,7 +48,7 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
 	--help)
-	  printf "This script is used to query the 'ready' health check file to determine if the container is ready or not. The default location is '/output/health/ready' but can be configured with the -f/--file option or with the environment variable 'READY_FILE_LOCATION' if the file exists in another location. This script will check whether the file has been updated or not within the last 'period seconds' (defaults is 10 seconds). This value can be configured with the -p/--period-seconds option or with the 'READINESS_PROBE_PERIOD_SECONDS' environment variable. It is important to configure the period seconds option for this script if the Kubernetes periodSeconds field of the readiness probe is configured. Failure to do so will result in misreporting of the readiness status of the container.\n\nNote that the options passed directly in to the script will supersede the environment variable configuration.\n\nUsage: ./readinessHealthCheck.sh <option>...\nOptions:\n\n\t-p/--period-seconds\n\t\t A numerical value that must match the periodSeconds field of the Kubernetes readiness probe configuration. The period seconds value is used by this script to determine if the container is ready or not. Defaults is 1 (second).\n\n\t-f/--file\n\t\tThis value is used to inform the script of the location of the 'ready' health-check file. The default is '/output/health/ready'\n"
+	  printf "This script is used to query the 'ready' health check file to determine if the container is ready or not. The default location is '/output/health/ready' but can be configured with the '-f' or '--file' option or with the environment variable 'READY_FILE_LOCATION' if the file exists in another location. This script will check whether the file has been updated or not within the last 'period seconds' (defaults is 10 seconds). This value can be configured with the '-p' or '--period-seconds' option or with the 'READINESS_PROBE_PERIOD_SECONDS' environment variable. It is important to configure the period seconds option for this script if the Kubernetes 'periodSeconds' field of the readiness probe is configured. Failure to do so will result in misreporting of the readiness status of the container.\n\nNote that the options passed directly in to the script will supersede the environment variable configuration.\n\nUsage: ./readinessHealthCheck.sh <option>...\nOptions:\n\n\t-p/--period-seconds\n\t\t A numerical value that must match the periodSeconds field of the Kubernetes readiness probe configuration. The period seconds value is used by this script to determine if the container is ready or not. Defaults is 10 (seconds).\n\n\t-f/--file\n\t\tThis value is used to inform the script of the location of the 'ready' health-check file. The default is '/output/health/ready'\n"
 	  exit 1
 	  ;;
     *)
