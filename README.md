@@ -11,6 +11,7 @@
   - [Applying Interim Fixes](#applying-interim-fixes)
   - [Known Issues](#known-issues)
     - [Generating system dumps for pods in Kubernetes](#generating-system-dumps-for-pods-in-kubernetes)
+  - [Contributions](#contributions)
 
 ----
 
@@ -323,6 +324,11 @@ Specifically, this happens in the docker build when `configure.sh` attempts to s
 To solve this problem:
 - Match the build platform to the image's target architecture. For example, when building on a Mac M1, run an `amd64` virtual machine (such as with QEMU) to build the `amd64` Liberty image. 
 - Another solution is to set `ENV OPENJ9_SCC=false` in the Dockerfile which will opt out of generating SCC at build time. However, adding this flag will remove performance gains at container startup time that were previously obtained from caching.  
+
+
+## Contributions
+
+For issues relating specifically to the Liberty container images, Dockerfiles and scripts, please use the [GitHub issues tracker](https://github.com/OpenLiberty/ci.docker/issues). For general issues relating to Liberty runtime, you can get help through the OpenLiberty community or, if you have production licenses for WebSphere Application Server, via the usual [support channels](https://openliberty.io/support/). See our guidelines for contributions [here](https://github.com/OpenLiberty/ci.docker/blob/main/CONTRIBUTING.md).
 
 
 
