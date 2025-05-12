@@ -328,7 +328,7 @@ To solve this problem:
 
 ## Contributions
 
-For issues relating specifically to the Liberty container images, Dockerfiles and scripts, please use the [GitHub issues tracker](https://github.com/OpenLiberty/ci.docker/issues). For general issues relating to Liberty runtime, you can get help through the OpenLiberty community or, if you have production licenses for WebSphere Application Server, via the usual [support channels](https://openliberty.io/support/). See our guidelines for contributions [here](https://github.com/OpenLiberty/ci.docker/blob/main/CONTRIBUTING.md).
+For issues relating specifically to the Open Liberty container images, Dockerfiles and scripts, please use the [GitHub issues tracker](https://github.com/OpenLiberty/ci.docker/issues). For general issues relating to Liberty runtime, you can get help through the OpenLiberty community or, if you have production licenses for WebSphere Application Server, via the usual [support channels](https://openliberty.io/support/). See our guidelines for contributions [here](https://github.com/OpenLiberty/ci.docker/blob/main/CONTRIBUTING.md).
 
 
 
