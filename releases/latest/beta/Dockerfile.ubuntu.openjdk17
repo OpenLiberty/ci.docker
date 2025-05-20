@@ -2,10 +2,10 @@ FROM ibm-semeru-runtimes:open-17-jre-jammy
 
 USER root
 
-ARG LIBERTY_VERSION=25.0.0.5-beta
-ARG LIBERTY_SHA=51a9331cbd038b2a1fb21ee6b2e45c69cedf9487
+ARG LIBERTY_VERSION=25.0.0.6-beta
+ARG LIBERTY_SHA=b684bec15d5330731573105878f3bf90afb54284
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/beta/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
-ARG LIBERTY_BUILD_LABEL=cl250420250407-1902
+ARG LIBERTY_BUILD_LABEL=cl250520250504-1901
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
@@ -73,7 +73,7 @@ RUN apt-get update \
     && chmod -R g+rw /opt/ol/wlp 
 
 # Set Path Shortcuts
-ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build \
+ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build:/opt/ol/helpers/runtime \
     LOG_DIR=/logs \
     WLP_OUTPUT_DIR=/opt/ol/wlp/output \
     WLP_SKIP_MAXPERMSIZE=true \
