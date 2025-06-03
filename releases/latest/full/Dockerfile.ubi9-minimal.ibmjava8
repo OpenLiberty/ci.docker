@@ -3,8 +3,8 @@ ARG PARENT_IMAGE=icr.io/appcafe/open-liberty:kernel-slim-java8-ibmjava-ubi-minim
 FROM $PARENT_IMAGE AS installBundle
 
 ARG VERBOSE=false
-ARG LIBERTY_VERSION=25.0.0.5
-ARG FEATURES_SHA=f7d9880f88fbe262d8e7f49c43d88370c9043e62
+ARG LIBERTY_VERSION=25.0.0.6
+ARG FEATURES_SHA={replace_with_correct_sha}
 
 # If there is a local copy of the repository use that instead
 COPY resources/ /tmp/
