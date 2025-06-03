@@ -3,7 +3,7 @@ FROM ibmjava:8-ubi AS getRuntime
 USER root
 
 ARG LIBERTY_VERSION=25.0.0.6
-ARG LIBERTY_SHA={replace_with_correct_sha}
+ARG LIBERTY_SHA=de41ad8ec018c12178e4339908626bcc6b89fdaa
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 
 ARG VERBOSE=false
