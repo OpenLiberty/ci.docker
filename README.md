@@ -3,7 +3,7 @@
 - [Open Liberty Images](#open-liberty-images)
   - [Container Images](#container-images)
   - [Building an Application Image](#building-an-application-image)
-  - [Enterprise Functionality](#enterprise-functionality)
+  - [Build Variables](#build-variables)
   - [Security](#security)
   - [OpenJ9 Shared Class Cache (SCC)](#openj9-shared-class-cache-scc)
   - [Logging](#logging)
@@ -11,6 +11,7 @@
   - [Applying Interim Fixes](#applying-interim-fixes)
   - [Known Issues](#known-issues)
     - [Generating system dumps for pods in Kubernetes](#generating-system-dumps-for-pods-in-kubernetes)
+  - [Contributions](#contributions)
 
 ----
 
@@ -64,11 +65,11 @@ remoteRepo.user=operator
 remoteRepo.password={aes}KM8dhwcv892Ss1sawu9R+
 ```
 
-Refer to [Repository and proxy modifications](https://openliberty.io/docs/ref/command/featureUtility-modifications.html) for more information.
+Refer to [Repository and proxy modifications](https://openliberty.io/docs/ref/command/featureUtility-commands.html) for more information.
 
-## Enterprise Functionality
+## Build Variables
 
-This section describes the optional enterprise functionality that can be enabled via the Dockerfile during `build` time, by setting particular build-arguments (`ARG`) and calling `RUN configure.sh`.  Each of these options trigger the inclusion of specific configuration via XML snippets (except for `VERBOSE`), described below:
+This section describes the optional build variables that can be enabled via the Dockerfile during the`build` time, by setting particular build-arguments (`ARG`) and calling `RUN configure.sh`.  Each of these variables trigger the inclusion of specific configuration via XML snippets (except for `VERBOSE`), described below:
 
 * `TLS` (`SSL` is deprecated)
   *  Description: Enable Transport Security in Liberty by adding the `transportSecurity-1.0` feature (includes support for SSL).
@@ -79,9 +80,9 @@ This section describes the optional enterprise functionality that can be enabled
 * `VERBOSE`
   *  Description: When set to `true` it outputs the commands and results to stdout from `configure.sh`. Otherwise, default setting is `false` and `configure.sh` is silenced.
 
-### Deprecated Enterprise Functionality
+### Deprecated Build Variables
 
-The following enterprise functionalities are now **deprecated**. You should **stop** using them. They are still available in `full` but not available in `kernel-slim`. They have been removed from the Open Liberty images based on Java 21 and above.:
+The following container image build variables are now **deprecated**. You should **stop** using them. They are still available in `full` but not available in `kernel-slim`. They have been removed from the Open Liberty images based on Java 21 and above:
 
 * `HTTP_ENDPOINT`
   *  Description: Add configuration properties for an HTTP endpoint.
@@ -313,3 +314,21 @@ JVMDUMP012E Error in System dump: The core file created by child process with pi
 Since JVM cannot find the system dump, it is not able to add some useful metadata to the core dump but this is usually not required. An example of this information includes some extra memory region metadata for the info map command in `jdmpview` which is useful for native memory leak analysis.
 
 Users generating other types of dumps such as thread dump and heap dump should not see this issue.
+
+### Build fails during `configure.sh` using the `--platform=linux/amd64` flag on `aarch64`
+
+When building a Liberty image using `--platform=linux/amd64` while on a different architecture, some emulators may fail to translate machine instructions during the `configure.sh` stage which leads to a build failure.
+
+Specifically, this happens in the docker build when `configure.sh` attempts to start and stop the Liberty server to generate the Java Shared Classes Cache (SCC).
+
+To solve this problem:
+- Match the build platform to the image's target architecture. For example, when building on a Mac M1, run an `amd64` virtual machine (such as with QEMU) to build the `amd64` Liberty image. 
+- Another solution is to set `ENV OPENJ9_SCC=false` in the Dockerfile which will opt out of generating SCC at build time. However, adding this flag will remove performance gains at container startup time that were previously obtained from caching.  
+
+
+## Contributions
+
+For issues relating specifically to the Open Liberty container images, Dockerfiles and scripts, please use the [GitHub issues tracker](https://github.com/OpenLiberty/ci.docker/issues). For general issues relating to Liberty runtime, you can get help through the OpenLiberty community or, if you have production licenses for WebSphere Application Server, via the usual [support channels](https://openliberty.io/support/). See our guidelines for contributions [here](https://github.com/OpenLiberty/ci.docker/blob/main/CONTRIBUTING.md).
+
+
+
