@@ -9,6 +9,7 @@
   - [Logging](#logging)
   - [Session Caching](#session-caching)
   - [Applying Interim Fixes](#applying-interim-fixes)
+  - [Running Liberty MustGather](#running-liberty-mustgather)
   - [Known Issues](#known-issues)
     - [Generating system dumps for pods in Kubernetes](#generating-system-dumps-for-pods-in-kubernetes)
   - [Contributions](#contributions)
@@ -264,6 +265,19 @@ The Liberty session caching feature builds on top of an existing technology call
 ## Applying Interim Fixes
 
 The process to apply interim fixes (iFix) is defined [here](releases/applying-ifixes/README.md).
+
+## Running Liberty MustGather
+
+The [Liberty MustGather script](https://www.ibm.com/support/pages/mustgather-performance-hang-or-high-cpu-issues-liberty-linux) can be run within your container to collect critical data for debugging issues relating to performance degradation, hang, no response, hung threads, CPU starvation, high CPU utilization, or deadlocks with Liberty on Linux.
+
+Include the following snippet into your Dockerfile definition to install the required packages for running `linperf.sh` in the Liberty container.
+
+```
+# Temporarily provide root access to install required packages
+USER 0
+RUN performance-data-setup.sh
+USER 1001
+```
 
 ## Known Issues
 
