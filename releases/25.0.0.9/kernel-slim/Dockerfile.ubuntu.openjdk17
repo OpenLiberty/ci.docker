@@ -3,7 +3,7 @@ FROM ibm-semeru-runtimes:open-17-jre-jammy
 USER root
 
 ARG LIBERTY_VERSION=25.0.0.9
-ARG LIBERTY_SHA={replace_with_correct_sha}
+ARG LIBERTY_SHA=21343f004335a93e1ca93d8b42d0243c860b01d0
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 ARG LIBERTY_BUILD_LABEL=cl250920250821-1629
 
