@@ -1,9 +1,18 @@
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-21-jre-ubi9-minimal AS getRuntime
+# This relies on a base image which needs to be built seperately
+# curl https://raw.githubusercontent.com/ibmruntimes/ci.docker/main/ibmjava/8/jre/ubi-min/Dockerfile -o java/Dockerfile.ubi9.minimal
+# The above file needs editing before it is built:
+# This changes to a UBI9 base, and corrects the microdnf command to work on UBI9.
+# $> sed -i -e 's/ubi8/ubi9/' -e 's/microdnf install/microdnf -y install/' -e 's/microdnf update/microdnf update -y/' Dockerfile.ubi9-minimal.ibmjava8
+# $> rm ./java/Dockerfile.ubi9.minimal.bak
+# Then build and tag as 'ibmjava:9-ubi'
+# $> docker build -t ibmjava:9-ubi -f ./java/Dockerfile.ubi9.minimal java
+
+FROM ibmjava:9-ubi AS getRuntime
 
 USER root
 
-ARG LIBERTY_VERSION=25.0.0.8
-ARG LIBERTY_SHA=2c5fc68da47358a64949b5dcf081efd1bc30c882
+ARG LIBERTY_VERSION=25.0.0.9
+ARG LIBERTY_SHA={replace_with_correct_sha}
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 
 ARG VERBOSE=false
@@ -20,21 +29,21 @@ RUN microdnf -y install shadow-utils wget unzip openssl \
     && unzip -q /tmp/wlp.zip -d /opt/ol \
     && mkdir -p /licenses \
     && cp /opt/ol/wlp/LICENSE /licenses/ \
-    && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
+#    && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
     && chown -R 1001:0 /opt/ol/wlp \
     && chmod -R g+rw /opt/ol/wlp
 
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-21-jre-ubi9-minimal
+FROM ibmjava:9-ubi
 
 USER root
 
-ARG LIBERTY_VERSION=25.0.0.8
-ARG LIBERTY_BUILD_LABEL=cl250820250727-1902
+ARG LIBERTY_VERSION=25.0.0.9
+ARG LIBERTY_BUILD_LABEL=cl250920250821-1629
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
-LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas Watson, Michal Broz, Wendy Raschke" \
+LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Iain Lewis, Melissa Lee, Kirby Chin" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
@@ -45,8 +54,8 @@ LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas
       vendor="Open Liberty" \
       name="Open Liberty" \
       version="$LIBERTY_VERSION" \
-      summary="Image for Open Liberty with IBM Semeru Runtime Open Edition OpenJDK 21 with OpenJ9 and UBI 9 minimal" \
-      description="This image contains the Open Liberty runtime with IBM Semeru Runtime Open Edition OpenJDK 21 with OpenJ9 and Red Hat UBI 9 minimal as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
+      summary="Image for Open Liberty with IBM's Java and UBI 9 minimal" \
+      description="This image contains the Open Liberty runtime with IBM's Java and Red Hat UBI 9 minimal as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
 
 COPY NOTICES /opt/ol/NOTICES
 COPY helpers /opt/ol/helpers
@@ -83,7 +92,7 @@ RUN set -eux; \
 
 # Add default user 1001 and create wlp with right user/permissions before copying
 RUN microdnf -y install shadow-utils findutils openssl \
-    && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
+#    && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
     && mkdir -p /opt/ol/wlp \
     && chown -R 1001:0 /opt/ol/wlp \
     && chmod -R g+rw /opt/ol/wlp \
@@ -133,8 +142,7 @@ RUN mkdir /logs \
     && chmod -R g+rwx /opt/ol/fixes \
     && mkdir /etc/wlp \
     && chown -R 1001:0 /etc/wlp \
-    && chmod -R g+rw /etc/wlp \
-    && if [ -e /etc/instanton.ld.so.cache ]; then chmod g+w /etc/ld.so.cache; fi
+    && chmod -R g+rw /etc/wlp
 
 # Create a new SCC layer
 RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
@@ -144,7 +152,7 @@ RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
 
 #These settings are needed so that we can run as a different user than 1001 after server warmup
 ENV RANDFILE=/tmp/.rnd \
-    OPENJ9_JAVA_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:+IdleTuningGcOnIdle -Xshareclasses:name=openj9_system_scc,cacheDir=/opt/java/.scc,readonly,nonFatal -Dosgi.checkConfiguration=false"
+    IBM_JAVA_OPTIONS="-Xshareclasses:name=liberty,readonly,nonfatal,cacheDir=/output/.classCache/ -Dosgi.checkConfiguration=false ${IBM_JAVA_OPTIONS}"
 
 USER 1001
 
