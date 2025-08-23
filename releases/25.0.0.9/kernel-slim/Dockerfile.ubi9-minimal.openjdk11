@@ -1,9 +1,9 @@
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-21-jre-ubi9-minimal AS getRuntime
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-11-jre-ubi9-minimal AS getRuntime
 
 USER root
 
-ARG LIBERTY_VERSION=25.0.0.8
-ARG LIBERTY_SHA=2c5fc68da47358a64949b5dcf081efd1bc30c882
+ARG LIBERTY_VERSION=25.0.0.9
+ARG LIBERTY_SHA=21343f004335a93e1ca93d8b42d0243c860b01d0
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 
 ARG VERBOSE=false
@@ -24,17 +24,17 @@ RUN microdnf -y install shadow-utils wget unzip openssl \
     && chown -R 1001:0 /opt/ol/wlp \
     && chmod -R g+rw /opt/ol/wlp
 
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-21-jre-ubi9-minimal
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-11-jre-ubi9-minimal
 
 USER root
 
-ARG LIBERTY_VERSION=25.0.0.8
-ARG LIBERTY_BUILD_LABEL=cl250820250727-1902
+ARG LIBERTY_VERSION=25.0.0.9
+ARG LIBERTY_BUILD_LABEL=cl250920250821-1629
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
-LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas Watson, Michal Broz, Wendy Raschke" \
+LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Iain Lewis, Melissa Lee, Kirby Chin" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
@@ -45,8 +45,8 @@ LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas
       vendor="Open Liberty" \
       name="Open Liberty" \
       version="$LIBERTY_VERSION" \
-      summary="Image for Open Liberty with IBM Semeru Runtime Open Edition OpenJDK 21 with OpenJ9 and UBI 9 minimal" \
-      description="This image contains the Open Liberty runtime with IBM Semeru Runtime Open Edition OpenJDK 21 with OpenJ9 and Red Hat UBI 9 minimal as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
+      summary="Image for Open Liberty with IBM Semeru Runtime Open Edition OpenJDK 11 with OpenJ9 and UBI 9 minimal" \
+      description="This image contains the Open Liberty runtime with IBM Semeru Runtime Open Edition OpenJDK 11 with OpenJ9 and Red Hat UBI 9 minimal as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
 
 COPY NOTICES /opt/ol/NOTICES
 COPY helpers /opt/ol/helpers
