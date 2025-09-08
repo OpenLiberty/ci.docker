@@ -129,6 +129,13 @@ if [[ -n "$INFINISPAN_SERVICE_NAME" ]]; then
  echo "INFINISPAN_PASS: ${INFINISPAN_PASS}"
 fi
 
+# If SERVICEABILITY_NAMESPACE is set, link /liberty/logs to the serviceability directory
+if [[ ! -z "$SERVICEABILITY_NAMESPACE" ]] && [[ ! -z $HOSTNAME ]]; then
+  SERVICEABILITY_FOLDER="/serviceability/$SERVICEABILITY_NAMESPACE/$HOSTNAME"
+  mkdir -p $SERVICEABILITY_FOLDER
+  rm /liberty/logs
+  ln -s $SERVICEABILITY_FOLDER /liberty/logs
+fi
 
 # Pass on to the real server run
 if [ -d "/output/workarea/checkpoint/image" ]; then
@@ -144,11 +151,5 @@ elif [[ ! -z "$WLP_CHECKPOINT" ]]; then
   checkpoint.sh "$TMP_CHECKPOINT"
 else
   # The default is to just exec the supplied CMD
-  if [[ ! -z "$SERVICEABILITY_NAMESPACE" ]] && [[ ! -z $HOSTNAME ]]; then
-    SERVICEABILITY_FOLDER="/serviceability/$SERVICEABILITY_NAMESPACE/$HOSTNAME"
-    mkdir -p $SERVICEABILITY_FOLDER
-    rm /liberty/logs
-    ln -s $SERVICEABILITY_FOLDER /liberty/logs
-  fi
   exec "$@"
 fi
