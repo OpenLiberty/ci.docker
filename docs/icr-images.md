@@ -31,7 +31,7 @@ ibmcloud cr images --restrict appcafe/open-liberty
 
 ## Latest version
 
-The following tags include the most recent Open Liberty version: `25.0.0.1`
+The following tags include the most recent Open Liberty version: `25.0.0.5`
 
 ```
 kernel-slim-java21-openj9-ubi-minimal
@@ -67,18 +67,44 @@ The `beta` tag includes all the features and capabilities from the most recent r
 beta
 ```
 
-## 25.0.0.1
+## 25.0.0.5
 
 ```
-25.0.0.1-kernel-slim-java21-openj9-ubi-minimal
-25.0.0.1-kernel-slim-java17-openj9-ubi
-25.0.0.1-kernel-slim-java11-openj9-ubi
-25.0.0.1-kernel-slim-java8-openj9-ubi
-25.0.0.1-kernel-slim-java8-ibmjava-ubi
+25.0.0.5-kernel-slim-java21-openj9-ubi-minimal
+25.0.0.5-kernel-slim-java17-openj9-ubi-minimal
+25.0.0.5-kernel-slim-java11-openj9-ubi-minimal
+25.0.0.5-kernel-slim-java8-openj9-ubi-minimal
+25.0.0.5-kernel-slim-java8-ibmjava-ubi-minimal
 
-25.0.0.1-full-java21-openj9-ubi-minimal
-25.0.0.1-full-java17-openj9-ubi
-25.0.0.1-full-java11-openj9-ubi
-25.0.0.1-full-java8-openj9-ubi
-25.0.0.1-full-java8-ibmjava-ubi
+25.0.0.5-kernel-slim-java17-openj9-ubi
+25.0.0.5-kernel-slim-java11-openj9-ubi
+25.0.0.5-kernel-slim-java8-openj9-ubi
+25.0.0.5-kernel-slim-java8-ibmjava-ubi
+
+25.0.0.5-full-java21-openj9-ubi-minimal
+25.0.0.5-full-java17-openj9-ubi-minimal
+25.0.0.5-full-java11-openj9-ubi-minimal
+25.0.0.5-full-java8-openj9-ubi-minimal
+25.0.0.5-full-java8-ibmjava-ubi-minimal
+
+25.0.0.5-full-java17-openj9-ubi
+25.0.0.5-full-java11-openj9-ubi
+25.0.0.5-full-java8-openj9-ubi
+25.0.0.5-full-java8-ibmjava-ubi
+```
+
+## 25.0.0.3
+
+```
+25.0.0.3-kernel-slim-java21-openj9-ubi-minimal
+25.0.0.3-kernel-slim-java17-openj9-ubi
+25.0.0.3-kernel-slim-java11-openj9-ubi
+25.0.0.3-kernel-slim-java8-openj9-ubi
+25.0.0.3-kernel-slim-java8-ibmjava-ubi
+
+25.0.0.3-full-java21-openj9-ubi-minimal
+25.0.0.3-full-java17-openj9-ubi
+25.0.0.3-full-java11-openj9-ubi
+25.0.0.3-full-java8-openj9-ubi
+25.0.0.3-full-java8-ibmjava-ubi
 ```
