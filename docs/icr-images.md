@@ -20,7 +20,7 @@ The `beta` tag is based on UBI 9 minimal and the latest Java JRE and provides th
 
 Append a tag to `icr.io/appcafe/open-liberty` to pull a specific image. For example: 
 ```
-icr.io/appcafe/open-liberty:25.0.0.6-kernel-slim-java17-openj9-ubi
+icr.io/appcafe/open-liberty:25.0.0.9-kernel-slim-java17-openj9-ubi
 ```
 
 Available images can be listed using [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started). Log in with your IBMid prior to running the following commands. Note that authentication is only required to list the images. **Images can be pulled from ICR without authentication**: 
@@ -31,7 +31,7 @@ ibmcloud cr images --restrict appcafe/open-liberty
 
 ## Latest version
 
-The following tags include the most recent Open Liberty version: `25.0.0.8`
+The following tags include the most recent Open Liberty version: `25.0.0.9`
 
 ```
 kernel-slim-java21-openj9-ubi-minimal
@@ -67,30 +67,30 @@ The `beta` tag includes all the features and capabilities from the most recent r
 beta
 ```
 
-## 25.0.0.8
+## 25.0.0.9
 
 ```
-25.0.0.8-kernel-slim-java21-openj9-ubi-minimal
-25.0.0.8-kernel-slim-java17-openj9-ubi-minimal
-25.0.0.8-kernel-slim-java11-openj9-ubi-minimal
-25.0.0.8-kernel-slim-java8-openj9-ubi-minimal
-25.0.0.8-kernel-slim-java8-ibmjava-ubi-minimal
+25.0.0.9-kernel-slim-java21-openj9-ubi-minimal
+25.0.0.9-kernel-slim-java17-openj9-ubi-minimal
+25.0.0.9-kernel-slim-java11-openj9-ubi-minimal
+25.0.0.9-kernel-slim-java8-openj9-ubi-minimal
+25.0.0.9-kernel-slim-java8-ibmjava-ubi-minimal
 
-25.0.0.8-kernel-slim-java17-openj9-ubi
-25.0.0.8-kernel-slim-java11-openj9-ubi
-25.0.0.8-kernel-slim-java8-openj9-ubi
-25.0.0.8-kernel-slim-java8-ibmjava-ubi
+25.0.0.9-kernel-slim-java17-openj9-ubi
+25.0.0.9-kernel-slim-java11-openj9-ubi
+25.0.0.9-kernel-slim-java8-openj9-ubi
+25.0.0.9-kernel-slim-java8-ibmjava-ubi
 
-25.0.0.8-full-java21-openj9-ubi-minimal
-25.0.0.8-full-java17-openj9-ubi-minimal
-25.0.0.8-full-java11-openj9-ubi-minimal
-25.0.0.8-full-java8-openj9-ubi-minimal
-25.0.0.8-full-java8-ibmjava-ubi-minimal
+25.0.0.9-full-java21-openj9-ubi-minimal
+25.0.0.9-full-java17-openj9-ubi-minimal
+25.0.0.9-full-java11-openj9-ubi-minimal
+25.0.0.9-full-java8-openj9-ubi-minimal
+25.0.0.9-full-java8-ibmjava-ubi-minimal
 
-25.0.0.8-full-java17-openj9-ubi
-25.0.0.8-full-java11-openj9-ubi
-25.0.0.8-full-java8-openj9-ubi
-25.0.0.8-full-java8-ibmjava-ubi
+25.0.0.9-full-java17-openj9-ubi
+25.0.0.9-full-java11-openj9-ubi
+25.0.0.9-full-java8-openj9-ubi
+25.0.0.9-full-java8-ibmjava-ubi
 ```
 
 ## 25.0.0.6
