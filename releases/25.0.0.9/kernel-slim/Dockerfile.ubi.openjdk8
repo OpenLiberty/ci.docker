@@ -1,10 +1,10 @@
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-11-jdk-ubi AS getRuntime
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-8-jdk-ubi AS getRuntime
 
 USER root
 
-ARG LIBERTY_VERSION=25.0.0.8
-ARG LIBERTY_SHA=76aecf0cc60bf70977ccdc430721e4fbcb534f28
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
+ARG LIBERTY_VERSION=25.0.0.9
+ARG LIBERTY_SHA=21343f004335a93e1ca93d8b42d0243c860b01d0
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 
 ARG VERBOSE=false
 
@@ -24,12 +24,12 @@ RUN yum -y install shadow-utils wget unzip openssl \
     && chown -R 1001:0 /opt/ol/wlp \
     && chmod -R g+rw /opt/ol/wlp
 
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-11-jdk-ubi
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-8-jdk-ubi
 
 USER root
 
-ARG LIBERTY_VERSION=25.0.0.8
-ARG LIBERTY_BUILD_LABEL=cl250820250727-1902
+ARG LIBERTY_VERSION=25.0.0.9
+ARG LIBERTY_BUILD_LABEL=cl250920250821-1629
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
@@ -102,7 +102,7 @@ ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build:/opt/ol/helpers/runtime \
     OPENJ9_SCC=$OPENJ9_SCC
 
 # Configure Open Liberty
-RUN /opt/ol/wlp/bin/server create --template=javaee8 \
+RUN /opt/ol/wlp/bin/server create \
     && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea \
     && rm -rf /opt/ol/wlp/usr/servers/defaultServer/server.env
 
@@ -115,8 +115,6 @@ RUN mkdir /logs \
     && ln -s /opt/ol/wlp/usr/servers/defaultServer /config \
     && mkdir -p /config/configDropins/defaults \
     && mkdir -p /config/configDropins/overrides \
-    && mkdir -p /config/dropins \
-    && mkdir -p /config/apps \
     && ln -s /opt/ol/wlp /liberty \
     && ln -s /opt/ol/fixes /fixes \
     && chown -R 1001:0 /config \
@@ -139,7 +137,7 @@ RUN mkdir /logs \
 
 # Create a new SCC layer
 RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
-    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache \
+    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache /output/workarea \
     && chown -R 1001:0 /opt/ol/wlp/output \
     && chmod -R g+rwx /opt/ol/wlp/output
 
