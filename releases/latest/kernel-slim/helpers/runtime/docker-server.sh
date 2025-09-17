@@ -72,6 +72,22 @@ function importKeyCert() {
     rm -rf /tmp/certs
   fi
 
+  # Add additional CA certificates to the truststore
+  # CA bundles need to be split and added as individual certificates
+  if [ -n "${ADDITIONAL_CA_FOLDER}" ] && [ -d "${ADDITIONAL_CA_FOLDER}" ]; then
+    mkdir -p /tmp/certs
+    pushd /tmp/certs >&/dev/null
+    cat "${ADDITIONAL_CA_FOLDER}"/*.crt >${TMP_CERT}
+    csplit -s -z -f crt- "${TMP_CERT}" "${CRT_DELIMITER}" '{*}'
+    setPasswords PASSWORD TRUSTSTORE_PASSWORD
+    for CERT_FILE in crt-*; do
+      keytool -import -storetype pkcs12 -noprompt -keystore "${TRUSTSTORE_FILE}" -file "${CERT_FILE}" \
+        -storepass "${TRUSTSTORE_PASSWORD}" -alias "service-sa-${CERT_FILE}" >&/dev/null
+    done
+    popd >&/dev/null
+    rm -rf /tmp/certs
+  fi
+
   # If no keystore has been created, add a keystore password to server configuration
   if [ ! -e "$keystorePathDefault" ] && [ ! -e "$keystorePathOverride" ]; then
     setPasswords PASSWORD TRUSTSTORE_PASSWORD
