@@ -1,4 +1,4 @@
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-25-m2-jre-ubi9-minimal AS getRuntime
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-25-jre-ubi9-minimal AS getRuntime
 
 USER root
 
@@ -24,7 +24,7 @@ RUN microdnf -y install shadow-utils wget unzip openssl \
     && chown -R 1001:0 /opt/ol/wlp \
     && chmod -R g+rw /opt/ol/wlp
 
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-25-m2-jre-ubi9-minimal
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-25-jre-ubi9-minimal
 
 USER root
 
