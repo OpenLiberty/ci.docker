@@ -1,0 +1,8 @@
+type: pipeline_definition
+name: Liberty Containers Open Liberty SPS - PR
+description: "Runs a set of compliance status checks for the OpenLiberty/ci.docker app repo."
+triggers:
+- type: github
+  keyword: "!olc-pr"
+  triggerName: "OLCSPSViaPR"
+  groups: ["LibertyContainers"]
