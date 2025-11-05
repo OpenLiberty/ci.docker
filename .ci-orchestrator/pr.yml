@@ -5,4 +5,4 @@ triggers:
 - type: github
   keyword: "!olc-pr"
   triggerName: "OLCSPSViaPR"
-  groups: ["LibertyContainers"]
+  groups: ["LibertyContainersPersonal"]
