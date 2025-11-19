@@ -1,25 +1,52 @@
-FROM ibm-semeru-runtimes:open-17-jre-jammy
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-17-jre-ubi9-minimal AS getRuntime
 
 USER root
 
-ARG LIBERTY_VERSION=25.0.0.11
-ARG LIBERTY_SHA=baf4c6a66207ec55f69aebc17e300067351e479f
-ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
-ARG LIBERTY_BUILD_LABEL=cl251120251020-0302
+ARG LIBERTY_VERSION=25.0.0.12
+ARG LIBERTY_SHA=91bf2c36c89259822dcd5d7c61d59cce835c9163
+ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
+
+ARG VERBOSE=false
+
+# If there is a local copy of the image use that instead
+COPY resources/ /tmp/
+
+# Install Open Liberty
+RUN microdnf -y install shadow-utils wget unzip openssl \
+    && if [ ! -f /tmp/wlp.zip ]; then wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip; fi \
+    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
+    && sha1sum -c /tmp/wlp.zip.sha1 \
+    && chmod -R u+x /usr/bin \
+    && unzip -q /tmp/wlp.zip -d /opt/ol \
+    && mkdir -p /licenses \
+    && cp /opt/ol/wlp/LICENSE /licenses/ \
+    && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
+    && chown -R 1001:0 /opt/ol/wlp \
+    && chmod -R g+rw /opt/ol/wlp
+
+FROM icr.io/appcafe/ibm-semeru-runtimes:open-17-jre-ubi9-minimal
+
+USER root
+
+ARG LIBERTY_VERSION=25.0.0.12
+ARG LIBERTY_BUILD_LABEL=cl251220251117-0302
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
 
-LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Melissa Lee, Thomas Watson, Michal Broz, Wendy Raschke" \
+LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Iain Lewis, Melissa Lee, Kirby Chin" \
       org.opencontainers.image.vendor="Open Liberty" \
       org.opencontainers.image.url="https://openliberty.io/" \
       org.opencontainers.image.source="https://github.com/OpenLiberty/ci.docker" \
-      org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
-      org.opencontainers.image.description="This image contains the Open Liberty runtime with IBM Semeru Runtime Open Edition OpenJDK with OpenJ9 and Ubuntu as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image" \
-      org.opencontainers.image.title="Open Liberty" \
       org.opencontainers.image.version="$LIBERTY_VERSION" \
+      org.opencontainers.image.revision="$LIBERTY_BUILD_LABEL" \
       liberty.version="$LIBERTY_VERSION" \
-      io.openliberty.version="$LIBERTY_VERSION"
+      io.openliberty.version="$LIBERTY_VERSION" \
+      vendor="Open Liberty" \
+      name="Open Liberty" \
+      version="$LIBERTY_VERSION" \
+      summary="Image for Open Liberty with IBM Semeru Runtime Open Edition OpenJDK 17 with OpenJ9 and UBI 9 minimal" \
+      description="This image contains the Open Liberty runtime with IBM Semeru Runtime Open Edition OpenJDK 17 with OpenJ9 and Red Hat UBI 9 minimal as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
 
 COPY NOTICES /opt/ol/NOTICES
 COPY helpers /opt/ol/helpers
@@ -27,7 +54,7 @@ COPY fixes/ /opt/ol/fixes/
 
 # Install dumb-init
 RUN set -eux; \
-    ARCH="$(dpkg --print-architecture)"; \
+    ARCH="$(uname -m)"; \
     case "${ARCH}" in \
        aarch64|arm64) \
          DUMB_INIT_URL='https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_aarch64'; \
@@ -54,23 +81,19 @@ RUN set -eux; \
     echo "${DUMB_INIT_SHA256} */usr/bin/dumb-init" | sha256sum -c -; \
     chmod +x /usr/bin/dumb-init;
 
-# Install Open Liberty
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends unzip openssl wget \
-    && wget -q $LIBERTY_DOWNLOAD_URL -U UA-Open-Liberty-Docker -O /tmp/wlp.zip \
-    && echo "$LIBERTY_SHA  /tmp/wlp.zip" > /tmp/wlp.zip.sha1 \
-    && sha1sum -c /tmp/wlp.zip.sha1 \
-    && unzip -q /tmp/wlp.zip -d /opt/ol \
-    && rm /tmp/wlp.zip \
-    && rm /tmp/wlp.zip.sha1 \
-    && mkdir -p /licenses \
-    && cp /opt/ol/wlp/LICENSE /licenses/ \
-    && apt-get remove -y unzip \
-    && apt-get remove -y wget \
-    && rm -rf /var/lib/apt/lists/* \
-    && useradd -u 1001 -r -g 0 -s /usr/sbin/nologin default \
+# Add default user 1001 and create wlp with right user/permissions before copying
+RUN microdnf -y install shadow-utils findutils openssl \
+    && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
+    && mkdir -p /opt/ol/wlp \
     && chown -R 1001:0 /opt/ol/wlp \
-    && chmod -R g+rw /opt/ol/wlp
+    && chmod -R g+rw /opt/ol/wlp \
+    && microdnf remove -y shadow-utils \
+    && microdnf clean all
+
+# Copy the runtime and licenses
+COPY --from=getRuntime --chown=1001:0 /opt/ol/wlp /opt/ol/wlp
+COPY --from=getRuntime /licenses /licenses
+
 
 # Set Path Shortcuts
 ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build:/opt/ol/helpers/runtime \
@@ -80,7 +103,7 @@ ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build:/opt/ol/helpers/runtime \
     OPENJ9_SCC=$OPENJ9_SCC
 
 # Configure Open Liberty
-RUN /opt/ol/wlp/bin/server create --template=javaee8 \
+RUN /opt/ol/wlp/bin/server create \
     && rm -rf $WLP_OUTPUT_DIR/.classCache /output/workarea \
     && rm -rf /opt/ol/wlp/usr/servers/defaultServer/server.env
 
@@ -95,10 +118,9 @@ RUN mkdir /logs \
     && ln -s /opt/ol/wlp/usr/servers/defaultServer /config \
     && mkdir -p /config/configDropins/defaults \
     && mkdir -p /config/configDropins/overrides \
-    && mkdir -p /config/dropins \
-    && mkdir -p /config/apps \
     && ln -s /opt/ol/wlp /liberty \
     && ln -s /opt/ol/fixes /fixes \
+    && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml \
     && chown -R 1001:0 /config \
     && chmod -R g+rw /config \
     && chown -R 1001:0 /opt/ol/wlp/usr \
@@ -112,7 +134,7 @@ RUN mkdir /logs \
     && mkdir /etc/wlp \
     && chown -R 1001:0 /etc/wlp \
     && chmod -R g+rw /etc/wlp \
-    && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml \
+    && if [ -e /etc/instanton.ld.so.cache ]; then chmod g+w /etc/ld.so.cache; fi \
     && ln -s /logs /liberty/logs \
     && mkdir /serviceability \
     && chown -R 1001:0 /serviceability \
@@ -120,7 +142,7 @@ RUN mkdir /logs \
 
 # Create a new SCC layer
 RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
-    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache \
+    && rm -rf /output/messaging /output/resources/security /logs/* $WLP_OUTPUT_DIR/.classCache /output/workarea \
     && chown -R 1001:0 /opt/ol/wlp/output \
     && chmod -R g+rwx /opt/ol/wlp/output
 
@@ -134,3 +156,4 @@ EXPOSE 9080 9443
 
 ENTRYPOINT ["/opt/ol/helpers/runtime/docker-server.sh"]
 CMD ["/opt/ol/wlp/bin/server", "run", "defaultServer"]
+
