@@ -3,6 +3,8 @@
 function main() {
     if [ "$VERBOSE" != "true" ]; then
         exec >/dev/null
+    else
+        set -x
     fi
 }
 
