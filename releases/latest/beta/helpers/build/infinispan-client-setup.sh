@@ -1,7 +1,7 @@
 #!/bin/bash
 . /opt/ol/helpers/build/internal/logger.sh
 
-set -Eeox pipefail
+set -Eeo pipefail
 
 pkgcmd=yum
 if ! command $pkgcmd

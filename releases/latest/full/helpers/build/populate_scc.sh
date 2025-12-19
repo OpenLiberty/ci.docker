@@ -1,7 +1,7 @@
 #!/bin/bash
 . /opt/ol/helpers/build/internal/logger.sh
 
-set -Eeox pipefail
+set -Eeo pipefail
 
 SCC_SIZE="80m"  # Default size of the SCC layer.
 ITERATIONS=2    # Number of iterations to run to populate it.

@@ -2,7 +2,7 @@
 
 . /opt/ol/helpers/build/internal/logger.sh
 
-set -Eeox pipefail
+set -Eeo pipefail
 
 function main() {
   ##Define variables for XML snippets source and target paths
