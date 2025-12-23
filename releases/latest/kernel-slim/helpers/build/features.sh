@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 . /opt/ol/helpers/build/internal/logger.sh
 
 set -Eeox pipefail
@@ -28,6 +30,7 @@ if [ "$SSL" == "true" ] || [ "$TLS" == "true" ]; then
 fi
 
 # Install necessary features using featureUtility
+curl -v https://repo.maven.apache.org
 featureUtility installServerFeatures --acceptLicense defaultServer --noCache
 find /opt/ol/wlp/lib /opt/ol/wlp/bin ! -perm -g=rw -print0 | xargs -0 -r chmod g+rw
 
