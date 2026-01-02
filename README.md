@@ -179,7 +179,7 @@ For more information regarding the configuration of Open Liberty's logging capab
 
 ## InstantOn
 
-[Open Liberty InstantOn](https://openliberty.io/docs/latest/instanton.html) provides fast startup times for MicroProfile and Jakarta EE applications. With InstantOn, your applications can start in milliseconds, without compromising on throughput, memory, development-production parity, or Java language features.
+[Liberty InstantOn](https://openliberty.io/docs/latest/instanton.html) provides fast startup times for MicroProfile and Jakarta EE applications. With InstantOn, your applications can start in milliseconds, without compromising on throughput, memory, development-production parity, or Java language features.
 
 Check out our guide on [Containerizing, packaging, and running a Spring Boot application](https://openliberty.io/guides/spring-boot.html) where you can learn how to use Liberty InstantOn with a Spring Boot application for faster startup.
 
