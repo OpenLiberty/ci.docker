@@ -6,7 +6,6 @@ set -Eeo pipefail
 
 function main() {
   ##Define variables for XML snippets source and target paths
-  WLP_INSTALL_DIR=/opt/ol/wlp
   SHARED_CONFIG_DIR=${WLP_INSTALL_DIR}/usr/shared/config
   SHARED_RESOURCE_DIR=${WLP_INSTALL_DIR}/usr/shared/resources
 
