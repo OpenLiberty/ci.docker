@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. /opt/ol/helpers/build/internal/logger.sh
+. /opt/ol/helpers/build/internal/utils.sh
 
 set -Eeo pipefail
 

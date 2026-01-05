@@ -37,12 +37,12 @@ COPY --chown=1001:0  server.xml /config/
 # A sample is in the 'Getting Required Features' section below
 COPY --chown=1001:0 featureUtility.properties /opt/ol/wlp/etc/
 
+# Add interim fixes (optional)
+COPY --chown=1001:0  interim-fixes /opt/ol/fixes/
+
 # This script will add the requested XML snippets to enable Liberty features and grow image to be fit-for-purpose using featureUtility.
 # Only available in 'kernel-slim'. The 'full' tag already includes all features for convenience.
 RUN features.sh
-
-# Add interim fixes (optional)
-COPY --chown=1001:0  interim-fixes /opt/ol/fixes/
 
 # Add app
 COPY --chown=1001:0  Sample1.war /config/dropins/
