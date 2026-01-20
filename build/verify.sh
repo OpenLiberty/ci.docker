@@ -15,12 +15,12 @@ DOCKER=docker
 
 waitForServerStart()
 {
-   cid=$1
+   image=$1
    count=${2:-1}
    end=$((SECONDS+120))
-   while (( $SECONDS < $end && $($DOCKER inspect -f {{.State.Running}} $cid) == "true" ))
+   while (( $SECONDS < $end ))
    do
-      result=$($DOCKER logs $cid 2>&1 | grep "CWWKF0011I" | wc -l)
+      result=$($DOCKER logs $image 2>&1 | grep "CWWKF0011I" | wc -l)
       if [ $result = $count ]
       then
          return 0
@@ -33,11 +33,11 @@ waitForServerStart()
 
 waitForServerStop()
 {
-   cid=$1
+   image=$1
    end=$((SECONDS+120))
    while (( $SECONDS < $end ))
    do
-      result=$($DOCKER logs $cid 2>&1 | grep "CWWKE0036I" | wc -l)
+      result=$($DOCKER logs $image 2>&1 | grep "CWWKE0036I" | wc -l)
       if [ $result = 1 ]
       then
          return 0
@@ -50,12 +50,13 @@ waitForServerStop()
 
 testLibertyStopsAndRestarts()
 {
+   staticImage=$2
    if [ "$1" == "OpenShift" ]; then
       timestamp=$(date '+%Y/%m/%d %H:%M:%S')
       echo "$timestamp *** testLibertyStopsAndRestarts on OpenShift"
-      cid=$($DOCKER run -d -u 1005:0 $security_opt $image)
+      $DOCKER run --name $image -d -u 1005:0 $security_opt $image
    else
-      cid=$($DOCKER run -d $security_opt $image)
+      $DOCKER run --name $image -d $security_opt $image
    fi
    
    if [ $? != 0 ]
@@ -64,54 +65,58 @@ testLibertyStopsAndRestarts()
       exit 1
    fi
    
-   waitForServerStart $cid
+   waitForServerStart $image
    if [ $? != 0 ]
    then
       echo "Liberty failed to start; exiting"
-      $DOCKER logs $cid
-      $DOCKER rm -f $cid >/dev/null
+      $DOCKER logs $image
+      $DOCKER rm -f $image >/dev/null
       exit 1
    fi
    sleep 45
-   $DOCKER stop $cid >/dev/null
+   $DOCKER stop $image >/dev/null
    if [ $? != 0 ]
    then
       echo "Error stopping container or server; exiting"
-      $DOCKER logs $cid
-      $DOCKER rm -f $cid >/dev/null
+      $DOCKER logs $image
+      $DOCKER rm -f $image >/dev/null
       exit 1
    fi
 
-   $DOCKER start $cid >/dev/null
+   $DOCKER start $image >/dev/null
    if [ $? != 0 ]
    then
       echo "Failed to rerun container; exiting"
-      $DOCKER logs $cid
-      $DOCKER rm -f $cid >/dev/null
+      $DOCKER logs $image
+      $DOCKER rm -f $image >/dev/null
       exit 1
    fi
 
-   waitForServerStart $cid 2
+   if [ "$staticImage" = "true" ]; then
+      waitForServerStart $image 2
+   else
+      waitForServerStart $image
+   fi
    if [ $? != 0 ]
    then
       echo "Server failed to restart; exiting"
-      $DOCKER logs $cid
-      $DOCKER rm -f $cid >/dev/null
+      $DOCKER logs $image
+      $DOCKER rm -f $image >/dev/null
       exit 1
    fi
 
-   $DOCKER logs $cid 2>&1 | grep "ERROR"
+   $DOCKER logs $image 2>&1 | grep "ERROR"
    if [ $? = 0 ]
    then
       echo "Errors found in logs for container; exiting"
       echo "DEBUG START full log"
-      $DOCKER logs $cid
+      $DOCKER logs $image
       echo "DEBUG END full log"
-      $DOCKER rm -f $cid >/dev/null
+      $DOCKER rm -f $image >/dev/null
       exit 1
    fi
 
-   $DOCKER rm -f $cid >/dev/null
+   $DOCKER rm -f $image >/dev/null
 }
 
 testDockerOnOpenShift()

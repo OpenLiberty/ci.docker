@@ -1,4 +1,4 @@
-ARG IMAGE=openliberty/open-liberty:kernel-slim-ubi
+ARG IMAGE=openliberty/open-liberty:kernel-slim-java8-openj9-ubi
 FROM ${IMAGE}
 
 ARG VERBOSE=false
