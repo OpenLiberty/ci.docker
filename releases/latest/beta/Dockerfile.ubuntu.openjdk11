@@ -1,4 +1,4 @@
-FROM ibm-semeru-runtimes:open-11-jre-jammy
+FROM ibm-semeru-runtimes:open-11-jre-noble
 
 USER root
 
