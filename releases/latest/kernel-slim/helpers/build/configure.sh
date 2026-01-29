@@ -1,12 +1,11 @@
 #!/bin/bash
 
-. /opt/ol/helpers/build/internal/logger.sh
+. /opt/ol/helpers/build/internal/utils.sh
 
 set -Eeo pipefail
 
 function main() {
   ##Define variables for XML snippets source and target paths
-  WLP_INSTALL_DIR=/opt/ol/wlp
   SHARED_CONFIG_DIR=${WLP_INSTALL_DIR}/usr/shared/config
   SHARED_RESOURCE_DIR=${WLP_INSTALL_DIR}/usr/shared/resources
 
@@ -52,7 +51,7 @@ function main() {
   # Apply interim fixes found in /opt/ol/fixes
   # Fixes recommended by IBM, such as to resolve security vulnerabilities, are also included in /opt/ol/fixes
   # Note: This step should only be done ONCE needed features are enabled and installed.
-  find /opt/ol/fixes -type f -name "*.jar"  -print0 | sort -z | xargs -0 -n 1 -r -I {} java -jar {} --installLocation $WLP_INSTALL_DIR
+  installFixes
 
   # Force the server.xml to be processed by updating its timestamp
   touch /config/server.xml
@@ -80,6 +79,8 @@ function main() {
     fi
     eval $cmd
   fi
+
+  removeBuildArtifacts
 }
 
 ## parse provider list to generate files into configDropins
