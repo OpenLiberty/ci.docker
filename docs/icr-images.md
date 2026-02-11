@@ -3,7 +3,7 @@
 
 Open Liberty container images are available from the IBM Container Registry (ICR) at `icr.io/appcafe/open-liberty`. Our recommendation is to use ICR instead of Docker Hub since ICR doesn't impose rate limits on image pulls. Images can be pulled from ICR without authentication. Only images with Universal Base Image (UBI) as the Operating System are available in ICR.
 
-The images for the latest Liberty release and the last two quarterly releases (versions ending in _.3_, _.6_, _.9_ and _.12_) are available and are refreshed regularly (every 1-2 weeks) to include fixes for the operating system (OS) and Java.
+The images for the latest Liberty release and the last three quarterly releases (versions ending in _.3_, _.6_, _.9_ and _.12_) are available and are refreshed regularly (every 1-2 weeks) to include fixes for the operating system (OS) and Java.
 
 Available image tags are listed below. The tags use the following naming convention. For more information on tags, see [Container image tags naming conventions](https://openliberty.io/docs/latest/container-images.html#tags) documentation.
 ```
@@ -20,7 +20,7 @@ The `beta` tag is based on UBI 9 minimal and the latest Java JRE and provides th
 
 Append a tag to `icr.io/appcafe/open-liberty` to pull a specific image. For example: 
 ```
-icr.io/appcafe/open-liberty:25.0.0.9-kernel-slim-java17-openj9-ubi
+icr.io/appcafe/open-liberty:25.0.0.12-kernel-slim-java25-openj9-ubi-minimal
 ```
 
 Available images can be listed using [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started). Log in with your IBMid prior to running the following commands. Note that authentication is only required to list the images. **Images can be pulled from ICR without authentication**: 
@@ -31,7 +31,7 @@ ibmcloud cr images --restrict appcafe/open-liberty
 
 ## Latest version
 
-The following tags include the most recent Open Liberty version: `25.0.0.10`
+The following tags include the most recent Open Liberty version: `26.0.0.1`
 
 ```
 kernel-slim-java25-openj9-ubi-minimal
@@ -69,32 +69,60 @@ The `beta` tag includes all the features and capabilities from the most recent r
 beta
 ```
 
-## 25.0.0.10
+## 26.0.0.1
 
 ```
-25.0.0.10-kernel-slim-java25-openj9-ubi-minimal
-25.0.0.10-kernel-slim-java21-openj9-ubi-minimal
-25.0.0.10-kernel-slim-java17-openj9-ubi-minimal
-25.0.0.10-kernel-slim-java11-openj9-ubi-minimal
-25.0.0.10-kernel-slim-java8-openj9-ubi-minimal
-25.0.0.10-kernel-slim-java8-ibmjava-ubi-minimal
+26.0.0.1-kernel-slim-java25-openj9-ubi-minimal
+26.0.0.1-kernel-slim-java21-openj9-ubi-minimal
+26.0.0.1-kernel-slim-java17-openj9-ubi-minimal
+26.0.0.1-kernel-slim-java11-openj9-ubi-minimal
+26.0.0.1-kernel-slim-java8-openj9-ubi-minimal
+26.0.0.1-kernel-slim-java8-ibmjava-ubi-minimal
 
-25.0.0.10-kernel-slim-java17-openj9-ubi
-25.0.0.10-kernel-slim-java11-openj9-ubi
-25.0.0.10-kernel-slim-java8-openj9-ubi
-25.0.0.10-kernel-slim-java8-ibmjava-ubi
+26.0.0.1-kernel-slim-java17-openj9-ubi
+26.0.0.1-kernel-slim-java11-openj9-ubi
+26.0.0.1-kernel-slim-java8-openj9-ubi
+26.0.0.1-kernel-slim-java8-ibmjava-ubi
 
-25.0.0.10-full-java25-openj9-ubi-minimal
-25.0.0.10-full-java21-openj9-ubi-minimal
-25.0.0.10-full-java17-openj9-ubi-minimal
-25.0.0.10-full-java11-openj9-ubi-minimal
-25.0.0.10-full-java8-openj9-ubi-minimal
-25.0.0.10-full-java8-ibmjava-ubi-minimal
+26.0.0.1-full-java25-openj9-ubi-minimal
+26.0.0.1-full-java21-openj9-ubi-minimal
+26.0.0.1-full-java17-openj9-ubi-minimal
+26.0.0.1-full-java11-openj9-ubi-minimal
+26.0.0.1-full-java8-openj9-ubi-minimal
+26.0.0.1-full-java8-ibmjava-ubi-minimal
 
-25.0.0.10-full-java17-openj9-ubi
-25.0.0.10-full-java11-openj9-ubi
-25.0.0.10-full-java8-openj9-ubi
-25.0.0.10-full-java8-ibmjava-ubi
+26.0.0.1-full-java17-openj9-ubi
+26.0.0.1-full-java11-openj9-ubi
+26.0.0.1-full-java8-openj9-ubi
+26.0.0.1-full-java8-ibmjava-ubi
+```
+
+## 25.0.0.12
+
+```
+25.0.0.12-kernel-slim-java25-openj9-ubi-minimal
+25.0.0.12-kernel-slim-java21-openj9-ubi-minimal
+25.0.0.12-kernel-slim-java17-openj9-ubi-minimal
+25.0.0.12-kernel-slim-java11-openj9-ubi-minimal
+25.0.0.12-kernel-slim-java8-openj9-ubi-minimal
+25.0.0.12-kernel-slim-java8-ibmjava-ubi-minimal
+
+25.0.0.12-kernel-slim-java17-openj9-ubi
+25.0.0.12-kernel-slim-java11-openj9-ubi
+25.0.0.12-kernel-slim-java8-openj9-ubi
+25.0.0.12-kernel-slim-java8-ibmjava-ubi
+
+25.0.0.12-full-java25-openj9-ubi-minimal
+25.0.0.12-full-java21-openj9-ubi-minimal
+25.0.0.12-full-java17-openj9-ubi-minimal
+25.0.0.12-full-java11-openj9-ubi-minimal
+25.0.0.12-full-java8-openj9-ubi-minimal
+25.0.0.12-full-java8-ibmjava-ubi-minimal
+
+25.0.0.12-full-java17-openj9-ubi
+25.0.0.12-full-java11-openj9-ubi
+25.0.0.12-full-java8-openj9-ubi
+25.0.0.12-full-java8-ibmjava-ubi
 ```
 
 ## 25.0.0.9
