@@ -2,8 +2,8 @@ FROM icr.io/appcafe/ibm-semeru-runtimes:open-8-jdk-ubi AS getRuntime
 
 USER root
 
-ARG LIBERTY_VERSION=26.0.0.1
-ARG LIBERTY_SHA=3ae4f8ddca8dd363663792245edbb23c555d735e
+ARG LIBERTY_VERSION=26.0.0.2
+ARG LIBERTY_SHA=f2384de851755ae7b0c39b0f5876748f50053a3d
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 
 ARG VERBOSE=false
@@ -28,8 +28,8 @@ FROM icr.io/appcafe/ibm-semeru-runtimes:open-8-jdk-ubi
 
 USER root
 
-ARG LIBERTY_VERSION=26.0.0.1
-ARG LIBERTY_BUILD_LABEL=cl260120260112-1902
+ARG LIBERTY_VERSION=26.0.0.2
+ARG LIBERTY_BUILD_LABEL=cl260220260207-1901
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
