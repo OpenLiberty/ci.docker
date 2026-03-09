@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ "$FEATURES_VERBOSE" == "true" && "$VERBOSE" != "true" ]]; then
+  echo "WARNING: 'FEATURES_VERBOSE' is 'true' but 'VERBOSE' is 'false'. featureUtility verbose output will be suppressed"
+fi
+
 . /opt/ol/helpers/build/internal/logger.sh
 
 set -Eeo pipefail
@@ -28,6 +32,9 @@ if [ "$SSL" == "true" ] || [ "$TLS" == "true" ]; then
 fi
 
 # Install necessary features using featureUtility
-featureUtility installServerFeatures --acceptLicense defaultServer --noCache
+if [ "$FEATURES_VERBOSE" == "true" ]; then
+  verbose="--verbose"
+fi
+featureUtility installServerFeatures --acceptLicense defaultServer --noCache $verbose
 find /opt/ol/wlp/lib /opt/ol/wlp/bin ! -perm -g=rw -print0 | xargs -0 -r chmod g+rw
 
