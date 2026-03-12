@@ -7,6 +7,7 @@
   - [Security](#security)
   - [OpenJ9 Shared Class Cache (SCC)](#openj9-shared-class-cache-scc)
   - [Logging](#logging)
+  - [InstantOn](#instanton)
   - [Session Caching](#session-caching)
   - [Applying Interim Fixes](#applying-interim-fixes)
   - [Known Issues](#known-issues)
@@ -174,6 +175,13 @@ docker run -d -p 80:9080 -p 443:9443 -e WLP_LOGGING_CONSOLE_FORMAT=JSON -e WLP_L
 ```
 
 For more information regarding the configuration of Open Liberty's logging capabilities see: https://openliberty.io/docs/ref/general/#log-trace-configuration.html
+
+
+## InstantOn
+
+[Liberty InstantOn](https://openliberty.io/docs/latest/instanton.html) provides fast startup times for MicroProfile and Jakarta EE applications. With InstantOn, your applications can start in milliseconds, without compromising on throughput, memory, development-production parity, or Java language features.
+
+View the guide on [Containerizing, packaging, and running a Spring Boot application](https://openliberty.io/guides/spring-boot.html) to learn how to use Liberty InstantOn with a Spring Boot application for faster startup.
 
 ## Session Caching
 
