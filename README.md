@@ -226,7 +226,7 @@ The Liberty session caching feature builds on top of an existing technology call
     RUN configure.sh
     ```
 
-    *  **Beta: Enhanced Infinispan Client Configuration** - The beta images include enhanced configurability for the Infinispan client setup. The [infinispan-client-setup.sh](releases/latest/beta/helpers/build/infinispan-client-setup.sh) script in beta supports the following environment variables to ensure compatibility between your Liberty features and the Infinispan client:
+    *  **Beta: Enhanced Infinispan Client Configuration** - The beta images include enhanced configurability for the Infinispan client setup. The [infinispan-client-setup.sh](releases/latest/beta/helpers/build/infinispan-client-setup.sh) script supports the following environment variables to ensure compatibility between your Liberty features and the Infinispan client:
         * `INFINISPAN_CLIENT_VERSION`
           - Description: Sets the Infinispan client version. Refer to [Infinispan Release Notes](https://infinispan.org/release-notes) for major version and compatibility details.
           - Default: `"15.2.6.Final"`
@@ -234,18 +234,18 @@ The Liberty session caching feature builds on top of an existing technology call
         * `INFINISPAN_USE_LATEST_PATCH`
           - Description: When set to `"true"`, `INFINISPAN_CLIENT_VERSION` will resolve to the latest patch update within its specified major.minor version.
           - Default: `"false"`
-          - Note: This will resolve the highest version string found in [Maven Central](https://mvnrepository.com/artifact/org.infinispan/infinispan-jcache), which may include non-final releases (e.g., .Dev01, .Beta, or .RC versions) if they are newer than the current .Final release.
+          - Note: This will resolve the highest version string found in [Maven Central](https://mvnrepository.com/artifact/org.infinispan/infinispan-jcache), which includs any non-final releases (e.g., .Dev01, .Beta, or .RC versions).
         * **TIP** - Liberty enforces specific API namespaces based on the Java EE / Jakarta EE specification level of your enabled features. When using Jakarta EE 10 features, the runtime environment is strictly `jakarta.*`, necessitating an Infinispan client that aligns with that specification. For further details on lifecycle and Java baseline requirements, refer to the [Infinispan Release Posts](https://infinispan.org/blog/tag/release/) and official [Download pages](https://infinispan.org/download/).
 
         <details>
         <summary><b>Infinispan Client Compatibility Table</b></summary>
 
-        | Major Version | Java Baseline | Namespace | Support Until | Notes |
-        | :--- | :--- | :--- | :--- | :--- |
-        | **16.0** | Java 17+ | **jakarta.* (EE 10+)** | 6 months after 17.0 (Full) | Release versions no longer end with .Final |
-        | **15.2** | Java 17+ | **jakarta.* (EE 10+)** | May 2026 (Full) | |
-        | **14.0** | Java 11+ | **javax.* / jakarta.*** | October 2027 (Limited) | |
-        | **13.0** | Java 8+ | **javax.*** | November 2026 (Limited) | |
+        | Major Version | Java Baseline | Support Until | Notes |
+        | :--- | :--- | :--- | :--- |
+        | **16.0** | Java 17+ | 6 months after 17.0 (Full) | Release versions no longer end with .Final |
+        | **15.2** | Java 17+ | May 2026 (Full) | |
+        | **14.0** | Java 11+ | October 2027 (Limited) | |
+        | **13.0** | Java 8+ | November 2026 (Limited) | |
         | **10.x - 12.0**| Java 8 | **javax.*** | End of life | Unsupported |
 
         </details>
