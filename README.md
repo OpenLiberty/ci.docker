@@ -226,6 +226,55 @@ The Liberty session caching feature builds on top of an existing technology call
     RUN configure.sh
     ```
 
+    *  **Beta: Enhanced Infinispan Client Configuration** - The beta images include enhanced configurability for the Infinispan client setup. The [infinispan-client-setup.sh](releases/latest/beta/helpers/build/infinispan-client-setup.sh) script supports the following environment variables to ensure compatibility between your Liberty features and the Infinispan client:
+        * `INFINISPAN_CLIENT_VERSION`
+          - Description: Sets the Infinispan client version. Refer to [Infinispan Release Notes](https://infinispan.org/release-notes) for major version and compatibility details.
+          - Default: `"15.2.6.Final"`
+          - **Automatic Dependency Management**: For Infinispan versions < 11.0.0 (e.g., `10.1.3.Final`, `10.1.9.Final`), reactive-streams and rxjava dependencies are automatically removed as they are not required. For versions >= 11.0.0, these dependencies are included as they are required by Liberty's sessionCache-1.0 feature.
+        * `INFINISPAN_USE_LATEST_PATCH`
+          - Description: When set to `"true"`, `INFINISPAN_CLIENT_VERSION` will resolve to the latest patch update within its specified major.minor version.
+          - Default: `"false"`
+          - Note: This will resolve the highest version string found in [Maven Central](https://mvnrepository.com/artifact/org.infinispan/infinispan-jcache), which includs any non-final releases (e.g., .Dev01, .Beta, or .RC versions).
+        * **TIP** - Liberty enforces specific API namespaces based on the Java EE / Jakarta EE specification level of your enabled features. When using Jakarta EE 10 features, the runtime environment is strictly `jakarta.*`, necessitating an Infinispan client that aligns with that specification. For further details on lifecycle and Java baseline requirements, refer to the [Infinispan Release Posts](https://infinispan.org/blog/tag/release/) and official [Download pages](https://infinispan.org/download/).
+
+        <details>
+        <summary><b>Infinispan Client Compatibility Table</b></summary>
+
+        | Major Version | Java Baseline | Support Until | Notes |
+        | :--- | :--- | :--- | :--- |
+        | **16.0** | Java 17+ | 6 months after 17.0 (Full) | Release versions no longer end with .Final |
+        | **15.2** | Java 17+ | May 2026 (Full) | |
+        | **14.0** | Java 11+ | October 2027 (Limited) | |
+        | **13.0** | Java 8+ | November 2026 (Limited) | |
+        | **10.x - 12.0**| Java 8 | **javax.*** | End of life | Unsupported |
+
+        </details>
+
+        Example Dockerfile for beta with custom Infinispan version:
+        ```dockerfile
+        ### Infinispan Session Caching (Beta) ###
+        FROM icr.io/appcafe/open-liberty:beta AS infinispan-client
+        
+        # Specify Infinispan client version (optional, defaults to 15.2.6.Final)
+        ENV INFINISPAN_CLIENT_VERSION=14.0.5.Final
+        # Optionally resolve latest patch version
+        # ENV INFINISPAN_USE_LATEST_PATCH=true
+        
+        USER root
+        RUN infinispan-client-setup.sh
+        USER 1001
+        
+        FROM icr.io/appcafe/open-liberty:beta AS open-liberty-infinispan
+        
+        # Copy Infinispan client jars to Open Liberty shared resources
+        COPY --chown=1001:0 --from=infinispan-client /opt/ol/wlp/usr/shared/resources/infinispan /opt/ol/wlp/usr/shared/resources/infinispan
+        
+        ENV INFINISPAN_SERVICE_NAME=example-infinispan
+        
+        # This script will add the requested XML snippets and grow image to be fit-for-purpose
+        RUN configure.sh
+        ```
+
     *  **Mount Infinispan Secret** - Finally, the Infinispan generated secret must be mounted as a volume under the mount point of `/platform/bindings/infinispan/secret/` on Liberty containers. The default , for versions latest and 20.0.0.6+, of `/platform/bindings/infinispan/secret/` can to be overridden by setting the `LIBERTY_INFINISPAN_SECRET_DIR` environment variable. When using the Infinispan Operator, this secret is automatically generated as part of the Infinispan service with the name of `<INFINISPAN_CLUSTER_NAME>-generated-secret`. For the mounting of this secret to succeed, the Infinispan Operator and Liberty must share the same namespace. If they do not share the same namespace, the `INFINISPAN_HOST`, `INFINISPAN_PORT`, `INFINISPAN_USER`, and `INFINISPAN_PASS` environment variables can be used instead(see the Dockerfile example above). For an example of mounting this secret, review the `volumes` and `volumeMounts` portions of the YAML below.
 
     ```yaml
