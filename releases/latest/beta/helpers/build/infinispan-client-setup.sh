@@ -8,7 +8,7 @@ INFINISPAN_DEFAULT_VERSION="15.2.6.Final"
 INFINISPAN_CLIENT_VERSION=${INFINISPAN_CLIENT_VERSION:-$INFINISPAN_DEFAULT_VERSION}
 
 # Resolves the latest patch release (x.y.Z) within the specified major.minor version.
-INFINISPAN_USE_LATEST_PATCH=${INFINISPAN_USE_LATEST_PATCH:-false}
+INFINISPAN_USE_LATEST_PATCH=${INFINISPAN_USE_LATEST_PATCH:-true}
 
 pkgcmd=yum
 if ! command $pkgcmd
@@ -43,7 +43,7 @@ cat << EOF > ${CLIENT_JARS_DIR}/pom.xml
 EOF
 
 if [ "${INFINISPAN_USE_LATEST_PATCH}" = "true" ]; then
-  echo "Resolving latest Infinispan client patch release (no major upgrades)..."
+  echo "Resolving latest Infinispan client patch release (no major or minor upgrades)..."
   mvn -f "${CLIENT_JARS_DIR}"/pom.xml versions:use-latest-releases -DallowMajorUpdates=false -DallowMinorUpdates=false
 fi
 
