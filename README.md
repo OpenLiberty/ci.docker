@@ -233,7 +233,7 @@ The Liberty session caching feature builds on top of an existing technology call
           - **Automatic Dependency Management**: For Infinispan versions < 11.0.0 (e.g., `10.1.3.Final`, `10.1.9.Final`), reactive-streams and rxjava dependencies are automatically removed as they are not required. For versions >= 11.0.0, these dependencies are included as they are required by Liberty's sessionCache-1.0 feature.
         * `INFINISPAN_USE_LATEST_PATCH`
           - Description: When set to `"true"`, `INFINISPAN_CLIENT_VERSION` will resolve to the latest patch update within its specified major.minor version.
-          - Default: `"false"`
+          - Default: `"true"`
           - Note: This will resolve the highest version string found in [Maven Central](https://mvnrepository.com/artifact/org.infinispan/infinispan-jcache), which includs any non-final releases (e.g., .Dev01, .Beta, or .RC versions).
         * **TIP** - Liberty enforces specific API namespaces based on the Java EE / Jakarta EE specification level of your enabled features. When using Jakarta EE 10 features, the runtime environment is strictly `jakarta.*`, necessitating an Infinispan client that aligns with that specification. For further details on lifecycle and Java baseline requirements, refer to the [Infinispan Release Posts](https://infinispan.org/blog/tag/release/) and official [Download pages](https://infinispan.org/download/).
 
@@ -256,9 +256,9 @@ The Liberty session caching feature builds on top of an existing technology call
         FROM icr.io/appcafe/open-liberty:beta AS infinispan-client
         
         # Specify Infinispan client version (optional, defaults to 15.2.6.Final)
-        ENV INFINISPAN_CLIENT_VERSION=14.0.5.Final
-        # Optionally resolve latest patch version
-        # ENV INFINISPAN_USE_LATEST_PATCH=true
+        ENV INFINISPAN_CLIENT_VERSION=14.0.33.Final
+        # Set INFINISPAN_USE_LATEST_PATCH to false to keep exact specified patch version
+        ENV INFINISPAN_USE_LATEST_PATCH=false
         
         USER root
         RUN infinispan-client-setup.sh
