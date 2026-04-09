@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. /opt/ol/helpers/build/internal/logger.sh
+. /opt/ol/helpers/build/internal/utils.sh
 
 set -Eeo pipefail
 
@@ -30,4 +30,9 @@ fi
 # Install necessary features using featureUtility
 featureUtility installServerFeatures --acceptLicense defaultServer --noCache
 find /opt/ol/wlp/lib /opt/ol/wlp/bin ! -perm -g=rw -print0 | xargs -0 -r chmod g+rw
+
+# Apply interim fixes found in /opt/ol/fixes
+# Fixes recommended by IBM, such as to resolve security vulnerabilities, are also included in /opt/ol/fixes
+# Note: This step should only be done ONCE needed features are enabled and installed.
+installFixes
 
