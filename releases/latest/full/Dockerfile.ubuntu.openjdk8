@@ -3,7 +3,7 @@ FROM ibm-semeru-runtimes:open-8-jre-noble
 USER root
 
 ARG LIBERTY_VERSION=26.0.0.5
-ARG LIBERTY_SHA={replace_with_correct_sha}
+ARG LIBERTY_SHA=c793c3f0f2ad7bcb034a4761969aa7ac5628af2c
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-runtime/$LIBERTY_VERSION/openliberty-runtime-$LIBERTY_VERSION.zip
 ARG LIBERTY_BUILD_LABEL=cl260520260430-1602
 
