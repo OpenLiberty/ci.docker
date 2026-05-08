@@ -33,7 +33,7 @@ function main() {
 
   # Key Store
   keystorePath="$SNIPPETS_TARGET_DEFAULTS/keystore.xml"
-  if [ "$SSL" != "false" ] && [ "$TLS" != "false" ]; then
+  if [ "$SSL" != "false" ] && [ "$TLS" != "false" ] && [ "$SAVE_KEYSTORE" != "false" ]; then
     if [ ! -e $keystorePath ]; then
       # Generate the keystore.xml
       hideLogs

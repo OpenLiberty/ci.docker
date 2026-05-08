@@ -32,6 +32,7 @@ ARG LIBERTY_VERSION=26.0.0.3
 ARG LIBERTY_BUILD_LABEL=cl260320260309-1102
 
 ARG OPENJ9_SCC=true
+ARG SAVE_KEYSTORE=false
 ARG VERBOSE=false
 
 LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Iain Lewis, Melissa Lee, Kirby Chin" \
@@ -100,7 +101,8 @@ ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build:/opt/ol/helpers/runtime \
     LOG_DIR=/liberty/logs \
     WLP_OUTPUT_DIR=/opt/ol/wlp/output \
     WLP_SKIP_MAXPERMSIZE=true \
-    OPENJ9_SCC=$OPENJ9_SCC
+    OPENJ9_SCC=$OPENJ9_SCC \
+    SAVE_KEYSTORE=$SAVE_KEYSTORE
 
 # Configure Open Liberty
 RUN /opt/ol/wlp/bin/server create \
