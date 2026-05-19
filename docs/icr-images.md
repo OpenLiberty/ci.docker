@@ -31,7 +31,7 @@ ibmcloud cr images --restrict appcafe/open-liberty
 
 ## Latest version
 
-The following tags include the most recent Open Liberty version: `26.0.0.4`
+The following tags include the most recent Open Liberty version: `26.0.0.5`
 
 ```
 kernel-slim-java25-openj9-ubi-minimal
@@ -69,32 +69,32 @@ The `beta` tag includes all the features and capabilities from the most recent r
 beta
 ```
 
-## 26.0.0.4
+## 26.0.0.5
 
 ```
-26.0.0.4-kernel-slim-java25-openj9-ubi-minimal
-26.0.0.4-kernel-slim-java21-openj9-ubi-minimal
-26.0.0.4-kernel-slim-java17-openj9-ubi-minimal
-26.0.0.4-kernel-slim-java11-openj9-ubi-minimal
-26.0.0.4-kernel-slim-java8-openj9-ubi-minimal
-26.0.0.4-kernel-slim-java8-ibmjava-ubi-minimal
+26.0.0.5-kernel-slim-java25-openj9-ubi-minimal
+26.0.0.5-kernel-slim-java21-openj9-ubi-minimal
+26.0.0.5-kernel-slim-java17-openj9-ubi-minimal
+26.0.0.5-kernel-slim-java11-openj9-ubi-minimal
+26.0.0.5-kernel-slim-java8-openj9-ubi-minimal
+26.0.0.5-kernel-slim-java8-ibmjava-ubi-minimal
 
-26.0.0.4-kernel-slim-java17-openj9-ubi
-26.0.0.4-kernel-slim-java11-openj9-ubi
-26.0.0.4-kernel-slim-java8-openj9-ubi
-26.0.0.4-kernel-slim-java8-ibmjava-ubi
+26.0.0.5-kernel-slim-java17-openj9-ubi
+26.0.0.5-kernel-slim-java11-openj9-ubi
+26.0.0.5-kernel-slim-java8-openj9-ubi
+26.0.0.5-kernel-slim-java8-ibmjava-ubi
 
-26.0.0.4-full-java25-openj9-ubi-minimal
-26.0.0.4-full-java21-openj9-ubi-minimal
-26.0.0.4-full-java17-openj9-ubi-minimal
-26.0.0.4-full-java11-openj9-ubi-minimal
-26.0.0.4-full-java8-openj9-ubi-minimal
-26.0.0.4-full-java8-ibmjava-ubi-minimal
+26.0.0.5-full-java25-openj9-ubi-minimal
+26.0.0.5-full-java21-openj9-ubi-minimal
+26.0.0.5-full-java17-openj9-ubi-minimal
+26.0.0.5-full-java11-openj9-ubi-minimal
+26.0.0.5-full-java8-openj9-ubi-minimal
+26.0.0.5-full-java8-ibmjava-ubi-minimal
 
-26.0.0.4-full-java17-openj9-ubi
-26.0.0.4-full-java11-openj9-ubi
-26.0.0.4-full-java8-openj9-ubi
-26.0.0.4-full-java8-ibmjava-ubi
+26.0.0.5-full-java17-openj9-ubi
+26.0.0.5-full-java11-openj9-ubi
+26.0.0.5-full-java8-openj9-ubi
+26.0.0.5-full-java8-ibmjava-ubi
 ```
 
 ## 26.0.0.3
