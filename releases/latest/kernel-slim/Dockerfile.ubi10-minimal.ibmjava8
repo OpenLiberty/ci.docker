@@ -1,4 +1,13 @@
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-8-jre-ubi9-minimal AS getRuntime
+# This relies on a base image which needs to be built seperately
+# curl https://raw.githubusercontent.com/ibmruntimes/ci.docker/main/ibmjava/8/jre/ubi-min/Dockerfile -o java/Dockerfile.ubi10.minimal
+# The above file needs editing before it is built:
+# This changes to a UBI10 base, and corrects the microdnf command to work on UBI10.
+# $> sed -i -e 's/ubi8/ubi10/' -e 's/microdnf install/microdnf -y install/' -e 's/microdnf update/microdnf update -y/' Dockerfile.ubi10-minimal.ibmjava8
+# $> rm ./java/Dockerfile.ubi10.minimal.bak
+# Then build and tag as 'ibmjava:10-ubi'
+# $> docker build -t ibmjava:10-ubi -f ./java/Dockerfile.ubi10.minimal java
+
+FROM ibmjava:10-ubi AS getRuntime
 
 USER root
 
@@ -20,11 +29,11 @@ RUN microdnf -y install shadow-utils wget unzip openssl \
     && unzip -q /tmp/wlp.zip -d /opt/ol \
     && mkdir -p /licenses \
     && cp /opt/ol/wlp/LICENSE /licenses/ \
-    && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
+#    && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
     && chown -R 1001:0 /opt/ol/wlp \
     && chmod -R g+rw /opt/ol/wlp
 
-FROM icr.io/appcafe/ibm-semeru-runtimes:open-8-jre-ubi9-minimal
+FROM ibmjava:10-ubi
 
 USER root
 
@@ -45,8 +54,8 @@ LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Iain Lewis, Melissa
       vendor="Open Liberty" \
       name="Open Liberty" \
       version="$LIBERTY_VERSION" \
-      summary="Image for Open Liberty with IBM Semeru Runtime Open Edition OpenJDK 8 with OpenJ9 and UBI 9 minimal" \
-      description="This image contains the Open Liberty runtime with IBM Semeru Runtime Open Edition OpenJDK 8 with OpenJ9 and Red Hat UBI 9 minimal as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
+      summary="Image for Open Liberty with IBM's Java and UBI 9 minimal" \
+      description="This image contains the Open Liberty runtime with IBM's Java and Red Hat UBI 9 minimal as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
 
 COPY NOTICES /opt/ol/NOTICES
 COPY helpers /opt/ol/helpers
@@ -83,7 +92,7 @@ RUN set -eux; \
 
 # Add default user 1001 and create wlp with right user/permissions before copying
 RUN microdnf -y install shadow-utils findutils openssl \
-    && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
+#    && adduser -u 1001 -r -g root -s /usr/sbin/nologin default \
     && mkdir -p /opt/ol/wlp \
     && chown -R 1001:0 /opt/ol/wlp \
     && chmod -R g+rw /opt/ol/wlp \
@@ -134,7 +143,6 @@ RUN mkdir /logs \
     && mkdir /etc/wlp \
     && chown -R 1001:0 /etc/wlp \
     && chmod -R g+rw /etc/wlp \
-    && if [ -e /etc/instanton.ld.so.cache ]; then chmod g+w /etc/ld.so.cache; fi \
     && ln -s /logs /liberty/logs \
     && mkdir /serviceability \
     && chown -R 1001:0 /serviceability \
@@ -148,7 +156,7 @@ RUN if [ "$OPENJ9_SCC" = "true" ]; then populate_scc.sh; fi \
 
 #These settings are needed so that we can run as a different user than 1001 after server warmup
 ENV RANDFILE=/tmp/.rnd \
-    OPENJ9_JAVA_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:+IdleTuningGcOnIdle -Xshareclasses:name=openj9_system_scc,cacheDir=/opt/java/.scc,readonly,nonFatal -Dosgi.checkConfiguration=false"
+    IBM_JAVA_OPTIONS="-Xshareclasses:name=liberty,readonly,nonfatal,cacheDir=/output/.classCache/ -Dosgi.checkConfiguration=false ${IBM_JAVA_OPTIONS}"
 
 USER 1001
 
