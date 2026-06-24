@@ -54,8 +54,8 @@ LABEL org.opencontainers.image.authors="Leo Christy Jesuraj, Iain Lewis, Melissa
       vendor="Open Liberty" \
       name="Open Liberty" \
       version="$LIBERTY_VERSION" \
-      summary="Image for Open Liberty with IBM's Java and UBI 9 minimal" \
-      description="This image contains the Open Liberty runtime with IBM's Java and Red Hat UBI 9 minimal as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
+      summary="Image for Open Liberty with IBM's Java and UBI 10 minimal" \
+      description="This image contains the Open Liberty runtime with IBM's Java and Red Hat UBI 10 minimal as the base OS.  For more information on this image please see https://github.com/OpenLiberty/ci.docker#building-an-application-image"
 
 COPY NOTICES /opt/ol/NOTICES
 COPY helpers /opt/ol/helpers
