@@ -64,6 +64,9 @@
 
     <ltpa expiration="1h"/> -->
 
+    <ltpa keysFileName="${server.output.dir}/resources/security/ltpa.keys"
+          keysPassword="LTPApassw0rd"/>
+
     <webAppSecurity allowFailOverToBasicAuth="true" displayAuthenticationRealm="true" logoutOnHttpSessionExpire="true"
         webAlwaysLogin="true" preserveFullyQualifiedReferrerUrl="true" trackLoggedOutSSOCookies="true" ssoCookieName="StockTraderSSO"
         useOnlyCustomCookieName="true" ssoUseDomainFromURL="true"/>

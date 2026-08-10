@@ -11,4 +11,4 @@ RUN features.sh
 COPY --chown=1001:0 trader-1.0-SNAPSHOT.war /config/apps/TraderUI.war
 
 # This script will add the requested server configurations, apply any iFixes and populate caches to optimize runtime
-RUN configure.sh
+RUN configure.sh && rm -rf /output/resources/security/

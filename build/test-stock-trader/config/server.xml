@@ -72,6 +72,9 @@
     <ltpa expiration="1h"/>
  -->
 
+    <ltpa keysFileName="${server.output.dir}/resources/security/ltpa.keys"
+          keysPassword="LTPApassw0rd"/>
+
     <!-- <oidcLogin id="${env.OIDC_NAME}" clientId="${env.OIDC_ID}" displayName="${env.OIDC_NAME}"
            clientSecret="${env.OIDC_SECRET}" authorizationEndpoint="${env.OIDC_AUTH}"
            tokenEndpoint="${env.OIDC_TOKEN}" scope="openid profile email" userNameAttribute="email"
