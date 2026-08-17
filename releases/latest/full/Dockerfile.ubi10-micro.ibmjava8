@@ -16,6 +16,7 @@ COPY resources/ /tmp/
 # We need unzip when using a local repo; copy it from ubi-minimal builder stage
 USER root
 COPY --from=builder /usr/bin/unzip /usr/bin/unzip
+COPY --from=builder /usr/lib64/libbz2.so* /usr/lib64/
 USER 1001
 
 # Install all features
