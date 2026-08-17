@@ -1,5 +1,9 @@
 ARG PARENT_IMAGE=icr.io/appcafe/open-liberty:kernel-slim-java17-openj9-ubi-micro
 
+# ubi-micro has no package manager; install unzip from ubi-minimal and copy it in
+FROM registry.access.redhat.com/ubi10/ubi-minimal AS builder
+RUN microdnf -y install unzip && microdnf clean all
+
 FROM $PARENT_IMAGE AS installBundle
 
 ARG VERBOSE=false
@@ -9,15 +13,15 @@ ARG FEATURES_SHA=534d4f1b2b8cf34903b36f6e3780915f82a35419
 # If there is a local copy of the repository use that instead
 COPY resources/ /tmp/
 
-# We need unzip when using a local repo
+# We need unzip when using a local repo; copy it from ubi-minimal builder stage
 USER root
-RUN microdnf -y install unzip
+COPY --from=builder /usr/bin/unzip /usr/bin/unzip
 USER 1001
 
 # Install all features
 RUN set -eux; \
   if [ ! -f /tmp/openliberty-MavenArtifact-$LIBERTY_VERSION.zip ]; then \
-    curl https://repo1.maven.org/maven2/io/openliberty/features/features/$LIBERTY_VERSION/features-$LIBERTY_VERSION.json > /tmp/features-$LIBERTY_VERSION.json; \
+    wget -q https://repo1.maven.org/maven2/io/openliberty/features/features/$LIBERTY_VERSION/features-$LIBERTY_VERSION.json -O /tmp/features-$LIBERTY_VERSION.json; \
     echo "$FEATURES_SHA  /tmp/features-$LIBERTY_VERSION.json" > /tmp/features-$LIBERTY_VERSION.json.sha1; \
     sha1sum -c /tmp/features-$LIBERTY_VERSION.json.sha1; \
   else \
