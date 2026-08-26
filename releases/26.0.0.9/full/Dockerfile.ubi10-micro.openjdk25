@@ -1,4 +1,4 @@
-ARG PARENT_IMAGE=icr.io/appcafe/open-liberty:26.0.0.8-kernel-slim-java25-openj9-ubi-micro
+ARG PARENT_IMAGE=icr.io/appcafe/open-liberty:26.0.0.9-kernel-slim-java25-openj9-ubi-micro
 
 # ubi-micro has no package manager; install unzip from ubi-minimal and copy it in
 FROM registry.access.redhat.com/ubi10/ubi-minimal AS builder
@@ -7,7 +7,7 @@ RUN microdnf -y install unzip && microdnf clean all
 FROM $PARENT_IMAGE AS installBundle
 
 ARG VERBOSE=false
-ARG LIBERTY_VERSION=26.0.0.8
+ARG LIBERTY_VERSION=26.0.0.9
 ARG FEATURES_SHA=534d4f1b2b8cf34903b36f6e3780915f82a35419
 
 # If there is a local copy of the repository use that instead
@@ -37,7 +37,7 @@ RUN set -eux; \
   rm -rf /output/workarea /output/logs; \
   find /opt/ol/wlp ! -perm -g=rw -print0 | xargs -r -0 chmod g+rw;
 
-ARG PARENT_IMAGE=icr.io/appcafe/open-liberty:26.0.0.8-kernel-slim-java25-openj9-ubi-micro
+ARG PARENT_IMAGE=icr.io/appcafe/open-liberty:26.0.0.9-kernel-slim-java25-openj9-ubi-micro
 FROM $PARENT_IMAGE
 ARG VERBOSE=false
 
