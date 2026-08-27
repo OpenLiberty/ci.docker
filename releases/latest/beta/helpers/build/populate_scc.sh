@@ -1,15 +1,28 @@
 #!/bin/bash
 . /opt/ol/helpers/build/internal/logger.sh
 
+# Use curl/wget to warm endpoints
+if command -v curl > /dev/null 2>&1; then
+  http_get() { curl --silent --output /dev/null --show-error --fail --max-time 5 --insecure "$1"; }
+else
+  http_get() { wget -q --no-check-certificate -O /dev/null -T 5 "$1"; }
+fi
+
 set -Eeo pipefail
 
 SCC_SIZE="80m"  # Default size of the SCC layer.
 ITERATIONS=2    # Number of iterations to run to populate it.
 TRIM_SCC=yes    # Trim the SCC to eliminate any wasted space.
 WARM_ENDPOINT=true
-WARM_ENDPOINT_URL=localhost:9080/
 WARM_OPENAPI_ENDPOINT=true
-WARM_OPENAPI_ENDPOINT_URL=localhost:9080/openapi
+
+# Default warm URLs based on ENABLE_HTTP_PORT, with HTTP_PORT/HTTPS_PORT overrides.
+if [ "$ENABLE_HTTP_PORT" == "true" ]; then
+  WARM_ENDPOINT_URL="http://localhost:${HTTP_PORT:-9080}/"
+else
+  WARM_ENDPOINT_URL="https://localhost:${HTTPS_PORT:-9443}/"
+fi
+WARM_OPENAPI_ENDPOINT_URL="${WARM_ENDPOINT_URL}openapi"
 
 # If this directory exists and has at least ug=rwx permissions, assume the base image includes an SCC called 'openj9_system_scc' and build on it.
 # If not, build on our own SCC.
@@ -29,7 +42,12 @@ fi
 # option to revert to the old criteria, which results in AOT code that is more compatible, on average, with typical heap sizes/positions.
 # The option has no effect on later JDKs.
 # Using -XX:+IProfileDuringStartupPhase to enforce IProfiler collection during the startup phase to better populate the SCC.
-export OPENJ9_JAVA_OPTIONS="-XX:+OriginalJDK8HeapSizeCompatibilityMode -XX:+IProfileDuringStartupPhase $SCC"
+# Disable GCContainerHeuristics for ibmjava JVMs as workaround for ibmjava 8.0.8.70 build failures
+GC_OPT=""
+if [ -d "/opt/ibm/java" ]; then
+  GC_OPT="-XX:-GCContainerHeuristics "
+fi
+export OPENJ9_JAVA_OPTIONS="${GC_OPT}-XX:+OriginalJDK8HeapSizeCompatibilityMode -XX:+IProfileDuringStartupPhase $SCC"
 export IBM_JAVA_OPTIONS="$OPENJ9_JAVA_OPTIONS"
 CREATE_LAYER="$OPENJ9_JAVA_OPTIONS,createLayer,groupAccess"
 DESTROY_LAYER="$OPENJ9_JAVA_OPTIONS,destroy"
@@ -99,13 +117,6 @@ done
 
 OLD_UMASK=`umask`
 umask 002 # 002 is required to provide group rw permission to the cache when `-Xshareclasses:groupAccess` options is used
-
-# Use curl/wget to warm endpoints
-if command -v curl > /dev/null 2>&1; then
-  http_get() { curl --silent --output /dev/null --show-error --fail --max-time 5 "$1"; }
-else
-  http_get() { wget -q -O /dev/null -T 5 "$1"; }
-fi
 
 # Explicity create a class cache layer for this image layer here rather than allowing
 # `server start` to do it, which will lead to problems because multiple JVMs will be started.
