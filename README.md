@@ -143,6 +143,12 @@ This feature can be controlled via the following variables:
 * `WARM_OPENAPI_ENDPOINT_URL` (enviornment variable)
   * Description: (24.0.0.4+) The URL to access during SCC population if WARM_OPENAPI_ENDPOINT is true.
   * Default: `"localhost:9080/openapi"`
+* `PORT_OPEN_TIMEOUT_SECONDS` (environment variable)
+  * Description: The timeout in seconds to wait for the Liberty server port to open (detected via message `CWWKO0219I` in the messages log) during SCC population before exiting populate_scc.
+  * Default: `"30"`
+* `MESSAGES_LOG_FILE` (environment variable)
+  * Description: The path to the Liberty server messages log file to check for port open during SCC population.
+  * Default: `"/logs/messages.log"`
 
 To customize one of the built-in XML snippets, make a copy of the snippet from Github and edit it locally. Once you have completed your changes, use the `COPY` command inside your Dockerfile to copy the snippet into `/config/configDropins/overrides`. It is important to note that you do not need to set build-arguments (`ARG`) for any customized XML snippets. The following Dockerfile snippet is an example of how you should include the customized snippet.
 
