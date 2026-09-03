@@ -8,6 +8,37 @@ function setPasswords() {
   fi
 }
 
+function updateTruststoreFromFile() {
+  local TRUSTSTORE_FILE=$1
+  local TRUSTSTORE_PASSWORD=$2
+  local CERT_FILE=$3
+  local ALIAS=$4
+
+  keytool -import -storetype pkcs12 -noprompt -keystore "${TRUSTSTORE_FILE}" -file "${CERT_FILE}" \
+    -storepass "${TRUSTSTORE_PASSWORD}" -alias "${ALIAS}" >&/dev/null
+}
+
+function updateTruststoreFromDir() {
+  local TRUSTSTORE_CERT_DIR=$1
+  local TRUSTSTORE_PASSWORD=$2
+  local TRUSTSTORE_FILE=$3
+  local ALIAS_PREFIX=$4
+
+  local -r CRT_DELIMITER="/-----BEGIN CERTIFICATE-----/"
+  local TMP_CERT_DIR=$(mktemp -d)
+  local TMP_CERT="${TMP_CERT_DIR}/combined.crt"
+
+  pushd "${TMP_CERT_DIR}" >&/dev/null
+  cat "${TRUSTSTORE_CERT_DIR}"/*.crt >"${TMP_CERT}"
+  # CA bundles need to be split and added as individual certificates
+  csplit -s -z -f crt- "${TMP_CERT}" "${CRT_DELIMITER}" '{*}'
+  for CERT_FILE in crt-*; do
+    updateTruststoreFromFile "${TRUSTSTORE_FILE}" "${TRUSTSTORE_PASSWORD}" "${CERT_FILE}" "${ALIAS_PREFIX}-${CERT_FILE}"
+  done
+  popd >&/dev/null
+  rm -rf "${TMP_CERT_DIR}"
+}
+
 function importKeyCert() {
   local CERT_FOLDER="${TLS_DIR:-/etc/x509/certs}"
   local CRT_FILE="tls.crt"
@@ -15,8 +46,6 @@ function importKeyCert() {
   local CA_FILE="ca.crt"
   local PASSWORD=
   local TRUSTSTORE_PASSWORD=
-  local TMP_CERT=ca-bundle-temp.crt
-  local -r CRT_DELIMITER="/-----BEGIN CERTIFICATE-----/"
   local KUBE_SA_FOLDER="/var/run/secrets/kubernetes.io/serviceaccount"
   local KEYSTORE_FILE="/output/resources/security/key.p12"
   local TRUSTSTORE_FILE="/output/resources/security/trust.p12"
@@ -47,29 +76,24 @@ function importKeyCert() {
 
     # Since we are creating new keystore, always write new password to a file
     sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $keystorePathOverride
-    
+
     # Add mounted CA to the truststore
     if [ -f "${CERT_FOLDER}/${CA_FILE}" ]; then
-        echo "Found mounted TLS CA certificate, adding to truststore"
-        keytool -import -storetype pkcs12 -noprompt -keystore "${TRUSTSTORE_FILE}" -file "${CERT_FOLDER}/${CA_FILE}" \
-          -storepass "${TRUSTSTORE_PASSWORD}" -alias "service-ca" >&/dev/null    
+      echo "Found mounted TLS CA certificate, adding to truststore"
+      updateTruststoreFromFile "${TRUSTSTORE_FILE}" "${TRUSTSTORE_PASSWORD}" "${CERT_FOLDER}/${CA_FILE}" "service-ca"
     fi
   fi
 
   # Add kubernetes CA certificates to the truststore
-  # CA bundles need to be split and added as individual certificates
   if [ "$SEC_IMPORT_K8S_CERTS" = "true" ] && [ -d "${KUBE_SA_FOLDER}" ]; then
-    mkdir -p /tmp/certs
-    pushd /tmp/certs >&/dev/null
-    cat ${KUBE_SA_FOLDER}/*.crt >${TMP_CERT}
-    csplit -s -z -f crt- "${TMP_CERT}" "${CRT_DELIMITER}" '{*}'
-    setPasswords PASSWORD TRUSTSTORE_PASSWORD
-    for CERT_FILE in crt-*; do
-      keytool -import -storetype pkcs12 -noprompt -keystore "${TRUSTSTORE_FILE}" -file "${CERT_FILE}" \
-        -storepass "${TRUSTSTORE_PASSWORD}" -alias "service-sa-${CERT_FILE}" >&/dev/null
-    done
-    popd >&/dev/null
-    rm -rf /tmp/certs
+    echo "Found mounted K8S CA certificates, adding to truststore"
+    updateTruststoreFromDir "${KUBE_SA_FOLDER}" "${TRUSTSTORE_PASSWORD}" "${TRUSTSTORE_FILE}" "service-sa"
+  fi
+
+  # Add CA certificates from extra truststore directory
+  if [ -d "${EXTRA_TRUSTSTORE_DIR}" ]; then
+    echo "Found extra truststore directory, adding to truststore"
+    updateTruststoreFromDir "${EXTRA_TRUSTSTORE_DIR}" "${TRUSTSTORE_PASSWORD}" "${TRUSTSTORE_FILE}" "extra-ca"
   fi
 
   # If no keystore has been created, add a keystore password to server configuration
@@ -77,11 +101,11 @@ function importKeyCert() {
     setPasswords PASSWORD TRUSTSTORE_PASSWORD
     sed "s|REPLACE|$PASSWORD|g" $SNIPPETS_SOURCE/keystore.xml > $keystorePathDefault
   fi
-  if [ -e $TRUSTSTORE_FILE ]; then
+  if [ -e "$TRUSTSTORE_FILE" ]; then
     setPasswords PASSWORD TRUSTSTORE_PASSWORD
     sed "s|PWD_TRUST|$TRUSTSTORE_PASSWORD|g" $SNIPPETS_SOURCE/truststore.xml > $SNIPPETS_TARGET_OVERRIDES/truststore.xml
-  elif [ ! -z $SEC_TLS_TRUSTDEFAULTCERTS ]; then
-    cp $SNIPPETS_SOURCE/trustDefault.xml $SNIPPETS_TARGET_OVERRIDES/trustDefault.xml  
+  elif [ ! -z "$SEC_TLS_TRUSTDEFAULTCERTS" ]; then
+    cp $SNIPPETS_SOURCE/trustDefault.xml $SNIPPETS_TARGET_OVERRIDES/trustDefault.xml
   fi
 }
 
