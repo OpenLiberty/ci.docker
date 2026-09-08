@@ -3,8 +3,8 @@ ARG PARENT_IMAGE=icr.io/appcafe/open-liberty:kernel-slim-java25-openj9-ubi-minim
 FROM $PARENT_IMAGE AS installBundle
 
 ARG VERBOSE=false
-ARG LIBERTY_VERSION=26.0.0.8
-ARG FEATURES_SHA=534d4f1b2b8cf34903b36f6e3780915f82a35419
+ARG LIBERTY_VERSION=26.0.0.9
+ARG FEATURES_SHA=971f2f2434b57f39c8329ffc075ed26ba5e23742
 
 # If there is a local copy of the repository use that instead
 COPY resources/ /tmp/
