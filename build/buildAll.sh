@@ -1,7 +1,7 @@
 #!/bin/bash
 
 currentRelease=$1
-tests=(test-pet-clinic test-stock-quote test-stock-trader)
+tests=(test-pet-clinic test-stock-quote test-stock-trader test-liberty-certificates)
 
 echo "Starting to process release $currentRelease"
 
@@ -37,8 +37,15 @@ then
     testBuild="./build.sh --dir=$test --dockerfile=Dockerfile --tag=$test"
     echo "Running build script for test - $testBuild"
     eval $testBuild
+
     verifyCommand="./verify.sh $test"
     echo "Running verify script - $verifyCommand"
     eval $verifyCommand
+
+    if [ "$test" == "test-liberty-certificates" ]; then
+      verifyCommand="./verifyLibertyCertificates.sh $test"
+      echo "Running verify script - $verifyCommand"
+      eval $verifyCommand
+    fi
   done
 fi
