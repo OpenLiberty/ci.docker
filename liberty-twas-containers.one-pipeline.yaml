@@ -1,0 +1,533 @@
+version: '1'
+setup:
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi:3.51
+  dind: true
+  script: |
+    #!/usr/bin/env bash
+
+    if [[ "${PIPELINE_DEBUG:-0}" == "1" ]]; then
+      set -x
+      trap env EXIT
+    fi
+
+    export DEVSECOPS_SCRIPT_LIBRARY_DIR
+    if [ -n "$(get_env devsecops-script-library-path "")" ]; then
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${WORKSPACE}/$(get_env devsecops-script-library-path)"
+    else
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${COMMONS_PATH}"
+    fi
+    # shellcheck disable=SC1091
+    source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/utils/environment-utilities.sh"
+    export-properties "GLOBAL" && export-properties "${STAGE^^}"
+
+    if [[ "$(get_env pipeline_namespace "")" == "pr" || "$(get_env pipeline_namespace "")" == "ci" ]]; then
+
+      if [ "$(get_env setup-branch-protection "true")" == "true" ]; then
+        # put the PR status checks requirements only when CI or PR pipeline
+        # shellcheck disable=SC1091
+        source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/utils/setup_branch-protection.sh"
+      fi
+
+      # execute pre-commit if needed
+      pre_commit_config_file="$(get_env pre-commit-config-file ".pre-commit-config.yaml")"
+      pushd "${WORKSPACE}/$(load_repo app-repo path)" > /dev/null || exit 1
+      if [ -f "${pre_commit_config_file}" ]; then
+        # shellcheck disable=SC1091
+        source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/utils/pre-commit-utility.sh"
+        run-pre-commit "$pre_commit_config_file"
+      fi
+      popd > /dev/null || exit 1
+    fi
+
+    # dump env properties before setup
+    initial_env_properties=$(mktemp)
+    list_env | sort > "$initial_env_properties"
+
+    ## processing start ##
+    ${DEVSECOPS_SCRIPT_LIBRARY_DIR}/setup/docker.sh --build-args "IMAGE,VERBOSE" --source "build/test-pet-clinic/Dockerfile" --repo-key "app-repo" --index "0"
+    ${DEVSECOPS_SCRIPT_LIBRARY_DIR}/setup/docker.sh --build-args "IMAGE,VERBOSE" --source "build/test-stock-quote/Dockerfile" --repo-key "app-repo" --index "1"
+    ${DEVSECOPS_SCRIPT_LIBRARY_DIR}/setup/docker.sh --build-args "IMAGE,VERBOSE" --source "build/test-stock-trader/Dockerfile" --repo-key "app-repo" --index "2"
+    ## processing end ##
+
+    # dump environment properties to locate env properties defined during setup invocation
+    current_env_properties=$(mktemp)
+    list_env | sort > "$current_env_properties"
+
+    echo "================================================="
+    echo "Properties updated by tools invoked during setup:"
+    while read -r env_property; do
+      env_property_value="$(get_env "$env_property")"
+      if [[ "$env_property" =~ .*(-token|-key|-dockerconfigjson)$ ]]; then
+        # obfuscate the value in case pipeline log service did not handle it as a pipeline secret property
+        env_property_value="***"
+      fi
+      echo "- $env_property set to $env_property_value"
+    done < <(comm -13 "$initial_env_properties" "$current_env_properties" | awk '{print $NF}')
+    echo "================================================="
+test:
+  abort_on_failure: false
+  dind: true
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi:3.51
+  script: |
+    #!/usr/bin/env bash
+
+    if [[ "$PIPELINE_DEBUG" == 1 ]]; then
+      trap env EXIT
+      env
+      set -x
+    fi
+
+    export DEVSECOPS_SCRIPT_LIBRARY_DIR
+    if [ -n "$(get_env devsecops-script-library-path "")" ]; then
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${WORKSPACE}/$(get_env devsecops-script-library-path)"
+    else
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${COMMONS_PATH}"
+    fi
+
+    # shellcheck disable=SC1091
+    source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/utils/environment-utilities.sh"
+    export-properties "GLOBAL" && export-properties "${STAGE^^}"
+
+    ## processing start ##
+    ## processing end ##
+compliance-checks:
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi:3.51
+  dind: true
+  abort_on_failure: false
+  script: |
+    #!/usr/bin/env bash
+
+    if [[ "$PIPELINE_DEBUG" == 1 ]]; then
+      trap env EXIT
+      env
+      set -x
+    fi
+
+    export DEVSECOPS_SCRIPT_LIBRARY_DIR
+    if [ -n "$(get_env devsecops-script-library-path "")" ]; then
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${WORKSPACE}/$(get_env devsecops-script-library-path)"
+    else
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${COMMONS_PATH}"
+    fi
+
+    # cra-custom-script may (indirectly) refers to exported properties - like in maven settings.xml with ${env.XXX}
+    # shellcheck disable=SC1091
+    source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/utils/environment-utilities.sh"
+    export-properties "GLOBAL" && export-properties "${STAGE^^}"
+
+    # ibmcloud cra update is performed - https://github.ibm.com/open-toolchain/compliance-commons/blob/master/compliance-checks/run.sh#L85
+    # ensuring CRA plugin is up to 2.3.0 as since this version, no maven clean (deleting output classes) is performed
+    # https://github.ibm.com/oneibmcloud/CD-CRA/issues/1908#issuecomment-89314281
+    # so the maven commands issues by cra will not have side effect to other tasks like build-artifact, test, static-scan if sonarqube enabled
+
+    if ! "${COMMONS_PATH}/compliance-checks/run.sh"; then
+      exit 1
+    fi
+static-scan:
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi:3.51
+  dind: true
+  abort_on_failure: false
+  script: |
+    #!/usr/bin/env bash
+
+    if [[ "$PIPELINE_DEBUG" == 1 ]]; then
+      trap env EXIT
+      env
+      set -x
+    fi
+
+    export DEVSECOPS_SCRIPT_LIBRARY_DIR
+    if [ -n "$(get_env devsecops-script-library-path "")" ]; then
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${WORKSPACE}/$(get_env devsecops-script-library-path)"
+    else
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${COMMONS_PATH}"
+    fi
+
+    # static-scan may refers to exported properties - like in maven settings.xml with ${env.XXX}
+    # shellcheck disable=SC1091
+    source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/utils/environment-utilities.sh"
+    export-properties "GLOBAL" && export-properties "${STAGE^^}"
+
+    exit_code=0
+
+    # line content in maven_repos file will be like: <repo-key> <pom.xml path>
+    maven_repos=$(mktemp)
+    # line content in gradle_repos file will be like: <repo-key> <settings.gradle(.kts) path>
+    gradle_repos=$(mktemp)
+    # line content in other_repos file will be like: <repo-key> <exclusion pattern>
+    other_repos=$(mktemp)
+
+    ## processing start ##
+    echo "app-repo" >> $other_repos
+    ## processing end ##
+
+    list_repos() {
+      cat "$override_repos_file"
+    }
+    declare -fx list_repos
+
+    if [ -z "$(get_env maven-user-settings-file-path "")" ]; then
+      maven_settings_parameter=""
+    else
+      maven_settings_parameter="--settings \"$(get_env maven-user-settings-file-path)\""
+    fi
+
+    # define the gradle user home at the workspace level for reuse
+    if [ -z "$(get_env _GRADLE_USER_HOME "")" ]; then
+      set_env _GRADLE_USER_HOME "$(mktemp -d -p "$WORKSPACE" gradle.XXX)"
+    fi
+    export GRADLE_USER_HOME
+    GRADLE_USER_HOME="$(get_env _GRADLE_USER_HOME)"
+
+    truststore_p12_directory="$(mktemp --directory)"
+    chmod 777 "$truststore_p12_directory"
+    if [ -n "$(get_env sonarqube-root-certificate "")" ]; then
+      sonar_root_pem="$(mktemp --suffix=.pem)"
+      get_env sonarqube-root-certificate > "$sonar_root_pem"
+      # add the certificate in the trusted store according to
+      # https://docs.sonarsource.com/sonarqube-server/latest/analyzing-source-code/scanners/scanner-environment/manage-tls-certificates/#adding-the-selfsigned-server-certificate-to-the-trusted-ca-certificates
+      # shellcheck disable=SC2086
+      if [ $maven_code_spot_number -gt 0 ] || [ $gradle_code_spot_number -gt 0 ]; then
+        # in case of a sonar self-signed certificate, add it to the default trust store for java/maven & gradle
+        cacerts_file="$(find "$JAVA_HOME" -name cacerts -print -quit)"
+        if [ -n "$cacerts_file" ]; then
+          keytool -import -alias sonar -cacerts -noprompt -storepass changeit -file "$sonar_root_pem"
+        else
+          echo "Warning: No JVM trustore found (cacerts file). Sonarqube Server root certificate not added"
+        fi
+      fi
+
+      # create the trustore for the docker run
+      openssl pkcs12 -export -caname sonar -out "${truststore_p12_directory}/truststore.p12" -in "$sonar_root_pem" -passout pass:"sonar" -nokeys
+      chmod 777 "${truststore_p12_directory}/truststore.p12"
+    fi
+
+    export override_repos_file
+    override_repos_file=$(mktemp)
+    while read -r repo_and_pom; do
+      repo_key=$(echo -n "$repo_and_pom" | awk '{print $1}')
+      pom_file=$(echo -n "$repo_and_pom" | awk '{print $2}')
+      echo "$repo_key" > "$override_repos_file"
+      set_env sonarqube-scan-command "mvn $maven_settings_parameter -Dmaven.repo.local=\"$(get_env _MVN_LOCAL_REPO)\" -Dsonar.login=\"\$(cat /tmp/sonarqube-token)\" -Dsonar.host.url=\"\$SONAR_HOST_URL\" -Dsonar.projectKey=\"\$SONAR_PROJECT_KEY\" -Dsonar.projectName=\"\$SONAR_PROJECT_KEY\" -Dsonar.working.directory=\"\$SONAR_DIR\" -Dsonar.maven.scanAll=true --file $pom_file sonar:sonar"
+      echo "sonarqube-scan-command for repo ${repo_key}'s static-scan is $(get_env sonarqube-scan-command)"
+      if ! "${COMMONS_PATH}/static-scan/run.sh"; then
+        exit_code=1
+      fi
+    done < <(cat "$maven_repos")
+
+    while read -r repo_and_settings; do
+      repo_key=$(echo -n "$repo_and_settings" | awk '{print $1}')
+      settings_file=$(echo -n "$repo_and_settings" | awk '{print $2}')
+      echo "$repo_key" > "$override_repos_file"
+      # check if sonar task is defined in the gradle project
+      pushd "$(dirname "$(find-absolute-path "$repo_key" "$settings_file")")" > /dev/null || exit 1
+      # if gradlew wrapper is there, use it
+      if [ -f "./gradlew" ]; then
+        # ensure gradlewrapper is fully qualified as it may be located in a subfolder of the cloned repo directory
+        gradle_tool="$(pwd)/gradlew"
+        chmod +x ./gradlew
+      else
+        gradle_tool="gradle"
+      fi
+      # check if gradle sonar is there
+      if ! $gradle_tool help -q --task sonar > /dev/null 2>&1; then
+        gradle_sonar_initscript="${DEVSECOPS_SCRIPT_LIBRARY_DIR}/utils/init-script-for-sonar-plugin.gradle"
+        echo "Gradle Sonar task is unknown to the project. Add it to the project using a Groovy Gradle init-script file - ${gradle_sonar_initscript}"
+        echo "Gradle init-script ${gradle_sonar_initscript}'s content is:"
+        cat "${gradle_sonar_initscript}"
+        init_script_parameter="--init-script $gradle_sonar_initscript"
+      else
+        init_script_parameter=""
+      fi
+      set_env sonarqube-scan-command "$gradle_tool --project-dir $(pwd) $init_script_parameter -Dsonar.login=\"\$(cat /tmp/sonarqube-token)\" -Dsonar.host.url=\"\$SONAR_HOST_URL\" -Dsonar.projectKey=\"\$SONAR_PROJECT_KEY\" -Dsonar.projectName=\"\$SONAR_PROJECT_KEY\" -Dsonar.working.directory=\"\$SONAR_DIR\" -Dsonar.gradle.scanAll=True sonar"
+      echo "sonarqube-scan-command for repo ${repo_key}'s static-scan is $(get_env sonarqube-scan-command)"
+      popd > /dev/null || exit 1
+      if ! "${COMMONS_PATH}/static-scan/run.sh"; then
+        exit_code=1
+      fi
+    done < <(cat "$gradle_repos")
+
+    # start static-scan run for the remaining repositories
+    cp -f "$other_repos" "$override_repos_file"
+    # shellcheck disable=SC2016
+    set_env sonarqube-scan-command "$(printf 'docker run --network host -v %s:/opt/sonar-scanner/.sonar/ssl -v "$SONAR_DIR":/usr/sonar_scan -v "$WORKSPACE/$path":/usr/src "$sonarqube_scanner_image" sonar-scanner -Dsonar.working.directory=/usr/sonar_scan -Dsonar.projectKey="$SONAR_PROJECT_KEY"' "${truststore_p12_directory}")"
+    echo "sonarqube-scan-command for static-scan is $(get_env sonarqube-scan-command)"
+    if ! "${COMMONS_PATH}/static-scan/run.sh"; then
+      exit_code=1
+    fi
+
+    if [ $exit_code -ne 0 ]; then
+      exit $exit_code
+    fi
+containerize:
+  dind: true
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi:3.51
+  script: |
+    #!/usr/bin/env bash
+
+    if [[ "$PIPELINE_DEBUG" == 1 ]]; then
+      trap env EXIT
+      env
+      set -x
+    fi
+
+    export DEVSECOPS_SCRIPT_LIBRARY_DIR
+    if [ -n "$(get_env devsecops-script-library-path "")" ]; then
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${WORKSPACE}/$(get_env devsecops-script-library-path)"
+    else
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${COMMONS_PATH}"
+    fi
+
+    # shellcheck disable=SC1091
+    source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/utils/environment-utilities.sh"
+    export-properties "GLOBAL" && export-properties "${STAGE^^}"
+
+    ## processing start ##
+    ${DEVSECOPS_SCRIPT_LIBRARY_DIR}/build-artifact/save-deployment-artifact.sh --source "samples/security/olapp.yaml" --repo-key "app-repo" --index "0" --tool "kubectl-liberty-app"
+    ${DEVSECOPS_SCRIPT_LIBRARY_DIR}/build-artifact/docker.sh --build-args "IMAGE,VERBOSE" --index "0" --source "build/test-pet-clinic/Dockerfile" --repo-key "app-repo"
+    ${DEVSECOPS_SCRIPT_LIBRARY_DIR}/build-artifact/docker.sh --build-args "IMAGE,VERBOSE" --index "1" --source "build/test-stock-quote/Dockerfile" --repo-key "app-repo"
+    ## processing end ##
+sign-artifact:
+  image: icr.io/continuous-delivery/toolchains/devsecops/csso-image-sign@sha256:819df056454ad53c012c4c61ea3b2eed017c0f1f46659ef4db906adc311c2fc5
+  abort_on_failure: false
+  script: |
+    #!/bin/bash
+
+    if [[ "$PIPELINE_DEBUG" == 1 ]]; then
+      trap env EXIT
+      env
+      set -x
+    fi
+
+    exit_status=0
+    # Check if garasign has to be used for image signature
+    if [ -n "$(get_env product-type "")" ] && [ -n "$(get_env gara-signing-key "")" ] && [ -n "$(get_env gara-signing-credential "")" ]; then
+      # ciso signing scripts use exit so use a condition to prevent exit too early
+      # shellcheck disable=SC1091
+      if ! "${COMMONS_PATH}/ciso/sign_artifacts.sh"; then
+        echo "Warning: artifact(s) signing failed"
+        exit_status=1
+      fi
+      # shellcheck disable=SC1091
+      if ! "${COMMONS_PATH}/ciso/sign_icr.sh"; then
+        echo "Warning: image(s) signing failed"
+        exit_status=1
+      fi
+    elif [ -n "$(get_env signing-key "")" ]; then
+      # add this export GPG_TTY to prevent the error 'gpg: signing failed: Inappropriate ioctl for device'
+      # shellcheck disable=SC2155
+      export GPG_TTY=$(tty)
+      # clean up GPG registry for PGP signing as only one signature is expected
+      gpg2 --with-colons --fingerprint | grep "^fpr" | cut -d: -f10 | xargs gpg2 --batch --delete-secret-keys
+      gpg2 --with-colons --fingerprint | grep "^fpr" | cut -d: -f10 | xargs gpg2 --batch --delete-keys
+      # shellcheck disable=SC1091
+      source "${COMMONS_PATH}/sign-artifact/sign-artifacts.sh"
+      # shellcheck disable=SC1091
+      source "${COMMONS_PATH}/sign-artifact/sign_image.sh"
+    fi
+    if [ "$exit_status" != "0" ]; then
+      echo "sign-artifact failed. Exiting $exit_status"
+      exit $exit_status
+    fi
+deploy:
+  dind: true
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi:3.51
+  script: |
+    #!/usr/bin/env bash
+
+    if [[ "$PIPELINE_DEBUG" == 1 ]]; then
+      trap env EXIT
+      env
+      set -x
+    fi
+
+    export DEVSECOPS_SCRIPT_LIBRARY_DIR
+    if [ -n "$(get_env devsecops-script-library-path "")" ]; then
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${WORKSPACE}/$(get_env devsecops-script-library-path)"
+    else
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${COMMONS_PATH}"
+    fi
+
+    # shellcheck disable=SC1091
+    source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/utils/environment-utilities.sh"
+    export-properties "GLOBAL" && export-properties "${STAGE^^}"
+
+    # Perform deployment for each deployment spots
+    # as this the deploy to dev for ci, scope is empty (scope is for the component and target is dev)
+    ## processing start ##
+    ## processing end ##
+acceptance-test:
+  abort_on_failure: false
+  dind: true
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi:3.51
+  script: |
+    #!/usr/bin/env bash
+
+    if [[ "$PIPELINE_DEBUG" == 1 ]]; then
+      trap env EXIT
+      env
+      set -x
+    fi
+
+    # legacy
+    export APP_URL
+    APP_URL="$(get_env app-url "")"
+
+    export DEVSECOPS_SCRIPT_LIBRARY_DIR
+    if [ -n "$(get_env devsecops-script-library-path "")" ]; then
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${WORKSPACE}/$(get_env devsecops-script-library-path)"
+    else
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${COMMONS_PATH}"
+    fi
+
+    # shellcheck disable=SC1091
+    source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/utils/environment-utilities.sh"
+    export-properties "GLOBAL" && export-properties "${STAGE^^}"
+
+    # Perform acceptance tests for each spots
+    ## processing start ##
+    ## processing end ##
+dynamic-scan:
+  dind: true
+  abort_on_failure: false
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi:3.51
+  script: |
+    #!/usr/bin/env bash
+
+    if [[ "$PIPELINE_DEBUG" == 1 ]]; then
+      trap env EXIT
+      env
+      set -x
+    fi
+
+    if [ -z "$(get_env opt-in-dynamic-scan "")" ]; then
+      echo "If you want to enable this stage, add 'opt-in-dynamic-scan' parameter to your pipeline with any value. Also, please add 'opt-in-dynamic-api-scan' to your pipeline with any value to have api scans running, and 'opt-in-dynamic-ui-scan' with any value to have ui scans running" >&2
+    else
+      export DEVSECOPS_SCRIPT_LIBRARY_DIR
+      if [ -n "$(get_env devsecops-script-library-path "")" ]; then
+        DEVSECOPS_SCRIPT_LIBRARY_DIR="${WORKSPACE}/$(get_env devsecops-script-library-path)"
+      else
+        DEVSECOPS_SCRIPT_LIBRARY_DIR="${COMMONS_PATH}"
+      fi
+
+      # shellcheck disable=SC1091
+      source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/utils/environment-utilities.sh"
+      export-properties "GLOBAL" && export-properties "${STAGE^^}"
+
+      ## processing start ##
+    ## processing end ##
+
+    fi
+contrast-iast:
+  dind: true
+  abort_on_failure: true
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi:3.51
+  script: |
+    #!/usr/bin/env bash
+
+    if [[ "$PIPELINE_DEBUG" == 1 ]]; then
+      trap env EXIT
+      env
+      set -x
+    fi
+
+    export DEVSECOPS_SCRIPT_LIBRARY_DIR
+    if [ -n "$(get_env devsecops-script-library-path "")" ]; then
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${WORKSPACE}/$(get_env devsecops-script-library-path)"
+    else
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${COMMONS_PATH}"
+    fi
+
+    # shellcheck disable=SC1091
+    source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/utils/environment-utilities.sh"
+    export-properties "GLOBAL" && export-properties "${STAGE^^}"
+
+    # shellcheck disable=SC1091
+    source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/dynamic-scan/query-contrast-iast.sh"
+owasp-zap:
+  dind: true
+  abort_on_failure: true
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi:3.51
+  script: |
+    #!/usr/bin/env bash
+
+    if [[ "$PIPELINE_DEBUG" == 1 ]]; then
+      trap env EXIT
+      env
+      set -x
+    fi
+
+    export DEVSECOPS_SCRIPT_LIBRARY_DIR
+    if [ -n "$(get_env devsecops-script-library-path "")" ]; then
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${WORKSPACE}/$(get_env devsecops-script-library-path)"
+    else
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${COMMONS_PATH}"
+    fi
+
+    # shellcheck disable=SC1091
+    source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/utils/environment-utilities.sh"
+    export-properties "GLOBAL" && export-properties "${STAGE^^}"
+
+    # shellcheck disable=SC1091
+    source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/dynamic-scan/start-zap-scans.sh"
+release:
+  abort_on_failure: false
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi:3.51
+  script: |
+    #!/usr/bin/env bash
+
+    if [[ "$PIPELINE_DEBUG" == 1 ]]; then
+      trap env EXIT
+      env
+      set -x
+    fi
+
+    # Check the status of pipeline and then release the artifacts to inventory
+    ONE_PIPELINE_STATUS=$(get_env one-pipeline-status 0)
+    if [ "$(get_env skip-inventory-update-on-failure "1")" == "1" ]; then
+        # shellcheck disable=SC2086
+        if [ $ONE_PIPELINE_STATUS -eq 1 ]; then
+              echo "Skipping release stage as some of the pipeline stages are not successful."
+              echo "Set skip-inventory-update-on-failure to 0 to force the release stage to run."
+              exit 1
+        fi
+    fi
+
+    export DEVSECOPS_SCRIPT_LIBRARY_DIR
+    if [ -n "$(get_env devsecops-script-library-path "")" ]; then
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${WORKSPACE}/$(get_env devsecops-script-library-path)"
+    else
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${COMMONS_PATH}"
+    fi
+
+    # shellcheck disable=SC1091
+    source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/utils/environment-utilities.sh"
+    export-properties "GLOBAL" && export-properties "${STAGE^^}"
+
+    ## processing start ##
+    ## processing end ##
+
+    # invoke the default release
+    # shellcheck disable=SC1091
+    source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/release/release.sh"
+finish:
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi:3.51
+  script: |
+    #!/usr/bin/env bash
+
+    if [[ "$PIPELINE_DEBUG" == 1 ]]; then
+      trap env EXIT
+      env
+      set -x
+    fi
+
+    export DEVSECOPS_SCRIPT_LIBRARY_DIR
+    if [ -n "$(get_env devsecops-script-library-path "")" ]; then
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${WORKSPACE}/$(get_env devsecops-script-library-path)"
+    else
+      DEVSECOPS_SCRIPT_LIBRARY_DIR="${COMMONS_PATH}"
+    fi
+
+    # shellcheck disable=SC1091
+    source "${DEVSECOPS_SCRIPT_LIBRARY_DIR}/utils/environment-utilities.sh"
+    export-properties "GLOBAL" && export-properties "${STAGE^^}"
