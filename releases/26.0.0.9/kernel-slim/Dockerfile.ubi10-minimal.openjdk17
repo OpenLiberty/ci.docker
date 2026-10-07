@@ -100,7 +100,8 @@ ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build:/opt/ol/helpers/runtime \
     LOG_DIR=/liberty/logs \
     WLP_OUTPUT_DIR=/opt/ol/wlp/output \
     WLP_SKIP_MAXPERMSIZE=true \
-    OPENJ9_SCC=$OPENJ9_SCC
+    OPENJ9_SCC=$OPENJ9_SCC \
+    ENABLE_HTTP_PORT=true
 
 # Configure Open Liberty
 RUN /opt/ol/wlp/bin/server create \

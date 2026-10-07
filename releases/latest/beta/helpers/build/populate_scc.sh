@@ -1,15 +1,28 @@
 #!/bin/bash
 . /opt/ol/helpers/build/internal/logger.sh
 
+# Use curl/wget to warm endpoints
+if command -v curl > /dev/null 2>&1; then
+  http_get() { curl --silent --output /dev/null --show-error --fail --max-time 5 --insecure "$1"; }
+else
+  http_get() { wget -q --no-check-certificate -O /dev/null -T 5 "$1"; }
+fi
+
 set -Eeo pipefail
 
 SCC_SIZE="80m"  # Default size of the SCC layer.
 ITERATIONS=2    # Number of iterations to run to populate it.
 TRIM_SCC=yes    # Trim the SCC to eliminate any wasted space.
 WARM_ENDPOINT=true
-WARM_ENDPOINT_URL=localhost:9080/
 WARM_OPENAPI_ENDPOINT=true
-WARM_OPENAPI_ENDPOINT_URL=localhost:9080/openapi
+
+# Default warm URLs based on ENABLE_HTTP_PORT, with HTTP_PORT/HTTPS_PORT overrides.
+if [ "$ENABLE_HTTP_PORT" == "true" ]; then
+  WARM_ENDPOINT_URL="http://localhost:${HTTP_PORT:-9080}/"
+else
+  WARM_ENDPOINT_URL="https://localhost:${HTTPS_PORT:-9443}/"
+fi
+WARM_OPENAPI_ENDPOINT_URL="${WARM_ENDPOINT_URL}openapi"
 
 # If this directory exists and has at least ug=rwx permissions, assume the base image includes an SCC called 'openj9_system_scc' and build on it.
 # If not, build on our own SCC.
@@ -29,7 +42,12 @@ fi
 # option to revert to the old criteria, which results in AOT code that is more compatible, on average, with typical heap sizes/positions.
 # The option has no effect on later JDKs.
 # Using -XX:+IProfileDuringStartupPhase to enforce IProfiler collection during the startup phase to better populate the SCC.
-export OPENJ9_JAVA_OPTIONS="-XX:+OriginalJDK8HeapSizeCompatibilityMode -XX:+IProfileDuringStartupPhase $SCC"
+# Disable GCContainerHeuristics for ibmjava JVMs as workaround for ibmjava 8.0.8.70 build failures
+GC_OPT=""
+if [ -d "/opt/ibm/java" ]; then
+  GC_OPT="-XX:-GCContainerHeuristics "
+fi
+export OPENJ9_JAVA_OPTIONS="${GC_OPT}-XX:+OriginalJDK8HeapSizeCompatibilityMode -XX:+IProfileDuringStartupPhase $SCC"
 export IBM_JAVA_OPTIONS="$OPENJ9_JAVA_OPTIONS"
 CREATE_LAYER="$OPENJ9_JAVA_OPTIONS,createLayer,groupAccess"
 DESTROY_LAYER="$OPENJ9_JAVA_OPTIONS,destroy"
@@ -76,10 +94,10 @@ do
   -s <size>       Size of the SCC in megabytes (m suffix required). (Default: $SCC_SIZE)
   -t              Trim the SCC to eliminate most of the free space, if any.
   -d              Don't trim the SCC.
-  -w              Use curl to warm an endpoint during SCC creation. (Default: $WARM_ENDPOINT)
+  -w              Use curl/wget to warm an endpoint during SCC creation. (Default: $WARM_ENDPOINT)
   -c              Do not warm an endpoint during SCC creation.
   -u              The URL endpoint to warm during SCC creation. (Default: $WARM_ENDPOINT_URL)
-  -m              Use curl to warm the openapi endpoint during SCC creation. (Default: $WARM_OPENAPI_ENDPOINT)
+  -m              Use curl/wget to warm the openapi endpoint during SCC creation. (Default: $WARM_OPENAPI_ENDPOINT)
   -l              Do not warm the openapi endpoint during SCC creation.
   -o              The Open API URL endpoint to warm during SCC creation. (Default: $WARM_ENDPOINT_OPENAPI_URL)
 
@@ -112,11 +130,11 @@ then
 
   if [ ${WARM_ENDPOINT} == true ]
   then
-    curl --silent --output /dev/null --show-error --fail --max-time 5 ${WARM_ENDPOINT_URL} 2>&1 || echo "${WARM_ENDPOINT_URL} call failed, continuing"
+    http_get ${WARM_ENDPOINT_URL} 2>&1 || echo "${WARM_ENDPOINT_URL} call failed, continuing"
   fi
   if [ ${WARM_OPENAPI_ENDPOINT} == true ]
   then
-    curl --silent --output /dev/null --show-error --fail --max-time 5 ${WARM_OPENAPI_ENDPOINT_URL} 2>&1 || echo "${WARM_OPENAPI_ENDPOINT_URL} call failed, continuing"
+    http_get ${WARM_OPENAPI_ENDPOINT_URL} 2>&1 || echo "${WARM_OPENAPI_ENDPOINT_URL} call failed, continuing"
   fi
 
   /opt/ol/wlp/bin/server stop
@@ -147,11 +165,11 @@ do
 
   if [ ${WARM_ENDPOINT} == true ]
   then
-    curl --silent --output /dev/null --show-error --fail --max-time 5 ${WARM_ENDPOINT_URL} 2>&1 || echo "${WARM_ENDPOINT_URL} call failed, continuing"
+    http_get ${WARM_ENDPOINT_URL} 2>&1 || echo "${WARM_ENDPOINT_URL} call failed, continuing"
   fi
   if [ ${WARM_OPENAPI_ENDPOINT} == true ]
   then
-    curl --silent --output /dev/null --show-error --fail --max-time 5 ${WARM_OPENAPI_ENDPOINT_URL} 2>&1 || echo "${WARM_OPENAPI_ENDPOINT_URL} call failed, continuing"
+    http_get ${WARM_OPENAPI_ENDPOINT_URL} 2>&1 || echo "${WARM_OPENAPI_ENDPOINT_URL} call failed, continuing"
   fi
 
   /opt/ol/wlp/bin/server stop

@@ -26,8 +26,14 @@ fi
 if [ "$SSL" == "true" ] || [ "$TLS" == "true" ]; then
   cp $SNIPPETS_SOURCE/tls.xml $SNIPPETS_TARGET/tls.xml
 fi
-
 # Install necessary features using featureUtility
 featureUtility installServerFeatures --acceptLicense defaultServer --noCache
 find /opt/ol/wlp/lib /opt/ol/wlp/bin ! -perm -g=rw -print0 | xargs -0 -r chmod g+rw
+
+# Validate the Liberty installation integrity after feature installation
+if [ "$SKIP_FEATURE_VALIDATE" != "true" ]; then
+  /opt/ol/wlp/bin/productInfo validate
+fi
+
+echo "features.sh script has been run" > /logs/features.log
 
