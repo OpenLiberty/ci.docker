@@ -119,7 +119,8 @@ ENV PATH=$PATH:/opt/ol/wlp/bin:/opt/ol/helpers/build:/opt/ol/helpers/runtime \
     LOG_DIR=/liberty/logs \
     WLP_OUTPUT_DIR=/opt/ol/wlp/output \
     WLP_SKIP_MAXPERMSIZE=true \
-    OPENJ9_SCC=$OPENJ9_SCC
+    OPENJ9_SCC=$OPENJ9_SCC \
+    DISABLE_SERVER_CONFIG_UPDATE_TRIGGER=true
 
 # Configure Open Liberty
 RUN /opt/ol/wlp/bin/server create \
@@ -139,6 +140,7 @@ RUN mkdir /logs \
     && mkdir -p /config/configDropins/overrides \
     && ln -s /opt/ol/wlp /liberty \
     && ln -s /opt/ol/fixes /fixes \
+    && ln -s /opt/ol/helpers /liberty/helpers \
     && echo "<server description=\"Default Server\"><httpEndpoint id=\"defaultHttpEndpoint\" host=\"*\" /></server>" > /config/configDropins/defaults/open-default-port.xml \
     && chown -R 1001:0 /config \
     && chmod -R g+rw /config \
