@@ -2,8 +2,8 @@ FROM registry.access.redhat.com/ubi10/ubi-minimal:latest AS builder
 
 USER root
 
-ARG LIBERTY_VERSION=26.0.0.9
-ARG LIBERTY_SHA=4ec644ee059a8d54a26c326763fd404a6baf1570
+ARG LIBERTY_VERSION=26.0.0.10
+ARG LIBERTY_SHA=c34b31d16b1dcfc0eca002a62d019fb60603ff15
 ARG LIBERTY_DOWNLOAD_URL=https://repo1.maven.org/maven2/io/openliberty/openliberty-kernel/$LIBERTY_VERSION/openliberty-kernel-$LIBERTY_VERSION.zip
 
 ARG VERBOSE=false
@@ -57,8 +57,8 @@ FROM icr.io/appcafe/ibm-semeru-runtimes:open-17-jre-ubi10-micro
 
 USER root
 
-ARG LIBERTY_VERSION=26.0.0.9
-ARG LIBERTY_BUILD_LABEL=cl260920260824-0859
+ARG LIBERTY_VERSION=26.0.0.10
+ARG LIBERTY_BUILD_LABEL=cl261020260922-1910
 
 ARG OPENJ9_SCC=true
 ARG VERBOSE=false
