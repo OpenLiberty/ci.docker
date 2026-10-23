@@ -18,6 +18,17 @@ function main() {
 
   #Check for each Liberty value-add functionality
 
+  # Disable automatic configuration file monitoring (security hardening).
+  if [ "$SKIP_UPDATE_TRIGGER_DISABLED" != "true" ]; then
+    cp $SNIPPETS_SOURCE/update-trigger-disabled.xml $SNIPPETS_TARGET_DEFAULTS/update-trigger-disabled.xml
+    chmod g+rw $SNIPPETS_TARGET_DEFAULTS/update-trigger-disabled.xml
+  fi
+
+  # HTTP port is disabled by default. Set ENABLE_HTTP_PORT=true to re-enable port 9080.
+  if [ "$ENABLE_HTTP_PORT" != "true" ]; then
+    cp $SNIPPETS_SOURCE/http-port-disabled.xml $SNIPPETS_TARGET_DEFAULTS/http-port-disabled.xml
+  fi
+
   # MicroProfile Health
   if [ "$MP_HEALTH_CHECK" == "true" ]; then
     cp $SNIPPETS_SOURCE/mp-health-check.xml $SNIPPETS_TARGET/mp-health-check.xml
