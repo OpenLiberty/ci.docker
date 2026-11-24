@@ -12,6 +12,8 @@
   - [Applying Interim Fixes](#applying-interim-fixes)
   - [Known Issues](#known-issues)
     - [Generating system dumps for pods in Kubernetes](#generating-system-dumps-for-pods-in-kubernetes)
+    - [Build fails during `configure.sh` using the `--platform=linux/amd64` flag on `aarch64`](#build-fails-during-configuresh-using-the---platformlinuxamd64-flag-on-aarch64)
+    - [Build fails during `populate_scc.sh` on UBI 10 images with older Buildah](#build-fails-during-populate_sccsh-on-ubi-10-images-with-older-buildah)
   - [Contributions](#contributions)
 
 ----
@@ -386,6 +388,19 @@ To solve this problem:
 - Match the build platform to the image's target architecture. For example, when building on a Mac M1, run an `amd64` virtual machine (such as with QEMU) to build the `amd64` Liberty image. 
 - Another solution is to set `ENV OPENJ9_SCC=false` in the Dockerfile which will opt out of generating SCC at build time. However, adding this flag will remove performance gains at container startup time that were previously obtained from caching.  
 
+### Build fails during `populate_scc.sh` on UBI 10 images with older Buildah
+
+When building on top of a UBI 10 based Liberty image (for example `full-java21-openj9-ubi-minimal`) using an older version of Buildah, such as 1.23.1 on Ubuntu 22.04, `populate_scc.sh` might fail with the following error:
+
+```console
+chmod: changing permissions of '/output/workarea/.sLock': Operation not permitted
+```
+
+This issue happens because UBI 10 uses a newer version of glibc (2.39) that changes files' permissions using a newer system call named `fchmodat2`. The older Buildah does not know about this system call and rejects it with "Operation not permitted". glibc takes that as a real permission error and does not try the older way of changing permissions, so `chmod` fails. UBI 8 and UBI 9 based images are not affected because their older glibc does not use `fchmodat2`.
+
+To solve this problem:
+- Upgrade to a release with `containers-common` 0.58 or later, which is Ubuntu 25.04 or higher.
+- Another solution is to add `fchmodat2` manually to the default seccomp profile and pass it with `--security-opt seccomp=<file>`.
 
 ## Contributions
 
