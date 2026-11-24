@@ -12,6 +12,8 @@
   - [Applying Interim Fixes](#applying-interim-fixes)
   - [Known Issues](#known-issues)
     - [Generating system dumps for pods in Kubernetes](#generating-system-dumps-for-pods-in-kubernetes)
+    - [Build fails during `configure.sh` using the `--platform=linux/amd64` flag on `aarch64`](#build-fails-during-configuresh-using-the---platformlinuxamd64-flag-on-aarch64)
+    - [Build fails during `populate_scc.sh` on UBI 10 images with older Buildah](#build-fails-during-populate_sccsh-on-ubi-10-images-with-older-buildah)
   - [Contributions](#contributions)
 
 ----
