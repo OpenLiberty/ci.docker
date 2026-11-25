@@ -1,0 +1,64 @@
+{
+  "code": [
+    {
+      "source": "build/test-pet-clinic/Dockerfile",
+      "language": "Dockerfile",
+      "building": {
+        "tools": [
+          {
+            "tool": "docker",
+            "build-args": [
+              "IMAGE",
+              "VERBOSE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "source": "build/test-stock-quote/Dockerfile",
+      "language": "Dockerfile",
+      "building": {
+        "tools": [
+          {
+            "tool": "docker",
+            "build-args": [
+              "IMAGE",
+              "VERBOSE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "source": "build/test-stock-trader/Dockerfile",
+      "language": "Dockerfile",
+      "building": {
+        "tools": [
+          {
+            "tool": "docker",
+            "build-args": [
+              "IMAGE",
+              "VERBOSE"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "acceptance-test": [],
+  "deployment": [
+    {
+      "source": "samples/security/olapp.yaml",
+      "deploying": {
+        "tools": [
+          {
+            "tool": "kubectl-liberty-app"
+          }
+        ]
+      }
+    }
+  ],
+  "dynamic-scan": [],
+  "release": []
+}
